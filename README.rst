@@ -29,6 +29,25 @@ debugging)::
 
     django-admin.py runserver_plus
 
+Once you have the site running, you'll probably want to populate it with some
+data. This is currently slightly labor-intensive. First, download the 
+`parcels data
+<http://opendataphilly.org/opendata/resource/28/property-parcels/>`_ and unzip
+it into your `DATA_ROOT`. Then load those parcels::
+
+    django-admin.py shell
+    > from phillydata.parcels.load import load_parcels
+    > load_parcels()
+
+This will take a few minutes. From here, the data loads in a bit of a trickle
+via `django-external-data-sync
+<https://github.com/596acres/django-external-data-sync>`_. Once the parcels 
+have loaded, Load the fixtures that define these::
+
+    django-admin.py loaddata data_sources
+
+This fixture is in the `phillydata_local` app.
+
 
 Organization
 ------------

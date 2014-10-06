@@ -1,0 +1,392 @@
+[
+{
+    "pk": 1, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "Lot ownership", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 5, 
+        "synchronize_frequency": 24, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 2, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "land use areas", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 2, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 3, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "lots land use", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 100, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 8, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 4, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "lots L&I licenses", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 11, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 5, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "lots L&I violations", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 12, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 6, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "lots available properties", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 7, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 7, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "use certainty scores", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": null, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 15, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 8, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "planning districts", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 14, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 9, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "L&I licenses", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 3, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 10, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "tax accounts", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 6, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 11, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "city council districts", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 13, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 12, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "zoning", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 9, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 13, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "water department", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 10, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 14, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "available properties", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 1, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 15, 
+    "model": "phillydata.phillydatasource", 
+    "fields": {
+        "last_synchronized": "2014-01-01T05:00:00Z", 
+        "name": "L&I violations", 
+        "healthy": true, 
+        "enabled": true, 
+        "batch_size": 50, 
+        "next_synchronize": null, 
+        "ordering": 1, 
+        "synchronizer_record": 4, 
+        "synchronize_frequency": 1, 
+        "synchronize_in_progress": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 1, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "phillydata.availableproperties.synchronizers", 
+        "synchronizer_class": "PRAAvailablePropertiesSynchronizer", 
+        "name": "PRAAvailablePropertiesSynchronizer"
+    }
+},
+{
+    "pk": 2, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "phillydata.landuse.synchronizers", 
+        "synchronizer_class": "LandUseAreaSynchronizer", 
+        "name": "LandUseAreaSynchronizer"
+    }
+},
+{
+    "pk": 3, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "phillydata.licenses.synchronizers", 
+        "synchronizer_class": "LILicensesSynchronizer", 
+        "name": "LILicensesSynchronizer"
+    }
+},
+{
+    "pk": 4, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "phillydata.violations.synchronizers", 
+        "synchronizer_class": "LIViolationsSynchronizer", 
+        "name": "LIViolationsSynchronizer"
+    }
+},
+{
+    "pk": 5, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "LotOwnershipSynchronizer", 
+        "name": "LotOwnershipSynchronizer"
+    }
+},
+{
+    "pk": 6, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "TaxAccountSynchronizer", 
+        "name": "TaxAccountSynchronizer"
+    }
+},
+{
+    "pk": 7, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "LotsAvailablePropertiesSynchronizer", 
+        "name": "LotsAvailablePropertiesSynchronizer"
+    }
+},
+{
+    "pk": 8, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "LotsLandUseAreaSynchronizer", 
+        "name": "LotsLandUseAreaSynchronizer"
+    }
+},
+{
+    "pk": 9, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "ZoningSynchronizer", 
+        "name": "ZoningSynchronizer"
+    }
+},
+{
+    "pk": 10, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "WaterDeptSynchronizer", 
+        "name": "WaterDeptSynchronizer"
+    }
+},
+{
+    "pk": 11, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "LotsLILicensesSynchronizer", 
+        "name": "LotsLILicensesSynchronizer"
+    }
+},
+{
+    "pk": 12, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "LotsLIViolationsSynchronizer", 
+        "name": "LotsLIViolationsSynchronizer"
+    }
+},
+{
+    "pk": 13, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "CityCouncilSynchronizer", 
+        "name": "CityCouncilSynchronizer"
+    }
+},
+{
+    "pk": 14, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "PlanningDistrictSynchronizer", 
+        "name": "PlanningDistrictSynchronizer"
+    }
+},
+{
+    "pk": 15, 
+    "model": "external_data_sync.synchronizerrecord", 
+    "fields": {
+        "synchronizer_module": "lots.synchronizers", 
+        "synchronizer_class": "UseCertaintyScoresSynchronizer", 
+        "name": "UseCertaintyScoresSynchronizer"
+    }
+}
+]
