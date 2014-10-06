@@ -1,4 +1,5 @@
 ipdb==0.7
+mapnik2==2.2.0
 
 #
 # Django-specific
