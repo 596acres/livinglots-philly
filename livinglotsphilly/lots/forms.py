@@ -244,7 +244,10 @@ class FiltersForm(forms.Form):
     def other_filters(self):
         for field in ('boundary_zipcodes', 'boundary_city_council_districts',
                       'zoning_district__zoning_type__in'):
-            yield self[field]
+            try:
+                yield self[field]
+            except KeyError:
+                pass
 
     def owners_filters(self):
         for field in ('owner__owner_type__in', 'owner__in',):
