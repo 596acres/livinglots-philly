@@ -1,14 +1,25 @@
-Django==1.5.1
-Fabric==1.6.1
-FeinCMS==1.7.4
-IMAPClient==0.10.1
-ModestMaps==1.4.1
-PIL==1.1.7
-Pillow==1.7.8
-South==0.7.6
-TileStache==1.45.0
-Werkzeug==0.8.3
 argparse==1.2.1
+Fabric==1.6.1
+IMAPClient>=0.11
+ipython==0.13.1
+lxml==3.1.0
+pilkit==0.1.5
+Pillow==2.6.0
+psycopg2==2.4.6
+pyproj==1.9.3
+python-dateutil==2.1
+six==1.2.0
+simplejson==3.0.7
+wsgiref==0.1.2
+TileStache>=1.49.11
+Werkzeug==0.8.3
+
+#
+# Django-specific
+#
+Django==1.5.1
+FeinCMS==1.7.4
+South==0.7.6
 django-activity-stream==0.4.4
 django-admin-enhancer==0.1.2
 django-admin-tools==0.5.1
@@ -28,9 +39,6 @@ git+git://github.com/matthewwithanm/django-imagekit/@261f16412763c69fba64f130c52
 -e git://github.com/ebrelsford/django-inplace.git@1e7eb79fa186e65920df4a02a9e5cbba38eb83f6#egg=django_inplace-dev
 git+git://github.com/ebrelsford/django-inplace-activity-stream/@e361b056
 django-jsonfield==0.9.2
-django-livinglots-generictags==1.0
-git+git://github.com/596acres/django-livinglots-groundtruth/@89955e
-git+git://github.com/596acres/django-livinglots-usercontent/@0.1.1
 django-model-utils==1.4.0
 django-monitor==0.2.1a
 django-mptt==0.5.5
@@ -46,13 +54,11 @@ docutils==0.10
 feincms-cleanse==2
 -e git://github.com/feincms/feincms-elephantblog@465b30bf727bc456f44e7f64a0738efadd845618#egg=feincms_elephantblog-dev
 geojson==1.0.1
-ipython==0.13.1
-lxml==3.1.0
 -e git://github.com/jmoiron/johnny-cache.git@37e75019625979487f17b47050da7f0af3fea42c#egg=johnny_cache-dev
-pilkit==0.1.5
-psycopg2==2.4.6
-pyproj==1.9.3
-python-dateutil==2.1
-simplejson==3.0.7
-six==1.2.0
-wsgiref==0.1.2
+
+#
+# Living Lots
+#
+django-livinglots-generictags==1.0
+git+git://github.com/596acres/django-livinglots-groundtruth/@89955e
+git+git://github.com/596acres/django-livinglots-usercontent/@0.1.1

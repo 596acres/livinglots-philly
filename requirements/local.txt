@@ -1,2 +1,7 @@
-django-pdb==0.3.2
 ipdb==0.7
+
+#
+# Django-specific
+#
+django-extensions>=1.4.0
+django-pdb==0.3.2
