@@ -19,7 +19,7 @@ from phillydata.taxaccounts.models import TaxAccount
 from phillydata.violations.models import Violation
 from phillydata.waterdept.models import WaterParcel
 from phillyorganize.models import Organizer
-from vacant_to_vibrant.reversion_utils import InitialRevisionManagerMixin
+from livinglotsphilly.reversion_utils import InitialRevisionManagerMixin
 
 
 class LotManager(InitialRevisionManagerMixin, PlaceManager):

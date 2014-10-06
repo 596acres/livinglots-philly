@@ -7,7 +7,7 @@ from django.views.generic import FormView
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 from chosen.forms import ChosenSelect
 
-from vacant_to_vibrant.forms import AddAnotherWidgetWrapper
+from livinglotsphilly.forms import AddAnotherWidgetWrapper
 from .models import Lot, LotGroup
 
 

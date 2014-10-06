@@ -98,9 +98,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'lots.context_processors.map_tile_urls',
 )
 
-ROOT_URLCONF = 'vacant_to_vibrant.urls'
+ROOT_URLCONF = 'livinglotsphilly.urls'
 
-WSGI_APPLICATION = 'vacant_to_vibrant.wsgi.application'
+WSGI_APPLICATION = 'livinglotsphilly.wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
@@ -299,4 +299,4 @@ ORGANIZE = {
     'ORGANIZER_MODEL': 'phillyorganize.Organizer',
 }
 
-ADMIN_TOOLS_INDEX_DASHBOARD = 'vacant_to_vibrant.admindashboard.PhillyDashboard'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'livinglotsphilly.admindashboard.PhillyDashboard'

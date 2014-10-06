@@ -31,7 +31,7 @@ LOGGING = {
         'log_file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(PROJECT_ROOT, 'logs', 'django.log'),
+            'filename': os.path.join(PROJECT_ROOT, '..', 'logs', 'django.log'),
             'maxBytes': '16777216', # 16megabytes
             'formatter': 'verbose'
         },
@@ -42,6 +42,10 @@ LOGGING = {
     },
 }
 
+
+INSTALLED_APPS += (
+    'django_extensions',
+)
 
 #
 # debug toolbar settings
