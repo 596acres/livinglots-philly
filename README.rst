@@ -55,8 +55,6 @@ Organization
 Apps specific to Philadelphia's data are grouped in the package 
 :code:`phillydata`.
 
-Apps that deal with generic "places" are grouped in the package :code:`places`.
-
 
 License
 -------
