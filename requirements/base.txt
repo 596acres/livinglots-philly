@@ -14,51 +14,46 @@ wsgiref==0.1.2
 TileStache>=1.49.11
 Werkzeug==0.8.3
 
-#
 # Django-specific
-#
-Django==1.5.1
-FeinCMS==1.7.4
-South==0.7.6
-django-activity-stream==0.4.4
+Django==1.7
+git+git://github.com/feincms/feincms/@next
+django-activity-stream>=0.5.1
 django-admin-enhancer==0.1.2
 django-admin-tools==0.5.1
 django-appconf==0.6
-django-autocomplete-light==1.2.2
-django-braces==1.0.0
+django-autocomplete-light==1.4.13
+django-braces==1.4.0
 -e git://github.com/ebrelsford/django-chosen.git@28b2358d99f1d6620fdf8047d68eac52c7594e70#egg=django_chosen-dev
 django-classy-tags==0.4
 django-compressor==1.3
 django-contact-form-gv==0.4.1
-django-debug-toolbar==0.9.4
-django-extensions==1.1.1
+django-extensions==1.4.0
 git+git://github.com/596acres/django-external-data-sync.git@e38df0ce9
--e git://github.com/stephenmcd/django-forms-builder.git@08f3fd5de9cd48a6fb181f7db844db63d4b0b1e5#egg=django_forms_builder-dev
-django-honeypot==0.3.0
-git+git://github.com/matthewwithanm/django-imagekit/@261f16412763c69fba64f130c521192ad726d2c1
--e git://github.com/ebrelsford/django-inplace.git@1e7eb79fa186e65920df4a02a9e5cbba38eb83f6#egg=django_inplace-dev
-git+git://github.com/ebrelsford/django-inplace-activity-stream/@e361b056
-django-jsonfield==0.9.2
+git+git://github.com/ebrelsford/django-forms-builder.git@bump_django
+django-honeypot==0.4.0
+django-imagekit==3.2.4
+git+git://github.com/ebrelsford/django-inplace/@master
+git+git://github.com/ebrelsford/django-inplace-activity-stream/@master
+django-jsonfield==0.9.13
 django-model-utils==1.4.0
-django-monitor==0.2.1a
-django-mptt==0.5.5
-git+git://github.com/ebrelsford/django-phillydata.git@master
+git+git://github.com/ebrelsford/Django-monitor/@master
+django-mptt==0.6.1
 django-report-builder==1.9
-django-reversion==1.6.6
-django-reversion-compare==0.3.5
+django-reversion==1.8.4
+git+git://github.com/ebrelsford/django-reversion-compare/@master
 django-staticbuilder==0.4.0
-django-tastypie==0.9.14
-django.js==0.7.4
+django-tastypie==0.12.0
+django.js==0.8.1
 djangorestframework==2.1.17
 docutils==0.10
 feincms-cleanse==2
--e git://github.com/feincms/feincms-elephantblog@465b30bf727bc456f44e7f64a0738efadd845618#egg=feincms_elephantblog-dev
+feincms-elephantblog==1.0.0
 geojson==1.0.1
--e git://github.com/jmoiron/johnny-cache.git@37e75019625979487f17b47050da7f0af3fea42c#egg=johnny_cache-dev
 
-#
 # Living Lots
-#
 django-livinglots-generictags==1.0
 git+git://github.com/596acres/django-livinglots-groundtruth/@89955e
 git+git://github.com/596acres/django-livinglots-usercontent/@0.1.1
+
+# Living Lots Philly
+git+git://github.com/ebrelsford/django-phillydata.git@master
