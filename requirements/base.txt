@@ -1,7 +1,7 @@
 argparse==1.2.1
 Fabric==1.6.1
 IMAPClient>=0.11
-ipython==0.13.1
+ipython==2.3.0
 lxml==3.1.0
 pilkit==0.1.5
 Pillow==2.6.0
