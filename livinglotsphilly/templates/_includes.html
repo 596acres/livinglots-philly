@@ -1,6 +1,5 @@
-{% load compress js static %}
+{% load js static %}
 
-{% compress css %}
 <link rel="stylesheet" href="{% static "css/lib/normalize.css" %}">
 <link rel="stylesheet" href="{% static "css/lib/bootstrap.css" %}">
 <link rel="stylesheet" href="{% static "css/lib/bootstrap-responsive.css" %}">
@@ -9,7 +8,6 @@
 <link rel="stylesheet" href="{% static "js/lib/leaflet.label.css" %}" />
 <link rel="stylesheet" href="{% static "js/lib/leaflet.usermarker/leaflet.usermarker.css" %}" />
 <link rel="stylesheet" href="{% static "css/base.css" %}">
-{% endcompress %}
 
 <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
 <!--[if lte IE 8]>
@@ -23,9 +21,7 @@
 
 {# Load requirejs main, built if in production #}
 {% if not debug %}
-    {% compress js %}
     <script src="{% static "main-built.js" %}"></script>
-    {% endcompress %}
 {% else %}
     <script src="{% static "js/lib/require.js" %}" data-main="{% static "js/app.js" %}"></script>
 {% endif %}
