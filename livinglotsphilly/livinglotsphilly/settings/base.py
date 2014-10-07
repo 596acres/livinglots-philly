@@ -63,7 +63,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 SECRET_KEY = get_env_variable('PHILLY_SECRET_KEY')
@@ -133,7 +132,6 @@ INSTALLED_APPS = (
     'admin_enhancer',
     'autocomplete_light',
     'chosen',
-    'compressor',
     'contact_form',
     'django_monitor',
     'djangojs',
@@ -151,7 +149,6 @@ INSTALLED_APPS = (
     'report_builder',
     'reversion',
     'reversion_compare',
-    'south',
 
     #
     # first-party, project-generic
