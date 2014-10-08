@@ -14,6 +14,7 @@ from django.views.generic import CreateView, FormView, TemplateView
 from django.views.generic.base import ContextMixin
 from django.views.generic.edit import FormMixin
 
+from braces.views import FormValidMessageMixin
 from forms_builder.forms import signals
 from forms_builder.forms.models import Form
 from inplace.boundaries.models import Boundary
@@ -26,7 +27,7 @@ from livinglots_usercontent.photos.forms import PhotoForm
 from libapps.organize.notifications import notify_participants_new_obj
 from libapps.organize.views import DeleteOrganizerView, EditParticipantMixin
 
-from generic.views import CSVView, JSONResponseView, SuccessMessageFormMixin
+from generic.views import CSVView, JSONResponseView
 from groundtruth.forms import GroundtruthRecordForm
 from groundtruth.models import GroundtruthRecord
 from monitor.views import MonitorMixin
@@ -337,10 +338,10 @@ class LotGeoJSONDetailView(LotGeoJSONMixin, GeoJSONListView):
 # Survey views
 #
 
-class EditLandCharacteristicsSurvey(SuccessMessageFormMixin, LotContextMixin,
+class EditLandCharacteristicsSurvey(FormValidMessageMixin, LotContextMixin,
                                     FormView):
     form_class = SurveyFormForForm
-    success_message = _('Successfully updated survey.')
+    form_valid_message = _('Successfully updated survey.')
     template_name = 'lots/survey/land_survey.html'
 
     def get_form(self, form_class):
@@ -500,12 +501,12 @@ class DeletePhillyOrganizerView(DeleteOrganizerView):
 # Steward views
 #
 
-class AddStewardNotificationView(SuccessMessageFormMixin, LotAddGenericMixin,
+class AddStewardNotificationView(FormValidMessageMixin, LotAddGenericMixin,
                                  LotContextMixin, MonitorMixin,
                                  NotifyFacilitatorsMixin, CreateView):
     form_class = StewardNotificationForm
-    success_message = _('Your information has been added to the system and '
-                        'will appear once an administrator looks over it.')
+    form_valid_message = _('Your information has been added to the system and '
+                           'will appear once an administrator looks over it.')
     template_name = 'lots/steward/stewardnotification_add.html'
 
     def get_should_notify_facilitators(self, obj):
@@ -537,7 +538,7 @@ class AddStewardNotificationSuccessView(TemplateView):
 #
 
 class AddGroundtruthRecordView(LotAddGenericMixin, LotContextMixin,
-                               MonitorMixin, SuccessMessageFormMixin,
+                               MonitorMixin, FormValidMessageMixin,
                                NotifyFacilitatorsMixin, CreateView):
     form_class = GroundtruthRecordForm
     template_name = 'lots/groundtruth/groundtruthrecord_add.html'
@@ -547,7 +548,7 @@ class AddGroundtruthRecordView(LotAddGenericMixin, LotContextMixin,
         initial['use'] = Use.objects.get(visible=False, name='other (default)')
         return initial
 
-    def get_success_message(self):
+    def get_form_valid_message(self):
         if self.object.is_approved:
             return _('Lot updated with your correction.')
         else:
@@ -586,13 +587,13 @@ class AddGroundtruthRecordSuccessView(TemplateView):
 # Content views
 #
 
-class AddContentView(SuccessMessageFormMixin, LotAddGenericMixin,
+class AddContentView(FormValidMessageMixin, LotAddGenericMixin,
                      LotContextMixin, CreateView):
 
     def _get_content_name(self):
         return self.form_class._meta.model._meta.object_name
 
-    def get_success_message(self):
+    def get_form_valid_message(self):
         return '%s added successfully.' % self._get_content_name()
 
     def get_success_url(self):

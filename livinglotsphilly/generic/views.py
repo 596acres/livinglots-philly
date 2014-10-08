@@ -1,9 +1,7 @@
 import csv
 
-from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
-from django.views.generic.edit import FormMixin
 
 
 class JSONResponseView(View):
@@ -62,13 +60,3 @@ class CSVView(View):
                                            self.get_filename())
         self.write_csv(response)
         return response
-
-
-class SuccessMessageFormMixin(FormMixin):
-
-    def form_valid(self, form):
-        messages.success(self.request, self.get_success_message())
-        return super(SuccessMessageFormMixin, self).form_valid(form)
-
-    def get_success_message(self):
-        return self.success_message
