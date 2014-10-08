@@ -229,12 +229,6 @@ ORGANIZE_PARTICIPANT_SALT = get_env_variable('PHILLY_ORGANIZE_PARTICIPANT_SALT')
 
 ACTSTREAM_SETTINGS = {
     'MANAGER': 'inplace_activity_stream.managers.PlaceActionManager',
-    'MODELS': (
-        'auth.user',
-        'files.file',
-        'notes.note',
-        'photos.photo',
-    ),
 }
 ACTIVITY_STREAM_DEFAULT_ACTOR_PK = get_env_variable('PHILLY_ACTSTREAM_DEFAULT_ACTOR_PK')
 
