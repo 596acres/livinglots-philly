@@ -46,7 +46,7 @@ django-tastypie==0.12.0
 django.js==0.8.1
 djangorestframework==2.1.17
 docutils==0.10
-feincms-cleanse==2
+feincms-cleanse==5
 feincms-elephantblog==1.0.0
 geojson==1.0.1
 
