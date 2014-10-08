@@ -3,12 +3,12 @@ from django.core.urlresolvers import reverse
 from django.views.generic import FormView, TemplateView
 
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
+from livinglots_genericviews import JSONResponseView
 
 from libapps.organize.mail import mass_mail_organizers
 from phillyorganize.models import Organizer
 
 from forms import MailParticipantsForm
-from generic.views import JSONResponseView
 from lots.api import LotResource
 from lots.models import Lot
 

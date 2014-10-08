@@ -52,6 +52,7 @@ geojson==1.0.1
 
 # Living Lots
 django-livinglots-generictags==1.0
+git+git://github.com/596acres/django-livinglots-genericviews/@master
 git+git://github.com/596acres/django-livinglots-groundtruth/@89955e
 git+git://github.com/596acres/django-livinglots-usercontent/@master
 
