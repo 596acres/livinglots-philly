@@ -232,13 +232,9 @@ ACTSTREAM_SETTINGS = {
     'MODELS': (
         'auth.user',
         'files.file',
-        'lots.lot',
-        'lots.lotgroup',
         'notes.note',
-        'phillyorganize.organizer',
         'photos.photo',
     ),
-    'USE_JSONFIELD': True,
 }
 ACTIVITY_STREAM_DEFAULT_ACTOR_PK = get_env_variable('PHILLY_ACTSTREAM_DEFAULT_ACTOR_PK')
 
