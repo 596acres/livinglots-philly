@@ -1,33 +1,26 @@
 from fabric.api import *
 
 
-env.hosts = ['v2v',]
+env.hosts = ['llphilly',]
 env.use_ssh_config = True
 
 
 @task
 def pull():
-    with cd('~/webapps/django_gu/v2v'):
+    with cd('~/webapps/django_gu/livinglots-philly'):
         run('git pull')
 
 
 @task
 def build_static():
     run('django-admin.py collectstatic --noinput')
-    with cd('~/webapps/django_gu/v2v/livinglotsphilly/collected_static/js/'):
-        run('r.js -o app.build.js')
 
 
 @task
 def install_requirements():
-    with cd('~/webapps/django_gu/v2v'):
+    with cd('~/webapps/django_gu/livinglots-philly'):
         run('pip install -r requirements/base.txt')
-        run('pip install -r requirements/production.txt')
-
-
-@task
-def syncdb():
-    run('django-admin.py syncdb')
+        #run('pip install -r requirements/production.txt')
 
 
 @task
@@ -60,7 +53,6 @@ def status():
 def deploy():
     pull()
     install_requirements()
-    syncdb()
     migrate()
     build_static()
     restart_django()
