@@ -41,10 +41,10 @@
 
     {% if not lot.known_use %}
         <div class="btn-group pull-right">
-            <a class="btn lot-page-tooltip" href="{% url "lots:add_stewardnotification" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Tell us more about your garden project." %}">
+            <a class="btn btn-default lot-page-tooltip" href="{% url "lots:add_stewardnotification" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Tell us more about your garden project." %}">
                 {% trans "Is this an active garden?" %}
             </a>
-            <a class="btn lot-page-tooltip" href="{% url "lots:add_groundtruthrecord" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Let us know that this lot's actual use is not correctly identified." %}">
+            <a class="btn btn-default lot-page-tooltip" href="{% url "lots:add_groundtruthrecord" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Let us know that this lot's actual use is not correctly identified." %}">
                 {% trans "Have we made a mistake?" %}
             </a>
         </div>
@@ -509,7 +509,7 @@
                 <span class="badge">{{ note_count }}</span>
             {% endif %}
         </h2>
-        <a class="btn" href="{% url "lots:add_note" pk=lot.pk %}">
+        <a class="btn btn-default" href="{% url "lots:add_note" pk=lot.pk %}">
             {% trans "Add a note" %}
         </a>
         {% render_note_list for lot %}
@@ -523,7 +523,7 @@
                 <span class="badge">{{ file_count }}</span>
             {% endif %}
         </h2>
-        <a class="btn" href="{% url "lots:add_file" pk=lot.pk %}">
+        <a class="btn btn-default" href="{% url "lots:add_file" pk=lot.pk %}">
             {% trans "Add a file" %}
         </a>
         {% render_file_list for lot %}
@@ -534,7 +534,7 @@
         <div class="lot-detail-details">
             {% render_survey_entry 1 for lot %}
         </div>
-        <a class="btn" href="{% url "lots:land_survey" pk=lot.pk %}">
+        <a class="btn btn-default" href="{% url "lots:land_survey" pk=lot.pk %}">
             {% trans "Edit" %}
         </a>
     </div>
@@ -546,7 +546,7 @@
     <div id="photos" class="lot-detail-side-section photos">
         <h2>{% trans "Photos" %}</h2>
         <div>
-            <a class="btn" href="{% url "lots:add_photo" pk=lot.pk %}">
+            <a class="btn btn-default" href="{% url "lots:add_photo" pk=lot.pk %}">
                 {% trans "Submit a photo" %}
             </a>
         </div>
@@ -594,7 +594,7 @@
                 {% endblocktrans %}
             </div>
         {% endif %}
-        <a class="btn build-community-button lot-page-tooltip" href="{% url "lots:add_organizer" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Get involved with this lot or let people know you are already working towards growing community here." %}">
+        <a class="btn btn-default build-community-button lot-page-tooltip" href="{% url "lots:add_organizer" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Get involved with this lot or let people know you are already working towards growing community here." %}">
             {% trans "Grow community here" %}
         </a>
         {% render_organizer_list for lot %}

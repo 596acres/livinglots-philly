@@ -149,6 +149,7 @@ INSTALLED_APPS = (
     'report_builder',
     'reversion',
     'reversion_compare',
+    'widget_tweaks',
 
     #
     # first-party, project-generic

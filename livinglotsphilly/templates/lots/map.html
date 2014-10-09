@@ -13,9 +13,9 @@
 
     <div class="map-find-a-lot-container searchbar">
         <div class="map-find-a-lot">
-            <form class="map-find-a-lot-form">
+            <form class="map-find-a-lot-form form-inline">
                 <label for="search">{% trans "Find a lot" %}</label>
-                <input id="search" name="search" placeholder="{% trans "Search by address, zip code, or neighborhood" %}" type="text" />
+                <input id="search" class="form-control" name="search" placeholder="{% trans "Search by address, zip code, or neighborhood" %}" type="text" />
                 <button class="map-find-a-lot-submit" type="submit">{% trans "GO" %}</button>
                 <div class="warning" style="display: none;"></div>
             </form>
@@ -180,8 +180,8 @@
 
         <form class="non-filter" action="http://visitor.r20.constantcontact.com/d.jsp" method="post" name="ccoptin" target="_blank">
             <p>
-                <input class="input-medium" placeholder="{% trans "Enter Email Address" %}" type="text" name="ea" value="" /> 
-                <button class="btn submit" type="submit" name="go">
+                <input class="form-control" placeholder="{% trans "Enter Email Address" %}" type="text" name="ea" value="" /> 
+                <button class="btn btn-default submit" type="submit" name="go">
                     {% trans "GO" %}
                 </button>
             </p>

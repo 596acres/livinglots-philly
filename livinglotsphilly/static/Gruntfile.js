@@ -37,11 +37,20 @@ module.exports = function(grunt) {
             }
         },
 
+        lesslint: {
+            src: ["css/**/*.less"]
+        },
+
         watch: {
             jshint: {
                 files: ["js/*.js", "!bundle.js"],
                 tasks: ["jshint"]
             },
+
+            //lesslint: {
+                //files: ["css/**/*.less"],
+                //tasks: ["lesslint"]
+            //},
 
             less: {
                 files: ["css/*.less", "css/*/*.less"],
@@ -55,6 +64,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-lesslint');
 
     grunt.registerTask("dev", ["browserify", "watch"]);
 };
