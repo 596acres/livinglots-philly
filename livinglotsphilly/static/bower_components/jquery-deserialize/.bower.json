@@ -1,0 +1,15 @@
+{
+  "name": "jquery-deserialize",
+  "homepage": "https://github.com/kflorence/jquery-deserialize",
+  "version": "1.2.1",
+  "_release": "1.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.2.1",
+    "commit": "0e22019ff6a187cdfabeffbe4afad8e8f72f941b"
+  },
+  "_source": "git://github.com/kflorence/jquery-deserialize.git",
+  "_target": "~1.2.1",
+  "_originalSource": "jquery-deserialize",
+  "_direct": true
+}

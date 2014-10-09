@@ -1,19 +1,18 @@
-define(['jquery', 'django', 'mappage'], function($, Django, lotsMap) {
+var lotsMap = require('./leaflet.lotmap.js');
 
-    function mail_participants_update_counts(with_bbox) {
-        // TODO refactor urls to be outside of FeinCMS control
-        var url = Django.url('extraadmin:mail_participants_count');
-            + $('form').serialize();
-        $.getJSON(url, function(data) {
-            $('.organizer-count').text(data.organizers);
-            $('.watcher-count').text(data.watchers);
-        });
-    }
+function mail_participants_update_counts(with_bbox) {
+    // TODO refactor urls to be outside of FeinCMS control
+    var url = Django.url('extraadmin:mail_participants_count') + $('form').serialize();
+    $.getJSON(url, function(data) {
+        $('.organizer-count').text(data.organizers);
+        $('.watcher-count').text(data.watchers);
+    });
+}
 
-    $(document).ready(function() {
-
+$(document).ready(function() {
+    if ($('.extraadmin-mail-participants-page').length > 0) {
         lotsMap.on('moveend', function(e) {
-            var g = JSON.stringify(lotsMap.getBounds().toGeoJson())
+            var g = JSON.stringify(lotsMap.getBounds().toGeoJson());
             $(':input[name="centroid__within"]').val(
                 JSON.stringify(lotsMap.getBounds().toGeoJson())
             );
@@ -35,7 +34,5 @@ define(['jquery', 'django', 'mappage'], function($, Django, lotsMap) {
                 lotsMap.clearLotCentroidLayer();
             }
         });
-
-    });
-
+    }
 });

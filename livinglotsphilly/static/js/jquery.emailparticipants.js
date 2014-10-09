@@ -1,105 +1,80 @@
-define(
-    [
-        // Dependencies we'll use the return values from
-        'jquery',
-        'django',
+require('jquery.form');
+var Spinner = require('spinjs');
 
-        'jquery.plugin',
 
-        'lib/jquery.form',
-        'lib/jquery.spin',
+var defaultOptions = {
+    filterContainer: null
+};
 
-    ], function($, Django) {
-    var EmailParticipants = {
+function show($container) {
+    var spinner = new Spinner({}).spin($container[0]);
+    $container.show()
+        .load(Django.url('extraadmin:mail_participants'), function() {
+            spinner.stop();
+            _initializeForm($container);
+            _updateCounts($container);
+        });
+}
 
-        options: {
-            filterContainer: null,
-        },
+function hide($container) {
+    $container.hide();
+}
 
-        init: function(options, elem) {
-            var instance = this;
-            instance.options = $.extend({}, instance.options, options);
-            instance.elem = elem;
-            instance.$elem = $(elem);
+function _initializeForm($container) {
+    _updateCounts($container);
+    var spinner = new Spinner({});
+    $container.find('form')
+        .ajaxForm({
+            target: $container,
+            success: function() {
+                // Initialize again in case the form was sent back due 
+                // to validation
+                _initializeForm($container);
+                spinner.stop();
+            },
+        })
+        .submit(function() {
+            spinner.spin($container[0]);
+        });
+}
 
-            // Add our container
-            instance.$container = $('<div></div>').addClass('email-participants-container');
-            instance.$elem.after(instance.$container);
+function _updateCounts($container) {
+    var url = Django.url('extraadmin:mail_participants_count') + '?' +
+        $container.find(':input[name=filters]').val();
+    $.getJSON(url, function(data) {
+        $container.find('.organizer-count').text(data.organizers);
+        $container.find('.watcher-count').text(data.watchers);
+    });
+}
 
-            instance.options.filterContainer.on('filterschange', function(e) {
-                instance._updateFilters(e.filters);
-                instance._updateCounts();
-            });
+function _updateFilters($container, filters) {
+    $container.find(':input[name=filters]').val($.param(filters, true));
+}
 
-            // Show form on click
-            instance.$elem.click(function() {
-                if (!instance.$container.is(':visible')) {
-                    instance.show();
-                }
-                else {
-                    instance.hide();
-                }
-                return false;
-            });
-        },
 
-        show: function() {
-            var instance = this;
+(function ($) {
+    $.fn.emailparticipants = function (passedOptions) {
+        var options = $.extend({}, defaultOptions, passedOptions),
+            $elem = this;
 
-            instance.$container.spin('small');
-            instance.$container
-                .show()
-                .load(Django.url('extraadmin:mail_participants'), function() {
-                    instance.$container.spin(false);
-                    instance._initializeForm();
-                    instance._updateCounts();
-                });
-        },
+        // Add our container
+        var $container = $('<div></div>').addClass('email-participants-container');
+        $elem.after($container);
 
-        hide: function() {
-            var instance = this;
-            instance.$container.hide();
-        },
+        options.filterContainer.on('filterschange', function(e) {
+            _updateFilters($container, e.filters);
+            _updateCounts($container);
+        });
 
-        _initializeForm: function() {
-            var instance = this;
-            instance._updateCounts();
-            instance.$container.find('form')
-                .ajaxForm({
-                    target: instance.$container,
-                    success: function() {
-                        // Initialize again in case the form was sent back due 
-                        // to validation
-                        instance._initializeForm();
-                        instance.$container.spin(false);
-                    },
-                })
-                .submit(function() {
-                    instance.$container.spin('small');
-                });
-        },
-
-        _updateCounts: function() {
-            var instance = this;
-            if (!instance.filters) return;
-            var url = Django.url('extraadmin:mail_participants_count')
-                + '?' + $.param(instance.filters, true);
-            $.getJSON(url, function(data) {
-                instance.$container.find('.organizer-count').text(data.organizers);
-                instance.$container.find('.watcher-count').text(data.watchers);
-            });
-        },
-
-        _updateFilters: function(filters) {
-            var instance = this;
-            instance.filters = filters;
-
-            var $form = instance.$container.find('form');
-            if ($form.length === 0) return;
-            $form.find(':input[name=filters]').val($.param(filters, true));
-        },
-
+        // Show form on click
+        $elem.click(function() {
+            if (!$container.is(':visible')) {
+                show($container);
+            }
+            else {
+                hide($container);
+            }
+            return false;
+        });
     };
-
-    $.plugin('emailparticipants', EmailParticipants);
-});
+} (jQuery));

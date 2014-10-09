@@ -1,39 +1,40 @@
-define(['leaflet'], function(L) {
-    L.extend(L.LatLngBounds.prototype, {
+// TODO can we just use Leaflet for this now?
+var L = require('leaflet');
 
-        fromGeoJson: function(geoJson) {
-            var ne = geoJson.coordinates[0][2],
-                sw = geoJson.coordinates[0][0];
+L.extend(L.LatLngBounds.prototype, {
 
-            // Construct LatLngBounds, swapping x,y to get lat,lng
-            return L.latLngBounds([
-                [ne[1], ne[0]],
-                [sw[1], sw[0]]
-            ]);
-        },
+    fromGeoJson: function(geoJson) {
+        var ne = geoJson.coordinates[0][2],
+            sw = geoJson.coordinates[0][0];
 
-        toGeoJson: function() {
-            return {
-                'type': 'Polygon',
-                'coordinates': [[
-                    [this.getSouthWest().lng, this.getSouthWest().lat],
-                    [this.getNorthWest().lng, this.getNorthWest().lat],
-                    [this.getNorthEast().lng, this.getNorthEast().lat],
-                    [this.getSouthEast().lng, this.getSouthEast().lat],
-                    [this.getSouthWest().lng, this.getSouthWest().lat],
-                ]],
-            }
-        },
+        // Construct LatLngBounds, swapping x,y to get lat,lng
+        return L.latLngBounds([
+            [ne[1], ne[0]],
+            [sw[1], sw[0]]
+        ]);
+    },
 
-    });
+    toGeoJson: function() {
+        return {
+            'type': 'Polygon',
+            'coordinates': [[
+                [this.getSouthWest().lng, this.getSouthWest().lat],
+                [this.getNorthWest().lng, this.getNorthWest().lat],
+                [this.getNorthEast().lng, this.getNorthEast().lat],
+                [this.getSouthEast().lng, this.getSouthEast().lat],
+                [this.getSouthWest().lng, this.getSouthWest().lat],
+            ]],
+        };
+    },
 
-
-    /*
-     * Shortcut for creating LatLngBounds out of a GeoJSON string representing the
-     * bounding box to be converted to LatLngBounds.
-     */
-    L.geoJsonLatLngBounds = function(geoJsonString) {
-        var geoJson = JSON.parse(geoJsonString);
-        return L.LatLngBounds.prototype.fromGeoJson(geoJson);
-    };
 });
+
+
+/*
+ * Shortcut for creating LatLngBounds out of a GeoJSON string representing the
+ * bounding box to be converted to LatLngBounds.
+ */
+L.geoJsonLatLngBounds = function(geoJsonString) {
+    var geoJson = JSON.parse(geoJsonString);
+    return L.LatLngBounds.prototype.fromGeoJson(geoJson);
+};

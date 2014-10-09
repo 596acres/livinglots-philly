@@ -1,53 +1,53 @@
-define(['leaflet'], function(L) {
-    L.Control.Message = L.Control.extend({
-        options: {
-            defaultHtml: 'Message goes here.',
-            position: 'topcenter',
-        },
+var L = require('leaflet');
 
-        initialize: function(options) {
-            L.setOptions(this, options);
-        },
+L.Control.Message = L.Control.extend({
+    options: {
+        defaultHtml: 'Message goes here.',
+        position: 'topcenter',
+    },
 
-        onAdd: function(map) {
-            this._container = L.DomUtil.create('div', 'leaflet-control-message');
-            L.DomEvent.disableClickPropagation(this._container);
+    initialize: function(options) {
+        L.setOptions(this, options);
+    },
 
-            this._update(this.options.defaultHtml);
+    onAdd: function(map) {
+        this._container = L.DomUtil.create('div', 'leaflet-control-message');
+        L.DomEvent.disableClickPropagation(this._container);
 
-            return this._container;
-        },
+        this._update(this.options.defaultHtml);
 
-        hide: function() {
-            L.DomUtil.addClass(this._container, 'is-hidden');
-        },
+        return this._container;
+    },
 
-        show: function() {
-            L.DomUtil.removeClass(this._container, 'is-hidden');
-        },
+    hide: function() {
+        L.DomUtil.addClass(this._container, 'is-hidden');
+    },
 
-        setMessage: function(html) {
-            this._update(html);
-        },
+    show: function() {
+        L.DomUtil.removeClass(this._container, 'is-hidden');
+    },
 
-        _update: function (html) {
-            if (!this._map) { return; }
-            this._container.innerHTML = html;
-        },
+    setMessage: function(html) {
+        this._update(html);
+    },
 
-    });
+    _update: function (html) {
+        if (!this._map) { return; }
+        this._container.innerHTML = html;
+    },
 
-    L.Map.addInitHook(function () {
-        if (!this.options.messageControl) { return; }
-        var className = 'leaflet-top leaflet-center';
-        this._controlCorners['topcenter'] = 
-            L.DomUtil.create('div', className, this._controlContainer);
-        this.messageControl = (new L.Control.Message({
-            defaultHtml: this.options.messageDefault,
-        })).addTo(this);
-    });
-
-    L.control.message = function(options) {
-        return new L.Control.Message(options);
-    };
 });
+
+L.Map.addInitHook(function () {
+    if (!this.options.messageControl) { return; }
+    var className = 'leaflet-top leaflet-center';
+    this._controlCorners.topcenter = 
+        L.DomUtil.create('div', className, this._controlContainer);
+    this.messageControl = (new L.Control.Message({
+        defaultHtml: this.options.messageDefault,
+    })).addTo(this);
+});
+
+L.control.message = function(options) {
+    return new L.Control.Message(options);
+};

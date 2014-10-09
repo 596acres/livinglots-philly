@@ -1,0 +1,16 @@
+{
+  "name": "Noisy",
+  "main": "./jquery/jquery.noisy.js",
+  "dependencies": {},
+  "homepage": "https://github.com/DanielRapp/Noisy",
+  "_release": "dfb6750fb9",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "dfb6750fb99cf753fd0f4b14b4b66beae592e8d6"
+  },
+  "_source": "git://github.com/DanielRapp/Noisy.git",
+  "_target": "*",
+  "_originalSource": "Noisy",
+  "_direct": true
+}
