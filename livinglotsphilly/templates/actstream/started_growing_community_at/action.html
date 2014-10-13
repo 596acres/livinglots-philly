@@ -1,4 +1,5 @@
 {% extends "actstream/action_detail_base.html" %}
+{% load i18n %}
 
 {% block actor %}
     {% if action.action_object.post_publicly %}
@@ -6,4 +7,8 @@
     {% else %}
         someone
     {% endif %}
+{% endblock %}
+
+{% block verb %}
+    {% trans "started organizing at" %}
 {% endblock %}

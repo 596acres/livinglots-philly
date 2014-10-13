@@ -1,17 +1,17 @@
 {% extends "lots/base.html" %}
 {% load facebook_tags i18n pathways_tags twitter_tags %}
 
-{% block title %}{% trans "Grow Community Here" %} | {{ block.super }}{% endblock %}
+{% block title %}{% trans "Organize" %} | {{ block.super }}{% endblock %}
 
 {% block breadcrumbs %}
     {{ block.super }}
-    <li>{% trans "Grow Community Here" %}</li>
+    <li>{% trans "Organize" %}</li>
 {% endblock %}
 
 {% block lot_content %}
     {{ block.super }}
     <div id="lot-details" class="participant-add-success">
-        <h3>{% trans "Grow Community Here" %}</h3>
+        <h3>{% trans "Organize" %}</h3>
         <div>
             <section>
                 {% blocktrans with url=lot.get_absolute_url name=lot.display_name %}
