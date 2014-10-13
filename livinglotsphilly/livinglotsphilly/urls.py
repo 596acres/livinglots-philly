@@ -43,3 +43,22 @@ urlpatterns += patterns('',
 
     url(r'', include('feincms.urls')),
 )
+
+
+from django.shortcuts import render
+
+from feincms.module.page.models import Page
+
+
+def page_not_found(request, template_name='404.html'):
+    page = Page.objects.best_match_for_path(request.path)
+    return render(request, template_name, {'feincms_page': page}, status=404)
+
+
+def error_handler(request, template_name='500.html'):
+    page = Page.objects.best_match_for_path(request.path)
+    return render(request, template_name, {'feincms_page': page}, status=500)
+
+
+handler404 = page_not_found
+handler500 = error_handler
