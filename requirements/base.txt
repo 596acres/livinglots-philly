@@ -30,7 +30,6 @@ django-extensions==1.4.0
 git+git://github.com/596acres/django-external-data-sync.git@e38df0ce9
 git+git://github.com/ebrelsford/django-forms-builder.git@bump_django
 django-honeypot==0.4.0
-django-imagekit==3.2.4
 git+git://github.com/ebrelsford/django-inplace/@master
 git+git://github.com/ebrelsford/django-inplace-activity-stream/@master
 django-jsonfield==0.9.13
@@ -58,3 +57,6 @@ git+git://github.com/596acres/django-livinglots-usercontent/@master
 
 # Living Lots Philly
 git+git://github.com/ebrelsford/django-phillydata.git@master
+
+# Install imagekit last to ensure we have the latest version
+django-imagekit==3.2.4
