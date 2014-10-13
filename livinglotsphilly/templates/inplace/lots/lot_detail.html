@@ -529,16 +529,6 @@
         {% render_file_list for lot %}
     </div>
 
-    <div id="survey" class="survey lot-detail-main-section">
-        <h2>{% trans "Land Characteristics" %}</h2>
-        <div class="lot-detail-details">
-            {% render_survey_entry 1 for lot %}
-        </div>
-        <a class="btn btn-default" href="{% url "lots:land_survey" pk=lot.pk %}">
-            {% trans "Edit" %}
-        </a>
-    </div>
-
 </div>
 
 <div class="lot-detail-side grid grid-1-3">
