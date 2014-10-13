@@ -3328,7 +3328,7 @@ textarea.input-lg {
   padding: 0;
 }
 body {
-  background-color: #437E71;
+  background-color: #437e71;
 }
 img {
   border: 0;
@@ -3589,10 +3589,15 @@ h2.entry-title {
   margin-bottom: 0;
 }
 .hentry {
+  border-bottom: 1px solid #83bdb0;
   margin-bottom: 50px;
+  padding-bottom: 25px;
 }
 .hentry.first {
   margin-top: 50px;
+}
+.hentry:last-of-type {
+  border-bottom: none;
 }
 .hentry .meta {
   font-size: 10px;
