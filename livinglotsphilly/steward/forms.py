@@ -1,9 +1,15 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from .models import StewardNotification
 
 
 class StewardNotificationForm(forms.ModelForm):
+    name = forms.CharField(
+        max_length=256,
+        label = _('Garden name'),
+        help_text=_('The name of the project using this lot.')
+    )
 
     class Meta:
         model = StewardNotification
