@@ -21,6 +21,19 @@ function styleLayer(feature) {
     return style;
 }
 
+function addBaseLayer(map) {
+    if (Django.context.debug) {
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+    }
+    else {
+        L.tileLayer('https://{s}.tiles.mapbox.com/v3/{mapboxId}/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            mapboxId: $('#map').data('mapboxid')
+        }).addTo(map);
+    }
+}
+
 $(document).ready(function () {
     if ($('.lot-base-page').length > 0) {
         var $streetviewContainer = $('#streetview-container'),
@@ -39,11 +52,8 @@ $(document).ready(function () {
             mapboxId: $('#map').data('mapboxid'),
             zoom: 17
         });
-        L.tileLayer('https://{s}.tiles.mapbox.com/v3/{mapboxId}/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
-            maxZoom: 18,
-            mapboxId: $('#map').data('mapboxid')
-        }).addTo(map);
+
+        addBaseLayer(map);
 
         $.get($('#map').data('url'), function (data) {
             var feature_layer = new L.GeoJSON(data, { style: styleLayer })

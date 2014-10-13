@@ -88,11 +88,16 @@ L.Map.include({
     */
 
     addStreetsLayer: function () {
-        this.streets = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{mapboxId}/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
-            maxZoom: 18,
-            mapboxId: this.options.mapboxId
-        }).addTo(this);
+        if (Django.context.debug) {
+            this.streets = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this);
+        }
+        else {
+            this.streets = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{mapboxId}/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+                maxZoom: 18,
+                mapboxId: this.options.mapboxId
+            }).addTo(this);
+        }
     },
 
     addSatelliteLayer: function (add) {
