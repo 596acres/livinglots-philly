@@ -21,7 +21,7 @@ class Participant(models.Model):
     """
     name = models.CharField(_('name'), max_length=256)
     phone = models.CharField(_('phone'), max_length=32, null=True, blank=True)
-    email = models.EmailField(_('email'))
+    email = models.EmailField(_('email'), null=True, blank=True)
     email_hash = models.CharField(max_length=40, null=True, blank=True,
                                   editable=False)
     added = models.DateTimeField(auto_now_add=True, editable=False)
