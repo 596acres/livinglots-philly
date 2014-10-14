@@ -1,0 +1,41 @@
+.map-welcome {
+    background-color: #9FB33A;
+    color: white;
+    display: none;
+    font-size: 18px;
+    padding: 10px 25px;
+
+    a {
+        color: white;
+        text-decoration: underline;
+    }
+
+    &-close-button,
+    &-close-button:active,
+    &-close-button:hover,
+    &-open-button,
+    &-open-button:active,
+    &-open-button:hover {
+        color: black;
+        float: right;
+        font-size: 16px;
+        margin-right: 50px;
+        text-decoration: none;
+    }
+
+    &.closed .map-welcome-close-button {
+        display: none;
+    }
+
+    .map-welcome-open-button {
+        display: none;
+    }
+
+    &.closed .map-welcome-open-button {
+        display: inline-block;
+    }
+}
+
+.home-map-page .map-welcome {
+    display: block;
+}

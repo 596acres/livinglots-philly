@@ -3523,23 +3523,6 @@ header {
     padding-left: 0;
   }
 }
-#beta-disclaimer {
-  display: none;
-}
-.home-map-page #beta-disclaimer {
-  background-color: #9FB33A;
-  color: white;
-  display: block;
-  float: left;
-  font-size: 18px;
-  padding: 10px 25px;
-  position: relative;
-  top: -20px;
-}
-#beta-disclaimer a {
-  color: white;
-  text-decoration: underline;
-}
 .messages {
   border: 1px solid black;
   margin: 10px 0;
@@ -3878,65 +3861,6 @@ ul.lot-detail-reasons li {
   color: #B1C06F;
   font-size: 24px;
 }
-#map-overlay {
-  background: url(/static/img/overlay_bg.jpg);
-  color: white;
-  display: none;
-  font-size: 26px;
-  line-height: 30px;
-  padding: 20px;
-  position: absolute;
-  width: 300px;
-}
-.map-overlay-button {
-  color: white;
-  background-color: #66AA9A;
-  border: 0;
-  bottom: 0;
-  font-size: 15px;
-  height: 40px;
-  left: 110px;
-  padding: 5px;
-  position: relative;
-  text-transform: uppercase;
-  width: 250px;
-  line-height: 26px;
-}
-.map-overlay-close-button,
-.map-overlay-close-button:hover {
-  color: white;
-  cursor: pointer;
-  font: bold 16px/14px Tahoma, Verdana, sans-serif;
-  padding: 4px;
-  position: absolute;
-  right: 0;
-  text-decoration: none;
-  top: 0;
-}
-@media (max-width: 500px) {
-  #map-overlay {
-    width: 200px;
-  }
-  .map-overlay-button {
-    left: 0;
-  }
-}
-@media (max-width: 400px) {
-  .map-overlay-button {
-    left: -25px;
-  }
-}
-.right-arrow-button::after {
-  background: url(/static/img/right_arrow_button.png);
-  content: "";
-  width: 6px;
-  height: 40px;
-  position: relative;
-  float: right;
-  left: 11px;
-  top: -5px;
-  display: inline-block;
-}
 #mainmenu {
   float: left;
   height: 0;
@@ -4117,6 +4041,41 @@ ul.lot-detail-reasons li {
   background: url(/static/img/twitter.png);
   height: 30px;
   width: 30px;
+}
+.map-welcome {
+  background-color: #9FB33A;
+  color: white;
+  display: none;
+  font-size: 18px;
+  padding: 10px 25px;
+}
+.map-welcome a {
+  color: white;
+  text-decoration: underline;
+}
+.map-welcome-close-button,
+.map-welcome-close-button:active,
+.map-welcome-close-button:hover,
+.map-welcome-open-button,
+.map-welcome-open-button:active,
+.map-welcome-open-button:hover {
+  color: black;
+  float: right;
+  font-size: 16px;
+  margin-right: 50px;
+  text-decoration: none;
+}
+.map-welcome.closed .map-welcome-close-button {
+  display: none;
+}
+.map-welcome .map-welcome-open-button {
+  display: none;
+}
+.map-welcome.closed .map-welcome-open-button {
+  display: inline-block;
+}
+.home-map-page .map-welcome {
+  display: block;
 }
 .alert-info a,
 .alert-info a:visited {

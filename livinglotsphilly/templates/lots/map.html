@@ -1,4 +1,4 @@
-{% load blog_widgets i18n static %}
+{% load blog_widgets feincms_tags i18n static %}
 
 <div id="map-left" class="grid grid-3-4">
     {% include "lots/map/_mainmap.html" %}
@@ -211,14 +211,4 @@
             <img src="{% static "img/logo-596acres.png" %}" />
         </a>
     </div>
-</div>
-
-<div id="map-overlay">
-    <a class="map-overlay-close-button">×</a>
-    {% blocktrans %}
-    There are over 30,000 vacant lots in Philadelphia.
-    {% endblocktrans %}
-    <button class="map-overlay-button right-arrow-button" type="button">
-        {% trans "Find the lot in your life!" %}
-    </button>
 </div>

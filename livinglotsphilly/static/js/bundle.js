@@ -19218,6 +19218,7 @@ var L = require('leaflet');
 var Spinner = require('spinjs');
 var singleminded = require('./singleminded');
 var streetview = require('./streetview');
+var welcome = require('./welcome');
 
 require('./jquery.emailparticipants');
 require('./jquery.searchbar');
@@ -19369,23 +19370,6 @@ function onFilterChange() {
     var serializedFilters = $('.filters :input:not(.non-filter)').serializeObject();
     lotsMap.updateFilters(serializedFilters);
     lotsMap.fire('filterschange', { filters: serializedFilters, });
-}
-
-function showOverlay() {
-    $('#map-overlay').show();
-    positionOverlay();
-}
-
-function positionOverlay() {
-    $('#map-overlay').position({
-        my: 'center center',
-        at: 'center center',
-        of: $('#map'),
-    });
-}
-
-function hideOverlay() {
-    $('#map-overlay').hide();
 }
 
 $(document).ready(function () {
@@ -19572,7 +19556,6 @@ $(document).ready(function () {
                 warningSelector: '.warning',
             })
             .on('searchresultfound', function (e, data) {
-                hideOverlay();
                 var latlng = [data.latitude, data.longitude];
                 lotsMap.setView(latlng, 18);
                 var usermarker = L.userMarker(latlng, { smallIcon: true })
@@ -19586,18 +19569,11 @@ $(document).ready(function () {
             $('.map-filters').toggle();
         });
 
-        // Overlay
-        if (!mapViewportSet) {
-            showOverlay();
-            $(window).on('debouncedresize', positionOverlay);
-            $('.map-overlay-button').click(hideOverlay);
-            $('.map-overlay-close-button').click(hideOverlay);
-        }
-
+        welcome.init();
     }
 });
 
-},{"./jquery.emailparticipants":23,"./jquery.searchbar":24,"./leaflet.lotmap":28,"./singleminded":35,"./streetview":36,"jquery.debouncedresize":12,"jquery.deserialize":9,"jquery.serializeobject":11,"leaflet":17,"leaflet.usermarker":16,"spinjs":18}],35:[function(require,module,exports){
+},{"./jquery.emailparticipants":23,"./jquery.searchbar":24,"./leaflet.lotmap":28,"./singleminded":35,"./streetview":36,"./welcome":37,"jquery.debouncedresize":12,"jquery.deserialize":9,"jquery.serializeobject":11,"leaflet":17,"leaflet.usermarker":16,"spinjs":18}],35:[function(require,module,exports){
 var thoughts = {};
 
 function forget(name) {
@@ -19676,6 +19652,38 @@ function load_streetview(lon, lat, $elem, $errorBox) {
 
 module.exports = {
     load_streetview: load_streetview
+};
+
+},{}],37:[function(require,module,exports){
+//
+// Welcome header
+//
+
+function initClose() {
+    $('.map-welcome-close-button').click(function (e) {
+        $('.map-welcome').addClass('closed');
+        $('.map-welcome h1').animate({ 'font-size': '28px' });
+        $('.map-welcome-body').slideUp();
+        e.preventDefault();
+        return false;
+    });
+}
+
+function initOpen() {
+    $('.map-welcome-open-button').click(function (e) {
+        $('.map-welcome').removeClass('closed');
+        $('.map-welcome h1').animate({ 'font-size': '56px' });
+        $('.map-welcome-body').slideDown();
+        e.preventDefault();
+        return false;
+    });
+}
+
+module.exports = {
+    init: function () {
+        initClose();
+        initOpen();
+    }
 };
 
 },{}]},{},[33]);

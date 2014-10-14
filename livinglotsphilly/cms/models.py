@@ -77,6 +77,7 @@ Page.register_templates({
         ('main', _('Main content area')),
         ('sidebar', _('Sidebar'), 'inherited'),
         ('footer', _('Footer'), 'inherited'),
+        ('welcome', _('Welcome message')),
     ),
 })
 

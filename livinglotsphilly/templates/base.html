@@ -56,12 +56,15 @@
 
             </header>
 
-            <div id="beta-disclaimer" class="clearfix">
-                <span>
-                    {% blocktrans %}
-                    Welcome! Grounded in Philly is brand new and in beta. Our data comes from a number of city datasets&mdash;<a href="/about/our-data/" target="_blank">learn more about it here</a>.
-                    {% endblocktrans %}
-                </span>
+            <div class="map-welcome hidden-print">
+                <h1>
+                    {% trans "Welcome!" %}
+                    <a href="#" class="map-welcome-close-button">close</a>
+                    <a href="#" class="map-welcome-open-button">show</a>
+                </h1>
+                <div class="map-welcome-body">
+                    {% feincms_render_region feincms_page "welcome" request %}
+                </div>
             </div>
 
             <div class="content-wrapper clearfix">
