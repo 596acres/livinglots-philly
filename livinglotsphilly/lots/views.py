@@ -432,8 +432,10 @@ class ParticipantMixin(object):
         return self.model._meta.object_name.lower()
 
 
-class AddParticipantView(LotAddGenericMixin, LotContextMixin, ParticipantMixin,
-                         CreateView):
+class AddParticipantView(FormValidMessageMixin, LotAddGenericMixin,
+                         LotContextMixin, ParticipantMixin, CreateView):
+    form_valid_message = _("Success! You're now listed as an organizer of this"
+                           " lot")
 
     def get_form_class(self):
         if self.model is Organizer:
@@ -448,7 +450,10 @@ class AddParticipantView(LotAddGenericMixin, LotContextMixin, ParticipantMixin,
                                'pk': self.object.pk,
                            })
         except Exception:
-            raise Http404
+            return reverse('lots:lot_detail',
+                           kwargs={
+                               'pk': self.object.object_id,
+                           })
 
     def get_template_names(self):
         return [

@@ -10,6 +10,8 @@ from mailsender.helpers import (mail_multiple_personalized,
 def mass_mailing(subject, message, objects, template_name, **kwargs):
     messages = {}
     for obj in objects:
+        if not obj.email:
+            continue
         # message gets sent once to each unique email address, thanks to dict
         messages[obj.email] = render_to_string(template_name, {
             'site': Site.objects.get_current(),
@@ -54,7 +56,7 @@ def mail_target_participants(participant_cls, target, subject,
         content_type=ContentType.objects.get_for_model(target),
         object_id=target.pk,
     )
-    participants = [p for p in participants if p.email not in excluded_emails]
+    participants = [p for p in participants if p.email and p.email not in excluded_emails]
     messages = _get_messages(participants, template, **kwargs)
     mail_multiple_personalized(subject, messages,
                                from_email=get_target_email_address(target))
