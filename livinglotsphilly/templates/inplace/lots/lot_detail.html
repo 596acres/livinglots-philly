@@ -39,16 +39,16 @@
         </a>
     </div>
 
-    {% if not lot.known_use %}
-        <div class="btn-group pull-right">
+    <div class="btn-group pull-right">
+        {% if not lot.known_use %}
             <a class="btn btn-default lot-page-tooltip" href="{% url "lots:add_stewardnotification" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Tell us more about your garden project." %}">
                 {% trans "Is this an active garden?" %}
             </a>
-            <a class="btn btn-default lot-page-tooltip" href="{% url "lots:add_groundtruthrecord" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Let us know that this lot's actual use is not correctly identified." %}">
-                {% trans "Have we made a mistake?" %}
-            </a>
-        </div>
-    {% endif %}
+        {% endif %}
+        <a class="btn btn-default lot-page-tooltip" href="{% url "lots:add_groundtruthrecord" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Let us know that this lot's actual use is not correctly identified." %}">
+            {% trans "Have we made a mistake?" %}
+        </a>
+    </div>
 </div>
 
 <div class="clear"></div>
