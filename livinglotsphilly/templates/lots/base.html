@@ -14,13 +14,11 @@
 {% block breadcrumbs %}
     <li>
         <a href="/">{% trans "Home" %}</a>
-        <span class="divider">&raquo;</span>
     </li>
     <li>
         <a href="{{ lot.get_absolute_url }}">
             {{ lot.display_name|default:lot.pk }}
         </a>
-        <span class="divider">&raquo;</span>
     </li>
 {% endblock %}
 

@@ -6,13 +6,11 @@
 {% block breadcrumbs %}
     <li>
         <a href="/">{% trans "Home" %}</a>
-        <span class="divider">&raquo;</span>
     </li>
     <li>
         <a href="{{ feincms_page.get_absolute_url }}">
             {{ feincms_page }}
         </a>
-        <span class="divider">&raquo;</span>
     </li>
     <li>
         {{ entry }}
