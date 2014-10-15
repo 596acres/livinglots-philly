@@ -38,14 +38,25 @@
                     <ul>
                         {% feincms_nav feincms_page level=2 depth=1 as mainmenu %}
                         {% for page in mainmenu %}
-                        <li>
-                            <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-                        </li>
+                            <li class="mainmenu-item">
+                                <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+
+                                {% feincms_nav page level=3 depth=1 as submenu %}
+                                {% if submenu %}
+                                    <ul class="submenu">
+                                        {% for submenupage in submenu %}
+                                            <li>
+                                                <a href="{{ submenupage.get_absolute_url }}">{{ submenupage.title }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
                         {% endfor %}
                         {% if user.is_superuser %}
-                        <li>
-                            <a href="/extra-admin/">Admin</a>
-                        </li>
+                            <li class="mainmenu-item">
+                                <a href="/extra-admin/">Admin</a>
+                            </li>
                         {% endif %}
                     </ul>
                 </nav>

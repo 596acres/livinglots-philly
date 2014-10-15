@@ -10,7 +10,7 @@
         color: #5F424D;
     }
 
-    li {
+    .mainmenu-item {
         border-right: 1px solid #D4DAAC;
         float: left;
         padding-left: 7px;
@@ -20,6 +20,12 @@
 
         &:last-child {
             border-right: 0;
+        }
+
+        &:hover {
+            .submenu {
+                display: block;
+            }
         }
     }
 }
@@ -41,4 +47,12 @@
         }
     }
 
+}
+
+.submenu {
+    background-color: rgba(256, 256, 256, 0.75);
+    display: none;
+    margin-left: -15px;
+    padding: 15px;
+    position: absolute;
 }

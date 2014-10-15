@@ -3872,7 +3872,7 @@ ul.lot-detail-reasons li {
 #mainmenu a {
   color: #5F424D;
 }
-#mainmenu li {
+#mainmenu .mainmenu-item {
   border-right: 1px solid #D4DAAC;
   float: left;
   padding-left: 7px;
@@ -3880,8 +3880,11 @@ ul.lot-detail-reasons li {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-#mainmenu li:last-child {
+#mainmenu .mainmenu-item:last-child {
   border-right: 0;
+}
+#mainmenu .mainmenu-item:hover .submenu {
+  display: block;
 }
 @media (max-width: 400px) {
   #mainmenu {
@@ -3897,6 +3900,13 @@ ul.lot-detail-reasons li {
     border: 0;
     float: none;
   }
+}
+.submenu {
+  background-color: rgba(255, 255, 255, 0.75);
+  display: none;
+  margin-left: -15px;
+  padding: 15px;
+  position: absolute;
 }
 .newsletter-signup {
   background-color: #E6E2E3;
