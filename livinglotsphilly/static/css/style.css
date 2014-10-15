@@ -3869,6 +3869,9 @@ ul.lot-detail-reasons li {
   position: relative;
   top: -100px;
 }
+#mainmenu a {
+  color: #5F424D;
+}
 #mainmenu li {
   border-right: 1px solid #D4DAAC;
   float: left;
@@ -3876,6 +3879,9 @@ ul.lot-detail-reasons li {
   padding-right: 7px;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+#mainmenu li:last-child {
+  border-right: 0;
 }
 @media (max-width: 400px) {
   #mainmenu {
@@ -3891,12 +3897,6 @@ ul.lot-detail-reasons li {
     border: 0;
     float: none;
   }
-}
-#mainmenu li:last-child {
-  border-right: 0;
-}
-#mainmenu a {
-  color: #5F424D;
 }
 .newsletter-signup {
   background-color: #E6E2E3;
