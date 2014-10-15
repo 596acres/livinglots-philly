@@ -161,58 +161,58 @@
             </tr>
 
             {% if lot.licenses.count > 0 %}
-            <tr>
-                <th>
-                    {% trans "licenses" %}
-                    <span class="badge">{{ lot.licenses.count }}</span>
-                </th>
-                <td>
-                    <ul>
-                        {% for license in lot.licenses.all %}
-                            <li>
-                                <a href="http://www.phila.gov/data/Pages/default.aspx?entity=licenses&eid={{ license.external_id }}" target="_blank" class="lot-page-tooltip" data-toggle="tooltip" title="{% trans "Active or recent licenses can indicate that the lot's owner is paying attention to the lot. They might be easier to get in touch with than other owners." %}">
-                                    {{ license.status|lower }} ({{ license.external_id }})
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
+                <tr>
+                    <th>
+                        {% trans "licenses" %}
+                        <span class="badge">{{ lot.licenses.count }}</span>
+                    </th>
+                    <td>
+                        <ul>
+                            {% for license in lot.licenses.all %}
+                                <li>
+                                    <a href="http://www.phila.gov/data/Pages/default.aspx?entity=licenses&eid={{ license.external_id }}" target="_blank" class="lot-page-tooltip" data-toggle="tooltip" title="{% trans "Active or recent licenses can indicate that the lot's owner is paying attention to the lot. They might be easier to get in touch with than other owners." %}">
+                                        {{ license.status|lower }} ({{ license.external_id }})
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
             {% endif %}
 
             {% if lot.violations.count > 0 %}
-            <tr>
-                <th>
-                    {% trans "violations" %}
-                    <span class="badge">{{ lot.violations.count }}</span>
-                </th>
-                <td>
-                    <ul>
-                        {% for violation in lot.violations.all %}
-                            <li>
-                                {% if violation.case_number %}
-                                    <a href="http://www.phila.gov/data/Pages/default.aspx?entity=violationdetails&eid={{ violation.case_number }}" target="_blank">
+                <tr>
+                    <th>
+                        {% trans "violations" %}
+                        <span class="badge">{{ lot.violations.count }}</span>
+                    </th>
+                    <td>
+                        <ul>
+                            {% for violation in lot.violations.all %}
+                                <li>
+                                    {% if violation.case_number %}
+                                        <a href="http://www.phila.gov/data/Pages/default.aspx?entity=violationdetails&eid={{ violation.case_number }}" target="_blank">
+                                            {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}
+                                            {{ violation.violation_type }}
+                                        </a>
+                                    {% else %}
                                         {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}
                                         {{ violation.violation_type }}
-                                    </a>
-                                {% else %}
-                                    {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}
-                                    {{ violation.violation_type }}
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
             {% endif %}
 
             {% if lot.zoning_district %}
-            <tr>
-                <th>{% trans "zoning district" %}:</th>
-                <td>
-                    {{ lot.zoning_district.zoning_type.code }}
-                </td>
-            </tr>
+                <tr>
+                    <th>{% trans "zoning district" %}:</th>
+                    <td>
+                        {{ lot.zoning_district.zoning_type.code }}
+                    </td>
+                </tr>
             {% endif %}
 
         </table>
@@ -301,45 +301,45 @@
             <ul class="lot-detail-reasons">
 
                 {% if lot.land_use_area and lot.land_use_area.category == "Vacant or Other" %}
-                <li>
-                    {% blocktrans with description=lot.land_use_area.description %}
-                    It is in the <a href="http://opendataphilly.org/opendata/resource/170/land-use/" target="_blank">City Planning Commission's Land Use database</a> marked as "{{ description }}".
-                    {% endblocktrans %}
-                </li>
+                    <li>
+                        {% blocktrans with description=lot.land_use_area.description %}
+                        It is in the <a href="http://opendataphilly.org/opendata/resource/170/land-use/" target="_blank">City Planning Commission's Land Use database</a> marked as "{{ description }}".
+                        {% endblocktrans %}
+                    </li>
                 {% endif %}
 
                 {% if lot.available_property and lot.available_property.status != "no longer available" %}
-                <li>
-                    {% blocktrans %}
-                        It is for sale as part of the Redevelopment Authority's <a href="http://secure.phila.gov/paplpublicweb/" target="_blank">Available Property list</a>.
-                    {% endblocktrans %}
-                    <a href="https://secure.phila.gov/PAPLPublicWeb/AddAsset.aspx?AssetID={{ lot.available_property.asset_id }}" target="_blank">{% trans "Express interest" %}</a>
-                    {% trans "in this lot" %}.
-                </li>
+                    <li>
+                        {% blocktrans %}
+                            It is for sale as part of the Redevelopment Authority's <a href="http://secure.phila.gov/paplpublicweb/" target="_blank">Available Property list</a>.
+                        {% endblocktrans %}
+                        <a href="https://secure.phila.gov/PAPLPublicWeb/AddAsset.aspx?AssetID={{ lot.available_property.asset_id }}" target="_blank">{% trans "Express interest" %}</a>
+                        {% trans "in this lot" %}.
+                    </li>
                 {% endif %}
 
                 {% if lot.violations.all.count > 0 %}
-                <li>
-                    {% blocktrans with location_id=lot.violations.all.0.location.external_id %}
-                    It has <a href="http://www.phila.gov/data/Pages/default.aspx?entity=locationhistory&eid={{ location_id }}" target="_blank">violations from Licensing and Inspections</a> that indicate that it is vacant.
-                    {% endblocktrans %}
-                </li>
+                    <li>
+                        {% blocktrans with location_id=lot.violations.all.0.location.external_id %}
+                        It has <a href="http://www.phila.gov/data/Pages/default.aspx?entity=locationhistory&eid={{ location_id }}" target="_blank">violations from Licensing and Inspections</a> that indicate that it is vacant.
+                        {% endblocktrans %}
+                    </li>
                 {% endif %}
 
                 {% if lot.licenses.all.count > 0 %}
-                <li>
-                    {% blocktrans with location_id=lot.licenses.all.0.location.external_id %}
-                    It has <a href="http://www.phila.gov/data/Pages/LIPropertyHistory.aspx?entity=locationhistory&eid={{ location_id }}" target="_blank">licenses from Licensing and Inspections</a> that indicate that it is vacant.
-                    {% endblocktrans %}
-                </li>
+                    <li>
+                        {% blocktrans with location_id=lot.licenses.all.0.location.external_id %}
+                        It has <a href="http://www.phila.gov/data/Pages/LIPropertyHistory.aspx?entity=locationhistory&eid={{ location_id }}" target="_blank">licenses from Licensing and Inspections</a> that indicate that it is vacant.
+                        {% endblocktrans %}
+                    </li>
                 {% endif %}
 
                 {% if lot.water_parcel and lot.water_parcel.percent_permeable > 50 %}
-                <li>
-                    {% blocktrans with pp=lot.water_parcel.percent_permeable|floatformat id=lot.water_parcel.parcel_id %}
-                    The Water Department <a href="http://www.phila.gov/water/swmap/Parcel.aspx?parcel_id={{ id }}" target="_blank">claims</a> that the parcel is {{ pp }}% permeable (without structures or pavement).
-                    {% endblocktrans %}
-                </li>
+                    <li>
+                        {% blocktrans with pp=lot.water_parcel.percent_permeable|floatformat id=lot.water_parcel.parcel_id %}
+                        The Water Department <a href="http://www.phila.gov/water/swmap/Parcel.aspx?parcel_id={{ id }}" target="_blank">claims</a> that the parcel is {{ pp }}% permeable (without structures or pavement).
+                        {% endblocktrans %}
+                    </li>
                 {% endif %}
 
             </ul>
@@ -357,10 +357,10 @@
         <table>
 
             {% if lot.steward_projects.count > 0 %}
-            <tr>
-                <th>{% trans "steward's land tenure" %}:</th>
-                <td>{{ lot.steward_projects.all.0.land_tenure_status }}</td>
-            </tr>
+                <tr>
+                    <th>{% trans "steward's land tenure" %}:</th>
+                    <td>{{ lot.steward_projects.all.0.land_tenure_status }}</td>
+                </tr>
             {% endif %}
 
             <tr>
@@ -595,12 +595,12 @@
             <h2>{% trans "Pathways" %}</h2>
 
             {% if "pathways.add_pathway" in perms %}
-            <div class="lot-detail-admin admin-only grid">
-                <a class="btn btn-small btn-warning" href="{% url "admin:pathways_pathway_add" %}">
-                    <i class="icon-plus icon-white"></i>
-                    {% trans "Add a pathway" %}
-                </a>
-            </div>
+                <div class="lot-detail-admin admin-only grid">
+                    <a class="btn btn-small btn-warning" href="{% url "admin:pathways_pathway_add" %}">
+                        <i class="icon-plus icon-white"></i>
+                        {% trans "Add a pathway" %}
+                    </a>
+                </div>
             {% endif %}
 
             {% render_pathway_summary_list for lot %}
