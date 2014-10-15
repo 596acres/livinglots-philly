@@ -192,12 +192,12 @@
                                 <li>
                                     {% if violation.case_number %}
                                         <a href="http://www.phila.gov/data/Pages/default.aspx?entity=violationdetails&eid={{ violation.case_number }}" target="_blank">
-                                            {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}
-                                            {{ violation.violation_type }}
+                                            {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}:
+                                            {{ violation.violation_type.description }}
                                         </a>
                                     {% else %}
-                                        {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}
-                                        {{ violation.violation_type }}
+                                        {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}:
+                                        {{ violation.violation_type.description }}
                                     {% endif %}
                                 </li>
                             {% endfor %}
