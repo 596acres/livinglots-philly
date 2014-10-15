@@ -46,7 +46,12 @@ have loaded, load the fixtures that define these::
 
     django-admin.py loaddata data_sources
 
-This fixture is in the :code:`phillydata_local` app.
+This fixture is in the :code:`phillydata_local` app. Then run syncexternaldata::
+
+    django-admin.py syncexternaldata
+
+and this will start loading data from all of the data sources listed in the
+fixture above.
 
 
 Organization
