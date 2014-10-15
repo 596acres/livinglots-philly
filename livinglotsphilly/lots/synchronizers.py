@@ -1,4 +1,6 @@
 import logging
+from random import random
+from time import sleep
 
 from django.db.models import Q
 
@@ -36,6 +38,7 @@ class LotOwnershipSynchronizer(Synchronizer):
         lots = Lot.objects.filter(owner__isnull=True).order_by('?')[:count]
         for lot in lots:
             self.update_lot_owner_data(lot)
+            sleep(random())
 
     def update_lot_owner_data(self, lot):
         logger.debug('Updating OPA data for lot %s' % lot)
