@@ -28,24 +28,17 @@
     }
 }
 
-#page-wrapper {
-    background-color: white;
-    margin-left: 10%;
-    margin-right: 10%;
-    max-width: 1065px;
-}
-
-@media (max-width: 768px) {
-
-    #page-wrapper {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-}
-
 .content-wrapper {
-    padding: 25px;
+    .make-row(0);
+    background-color: @background-color;
+
+    .main-content {
+        .make-md-column(10);
+        .make-md-column-offset(1);
+        background-color: white;
+        margin-bottom: 15px;
+        padding-bottom: 50px;
+    }
 }
 
 @media (max-width: 400px) {

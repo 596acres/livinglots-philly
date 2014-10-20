@@ -19170,7 +19170,7 @@ $(document).ready(function () {
         $(this).find('input[type="submit"]').attr('disabled', 'disabled');
     });
 
-    $('body').noisy({
+    $('.content-wrapper').noisy({
         'intensity' : 0.5,
         'size' : 100,
         'opacity' : 0.15,
