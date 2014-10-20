@@ -1,0 +1,87 @@
+[
+{
+    "fields": {
+        "is_group": false,
+        "name": "individual"
+    },
+    "model": "organize.organizertype",
+    "pk": 1
+},
+{
+    "fields": {
+        "is_group": true,
+        "name": "community based organization"
+    },
+    "model": "organize.organizertype",
+    "pk": 2
+},
+{
+    "fields": {
+        "email_hash": "64bc0c52b4c28507f07724113b3f974c3db5b2f4",
+        "added": "2014-10-16T00:49:33.410Z",
+        "name": "Mr. Organizer",
+        "post_publicly": true,
+        "url": "http://example.com/",
+        "notes": null,
+        "receive_text_messages": false,
+        "object_id": 3481,
+        "phone": "111 222 3333",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "facebook_page": "",
+        "type": 1,
+        "email": "mr_organizer@example.com",
+        "added_by": null
+    },
+    "model": "phillyorganize.organizer",
+    "pk": 23
+},
+{
+    "fields": {
+        "email_hash": "c2f2a1491e2471b945dcba9ea3582820ee4c4cfd",
+        "added": "2014-10-16T00:53:03.183Z",
+        "name": "Watchy Organizer",
+        "post_publicly": false,
+        "url": "",
+        "notes": null,
+        "receive_text_messages": false,
+        "object_id": 3481,
+        "phone": "",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "facebook_page": "",
+        "type": 1,
+        "email": "watchy_org@example.com",
+        "added_by": null
+    },
+    "model": "phillyorganize.organizer",
+    "pk": 24
+},
+{
+    "fields": {
+        "email_hash": "8fabcb8e880be3859dede9e5624af17b643f0a5d",
+        "added": "2014-10-16T00:55:12.226Z",
+        "name": "Fake Garden",
+        "post_publicly": true,
+        "url": "http://example.com/",
+        "notes": null,
+        "receive_text_messages": false,
+        "object_id": 3791,
+        "phone": "1111111111",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "facebook_page": "",
+        "type": 1,
+        "email": "fake_garden@example.com",
+        "added_by": null
+    },
+    "model": "phillyorganize.organizer",
+    "pk": 25
+}
+]

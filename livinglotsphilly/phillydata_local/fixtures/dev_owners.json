@@ -1,0 +1,81 @@
+[
+{
+    "fields": {
+        "name": "REDEVELOPMENT AUTHORITY O"
+    },
+    "model": "owners.alias",
+    "pk": 1
+},
+{
+    "fields": {
+        "agency_codes": [],
+        "owner_type": "public",
+        "name": "Redevelopment Authority of Philadelphia",
+        "aliases": [
+            1
+        ]
+    },
+    "model": "owners.owner",
+    "pk": 9
+},
+{
+    "fields": {
+        "agency_codes": [],
+        "owner_type": "private",
+        "name": "19TH & FERNON COM ACTION, GROUP YOUTH FOR CHANG",
+        "aliases": []
+    },
+    "model": "owners.owner",
+    "pk": 20
+},
+{
+    "fields": {
+        "agency_codes": [],
+        "owner_type": "private",
+        "name": "ANDRELIZ IMPROVEMENT INC",
+        "aliases": []
+    },
+    "model": "owners.owner",
+    "pk": 46
+},
+{
+    "fields": {
+        "agency_codes": [],
+        "owner_type": "private",
+        "name": "TEMPLE PROPERTIES DE LLC, TEMPLE PROPERTIES LLC",
+        "aliases": []
+    },
+    "model": "owners.owner",
+    "pk": 65
+},
+{
+    "fields": {
+        "agency_codes": [],
+        "owner_type": "public",
+        "name": "Philadelphia Housing Authority",
+        "aliases": []
+    },
+    "model": "owners.owner",
+    "pk": 79
+},
+{
+    "fields": {
+        "agency_codes": [],
+        "owner_type": "private",
+        "name": "FIRST UNION BANK",
+        "aliases": []
+    },
+    "model": "owners.owner",
+    "pk": 93
+},
+{
+    "fields": {
+        "agency_codes": [],
+        "owner_type": "private",
+        "name": "A & A DEVELOPMENT LLC",
+        "aliases": []
+    },
+    "model": "owners.owner",
+    "pk": 120
+}
+]

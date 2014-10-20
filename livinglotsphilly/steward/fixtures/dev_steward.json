@@ -1,0 +1,243 @@
+[
+{
+    "fields": {
+        "use": 2,
+        "name": "Fake Garden",
+        "steward_notification": 10,
+        "support_organization": "",
+        "object_id": 3791,
+        "pilcop_garden_id": null,
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": true,
+        "organizer": 25,
+        "external_id": null,
+        "date_started": null,
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardproject",
+    "pk": 4
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "eric",
+        "url": "",
+        "support_organization": "",
+        "object_id": 4937,
+        "phone": "555 222 4444",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": false,
+        "share_contact_details": false,
+        "facebook_page": "",
+        "type": 1,
+        "email": "ebrelsford@gmail.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 1
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "er",
+        "url": "",
+        "support_organization": "",
+        "object_id": 4937,
+        "phone": "",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": false,
+        "share_contact_details": false,
+        "facebook_page": "",
+        "type": 1,
+        "email": "ebrelsford@gmail.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 2
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "eric",
+        "url": "",
+        "support_organization": "",
+        "object_id": 4937,
+        "phone": "",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": false,
+        "share_contact_details": false,
+        "facebook_page": "",
+        "type": 1,
+        "email": "e@gma.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 3
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "eric",
+        "url": "",
+        "support_organization": "",
+        "object_id": 4937,
+        "phone": "",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": false,
+        "share_contact_details": false,
+        "facebook_page": "",
+        "type": 1,
+        "email": "e@gma.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 4
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "eric",
+        "url": "",
+        "support_organization": "",
+        "object_id": 4937,
+        "phone": "",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": false,
+        "share_contact_details": false,
+        "facebook_page": "",
+        "type": 1,
+        "email": "e@gma.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 5
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "eric",
+        "url": "",
+        "support_organization": "",
+        "object_id": 4937,
+        "phone": "",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": false,
+        "share_contact_details": false,
+        "facebook_page": "",
+        "type": 1,
+        "email": "e@gma.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 6
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "eric's project",
+        "url": "",
+        "support_organization": "",
+        "object_id": 2609,
+        "phone": "",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": false,
+        "share_contact_details": false,
+        "facebook_page": "",
+        "type": 1,
+        "email": "ebrelsford@gmail.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 7
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "eric'speklsjk",
+        "url": "",
+        "support_organization": "",
+        "object_id": 2609,
+        "phone": "",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": true,
+        "share_contact_details": false,
+        "facebook_page": "",
+        "type": 1,
+        "email": "test@example.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 8
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "blah",
+        "url": "",
+        "support_organization": "",
+        "object_id": 3024,
+        "phone": "",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": false,
+        "share_contact_details": false,
+        "facebook_page": "",
+        "type": 1,
+        "email": "ebrelsford@gmail.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 9
+},
+{
+    "fields": {
+        "use": 2,
+        "name": "Fake Garden",
+        "url": "http://example.com/",
+        "support_organization": "",
+        "object_id": 3791,
+        "phone": "1111111111",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "include_on_map": true,
+        "share_contact_details": true,
+        "facebook_page": "",
+        "type": 1,
+        "email": "fake_garden@example.com",
+        "land_tenure_status": "not sure"
+    },
+    "model": "steward.stewardnotification",
+    "pk": 10
+}
+]

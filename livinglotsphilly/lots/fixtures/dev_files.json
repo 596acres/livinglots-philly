@@ -1,0 +1,36 @@
+[
+{
+    "fields": {
+        "added": "2014-10-08T01:46:55.558Z",
+        "description": "lal",
+        "title": "lalal",
+        "object_id": 4937,
+        "added_by_name": "e",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "document": "files/0.png",
+        "added_by": null
+    },
+    "model": "files.file",
+    "pk": 1
+},
+{
+    "fields": {
+        "added": "2014-10-14T19:54:57.543Z",
+        "description": "aaaa",
+        "title": "test file",
+        "object_id": 3024,
+        "added_by_name": "eric",
+        "content_type": [
+            "lots",
+            "lot"
+        ],
+        "document": "files/IMG_20120902_151219.jpg",
+        "added_by": null
+    },
+    "model": "files.file",
+    "pk": 3
+}
+]

@@ -1,0 +1,570 @@
+[
+{
+    "fields": {
+        "owner": 9,
+        "name": "OF PHILADELPHIA, REDEVELOPMENT AUTHORITY"
+    },
+    "model": "opa.accountowner",
+    "pk": 8
+},
+{
+    "fields": {
+        "owner": 20,
+        "name": "19TH & FERNON COM ACTION, GROUP YOUTH FOR CHANG"
+    },
+    "model": "opa.accountowner",
+    "pk": 19
+},
+{
+    "fields": {
+        "owner": 46,
+        "name": "ANDRELIZ IMPROVEMENT INC"
+    },
+    "model": "opa.accountowner",
+    "pk": 45
+},
+{
+    "fields": {
+        "owner": 9,
+        "name": "REDEVELOPMENT AUTHORITY O"
+    },
+    "model": "opa.accountowner",
+    "pk": 53
+},
+{
+    "fields": {
+        "owner": 65,
+        "name": "TEMPLE PROPERTIES DE LLC, TEMPLE PROPERTIES LLC"
+    },
+    "model": "opa.accountowner",
+    "pk": 64
+},
+{
+    "fields": {
+        "owner": 79,
+        "name": "PHILADELPHIA HOUSING AUTH"
+    },
+    "model": "opa.accountowner",
+    "pk": 78
+},
+{
+    "fields": {
+        "owner": 93,
+        "name": "FIRST UNION BANK"
+    },
+    "model": "opa.accountowner",
+    "pk": 92
+},
+{
+    "fields": {
+        "owner": 120,
+        "name": "A & A DEVELOPMENT LLC"
+    },
+    "model": "opa.accountowner",
+    "pk": 118
+},
+{
+    "fields": {
+        "account_owner": 19,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T17:32:36.717Z",
+        "improvement_description": "",
+        "assessment": "7700.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "658.000",
+        "sale_date": "1984-01-17",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "363098100",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 8
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T17:33:06.687Z",
+        "improvement_description": "",
+        "assessment": "28700.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "756.000",
+        "sale_date": "1971-07-20",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "141277610",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 13
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T18:03:17.309Z",
+        "improvement_description": "",
+        "assessment": "5600.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "1197.000",
+        "sale_date": "1970-09-30",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "371254201",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 29
+},
+{
+    "fields": {
+        "account_owner": 45,
+        "improvement_area": 738,
+        "last_updated": "2014-10-15T18:03:24.318Z",
+        "improvement_description": "",
+        "assessment": "23700.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "948.500",
+        "sale_date": "2005-05-16",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "232071000",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 35
+},
+{
+    "fields": {
+        "account_owner": 53,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T18:03:29.764Z",
+        "improvement_description": "",
+        "assessment": "2600.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "630.000",
+        "sale_date": "2007-03-29",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "111402600",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 44
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T18:03:31.138Z",
+        "improvement_description": "",
+        "assessment": "2700.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "584.220",
+        "sale_date": "1972-07-28",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "322198101",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 47
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T18:03:32.970Z",
+        "improvement_description": "",
+        "assessment": "4700.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "910.000",
+        "sale_date": "1971-07-28",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "243056310",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 51
+},
+{
+    "fields": {
+        "account_owner": 64,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:00:06.520Z",
+        "improvement_description": "",
+        "assessment": "7800.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "1136.000",
+        "sale_date": "2014-01-16",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "471237800",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 57
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:00:11.438Z",
+        "improvement_description": "",
+        "assessment": "2000.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "550.000",
+        "sale_date": "1985-06-28",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "193111701",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 71
+},
+{
+    "fields": {
+        "account_owner": 78,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:00:12.874Z",
+        "improvement_description": "",
+        "assessment": "6400.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "1240.000",
+        "sale_date": "2006-10-27",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "061269210",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 75
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:00:15.187Z",
+        "improvement_description": "",
+        "assessment": "3100.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "700.000",
+        "sale_date": "1970-10-30",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "442205010",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 78
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:00:15.504Z",
+        "improvement_description": "",
+        "assessment": "3800.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "1056.000",
+        "sale_date": "1998-03-11",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "371189201",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 79
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:00:16.505Z",
+        "improvement_description": "",
+        "assessment": "11400.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "1120.000",
+        "sale_date": "1978-05-10",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "242147710",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 82
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:05:37.472Z",
+        "improvement_description": "",
+        "assessment": "5900.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "928.000",
+        "sale_date": "1985-06-28",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "321166001",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 88
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:05:45.862Z",
+        "improvement_description": "",
+        "assessment": "9900.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "894.390",
+        "sale_date": "1972-12-05",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "364342805",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 94
+},
+{
+    "fields": {
+        "account_owner": 92,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:05:46.581Z",
+        "improvement_description": "",
+        "assessment": "21900.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "2100.000",
+        "sale_date": "1998-07-27",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "232205300",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 96
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T22:05:48.416Z",
+        "improvement_description": "",
+        "assessment": "8500.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "700.000",
+        "sale_date": "1985-06-28",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "361314005",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 101
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T23:26:21.771Z",
+        "improvement_description": "",
+        "assessment": "397100.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "78450.000",
+        "sale_date": "1958-12-08",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "402293920",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 117
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T23:26:23.746Z",
+        "improvement_description": "",
+        "assessment": "7500.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "1190.000",
+        "sale_date": "1970-06-24",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "321150001",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 119
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T23:30:28.741Z",
+        "improvement_description": "",
+        "assessment": "7300.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "658.000",
+        "sale_date": "1976-02-03",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "364380805",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 121
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T23:30:40.402Z",
+        "improvement_description": "",
+        "assessment": "6700.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "1248.000",
+        "sale_date": "1997-07-18",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "472131510",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 127
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T23:30:41.315Z",
+        "improvement_description": "",
+        "assessment": "4200.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "1155.000",
+        "sale_date": "1970-09-30",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "371338001",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 129
+},
+{
+    "fields": {
+        "account_owner": 118,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T23:30:49.729Z",
+        "improvement_description": "",
+        "assessment": "11300.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "1116.000",
+        "sale_date": "2007-07-09",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "363276100",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 137
+},
+{
+    "fields": {
+        "account_owner": 8,
+        "improvement_area": 0,
+        "last_updated": "2014-10-15T23:30:52.283Z",
+        "improvement_description": "",
+        "assessment": "4600.00",
+        "mailing_postal_code": null,
+        "mailing_country": "USA",
+        "land_area": "980.000",
+        "sale_date": "1970-09-30",
+        "mailing_city": null,
+        "mailing_state_province": null,
+        "mailing_name": null,
+        "mailing_address": null,
+        "external_id": "322072701",
+        "property_address": null
+    },
+    "model": "opa.billingaccount",
+    "pk": 139
+}
+]

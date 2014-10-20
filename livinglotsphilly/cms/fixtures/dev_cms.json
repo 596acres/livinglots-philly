@@ -1,0 +1,306 @@
+[
+{
+    "fields": {
+        "is_featured": false,
+        "language": "en",
+        "author": [
+            "eric"
+        ],
+        "translation_of": null,
+        "title": "test",
+        "is_active": true,
+        "published_on": "2014-10-08T23:41:09Z",
+        "last_changed": "2014-10-08T23:41:27.374Z",
+        "publication_end_date": null,
+        "publication_date": "2014-10-08T23:40:00Z",
+        "slug": "test",
+        "categories": []
+    },
+    "model": "elephantblog.entry",
+    "pk": 1
+},
+{
+    "fields": {
+        "is_featured": false,
+        "language": "en",
+        "author": [
+            "eric"
+        ],
+        "translation_of": null,
+        "title": "Test 2",
+        "is_active": true,
+        "published_on": "2014-10-13T14:34:47Z",
+        "last_changed": "2014-10-13T14:35:02.356Z",
+        "publication_end_date": null,
+        "publication_date": "2014-10-13T14:30:00Z",
+        "slug": "test-2",
+        "categories": []
+    },
+    "model": "elephantblog.entry",
+    "pk": 2
+},
+{
+    "fields": {
+        "ordering": 0,
+        "text": "<p>testl</p>",
+        "region": "main",
+        "parent": 1
+    },
+    "model": "elephantblog.richtextcontent",
+    "pk": 1
+},
+{
+    "fields": {
+        "ordering": 0,
+        "text": "<p>blah blah blah</p>",
+        "region": "main",
+        "parent": 2
+    },
+    "model": "elephantblog.richtextcontent",
+    "pk": 2
+},
+{
+    "fields": {
+        "rght": 14,
+        "redirect_to": "",
+        "language": "en",
+        "parent": null,
+        "level": 0,
+        "translation_of": null,
+        "title": "Home",
+        "override_url": "/",
+        "lft": 1,
+        "publication_end_date": null,
+        "template_key": "home_map.html",
+        "tree_id": 1,
+        "active": true,
+        "publication_date": "2014-10-06T20:05:00Z",
+        "in_navigation": true,
+        "_cached_url": "/",
+        "slug": "home"
+    },
+    "model": "page.page",
+    "pk": 1
+},
+{
+    "fields": {
+        "rght": 7,
+        "redirect_to": "",
+        "language": "en",
+        "parent": 1,
+        "level": 1,
+        "translation_of": null,
+        "title": "About",
+        "override_url": "",
+        "lft": 2,
+        "publication_end_date": null,
+        "template_key": "base.html",
+        "tree_id": 1,
+        "active": true,
+        "publication_date": "2014-10-06T20:05:00Z",
+        "in_navigation": true,
+        "_cached_url": "/about/",
+        "slug": "about"
+    },
+    "model": "page.page",
+    "pk": 2
+},
+{
+    "fields": {
+        "rght": 9,
+        "redirect_to": "",
+        "language": "en",
+        "parent": 1,
+        "level": 1,
+        "translation_of": null,
+        "title": "Admin",
+        "override_url": "",
+        "lft": 8,
+        "publication_end_date": null,
+        "template_key": "base.html",
+        "tree_id": 1,
+        "active": true,
+        "publication_date": "2014-10-06T20:10:00Z",
+        "in_navigation": false,
+        "_cached_url": "/extra-admin/",
+        "slug": "extra-admin"
+    },
+    "model": "page.page",
+    "pk": 3
+},
+{
+    "fields": {
+        "rght": 13,
+        "redirect_to": "",
+        "language": "en",
+        "parent": 1,
+        "level": 1,
+        "translation_of": null,
+        "title": "Blog",
+        "override_url": "",
+        "lft": 10,
+        "publication_end_date": null,
+        "template_key": "home_map.html",
+        "tree_id": 1,
+        "active": true,
+        "publication_date": "2014-10-06T20:05:00Z",
+        "in_navigation": true,
+        "_cached_url": "/blog/",
+        "slug": "blog"
+    },
+    "model": "page.page",
+    "pk": 4
+},
+{
+    "fields": {
+        "rght": 4,
+        "redirect_to": "",
+        "language": "en",
+        "parent": 2,
+        "level": 2,
+        "translation_of": null,
+        "title": "About Us",
+        "override_url": "",
+        "lft": 3,
+        "publication_end_date": null,
+        "template_key": "base.html",
+        "tree_id": 1,
+        "active": true,
+        "publication_date": "2014-10-06T20:05:00Z",
+        "in_navigation": true,
+        "_cached_url": "/about/about-us/",
+        "slug": "about-us"
+    },
+    "model": "page.page",
+    "pk": 5
+},
+{
+    "fields": {
+        "rght": 6,
+        "redirect_to": "",
+        "language": "en",
+        "parent": 2,
+        "level": 2,
+        "translation_of": null,
+        "title": "About Our Data",
+        "override_url": "",
+        "lft": 5,
+        "publication_end_date": null,
+        "template_key": "base.html",
+        "tree_id": 1,
+        "active": true,
+        "publication_date": "2014-10-06T20:05:00Z",
+        "in_navigation": true,
+        "_cached_url": "/about/about-our-data/",
+        "slug": "about-our-data"
+    },
+    "model": "page.page",
+    "pk": 6
+},
+{
+    "fields": {
+        "rght": 12,
+        "redirect_to": "",
+        "language": "en",
+        "parent": 4,
+        "level": 2,
+        "translation_of": null,
+        "title": "Archive",
+        "override_url": "",
+        "lft": 11,
+        "publication_end_date": null,
+        "template_key": "base.html",
+        "tree_id": 1,
+        "active": true,
+        "publication_date": "2014-10-06T20:05:00Z",
+        "in_navigation": true,
+        "_cached_url": "/blog/archive/",
+        "slug": "archive"
+    },
+    "model": "page.page",
+    "pk": 7
+},
+{
+    "fields": {
+        "ordering": 0,
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis blandit neque. Integer ornare mi a aliquam hendrerit. Suspendisse porta, metus in interdum posuere, tellus velit molestie leo, sed fermentum ante orci a ante. Morbi finibus maximus nulla quis venenatis. Cras pellentesque at felis vitae aliquet. Donec sit amet molestie nulla. Curabitur eu fringilla elit. Curabitur ut aliquet risus, quis elementum ligula.</p>\r\n<div id=\"lipsum\">\r\n<p>Proin congue mauris quis sapien faucibus, in blandit est venenatis. Morbi fringilla vitae eros et vestibulum. Suspendisse at faucibus erat. Mauris molestie lorem sed mi finibus malesuada. Vestibulum felis mauris, ultricies at varius ut, fringilla eu quam. Nulla semper volutpat commodo. Fusce tempus pretium ex id tempus. Integer vitae diam at nibh scelerisque cursus. Quisque fringilla nisi vitae sollicitudin pretium. Vestibulum efficitur quam vel risus pellentesque molestie. Quisque ullamcorper sollicitudin nunc, feugiat bibendum augue aliquam eu. Morbi consectetur ipsum nec vehicula posuere. Cras posuere libero id erat faucibus, vel commodo est gravida. Aliquam vitae est eget ante maximus sagittis. Curabitur in volutpat erat, sit amet ultrices libero.</p>\r\n<p>Duis sagittis ex arcu, eget faucibus velit accumsan id. Nullam egestas lectus libero, nec aliquam ipsum varius ut. Morbi non magna ligula. Quisque pharetra placerat gravida. Pellentesque sed est lectus. Duis feugiat tortor nisi, nec ornare neque faucibus sed. Phasellus et tincidunt ligula. Vestibulum sit amet scelerisque mi. Sed ut diam euismod, dictum mi non, hendrerit magna. Cras convallis pretium auctor.</p>\r\n<p>Pellentesque ut arcu mauris. Nulla felis felis, blandit posuere nulla et, imperdiet convallis enim. Donec aliquam vulputate viverra. Aliquam ut ipsum placerat, scelerisque turpis et, pulvinar dolor. Nam convallis nisl commodo orci condimentum, quis blandit dui fringilla. Vivamus nisi felis, rhoncus eu dignissim non, pellentesque vitae sapien. Pellentesque quis neque mauris. Proin sit amet nunc ut lectus sagittis euismod ac eu tortor. Fusce a arcu vel lorem facilisis ullamcorper.</p>\r\n<p>Aenean in lacinia arcu. Phasellus porta arcu et nisl bibendum gravida. Sed quis laoreet ligula. Fusce tempor sit amet mi ut hendrerit. Suspendisse commodo venenatis quam, ut suscipit ante cursus a. Ut quis convallis ipsum. Sed ut egestas sem, sit amet varius erat.&nbsp;</p>\r\n</div>",
+        "region": "main",
+        "parent": 2
+    },
+    "model": "page.richtextcontent",
+    "pk": 1
+},
+{
+    "fields": {
+        "ordering": 0,
+        "text": "<p>There are over 30,000 vacant lots in Philadelphia.</p>",
+        "region": "welcome",
+        "parent": 1
+    },
+    "model": "page.richtextcontent",
+    "pk": 2
+},
+{
+    "fields": {
+        "ordering": 0,
+        "text": "<p>About us</p>",
+        "region": "main",
+        "parent": 5
+    },
+    "model": "page.richtextcontent",
+    "pk": 3
+},
+{
+    "fields": {
+        "ordering": 0,
+        "text": "<p>About our data</p>",
+        "region": "main",
+        "parent": 6
+    },
+    "model": "page.richtextcontent",
+    "pk": 4
+},
+{
+    "fields": {
+        "ordering": 0,
+        "text": "<p>blog: archive</p>",
+        "region": "main",
+        "parent": 7
+    },
+    "model": "page.richtextcontent",
+    "pk": 5
+},
+{
+    "fields": {
+        "ordering": 0,
+        "region": "main",
+        "parent": 1,
+        "parameters": "",
+        "urlconf_path": "lots.map_urls"
+    },
+    "model": "page.applicationcontent",
+    "pk": 1
+},
+{
+    "fields": {
+        "ordering": 0,
+        "region": "main",
+        "parent": 3,
+        "parameters": "",
+        "urlconf_path": "extraadmin.cms_urls"
+    },
+    "model": "page.applicationcontent",
+    "pk": 2
+},
+{
+    "fields": {
+        "ordering": 0,
+        "region": "main",
+        "parent": 4,
+        "parameters": "",
+        "urlconf_path": "elephantblog.urls"
+    },
+    "model": "page.applicationcontent",
+    "pk": 3
+}
+]

@@ -1,0 +1,172 @@
+[
+{
+    "fields": {
+        "violation_datetime": "2014-01-28T05:00:00Z",
+        "violation_type": 2,
+        "external_id": "3071952",
+        "location": 2532,
+        "case_number": "417459"
+    },
+    "model": "violations.violation",
+    "pk": 44
+},
+{
+    "fields": {
+        "violation_datetime": "2014-02-21T05:00:00Z",
+        "violation_type": 2,
+        "external_id": "3090243",
+        "location": 2601,
+        "case_number": "419518"
+    },
+    "model": "violations.violation",
+    "pk": 116
+},
+{
+    "fields": {
+        "violation_datetime": "2014-02-24T05:00:00Z",
+        "violation_type": 2,
+        "external_id": "3091978",
+        "location": 2611,
+        "case_number": "419727"
+    },
+    "model": "violations.violation",
+    "pk": 126
+},
+{
+    "fields": {
+        "violation_datetime": "2014-01-31T05:00:00Z",
+        "violation_type": 2,
+        "external_id": "3109783",
+        "location": 2625,
+        "case_number": "417883"
+    },
+    "model": "violations.violation",
+    "pk": 141
+},
+{
+    "fields": {
+        "violation_datetime": "2014-06-24T04:00:00Z",
+        "violation_type": 2,
+        "external_id": "3310700",
+        "location": 2898,
+        "case_number": "440940"
+    },
+    "model": "violations.violation",
+    "pk": 438
+},
+{
+    "fields": {
+        "violation_datetime": "2014-04-07T04:00:00Z",
+        "violation_type": 3,
+        "external_id": "3136541",
+        "location": 3435,
+        "case_number": "425421"
+    },
+    "model": "violations.violation",
+    "pk": 993
+},
+{
+    "fields": {
+        "violation_datetime": "2014-05-02T04:00:00Z",
+        "violation_type": 3,
+        "external_id": "3164265",
+        "location": 4004,
+        "case_number": "429186"
+    },
+    "model": "violations.violation",
+    "pk": 1579
+},
+{
+    "fields": {
+        "violation_datetime": "2014-05-02T04:00:00Z",
+        "violation_type": 3,
+        "external_id": "3164386",
+        "location": 4024,
+        "case_number": "429211"
+    },
+    "model": "violations.violation",
+    "pk": 1600
+},
+{
+    "fields": {
+        "violation_datetime": "2014-05-22T04:00:00Z",
+        "violation_type": 3,
+        "external_id": "3190181",
+        "location": 4762,
+        "case_number": "432977"
+    },
+    "model": "violations.violation",
+    "pk": 2367
+},
+{
+    "fields": {
+        "violation_datetime": "2014-05-22T04:00:00Z",
+        "violation_type": 3,
+        "external_id": "3190401",
+        "location": 2898,
+        "case_number": "433018"
+    },
+    "model": "violations.violation",
+    "pk": 2407
+},
+{
+    "fields": {
+        "li_description": "DUMPING - PRIVATE LOT",
+        "full_description": null,
+        "code": "CP-802",
+        "readable_description": null
+    },
+    "model": "violations.violationtype",
+    "pk": 1
+},
+{
+    "fields": {
+        "li_description": "LICENSE-VAC LOT",
+        "full_description": "",
+        "code": "PM-102.4/1",
+        "readable_description": "lot was found vacant and unregistered"
+    },
+    "model": "violations.violationtype",
+    "pk": 2
+},
+{
+    "fields": {
+        "li_description": "EXT A-VACANT LOT CLEAN/MAINTAI",
+        "full_description": null,
+        "code": "PM-302.2/4",
+        "readable_description": null
+    },
+    "model": "violations.violationtype",
+    "pk": 3
+},
+{
+    "fields": {
+        "li_description": "VACANT LOT STANDARD",
+        "full_description": null,
+        "code": "PM-306.0/2",
+        "readable_description": null
+    },
+    "model": "violations.violationtype",
+    "pk": 4
+},
+{
+    "fields": {
+        "li_description": "VACANT LOT KEEP CLEAN GET LIC",
+        "full_description": null,
+        "code": "PM-306.0/91",
+        "readable_description": null
+    },
+    "model": "violations.violationtype",
+    "pk": 5
+},
+{
+    "fields": {
+        "li_description": "CONSTRUCTION EXCAVATION-OLD",
+        "full_description": null,
+        "code": "PM-307.1/21",
+        "readable_description": null
+    },
+    "model": "violations.violationtype",
+    "pk": 6
+}
+]
