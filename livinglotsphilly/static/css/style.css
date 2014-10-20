@@ -3882,6 +3882,10 @@ ul.lot-detail-reasons li {
   color: #B1C06F;
   font-size: 24px;
 }
+.home-map-page #page-wrapper {
+  margin: 0;
+  max-width: 100%;
+}
 .home-map-page .content-wrapper {
   padding: 0;
 }
