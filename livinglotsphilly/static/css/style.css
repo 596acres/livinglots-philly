@@ -3824,14 +3824,6 @@ ul.lot-detail-reasons li {
 #streetview-error {
   display: none;
 }
-#map-right {
-  padding-left: 25px;
-}
-@media (max-width: 768px) {
-  #map-right {
-    padding-left: 0;
-  }
-}
 .map-sidebar-section {
   margin-bottom: 25px;
 }
