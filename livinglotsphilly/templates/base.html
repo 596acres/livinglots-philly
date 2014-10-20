@@ -172,12 +172,14 @@
             </div>
 
             <div class="logos">
-                <a href="http://www.pilcop.org" target="_blank" id="pilcop">
-                    <img src="{% static "img/logo-pilcop.png" %}" />
-                </a>
-                <a href="http://596acres.org" target="_blank" id="fiveninesix">
-                    <img src="{% static "img/logo-596acres.png" %}" />
-                </a>
+                {% spaceless %}
+                    <a href="http://www.pilcop.org" target="_blank" id="pilcop">
+                        <img src="{% static "img/logo-pilcop.png" %}" />
+                    </a>
+                    <a href="http://596acres.org" target="_blank" id="fiveninesix">
+                        <img src="{% static "img/logo-596acres.png" %}" />
+                    </a>
+                {% endspaceless %}
             </div>
         </div>
     </body>

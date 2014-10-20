@@ -22,7 +22,7 @@ $(document).ready(function () {
         $(this).find('input[type="submit"]').attr('disabled', 'disabled');
     });
 
-    $('.content-wrapper').noisy({
+    $('body').noisy({
         'intensity' : 0.5,
         'size' : 100,
         'opacity' : 0.15,

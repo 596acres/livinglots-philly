@@ -3418,8 +3418,7 @@ input[type="color"]:last-child,
   margin-bottom: 10px;
 }
 #footer {
-  background-color: white;
-  color: black;
+  color: white;
   padding-top: 50px;
   text-align: center;
 }
@@ -3430,10 +3429,10 @@ input[type="color"]:last-child,
   text-decoration: underline;
 }
 #footer .logos img {
-  height: auto;
-  max-width: 300px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  background: white;
+  height: 75px;
+  margin: 10px;
+  padding: 5px;
 }
 #tagline {
   color: white;
@@ -3503,7 +3502,6 @@ header {
 .content-wrapper {
   margin-left: 0;
   margin-right: 0;
-  background-color: #437e71;
 }
 .content-wrapper:before,
 .content-wrapper:after {
