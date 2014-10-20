@@ -3846,18 +3846,43 @@ ul.lot-detail-reasons li {
   margin-top: 5px;
 }
 .map-tally-container {
-  border-top: 1px solid #E6E2E3;
+  margin-left: -15px;
+  margin-right: -15px;
   color: #553B43;
 }
-#map-left .map-tally-container h2 {
+.map-tally-container:before,
+.map-tally-container:after {
+  content: " ";
+  display: table;
+}
+.map-tally-container:after {
+  clear: both;
+}
+.map-tally-container:before,
+.map-tally-container:after {
+  content: " ";
+  display: table;
+}
+.map-tally-container:after {
+  clear: both;
+}
+.map-tally-container h2 {
   font-size: 16px;
   text-transform: none;
 }
-.map-tally li {
-  float: left;
-  padding: 15px;
+.map-tally-container .map-tally-section {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-.map-tally .count {
+@media (min-width: 768px) {
+  .map-tally-container .map-tally-section {
+    float: left;
+    width: 25%;
+  }
+}
+.map-tally-container .map-tally .count {
   color: #B1C06F;
   font-size: 24px;
 }

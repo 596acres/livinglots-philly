@@ -1,5 +1,29 @@
 {% load blog_widgets feincms_tags i18n static %}
 
+<div class="map-tally-container">
+    <h2>{% trans "You are currently looking at" %}</h2>
+    <div class="map-tally">
+        <div class="map-tally-section">
+            <span class="count lots-count">...</span> {% trans "lots" %}
+        </div>
+        <div class="map-tally-section">
+            <span class="count no-known-use-count">...</span> {% trans "lots with no known use" %}
+        </div>
+        <div class="map-tally-section">
+            <span class="count in-use-count">...</span> {% trans "lots being used as community spaces" %}
+        </div>
+
+        <div class="map-tally-section">
+            <a href="#" class="export-link">{% trans "Link to this view" %}</a>. 
+            {% trans "Or download current lots as" %}
+            <a href="#" class="export-csv" data-baseurl="{% url "lots:csv" %}?">{% trans "a spreadsheet" %}</a>,
+            <a href="#" class="export-geojson" data-baseurl="{% url "lots:geojson" %}?download=yes&">{% trans "GeoJSON" %}</a>, or
+            <a href="#" class="export-kml" data-baseurl="{% url "lots:kml" %}?">{% trans "KML" %}</a>.
+        </div>
+
+    </div>
+</div>
+
 <div id="map-left" class="grid grid-3-4">
     {% include "lots/map/_mainmap.html" %}
 
@@ -126,30 +150,6 @@
 
     </div>
 
-    <div class="map-tally-container grid">
-        <h2>{% trans "You are currently looking at" %}</h2>
-        <div class="map-tally">
-            <div class="grid grid-1-4">
-                <span class="count lots-count">...</span> {% trans "lots" %}
-            </div>
-            <div class="grid grid-1-4">
-                <span class="count no-known-use-count">...</span> {% trans "lots with no known use" %}
-            </div>
-            <div class="grid grid-1-4">
-                <span class="count in-use-count">...</span> {% trans "lots being used as community spaces" %}
-            </div>
-
-            <div class="grid grid-1-4">
-                <a href="#" class="export-link">{% trans "Link to this view" %}</a>. 
-                {% trans "Or download current lots as" %}
-                <a href="#" class="export-csv" data-baseurl="{% url "lots:csv" %}?">{% trans "a spreadsheet" %}</a>,
-                <a href="#" class="export-geojson" data-baseurl="{% url "lots:geojson" %}?download=yes&">{% trans "GeoJSON" %}</a>, or
-                <a href="#" class="export-kml" data-baseurl="{% url "lots:kml" %}?">{% trans "KML" %}</a>.
-            </div>
-
-        </div>
-    </div>
-
     <div class="clear"></div>
 </div>
 
@@ -175,24 +175,6 @@
         </ul>
     </div>
 
-    <div class="newsletter-signup map-sidebar-section">
-        <h2>{% trans "Get news from Grounded in Philly" %}</h2>
-
-        <form class="non-filter" action="http://visitor.r20.constantcontact.com/d.jsp" method="post" name="ccoptin" target="_blank">
-            <p>
-                <input class="form-control" placeholder="{% trans "Enter Email Address" %}" type="text" name="ea" value="" /> 
-                <button class="btn btn-default submit" type="submit" name="go">
-                    {% trans "GO" %}
-                </button>
-            </p>
-            <p>
-                <input type="hidden" name="llr" value="4zzjribab" /> 
-                <input type="hidden" name="m" value="1100871952191" /> 
-                <input type="hidden" name="p" value="oi" />
-            </p>
-        </form>
-    </div>
-
     <div class="activity-stream-section map-sidebar-section">
         <h2>{% trans "Recent Activities" %}</h2>
         <div class="activity-stream">
@@ -201,14 +183,5 @@
                 <a href="/activity-stream/">next page</a>
             </div>
         </div>
-    </div>
-
-    <div class="map-sidebar-logos">
-        <a href="http://www.pilcop.org" target="_blank" id="pilcop">
-            <img src="{% static "img/logo-pilcop.png" %}" />
-        </a>
-        <a href="http://596acres.org" target="_blank" id="fiveninesix">
-            <img src="{% static "img/logo-596acres.png" %}" />
-        </a>
     </div>
 </div>

@@ -27,20 +27,22 @@
 }
 
 .map-tally-container {
-    border-top: 1px solid #E6E2E3;
+    .make-row();
     color: #553B43;
-}
-#map-left .map-tally-container h2 {
-    font-size: 16px;
-    text-transform: none;
-}
 
-.map-tally li {
-    float: left;
-    padding: 15px;
-}
+    h2 {
+        font-size: 16px;
+        text-transform: none;
+    }
 
-.map-tally .count {
-    color: #B1C06F;
-    font-size: 24px;
+    .map-tally {
+        &-section {
+            .make-sm-column(3);
+        }
+
+        .count {
+            color: #B1C06F;
+            font-size: 24px;
+        }
+    }
 }
