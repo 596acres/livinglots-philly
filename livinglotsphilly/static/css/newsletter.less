@@ -1,9 +1,17 @@
-.newsletter-signup {
-    background-color: #E6E2E3;
-    padding: 15px;
-    padding-top: 5px;
-}
+.newsletter {
+    &-row {
+        .make-row(0);
+    }
 
-.newsletter-signup form {
-    margin: 0;
+    &-signup {
+        .make-md-column(4);
+        .make-md-column-offset(4);
+        background-color: #E6E2E3;
+        padding: 15px;
+        padding-top: 5px;
+
+        form {
+            margin: 0;
+        }
+    }
 }

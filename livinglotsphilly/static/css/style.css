@@ -3418,11 +3418,9 @@ input[type="color"]:last-child,
   margin-bottom: 10px;
 }
 #footer {
-  color: white;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  margin-left: 25%;
-  margin-right: 25%;
+  background-color: white;
+  color: black;
+  padding-top: 50px;
   text-align: center;
 }
 #footer a,
@@ -3430,6 +3428,12 @@ input[type="color"]:last-child,
 #footer a:hover {
   color: white;
   text-decoration: underline;
+}
+#footer .logos img {
+  height: auto;
+  max-width: 300px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 #tagline {
   color: white;
@@ -3824,15 +3828,6 @@ ul.lot-detail-reasons li {
 #streetview-error {
   display: none;
 }
-.map-sidebar-section {
-  margin-bottom: 25px;
-}
-.map-sidebar-logos img {
-  height: auto;
-  max-width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 .recent-entry {
   margin-bottom: 5px;
   margin-top: 5px;
@@ -3936,10 +3931,45 @@ ul.lot-detail-reasons li {
   padding: 15px;
   position: absolute;
 }
+.newsletter-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.newsletter-row:before,
+.newsletter-row:after {
+  content: " ";
+  display: table;
+}
+.newsletter-row:after {
+  clear: both;
+}
+.newsletter-row:before,
+.newsletter-row:after {
+  content: " ";
+  display: table;
+}
+.newsletter-row:after {
+  clear: both;
+}
 .newsletter-signup {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   background-color: #E6E2E3;
   padding: 15px;
   padding-top: 5px;
+}
+@media (min-width: 992px) {
+  .newsletter-signup {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 992px) {
+  .newsletter-signup {
+    margin-left: 33.33333333%;
+  }
 }
 .newsletter-signup form {
   margin: 0;
