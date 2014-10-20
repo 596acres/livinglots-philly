@@ -1,321 +1,158 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import django.db.models.deletion
+import django.contrib.gis.db.models.fields
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Lot'
-        db.create_table(u'lots_lot', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('centroid', self.gf('django.contrib.gis.db.models.fields.PointField')(null=True, blank=True)),
-            ('polygon', self.gf('django.contrib.gis.db.models.fields.MultiPolygonField')(null=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=256, null=True, blank=True)),
-            ('address_line1', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('address_line2', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('postal_code', self.gf('django.db.models.fields.CharField')(max_length=10, null=True, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
-            ('state_province', self.gf('django.db.models.fields.CharField')(max_length=40, null=True, blank=True)),
-            ('country', self.gf('django.db.models.fields.CharField')(max_length=40, null=True, blank=True)),
-            ('owner', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['owners.Owner'], null=True, on_delete=models.SET_NULL, blank=True)),
-            ('billing_account', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['opa.BillingAccount'], null=True, on_delete=models.SET_NULL, blank=True)),
-            ('tax_account', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['taxaccounts.TaxAccount'], null=True, on_delete=models.SET_NULL, blank=True)),
-            ('parcel', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['parcels.Parcel'], null=True, on_delete=models.SET_NULL, blank=True)),
-            ('land_use_area', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['landuse.LandUseArea'], null=True, on_delete=models.SET_NULL, blank=True)),
-            ('available_property', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['availableproperties.AvailableProperty'], null=True, blank=True)),
-            ('water_parcel', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['waterdept.WaterParcel'], null=True, blank=True)),
-            ('known_use', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lots.Use'], null=True, blank=True)),
-            ('added', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-        ))
-        db.send_create_signal(u'lots', ['Lot'])
+    dependencies = [
+        ('availableproperties', '0001_initial'),
+        ('taxaccounts', '0001_initial'),
+        ('landuse', '0001_initial'),
+        ('parcels', '0001_initial'),
+        ('owners', '0001_initial'),
+        ('violations', '0003_auto_20141015_1947'),
+        ('waterdept', '0001_initial'),
+        ('opa', '0001_initial'),
+        ('zoning', '0001_initial'),
+        ('boundaries', '__first__'),
+        ('licenses', '0001_initial'),
+    ]
 
-        # Adding M2M table for field violations on 'Lot'
-        db.create_table(u'lots_lot_violations', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('lot', models.ForeignKey(orm[u'lots.lot'], null=False)),
-            ('violation', models.ForeignKey(orm[u'violations.violation'], null=False))
-        ))
-        db.create_unique(u'lots_lot_violations', ['lot_id', 'violation_id'])
-
-        # Adding model 'Use'
-        db.create_table(u'lots_use', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=200)),
-        ))
-        db.send_create_signal(u'lots', ['Use'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'Lot'
-        db.delete_table(u'lots_lot')
-
-        # Removing M2M table for field violations on 'Lot'
-        db.delete_table('lots_lot_violations')
-
-        # Deleting model 'Use'
-        db.delete_table(u'lots_use')
-
-
-    models = {
-        u'actstream.action': {
-            'Meta': {'ordering': "('-timestamp',)", 'object_name': 'Action'},
-            'action_object_content_type': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'action_object'", 'null': 'True', 'to': u"orm['contenttypes.ContentType']"}),
-            'action_object_object_id': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'actor_content_type': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'actor'", 'to': u"orm['contenttypes.ContentType']"}),
-            'actor_object_id': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'data': ('jsonfield.fields.JSONField', [], {'null': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'place': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True', 'blank': 'True'}),
-            'public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'target_content_type': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'target'", 'null': 'True', 'to': u"orm['contenttypes.ContentType']"}),
-            'target_object_id': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'verb': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        u'availableproperties.availableproperty': {
-            'Meta': {'object_name': 'AvailableProperty'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'address': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'agency': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
-            'area': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '2', 'blank': 'True'}),
-            'asset_id': ('django.db.models.fields.CharField', [], {'max_length': '10', 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'centroid': ('django.contrib.gis.db.models.fields.PointField', [], {}),
-            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_seen': ('django.db.models.fields.DateTimeField', [], {}),
-            'mapreg': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
-            'price': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'price_str': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'new and available'", 'max_length': '30'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'landuse.landusearea': {
-            'Meta': {'object_name': 'LandUseArea'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'area': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '2', 'blank': 'True'}),
-            'category': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
-            'geometry': ('django.contrib.gis.db.models.fields.MultiPolygonField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'object_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '15'}),
-            'subcategory': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
-            'vacant_building': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'})
-        },
-        u'lots.lot': {
-            'Meta': {'object_name': 'Lot'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'address_line1': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
-            'address_line2': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
-            'available_property': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['availableproperties.AvailableProperty']", 'null': 'True', 'blank': 'True'}),
-            'billing_account': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['opa.BillingAccount']", 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
-            'centroid': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True', 'blank': 'True'}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
-            'country': ('django.db.models.fields.CharField', [], {'max_length': '40', 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'known_use': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['lots.Use']", 'null': 'True', 'blank': 'True'}),
-            'land_use_area': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['landuse.LandUseArea']", 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['owners.Owner']", 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
-            'parcel': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['parcels.Parcel']", 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
-            'polygon': ('django.contrib.gis.db.models.fields.MultiPolygonField', [], {'null': 'True', 'blank': 'True'}),
-            'postal_code': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
-            'state_province': ('django.db.models.fields.CharField', [], {'max_length': '40', 'null': 'True', 'blank': 'True'}),
-            'tax_account': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['taxaccounts.TaxAccount']", 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
-            'violations': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['violations.Violation']", 'null': 'True', 'blank': 'True'}),
-            'water_parcel': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['waterdept.WaterParcel']", 'null': 'True', 'blank': 'True'})
-        },
-        u'lots.use': {
-            'Meta': {'object_name': 'Use'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '200'})
-        },
-        u'opa.accountowner': {
-            'Meta': {'object_name': 'AccountOwner'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '256'}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['owners.Owner']", 'null': 'True', 'blank': 'True'})
-        },
-        u'opa.billingaccount': {
-            'Meta': {'object_name': 'BillingAccount'},
-            'account_owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['opa.AccountOwner']", 'null': 'True', 'blank': 'True'}),
-            'assessment': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '20', 'decimal_places': '2', 'blank': 'True'}),
-            'external_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'improvement_area': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'improvement_description': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
-            'land_area': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '20', 'decimal_places': '3', 'blank': 'True'}),
-            'last_updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'mailing_address': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
-            'mailing_city': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
-            'mailing_country': ('django.db.models.fields.CharField', [], {'default': "'USA'", 'max_length': '40', 'null': 'True', 'blank': 'True'}),
-            'mailing_name': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
-            'mailing_postal_code': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
-            'mailing_state_province': ('django.db.models.fields.CharField', [], {'max_length': '40', 'null': 'True', 'blank': 'True'}),
-            'property_address': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
-            'sale_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'})
-        },
-        u'organize.organizer': {
-            'Meta': {'object_name': 'Organizer'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'added_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'email_hash': ('django.db.models.fields.CharField', [], {'max_length': '40', 'null': 'True', 'blank': 'True'}),
-            'facebook_page': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'phone': ('django.db.models.fields.CharField', [], {'max_length': '32', 'null': 'True', 'blank': 'True'}),
-            'type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['organize.OrganizerType']"}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
-        },
-        u'organize.organizertype': {
-            'Meta': {'object_name': 'OrganizerType'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_group': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
-        },
-        u'organize.watcher': {
-            'Meta': {'object_name': 'Watcher'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'added_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'email_hash': ('django.db.models.fields.CharField', [], {'max_length': '40', 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'phone': ('django.db.models.fields.CharField', [], {'max_length': '32', 'null': 'True', 'blank': 'True'})
-        },
-        u'owners.agencycode': {
-            'Meta': {'object_name': 'AgencyCode'},
-            'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '256'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'owners.alias': {
-            'Meta': {'object_name': 'Alias'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '256'})
-        },
-        u'owners.owner': {
-            'Meta': {'object_name': 'Owner'},
-            'agency_codes': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['owners.AgencyCode']", 'null': 'True', 'blank': 'True'}),
-            'aliases': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['owners.Alias']", 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '256'}),
-            'owner_type': ('django.db.models.fields.CharField', [], {'default': "'unknown'", 'max_length': '20'})
-        },
-        u'parcels.parcel': {
-            'Meta': {'object_name': 'Parcel'},
-            'address': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
-            'basereg': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
-            'geometry': ('django.contrib.gis.db.models.fields.MultiPolygonField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'mapreg': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
-            'stcod': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'})
-        },
-        u'taxaccounts.taxaccount': {
-            'Meta': {'object_name': 'TaxAccount'},
-            'amount_delinquent': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '2', 'blank': 'True'}),
-            'billing_account': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['opa.BillingAccount']", 'null': 'True', 'blank': 'True'}),
-            'brt_number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '10'}),
-            'building_category': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'building_description': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'exempt_abate_assessment': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '2', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_updated': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'market_value': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '2', 'blank': 'True'}),
-            'max_period': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'min_period': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'owner_name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'owner_name2': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'property_address': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
-            'property_city': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
-            'property_postal_code': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
-            'property_state_province': ('django.db.models.fields.CharField', [], {'max_length': '40', 'null': 'True', 'blank': 'True'}),
-            'taxable_assessment': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '15', 'decimal_places': '2', 'blank': 'True'}),
-            'years_delinquent': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
-        },
-        u'violations.violation': {
-            'Meta': {'object_name': 'Violation'},
-            'external_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'violation_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'violation_location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['violations.ViolationLocation']"}),
-            'violation_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['violations.ViolationType']"})
-        },
-        u'violations.violationlocation': {
-            'Meta': {'object_name': 'ViolationLocation'},
-            'address': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
-            'external_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'point': ('django.contrib.gis.db.models.fields.PointField', [], {}),
-            'zip_code': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'})
-        },
-        u'violations.violationtype': {
-            'Meta': {'object_name': 'ViolationType'},
-            'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '32'}),
-            'full_description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'li_description': ('django.db.models.fields.TextField', [], {})
-        },
-        u'waterdept.waterparcel': {
-            'Meta': {'object_name': 'WaterParcel'},
-            'address': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
-            'brt_account': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
-            'building_code': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
-            'building_description': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'building_type': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
-            'gross_area': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '20', 'decimal_places': '2', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'impervious_area': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '20', 'decimal_places': '2', 'blank': 'True'}),
-            'owner1': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
-            'owner2': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
-            'parcel_id': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
-            'ten_code': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'})
-        }
-    }
-
-    complete_apps = ['lots']
+    operations = [
+        migrations.CreateModel(
+            name='Lot',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('centroid', django.contrib.gis.db.models.fields.PointField(srid=4326, null=True, verbose_name='centroid', blank=True)),
+                ('polygon', django.contrib.gis.db.models.fields.MultiPolygonField(srid=4326, null=True, verbose_name='polygon', blank=True)),
+                ('name', models.CharField(max_length=256, null=True, verbose_name='name', blank=True)),
+                ('address_line1', models.CharField(max_length=150, null=True, verbose_name='address line 1', blank=True)),
+                ('address_line2', models.CharField(max_length=150, null=True, verbose_name='address line 2', blank=True)),
+                ('postal_code', models.CharField(max_length=10, null=True, verbose_name='postal code', blank=True)),
+                ('city', models.CharField(max_length=50, null=True, verbose_name='city', blank=True)),
+                ('state_province', models.CharField(max_length=40, null=True, verbose_name='state/province', blank=True)),
+                ('country', models.CharField(max_length=40, null=True, verbose_name='country', blank=True)),
+                ('known_use_certainty', models.PositiveIntegerField(default=0, help_text='On a scale of 0 to 10, how certain are we that the known use is correct?', verbose_name='known use certainty')),
+                ('known_use_locked', models.BooleanField(default=False, help_text='Is the known use field locked? If it is not, the site will make a guess using available data. If you are certain that the known use is correct, lock it.', verbose_name='known use locked')),
+                ('added', models.DateTimeField(help_text=b'When this lot was added', verbose_name='date added', auto_now_add=True)),
+                ('steward_inclusion_opt_in', models.BooleanField(default=False, help_text='Did the steward opt in to being included on our map?', verbose_name='steward inclusion opt-in')),
+                ('polygon_area', models.DecimalField(decimal_places=2, max_digits=15, blank=True, help_text='The area of the polygon in square feet', null=True, verbose_name='polygon area')),
+                ('polygon_width', models.DecimalField(decimal_places=2, max_digits=10, blank=True, help_text='The width of the polygon in feet', null=True, verbose_name='polygon width')),
+                ('polygon_tied_to_parcel', models.BooleanField(default=True, help_text="Is the polygon of this lot always matched up with the parcel's polygon on save?", verbose_name='polygon tied to parcel')),
+            ],
+            options={
+                'permissions': (('view_all_details', 'Can view all details for lots'), ('view_all_filters', 'Can view all map filters for lots'), ('view_all_lots', 'Can view all lots')),
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='LotGroup',
+            fields=[
+                ('lot_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='lots.Lot')),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=('lots.lot',),
+        ),
+        migrations.CreateModel(
+            name='Use',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=200, verbose_name='name')),
+                ('slug', models.SlugField(max_length=200, verbose_name='slug')),
+                ('visible', models.BooleanField(default=True, help_text='Should lots with this use be visible on the map? If the use is not vacant and not a project that someone could join, probably not.', verbose_name='visible')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='available_property',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='availableproperties.AvailableProperty', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='billing_account',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='opa.BillingAccount', help_text="The owner's billing account for this lot.", null=True, verbose_name='billing account'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='city_council_district',
+            field=models.ForeignKey(related_name=b'+', on_delete=django.db.models.deletion.SET_NULL, verbose_name='city council district', blank=True, to='boundaries.Boundary', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='group',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, verbose_name='group', blank=True, to='lots.LotGroup', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='known_use',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='lots.Use', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='land_use_area',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='landuse.LandUseArea', help_text='The land use area for this lot.', null=True, verbose_name='land use'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='licenses',
+            field=models.ManyToManyField(help_text='The licenses associated with this lot.', to='licenses.License', null=True, verbose_name='licenses', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='owner',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='owners.Owner', help_text='The owner of this lot.', null=True, verbose_name='owner'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='parcel',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='parcels.Parcel', help_text='The parcel this lot is based on.', null=True, verbose_name='parcel'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='planning_district',
+            field=models.ForeignKey(related_name=b'+', on_delete=django.db.models.deletion.SET_NULL, verbose_name='planning district', blank=True, to='boundaries.Boundary', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='tax_account',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='taxaccounts.TaxAccount', help_text='The tax account for this lot.', null=True, verbose_name='tax account'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='violations',
+            field=models.ManyToManyField(help_text='The violations associated with this lot.', to='violations.Violation', null=True, verbose_name='violations', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='water_parcel',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='waterdept.WaterParcel', help_text='The parcel the Water Department defines for this lot', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='lot',
+            name='zoning_district',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, verbose_name='zoning district', blank=True, to='zoning.BaseDistrict', null=True),
+            preserve_default=True,
+        ),
+    ]
