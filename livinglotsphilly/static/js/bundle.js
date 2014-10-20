@@ -18947,7 +18947,7 @@ L.Map.include({
 
 L.Map.addInitHook('_lotMapInitialize');
 
-},{"./leaflet.geojsonbounds":25,"./leaflet.legend":26,"./leaflet.lotlayer":27,"./leaflet.message":29,"./lotstyles":31,"./singleminded":35,"leaflet":17,"leaflet-vector-layers":14,"leaflet.bing":13,"leaflet.label":1,"leaflet.loading":15,"leaflet.utfgrid":2,"underscore":19}],29:[function(require,module,exports){
+},{"./leaflet.geojsonbounds":25,"./leaflet.legend":26,"./leaflet.lotlayer":27,"./leaflet.message":29,"./lotstyles":31,"./singleminded":36,"leaflet":17,"leaflet-vector-layers":14,"leaflet.bing":13,"leaflet.label":1,"leaflet.loading":15,"leaflet.utfgrid":2,"underscore":19}],29:[function(require,module,exports){
 var L = require('leaflet');
 
 L.Control.Message = L.Control.extend({
@@ -19069,7 +19069,7 @@ $(document).ready(function () {
     }
 });
 
-},{"./lotstyles":31,"./streetview":36,"bootstrap_tooltip":5,"leaflet":17}],31:[function(require,module,exports){
+},{"./lotstyles":31,"./streetview":37,"bootstrap_tooltip":5,"leaflet":17}],31:[function(require,module,exports){
 var _ = require('underscore');
 
 var layerFills = {
@@ -19228,6 +19228,7 @@ require('jquery.deserialize');
 require('jquery.serializeobject');
 
 require('./leaflet.lotmap');
+require('./overlaymenu');
 require('jquery.debouncedresize');
 
 require('leaflet.usermarker');
@@ -19570,10 +19571,82 @@ $(document).ready(function () {
         });
 
         welcome.init();
+
+        $('.overlay-news-button').overlaymenu({
+            menu: '.overlaymenu-news'
+        });
     }
 });
 
-},{"./jquery.emailparticipants":23,"./jquery.searchbar":24,"./leaflet.lotmap":28,"./singleminded":35,"./streetview":36,"./welcome":37,"jquery.debouncedresize":12,"jquery.deserialize":9,"jquery.serializeobject":11,"leaflet":17,"leaflet.usermarker":16,"spinjs":18}],35:[function(require,module,exports){
+},{"./jquery.emailparticipants":23,"./jquery.searchbar":24,"./leaflet.lotmap":28,"./overlaymenu":35,"./singleminded":36,"./streetview":37,"./welcome":38,"jquery.debouncedresize":12,"jquery.deserialize":9,"jquery.serializeobject":11,"leaflet":17,"leaflet.usermarker":16,"spinjs":18}],35:[function(require,module,exports){
+//
+// overlaymenu.js
+//
+// Overlay / dropdown menus, like modals but less intrusive
+//
+
+var _ = require('underscore');
+
+
+function show(button, menu) {
+    var offset = button.offset(),
+        outerWidth = button.outerWidth(),
+        outerHeight = button.outerHeight(),
+        menuWidth = menu.outerWidth();
+
+    button.trigger('overlaymenuopen');
+
+    menu
+        .show()
+        .offset({
+            left: offset.left + outerWidth - menuWidth,
+            top: offset.top + outerHeight + 13
+        });
+}
+
+function hide(button, menu) {
+    button.trigger('overlaymenuclose');
+    menu.hide();
+}
+
+function isVisible(menu) {
+    return menu.is(':visible');
+}
+
+function isInMenu(target, menu) {
+    return (target[0] === menu[0] ||
+            _.find(target.parents(), function (ele) { return ele === menu[0]; }));
+}
+
+$.fn.overlaymenu = function (options) {
+    var button = this,
+        menu = $(options.menu);
+
+    $('html').click(function (e) {
+        var target = $(e.target);
+
+        // If user not clicking in menu, consider hiding or showing it
+        if (!isInMenu(target, menu)) {
+            if (target[0] === button[0]) {
+                // If button clicked, show or hide the menu appropriately
+                if (isVisible(menu)) {
+                    hide(button, menu);
+                }
+                else {
+                    show(button, menu);
+                }
+                return false;
+            }
+            else {
+                // Something else was clicked--hide the menu
+                hide(button, menu);
+            }
+        }
+    });
+    return this;
+};
+
+},{"underscore":19}],36:[function(require,module,exports){
 var thoughts = {};
 
 function forget(name) {
@@ -19605,7 +19678,7 @@ module.exports = {
     remember: remember
 };
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 function get_heading(lon0, lat0, lon1, lat1) {
     // Don't bother with great-circle calculations--should be close!
     var r = Math.atan2(-(lon1 - lon0), (lat1 - lat0));
@@ -19654,7 +19727,7 @@ module.exports = {
     load_streetview: load_streetview
 };
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 //
 // Welcome header
 //

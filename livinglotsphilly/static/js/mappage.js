@@ -12,6 +12,7 @@ require('jquery.deserialize');
 require('jquery.serializeobject');
 
 require('./leaflet.lotmap');
+require('./overlaymenu');
 require('jquery.debouncedresize');
 
 require('leaflet.usermarker');
@@ -354,5 +355,9 @@ $(document).ready(function () {
         });
 
         welcome.init();
+
+        $('.overlay-news-button').overlaymenu({
+            menu: '.overlaymenu-news'
+        });
     }
 });

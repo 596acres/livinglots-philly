@@ -4,13 +4,16 @@
     <h2>{% trans "You are currently looking at" %}</h2>
     <div class="map-tally">
         <div class="map-tally-section">
-            <span class="count lots-count">...</span> {% trans "lots" %}
+            <div>
+                <span class="count no-known-use-count">...</span> {% trans "lots with no known use" %}
+            </div>
+            <div>
+                <span class="count in-use-count">...</span> {% trans "lots being used as community spaces" %}
+            </div>
         </div>
+
         <div class="map-tally-section">
-            <span class="count no-known-use-count">...</span> {% trans "lots with no known use" %}
-        </div>
-        <div class="map-tally-section">
-            <span class="count in-use-count">...</span> {% trans "lots being used as community spaces" %}
+            <a href="#" class="btn btn-default overlay-news-button">{% trans "News" %}</a>
         </div>
 
         <div class="map-tally-section">
@@ -24,7 +27,7 @@
     </div>
 </div>
 
-<div id="map-left" class="grid grid-3-4">
+<div>
     {% include "lots/map/_mainmap.html" %}
 
     <div id="streetview-container" style="padding: 25px; display: none;">
@@ -153,7 +156,10 @@
     <div class="clear"></div>
 </div>
 
-<div id="map-right" class="grid grid-1-4 clearfix">
+<div class="overlaymenu overlaymenu-news">
+    <div class="overlaymenu-tip-container">
+        <div class="overlaymenu-tip"></div>
+    </div>
 
     <div class="social-media clearfix">
         <ul>
