@@ -1,174 +1,71 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'StewardProject'
-        db.create_table(u'steward_stewardproject', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('use', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lots.Use'])),
-            ('part_of_nga', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('support_organization', self.gf('django.db.models.fields.CharField')(max_length=300, null=True, blank=True)),
-            ('farm_stand', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('waiting_list', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('others_get_involved', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('land_tenure_status', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('organizer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['phillyorganize.Organizer'])),
-        ))
-        db.send_create_signal(u'steward', ['StewardProject'])
+    dependencies = [
+        ('phillyorganize', '0002_auto_20141014_1537'),
+        ('organize', '0001_initial'),
+        ('contenttypes', '0001_initial'),
+        ('lots', '0001_initial'),
+    ]
 
-        # Adding model 'StewardNotification'
-        db.create_table(u'steward_stewardnotification', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('use', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lots.Use'])),
-            ('part_of_nga', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('support_organization', self.gf('django.db.models.fields.CharField')(max_length=300, null=True, blank=True)),
-            ('farm_stand', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('waiting_list', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('others_get_involved', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('land_tenure_status', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('phone', self.gf('django.db.models.fields.CharField')(max_length=32, null=True, blank=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
-            ('type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['organize.OrganizerType'])),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
-            ('facebook_page', self.gf('django.db.models.fields.CharField')(max_length=256, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'steward', ['StewardNotification'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'StewardProject'
-        db.delete_table(u'steward_stewardproject')
-
-        # Deleting model 'StewardNotification'
-        db.delete_table(u'steward_stewardnotification')
-
-
-    models = {
-        u'actstream.action': {
-            'Meta': {'ordering': "('-timestamp',)", 'object_name': 'Action'},
-            'action_object_content_type': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'action_object'", 'null': 'True', 'to': u"orm['contenttypes.ContentType']"}),
-            'action_object_object_id': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'actor_content_type': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'actor'", 'to': u"orm['contenttypes.ContentType']"}),
-            'actor_object_id': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'data': ('jsonfield.fields.JSONField', [], {'null': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'place': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True', 'blank': 'True'}),
-            'public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'target_content_type': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'target'", 'null': 'True', 'to': u"orm['contenttypes.ContentType']"}),
-            'target_object_id': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'verb': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'lots.use': {
-            'Meta': {'object_name': 'Use'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '200'})
-        },
-        u'organize.organizertype': {
-            'Meta': {'object_name': 'OrganizerType'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_group': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
-        },
-        u'phillyorganize.organizer': {
-            'Meta': {'object_name': 'Organizer'},
-            'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'added_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'email_hash': ('django.db.models.fields.CharField', [], {'max_length': '40', 'null': 'True', 'blank': 'True'}),
-            'facebook_page': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'phone': ('django.db.models.fields.CharField', [], {'max_length': '32', 'null': 'True', 'blank': 'True'}),
-            'receive_text_messages': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['organize.OrganizerType']"}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
-        },
-        u'steward.stewardnotification': {
-            'Meta': {'object_name': 'StewardNotification'},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'facebook_page': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
-            'farm_stand': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'land_tenure_status': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'others_get_involved': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'part_of_nga': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'phone': ('django.db.models.fields.CharField', [], {'max_length': '32', 'null': 'True', 'blank': 'True'}),
-            'support_organization': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
-            'type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['organize.OrganizerType']"}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'use': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['lots.Use']"}),
-            'waiting_list': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
-        },
-        u'steward.stewardproject': {
-            'Meta': {'object_name': 'StewardProject'},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            'farm_stand': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'land_tenure_status': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'organizer': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['phillyorganize.Organizer']"}),
-            'others_get_involved': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'part_of_nga': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'support_organization': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
-            'use': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['lots.Use']"}),
-            'waiting_list': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
-        }
-    }
-
-    complete_apps = ['steward']
+    operations = [
+        migrations.CreateModel(
+            name='OptedInStewardProjectManager',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='StewardNotification',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('object_id', models.PositiveIntegerField()),
+                ('name', models.CharField(help_text='The name of the project using this lot.', max_length=256, verbose_name='name')),
+                ('support_organization', models.CharField(help_text="What is your project's support organization, if any?", max_length=300, null=True, verbose_name='support organization', blank=True)),
+                ('land_tenure_status', models.CharField(default='not sure', help_text='What is the land tenure status for the project? (This will not be shared publicly.)', max_length=50, verbose_name='land tenure status', choices=[(b'owned', 'project owns the land'), (b'licensed', 'project has a license for the land'), (b'lease', 'project has a lease for the land'), (b'access', 'project has access to the land'), (b'not sure', "I'm not sure")])),
+                ('include_on_map', models.BooleanField(default=False, help_text='Can we include the project on our map?', verbose_name='include on map')),
+                ('phone', models.CharField(help_text='A phone number where the project can be reached.', max_length=32, null=True, verbose_name='phone', blank=True)),
+                ('email', models.EmailField(help_text='An email address where the project can be reached.', max_length=75, verbose_name='email')),
+                ('url', models.URLField(help_text='A website where others can learn more about the project.', null=True, verbose_name='url', blank=True)),
+                ('facebook_page', models.CharField(help_text=b'The Facebook page for the project. Please do not enter your personal Facebook page.', max_length=256, null=True, verbose_name='facebook page', blank=True)),
+                ('share_contact_details', models.BooleanField(default=False, help_text="Can we share your contact information (email and phone) on the project's page?", verbose_name='share contact details')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('type', models.ForeignKey(help_text='The type of group working on the project.', to='organize.OrganizerType')),
+                ('use', models.ForeignKey(verbose_name='use', to='lots.Use', help_text='How is the project using the land?')),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='StewardProject',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('object_id', models.PositiveIntegerField()),
+                ('name', models.CharField(help_text='The name of the project using this lot.', max_length=256, verbose_name='name')),
+                ('support_organization', models.CharField(help_text="What is your project's support organization, if any?", max_length=300, null=True, verbose_name='support organization', blank=True)),
+                ('land_tenure_status', models.CharField(default='not sure', help_text='What is the land tenure status for the project? (This will not be shared publicly.)', max_length=50, verbose_name='land tenure status', choices=[(b'owned', 'project owns the land'), (b'licensed', 'project has a license for the land'), (b'lease', 'project has a lease for the land'), (b'access', 'project has access to the land'), (b'not sure', "I'm not sure")])),
+                ('include_on_map', models.BooleanField(default=False, help_text='Can we include the project on our map?', verbose_name='include on map')),
+                ('external_id', models.CharField(help_text='The external id for this project. Listed as "PROJECT ID" in some data sources.', max_length=100, null=True, verbose_name='external id', blank=True)),
+                ('pilcop_garden_id', models.CharField(help_text='The pilcop garden id for this project', max_length=25, null=True, verbose_name='pilcop garden id', blank=True)),
+                ('date_started', models.DateField(help_text='When did this project start?', null=True, verbose_name='date started', blank=True)),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('organizer', models.ForeignKey(blank=True, to='phillyorganize.Organizer', help_text='The organizer associated with this project.', null=True, verbose_name='organizer')),
+                ('steward_notification', models.ForeignKey(blank=True, to='steward.StewardNotification', help_text='The notification that led to the creation of this project, if any.', null=True, verbose_name='steward notification')),
+                ('use', models.ForeignKey(verbose_name='use', to='lots.Use', help_text='How is the project using the land?')),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+    ]
