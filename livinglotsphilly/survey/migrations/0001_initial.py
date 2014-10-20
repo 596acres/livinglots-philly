@@ -1,43 +1,51 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'SurveyFormEntry'
-        db.create_table(u'survey_surveyformentry', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('entry_time', self.gf('django.db.models.fields.DateTimeField')()),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
-        ))
-        db.send_create_signal(u'survey', ['SurveyFormEntry'])
+    dependencies = [
+        ('contenttypes', '0001_initial'),
+        ('forms', '__first__'),
+    ]
 
-
-    def backwards(self, orm):
-        # Deleting model 'SurveyFormEntry'
-        db.delete_table(u'survey_surveyformentry')
-
-
-    models = {
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'survey.surveyformentry': {
-            'Meta': {'object_name': 'SurveyFormEntry'},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            'entry_time': ('django.db.models.fields.DateTimeField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {})
-        }
-    }
-
-    complete_apps = ['survey']
+    operations = [
+        migrations.CreateModel(
+            name='SurveyFieldEntry',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('field_id', models.IntegerField()),
+                ('value', models.CharField(max_length=2000, null=True)),
+            ],
+            options={
+                'abstract': False,
+                'verbose_name': 'Form field entry',
+                'verbose_name_plural': 'Form field entries',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='SurveyFormEntry',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('entry_time', models.DateTimeField(verbose_name='Date/time')),
+                ('object_id', models.PositiveIntegerField()),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('survey_form', models.ForeignKey(related_name=b'survey_entries', to='forms.Form')),
+            ],
+            options={
+                'abstract': False,
+                'verbose_name': 'Form entry',
+                'verbose_name_plural': 'Form entries',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='surveyfieldentry',
+            name='entry',
+            field=models.ForeignKey(related_name=b'fields', to='survey.SurveyFormEntry'),
+            preserve_default=True,
+        ),
+    ]
