@@ -38,9 +38,9 @@ L.Control.Legend = L.Control.extend({
 
     _update: function (featureTypes) {
         if (!this._map) { return; }
-        var classes = 'leaflet-control-legend-feature-color leaflet-control-legend-feature-color-';
+        var classes = 'legend-marker legend-marker-';
         for (var i = 0; i < featureTypes.length; i++) {
-            var featureItem = L.DomUtil.create('li', 'leaflet-control-legend-feature', this.legendFeatures);
+            var featureItem = L.DomUtil.create('li', 'legend-item', this.legendFeatures);
             L.DomUtil.create('span',  classes + this._slugify(featureTypes[i].name), featureItem);
             var label = L.DomUtil.create('label', '', featureItem);
             label.innerHTML = featureTypes[i].name;
