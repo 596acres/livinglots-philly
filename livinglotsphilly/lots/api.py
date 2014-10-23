@@ -306,15 +306,9 @@ class LotResource(ModelResource):
         return qs
 
     def apply_custom_filter_owner__owner_type__in(self, qs, value):
-        # Make owner__owner_type__in look the way tastypie wants it to
-        if 'mixed' in value:
-            return qs.filter(
-                Q(owner__owner_type__in=value) | Q(owner__isnull=True)
-            )
-        else:
-            return qs.filter(
-                owner__owner_type__in=value,
-            )
+        return qs.filter(
+            Q(owner__owner_type__in=value) | Q(owner__isnull=True)
+        )
 
     class Meta:
         allowed_methods = ('get',)
