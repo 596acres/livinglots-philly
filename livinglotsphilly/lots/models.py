@@ -220,7 +220,7 @@ class Lot(Place):
         """Find the area of this lot in square feet using its polygon."""
         try:
             # tranform to an area-preserving projection for south PA
-            return self.polygon.transform(102729, clone=True).area
+            return self.polygon.transform(3652, clone=True).area
         except Exception:
             return None
 
@@ -232,7 +232,7 @@ class Lot(Place):
         from django.contrib.gis.geos import LineString
 
         # Get the convex hull for the polygon
-        convex_hull = self.polygon.convex_hull.transform(102729, clone=True)
+        convex_hull = self.polygon.convex_hull.transform(3652, clone=True)
 
         # Find the longest side of the convex hull
         sides = []
@@ -247,7 +247,7 @@ class Lot(Place):
         # Find the side that is closest to making the area with the longest
         # side
         closest = longest
-        target_area = self.polygon.transform(102729, clone=True).area
+        target_area = self.polygon.transform(3652, clone=True).area
         for side in sides:
             test_area = side.length * longest.length
             closest_area = closest.length * longest.length
