@@ -48,10 +48,13 @@ function getBounds(map) {
  */
 function updateCounts() {
     lotsMap.fire('dataloading');
-    var baseUrl = $('#map').data('countsbaseurl');
+    var baseUrl = $('#map').data('countsbaseurl'),
+        params = $('form').serialize(),
+        overlayParams = '&' + $('.overlaymenu-filter :input').serialize();
+
     singleminded.remember({
         name: 'counts',
-        jqxhr: $.getJSON(baseUrl + $('form').serialize(), function (data) {
+        jqxhr: $.getJSON(baseUrl + params + overlayParams, function (data) {
             $.each(data, function (label, count) {
                 $('.' + label).text(count);
             });
@@ -355,6 +358,10 @@ $(document).ready(function () {
         });
 
         welcome.init();
+
+        $('.overlay-filter-button').overlaymenu({
+            menu: '.overlaymenu-filter'
+        });
 
         $('.overlay-news-button').overlaymenu({
             menu: '.overlaymenu-news'

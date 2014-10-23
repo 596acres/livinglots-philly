@@ -18114,9 +18114,9 @@ L.Control.Legend = L.Control.extend({
 
     _update: function (featureTypes) {
         if (!this._map) { return; }
-        var classes = 'leaflet-control-legend-feature-color leaflet-control-legend-feature-color-';
+        var classes = 'legend-marker legend-marker-';
         for (var i = 0; i < featureTypes.length; i++) {
-            var featureItem = L.DomUtil.create('li', 'leaflet-control-legend-feature', this.legendFeatures);
+            var featureItem = L.DomUtil.create('li', 'legend-item', this.legendFeatures);
             L.DomUtil.create('span',  classes + this._slugify(featureTypes[i].name), featureItem);
             var label = L.DomUtil.create('label', '', featureItem);
             label.innerHTML = featureTypes[i].name;
@@ -18428,44 +18428,32 @@ L.Map.include({
     showTiles: function () {
         var instance = this;
         if (instance.viewType !== 'tiles') return;
-        var filtered = _.size(instance.filters) > 0;
-        var activeOwnerTypes = instance.getActiveOwnerTypes(instance.filters);
-        var activeKnownUseExistences = instance.getActiveKnownUseExistence(instance.filters);
-        var activeLayers = _.union(activeOwnerTypes, activeKnownUseExistences);
+        var filtered = _.size(instance.filters) > 0,
+            activeOwnerTypes = instance.getActiveOwnerTypes(instance.filters),
+            projects = instance.filters.projects;
 
         _.each(_.keys(instance.tileLayers), function (layer) {
+            // Always show if there are no current filters
             if (!filtered) {
-                // Always show if there are no current filters
                 instance.showTilesByLayer(layer);
+                return;
             }
-            else {
-                if (_.contains(activeKnownUseExistences, 'not in use')) {
-                    // If 'not in use' is selected, show activeOwnerTypes
-                    // and 'in use' if it is selected
-                    if (layer === 'not in use') {
-                        return;
-                    }
-                    else if (layer === 'in use' && _.contains(activeKnownUseExistences, layer)) {
-                        instance.showTilesByLayer(layer);
-                    }
-                    else if (_.contains(activeOwnerTypes, layer)) {
-                        instance.showTilesByLayer(layer);
-                    }
-                    else {
-                        instance.hideTilesByLayer(layer);
-                    }
-                }
-                else {
-                    // If 'not in use' is *not* selected, do not show any 
-                    // layers except those representing other known use
-                    // existences
-                    if (_.contains(activeKnownUseExistences, layer)) {
-                        instance.showTilesByLayer(layer);
-                    }
-                    else {
-                        instance.hideTilesByLayer(layer);
-                    }
-                }
+
+            // Handle 'in use' layers
+            if (layer === 'in use' && (projects === 'include' || projects === 'only')) {
+                instance.showTilesByLayer(layer);
+                return;
+            }
+
+            // Handle project layer
+            if (_.contains(activeOwnerTypes, layer) && projects !== 'only') {
+                instance.showTilesByLayer(layer);
+                return;
+            }
+
+            if (layer !== 'not in use') {
+                instance.hideTilesByLayer(layer);
+                return;
             }
         });
     },
@@ -18504,17 +18492,6 @@ L.Map.include({
             return [activeOwnerTypes,];
         }
         return activeOwnerTypes;
-    },
-
-    getActiveKnownUseExistence: function (filters) {
-        var existence = filters.known_use_existence;
-        if (!existence) {
-            return [];
-        }
-        else if (!_.isArray(existence)) {
-            return [existence,];
-        }
-        return existence;
     },
 
     /*
@@ -19264,10 +19241,13 @@ function getBounds(map) {
  */
 function updateCounts() {
     lotsMap.fire('dataloading');
-    var baseUrl = $('#map').data('countsbaseurl');
+    var baseUrl = $('#map').data('countsbaseurl'),
+        params = $('form').serialize(),
+        overlayParams = '&' + $('.overlaymenu-filter :input').serialize();
+
     singleminded.remember({
         name: 'counts',
-        jqxhr: $.getJSON(baseUrl + $('form').serialize(), function (data) {
+        jqxhr: $.getJSON(baseUrl + params + overlayParams, function (data) {
             $.each(data, function (label, count) {
                 $('.' + label).text(count);
             });
@@ -19571,6 +19551,10 @@ $(document).ready(function () {
         });
 
         welcome.init();
+
+        $('.overlay-filter-button').overlaymenu({
+            menu: '.overlaymenu-filter'
+        });
 
         $('.overlay-news-button').overlaymenu({
             menu: '.overlaymenu-news'

@@ -13,6 +13,7 @@
         </div>
 
         <div class="map-tally-section">
+            <a href="#" class="btn btn-default overlay-filter-button">{% trans "Filter" %}</a>
             <a href="#" class="btn btn-default overlay-news-button">{% trans "News" %}</a>
         </div>
 
@@ -134,13 +135,6 @@
         </div>
 
         <div class="grid grid-1-3">
-            <h2>{% trans "Who owns it" %}</h2>
-            <div class="filters filters-owners">
-                {% with filtergroup=filters.owners_filters %}
-                {% include "lots/_filtergroup.html" %}
-                {% endwith %}
-            </div>
-
             <h2>{% trans "Private" %}</h2>
             <div class="filters filters-private">
                 {% with filtergroup=filters.private_filters %}
@@ -154,6 +148,48 @@
     </div>
 
     <div class="clear"></div>
+</div>
+
+<div class="overlaymenu overlaymenu-filter">
+    <div class="overlaymenu-tip-container">
+        <div class="overlaymenu-tip"></div>
+    </div>
+
+    <div class="overlaymenu-menu-content filters">
+        <h2>{% trans "Filter" %}</h2>
+        <ul class="filter-owner-list">
+            <li class="filter-owner">
+                <input id="layer-public" type="checkbox" class="filter filter-layer view-type-choropleth view-type-tiles" name="owner__owner_type__in" value="public" checked />
+                <label class="filter-owner-label" for="layer-public">
+                    <span class="legend-marker legend-marker-public"></span>
+                    <span class="filter-owner-label-text">{% trans "publicly owned land" %}</span>
+                </label>
+            </li>
+            <li class="filter-owner">
+                <input id="layer-private" type="checkbox" class="filter filter-layer view-type-choropleth view-type-tiles" name="owner__owner_type__in" value="private" checked />
+                <label class="filter-owner-label" for="layer-private">
+                    <span class="legend-marker legend-marker-private"></span>
+                    <span class="filter-owner-label-text">{% trans "private land" %}</span>
+                </label>
+            </li>
+        </ul>
+
+        <section class="filter-section filter-section-projects">
+            <div class="form-horizontal filter-projects-row">
+                <div class="control-label">
+                    <label for="projects" class="">
+                        <span class="legend-marker legend-marker-in-use"></span>
+                        {% trans "projects" %}
+                    </label>
+                </div>
+                <select class="filter filter-projects form-control view-type-choropleth view-type-tiles" name="projects" id="projects">
+                    <option value="include">{% trans "include" %}</option>
+                    <option value="exclude">{% trans "exclude" %}</option>
+                    <option value="only">{% trans "show only projects" %}</option>
+                </select>
+            </div>
+        </section>
+    </div>
 </div>
 
 <div class="overlaymenu overlaymenu-news">

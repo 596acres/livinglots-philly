@@ -62,6 +62,8 @@ class LotResource(ModelResource):
 
         orm_filters['owner__owner_type__in'] = filters.getlist('owner__owner_type__in', [])
 
+        orm_filters['projects'] = filters.get('projects', None)
+
         orm_filters['known_use_existence'] = filters.getlist('known_use_existence', [])
 
         # Add participant types
@@ -197,6 +199,9 @@ class LotResource(ModelResource):
         except Exception:
             return 0
 
+    def pop_custom_filter_projects(self, filters):
+        return filters.pop('projects', None)
+
     def pop_custom_filter_known_use_existence(self, filters):
         try:
             return filters.pop('known_use_existence', [])
@@ -282,6 +287,13 @@ class LotResource(ModelResource):
                 polygon_width__isnull=False,
                 polygon_width__lt=value,
             )
+        return qs
+
+    def apply_custom_filter_projects(self, qs, value):
+        if value == 'only':
+            qs = qs.filter(known_use__isnull=False)
+        elif value == 'exclude':
+            qs = qs.filter(known_use__isnull=True)
         return qs
 
     def apply_custom_filter_known_use_existence(self, qs, value):

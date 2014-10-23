@@ -3585,6 +3585,90 @@ header {
 .activity-stream-list-item .meta {
   font-size: 10px;
 }
+.collapsible-section-icon {
+  margin-left: 15px;
+}
+.collapsible-section .collapsible-section-expanded-icon {
+  display: none;
+}
+.collapsible-section .collapsible-section-collapsed-icon {
+  display: inline-block;
+}
+.collapsible-section.is-expanded .collapsible-section-expanded-icon {
+  display: inline-block;
+}
+.collapsible-section.is-expanded .collapsible-section-collapsed-icon {
+  display: none;
+}
+.collapsible-section-header {
+  cursor: pointer;
+}
+.collapsible-section-text {
+  margin-bottom: 50px;
+}
+.overlaymenu {
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid #437e71;
+  display: none;
+  padding: 15px;
+  position: absolute;
+  width: 250px;
+  z-index: 5005;
+}
+.overlaymenu-tip-container {
+  display: block;
+  margin: 0 auto;
+  margin-top: -31px;
+  width: 40px;
+  height: 20px;
+  position: relative;
+  overflow: hidden;
+  z-index: 5009;
+  left: 97px;
+}
+.overlaymenu-tip {
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid #437e71;
+  border-bottom: 0;
+  border-right: 0;
+  display: block;
+  padding: 10px;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 0;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  z-index: 5010;
+}
+.overlaymenu-menu-content {
+  max-height: 400px;
+  min-height: 150px;
+  overflow-y: auto;
+}
+.social-media-icon {
+  float: left;
+}
+.social-media-icon a {
+  display: block;
+}
+.social-facebook {
+  background: url(/static/img/facebook.png);
+  height: 30px;
+  width: 30px;
+}
+.social-rss {
+  background: url(/static/img/rss.png);
+  height: 30px;
+  width: 30px;
+}
+.social-twitter {
+  background: url(/static/img/twitter.png);
+  height: 30px;
+  width: 30px;
+}
 .admin-action {
   font-size: 24px;
   margin-bottom: 50px;
@@ -3618,27 +3702,6 @@ h2.entry-title {
 .entry-summary {
   margin-bottom: 10px;
   margin-top: 10px;
-}
-.collapsible-section-icon {
-  margin-left: 15px;
-}
-.collapsible-section .collapsible-section-expanded-icon {
-  display: none;
-}
-.collapsible-section .collapsible-section-collapsed-icon {
-  display: inline-block;
-}
-.collapsible-section.is-expanded .collapsible-section-expanded-icon {
-  display: inline-block;
-}
-.collapsible-section.is-expanded .collapsible-section-collapsed-icon {
-  display: none;
-}
-.collapsible-section-header {
-  cursor: pointer;
-}
-.collapsible-section-text {
-  margin-bottom: 50px;
 }
 .email-participants-container {
   display: none;
@@ -3716,6 +3779,78 @@ h2.entry-title {
 }
 .filters-default-wrapper.visible {
   display: block;
+}
+/*
+ * Filter overlay menu
+ */
+.overlaymenu-filter {
+  width: 300px;
+}
+.filter-projects-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.filter-projects-row:before,
+.filter-projects-row:after {
+  content: " ";
+  display: table;
+}
+.filter-projects-row:after {
+  clear: both;
+}
+.filter-projects-row:before,
+.filter-projects-row:after {
+  content: " ";
+  display: table;
+}
+.filter-projects-row:after {
+  clear: both;
+}
+.filter-projects-row .control-label {
+  position: relative;
+  float: left;
+  width: 41.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: left;
+}
+.filter-projects-row .form-control {
+  position: relative;
+  float: left;
+  width: 58.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.filter-layer-checkbox {
+  vertical-align: middle;
+}
+.filter-owner {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.filter-owner-list {
+  list-style: none;
+  padding-left: 0;
+}
+.filter-owner input[type=checkbox] {
+  vertical-align: middle;
+}
+.filter-owner .legend-marker {
+  vertical-align: middle;
+}
+.filter-owner-label {
+  width: 90%;
+}
+.filter-owner-label-text {
+  display: inline-block;
+  vertical-align: middle;
+  width: 80%;
+}
+.filter-owner-public {
+  margin-left: 10%;
+  width: 80%;
 }
 .help-text {
   font-size: 10px;
@@ -3797,6 +3932,23 @@ label {
   border: 0;
   height: 20px;
   width: 20px;
+}
+.legend-marker {
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+}
+.legend-marker-public {
+  background-color: #D38022;
+}
+.legend-marker-private {
+  background-color: #287A68;
+}
+.legend-marker-in-use {
+  background-color: #830F94;
 }
 @media (min-width: 768px) {
   .lot-content-inner {
@@ -4054,48 +4206,6 @@ ul.lot-detail-reasons li {
   color: #888;
   font-size: 12px;
 }
-.overlaymenu {
-  background: rgba(255, 255, 255, 0.95);
-  border: 3px solid #437e71;
-  display: none;
-  padding: 15px;
-  position: absolute;
-  width: 250px;
-  z-index: 5005;
-}
-.overlaymenu-tip-container {
-  display: block;
-  margin: 0 auto;
-  margin-top: -31px;
-  width: 40px;
-  height: 20px;
-  position: relative;
-  overflow: hidden;
-  z-index: 5009;
-  left: 97px;
-}
-.overlaymenu-tip {
-  background: rgba(255, 255, 255, 0.95);
-  border: 3px solid #437e71;
-  border-bottom: 0;
-  border-right: 0;
-  display: block;
-  padding: 10px;
-  width: 28px;
-  height: 28px;
-  margin: 0 auto 0;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  z-index: 5010;
-}
-.overlaymenu-menu-content {
-  max-height: 400px;
-  min-height: 150px;
-  overflow-y: auto;
-}
 .content-richtext ul {
   list-style: disc outside;
   padding-left: 20px;
@@ -4170,27 +4280,6 @@ ul.lot-detail-reasons li {
   .map-find-a-lot input {
     width: 50%;
   }
-}
-.social-media-icon {
-  float: left;
-}
-.social-media-icon a {
-  display: block;
-}
-.social-facebook {
-  background: url(/static/img/facebook.png);
-  height: 30px;
-  width: 30px;
-}
-.social-rss {
-  background: url(/static/img/rss.png);
-  height: 30px;
-  width: 30px;
-}
-.social-twitter {
-  background: url(/static/img/twitter.png);
-  height: 30px;
-  width: 30px;
 }
 .map-welcome {
   background-color: #9FB33A;
@@ -4305,23 +4394,6 @@ ul.lot-detail-reasons li {
 }
 .leaflet-control-legend.is-hidden {
   display: none;
-}
-.leaflet-control-legend-feature-color {
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  border-radius: 15px;
-  display: inline-block;
-  height: 15px;
-  width: 15px;
-}
-.leaflet-control-legend-feature-color-public {
-  background-color: #D38022;
-}
-.leaflet-control-legend-feature-color-private {
-  background-color: #287A68;
-}
-.leaflet-control-legend-feature-color-in-use {
-  background-color: #830F94;
 }
 .leaflet-control-loading {
   background: url(/static/img/loading.gif);

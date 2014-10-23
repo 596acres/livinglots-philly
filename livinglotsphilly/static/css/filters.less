@@ -32,3 +32,62 @@
 .filters-default-wrapper.visible {
     display: block;
 }
+
+
+/*
+ * Filter overlay menu
+ */
+
+.overlaymenu-filter {
+    width: 300px;
+}
+
+.filter-projects-row {
+    .make-row(0);
+
+    .control-label {
+        .make-xs-column(5);
+        text-align: left;
+    }
+
+    .form-control {
+        .make-xs-column(7);
+    }
+}
+
+.filter-layer-checkbox {
+    vertical-align: middle;
+}
+
+.filter-owner {
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    &-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    input[type=checkbox] {
+        .filter-layer-checkbox();
+    }
+
+    .legend-marker {
+        vertical-align: middle;
+    }
+
+    &-label {
+        width: 90%;
+    }
+
+    &-label-text {
+        display: inline-block;
+        vertical-align: middle;
+        width: 80%;
+    }
+
+    &-public {
+        margin-left: 10%;
+        width: 80%;
+    }
+}
