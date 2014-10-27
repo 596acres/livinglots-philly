@@ -1,0 +1,17 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+    <div class="model-explanation">
+        <p>
+            <strong>Organizers</strong> represent people or groups who are 
+            interested in stewarding land or already are stewarding land.
+            Organizers can be private or  public and appear on their lots' pages.
+        </p>
+        <p>
+            They are created when someone clicks the "Organize" button on a 
+            lot's page or when a 
+            <strong><a href="{% url "admin:steward_stewardnotification_changelist" %}">steward notification</a></strong> is approved.
+        </p>
+    </div>
+    {{ block.super }}
+{% endblock %}

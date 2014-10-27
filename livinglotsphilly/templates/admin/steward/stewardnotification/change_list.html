@@ -1,0 +1,23 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+    <div class="model-explanation">
+        <p>
+            <strong>Steward notifications</strong> are created when someone 
+            clicks the "Is this an active garden?" button and fills out that 
+            form.
+        </p>
+        <p>
+            These are <strong>moderated</strong>, which means nothing happens
+            to their lot until someone who can log in to this site approves
+            them.
+        </p>
+        <p>
+            Once a steward notification is approved, two things are created: 
+            a 
+            <strong><a href="{% url "admin:steward_stewardproject_changelist" %}">steward project</a></strong> and an 
+            <strong><a href="{% url "admin:phillyorganize_organizer_changelist" %}">organizer</a></strong>.
+        </p>
+    </div>
+    {{ block.super }}
+{% endblock %}

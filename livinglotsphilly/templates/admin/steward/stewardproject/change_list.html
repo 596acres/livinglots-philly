@@ -1,0 +1,16 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+    <div class="model-explanation">
+        <p>
+            <strong>Steward projects</strong> represent projects that are
+            stewarding land. This will generally mean "community garden" but we
+            use a more generic term here in order to not preclude other options.
+            These are public and appear on their lots' pages.
+        </p>
+        <p>
+            They are created when <strong><a href="{% url "admin:steward_stewardnotification_changelist" %}">steward notifications</a></strong> are approved.
+        </p>
+    </div>
+    {{ block.super }}
+{% endblock %}
