@@ -156,11 +156,11 @@ INSTALLED_APPS = (
     #
     'external_data_sync',
     'inplace_activity_stream',
+    'livinglots_mailings',
     'livinglots_usercontent.files',
     'livinglots_usercontent.notes',
     'livinglots_usercontent.photos',
     'libapps.facebook',
-    'libapps.mailings',
     'libapps.organize',
     'libapps.twitter',
     'phillydata',
