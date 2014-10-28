@@ -3955,9 +3955,99 @@ label {
     padding-right: 25px;
   }
 }
-.lot-detail-main,
-.lot-detail-side {
+.lot-detail-page .breadcrumb {
+  display: none;
+}
+.lot-detail-main {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   padding: 10px;
+}
+@media (min-width: 992px) {
+  .lot-detail-main {
+    float: left;
+    width: 75%;
+  }
+}
+.lot-detail-side {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #F8F8F8;
+  margin-top: 10px;
+  padding: 10px;
+}
+@media (min-width: 992px) {
+  .lot-detail-side {
+    float: left;
+    width: 25%;
+  }
+}
+.lot-detail-streetview {
+  margin-top: 10px;
+}
+.lot-detail-streetview #streetview {
+  height: 300px;
+  width: 100%;
+}
+.lot-detail-map-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.lot-detail-map-row:before,
+.lot-detail-map-row:after {
+  content: " ";
+  display: table;
+}
+.lot-detail-map-row:after {
+  clear: both;
+}
+.lot-detail-map-row:before,
+.lot-detail-map-row:after {
+  content: " ";
+  display: table;
+}
+.lot-detail-map-row:after {
+  clear: both;
+}
+.lot-detail-map {
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: -100px;
+  padding-left: 20px;
+  position: relative;
+  z-index: 500;
+}
+@media (min-width: 992px) {
+  .lot-detail-map {
+    float: left;
+    width: 25%;
+  }
+}
+.lot-detail-map #map {
+  border: 1px solid black;
+  cursor: pointer;
+}
+.lot-detail-name {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .lot-detail-name {
+    float: left;
+    width: 58.33333333%;
+  }
+}
+@media (max-width: 768px) {
+  .lot-detail-map {
+    padding-left: 0;
+  }
 }
 .lot-detail-main-section {
   margin-bottom: 25px;
@@ -3970,14 +4060,6 @@ label {
 }
 .lot-detail-side-section:last-child {
   margin-bottom: 0;
-}
-.lot-detail-map-right {
-  padding-left: 10px;
-}
-@media (max-width: 768px) {
-  .lot-detail-map-right {
-    padding-left: 0;
-  }
 }
 .lot-detail-get-involved {
   margin-bottom: 10px;

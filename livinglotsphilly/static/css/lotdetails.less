@@ -6,9 +6,64 @@
 
 }
 
-.lot-detail-main,
-.lot-detail-side {
-    padding: 10px;
+.lot-detail-page {
+    .breadcrumb {
+        display: none;
+    }
+}
+
+.lot-detail {
+
+    &-main {
+        .make-md-column(9);
+        padding: 10px;
+    }
+
+    &-side {
+        .make-md-column(3);
+        background-color: #F8F8F8;
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    &-streetview {
+        margin-top: 10px;
+
+        #streetview {
+            height: 300px;
+            width: 100%;
+        }
+    }
+
+    &-map-row {
+        .make-row(0);
+    }
+
+    &-map {
+        .make-md-column(3);
+
+        margin-top: -100px;
+        padding-left: 20px;
+        position: relative;
+        z-index: 500;
+
+        #map {
+            border: 1px solid black;
+            cursor: pointer;
+        }
+    }
+
+    &-name {
+        .make-md-column(7);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .lot-detail-map {
+        padding-left: 0;
+    }
+
 }
 
 .lot-detail-main-section {
@@ -25,18 +80,6 @@
 
 .lot-detail-side-section:last-child {
     margin-bottom: 0;
-}
-
-.lot-detail-map-right {
-    padding-left: 10px;
-}
-
-@media (max-width: 768px) {
-
-    .lot-detail-map-right {
-        padding-left: 0;
-    }
-
 }
 
 .lot-detail-get-involved {
