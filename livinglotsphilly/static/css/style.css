@@ -4044,6 +4044,11 @@ label {
     width: 58.33333333%;
   }
 }
+.lot-detail-get-involved {
+  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
 @media (max-width: 768px) {
   .lot-detail-map {
     padding-left: 0;
@@ -4060,9 +4065,6 @@ label {
 }
 .lot-detail-side-section:last-child {
   margin-bottom: 0;
-}
-.lot-detail-get-involved {
-  margin-bottom: 10px;
 }
 .lot-detail-admin {
   margin-bottom: 10px;

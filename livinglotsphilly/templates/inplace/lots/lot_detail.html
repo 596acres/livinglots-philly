@@ -39,15 +39,14 @@
             </div>
 
             {% if "lots.change_lot" in perms %}
-            <div class="lot-detail-admin admin-only grid">
-                <a class="btn btn-small btn-warning" href="{% url "admin:lots_lot_change" lot.pk %}">
-                    <i class="icon-edit icon-white"></i>
-                    {% trans "Edit this lot" %}
-                </a>
-            </div>
+                <div class="lot-detail-admin admin-only">
+                    <a class="btn btn-small btn-warning" href="{% url "admin:lots_lot_change" lot.pk %}">
+                        {% trans "Edit this lot" %}
+                    </a>
+                </div>
             {% endif %}
 
-            <div class="lot-detail-get-involved grid">
+            <div class="lot-detail-get-involved">
                 <div class="pull-left">
                     <a class="btn btn-primary build-community-button lot-page-tooltip" href="{% url "lots:add_organizer" pk=lot.pk %}" data-toggle="tooltip" title="{% trans "Get involved with this lot or let people know you are already working towards growing community here." %}">
                         {% trans "Organize" %}
@@ -64,6 +63,7 @@
                         {% trans "Have we made a mistake?" %}
                     </a>
                 </div>
+                <div class="clearfix"></div>
             </div>
 
             <div class="lot-detail-details lot-detail-main-section">
