@@ -4079,6 +4079,7 @@ label {
   padding-left: 0;
   padding-right: 0;
   font-weight: bold;
+  text-transform: capitalize;
 }
 @media (min-width: 992px) {
   .lot-detail-information-item-label {
