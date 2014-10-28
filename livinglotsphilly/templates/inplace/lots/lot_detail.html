@@ -21,7 +21,7 @@
         </div>
     </div>
 
-{{ block.super }}
+    {{ block.super }}
 
     <div class="row">
         <div class="lot-detail-main">
@@ -65,6 +65,14 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
+
+            {% if lot.available_property %}
+                <div class="alert alert-info">
+                    {% trans "This lot is available for purchase from" %} {{ lot.available_property.agency }}{% if not lot.available_property.price_str != "$0.00" %}.{% else %} for {{ lot.available_property.price_str }}.{% endif %}
+                    <a href="http://groundedinphilly.org/pathways/get-permission-use-land-Philly-Land-Works/" target="_blank">Learn more</a> or
+                    <a href="{{ lot|express_interest_link }}" target="_blank">express interest in buying it</a>.
+                </div>
+            {% endif %}
 
             {% include "inplace/lots/lot_detail_information.html" %}
 

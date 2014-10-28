@@ -1,16 +1,8 @@
-{% load i18n lot_tags %}
+{% load i18n %}
 
 <div class="lot-detail-information">
     <div class="lot-detail-main-section">
         <h2>{% trans "Information about this lot" %}</h2>
-
-        {% if lot.available_property %}
-            <div class="alert alert-info">
-                {% trans "This lot is available for purchase from" %} {{ lot.available_property.agency }}{% if not lot.available_property.price_str != "$0.00" %}.{% else %} for {{ lot.available_property.price_str }}.{% endif %}
-                <a href="http://groundedinphilly.org/pathways/get-permission-use-land-Philly-Land-Works/" target="_blank">Learn more</a> or
-                <a href="{{ lot|express_interest_link }}" target="_blank">express interest in buying it</a>.
-            </div>
-        {% endif %}
 
         <div class="lot-detail-information-item">
             <div class="lot-detail-information-item-label">{% trans "address" %}:</div>
