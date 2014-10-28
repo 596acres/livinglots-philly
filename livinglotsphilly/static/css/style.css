@@ -3993,6 +3993,9 @@ label {
   height: 300px;
   width: 100%;
 }
+.lot-detail-streetview #streetview-error {
+  display: none;
+}
 .lot-detail-map-row {
   margin-left: 0;
   margin-right: 0;
@@ -4125,9 +4128,6 @@ ul.lot-detail-reasons {
 }
 ul.lot-detail-reasons li {
   margin-bottom: 5px;
-}
-#streetview-error {
-  display: none;
 }
 .recent-entry {
   margin-bottom: 5px;
