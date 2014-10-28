@@ -4099,14 +4099,6 @@ label {
     width: 75%;
   }
 }
-.lot-detail-information table {
-  width: 100%;
-}
-.lot-detail-information table th {
-  width: 30%;
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
 @media (max-width: 768px) {
   .lot-detail-map {
     padding-left: 0;
