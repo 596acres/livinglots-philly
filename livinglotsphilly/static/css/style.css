@@ -4051,6 +4051,52 @@ label {
 }
 .lot-detail-information {
   background-color: rgba(159, 179, 58, 0.15);
+  padding: 25px;
+}
+.lot-detail-information-item {
+  margin-left: 0;
+  margin-right: 0;
+}
+.lot-detail-information-item:before,
+.lot-detail-information-item:after {
+  content: " ";
+  display: table;
+}
+.lot-detail-information-item:after {
+  clear: both;
+}
+.lot-detail-information-item:before,
+.lot-detail-information-item:after {
+  content: " ";
+  display: table;
+}
+.lot-detail-information-item:after {
+  clear: both;
+}
+.lot-detail-information-item-label {
+  position: relative;
+  min-height: 1px;
+  padding-left: 0;
+  padding-right: 0;
+  font-weight: bold;
+}
+@media (min-width: 992px) {
+  .lot-detail-information-item-label {
+    float: left;
+    width: 25%;
+  }
+}
+.lot-detail-information-item-value {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .lot-detail-information-item-value {
+    float: left;
+    width: 75%;
+  }
 }
 .lot-detail-information table {
   width: 100%;

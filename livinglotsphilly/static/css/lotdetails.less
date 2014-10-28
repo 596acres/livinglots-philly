@@ -65,6 +65,19 @@
 
     &-information {
         background-color: fadeout(@welcome-background-color, 85%);
+        padding: 25px;
+
+        &-item {
+            .make-row(0);
+
+            &-label {
+                .make-md-column(3, 0);
+                font-weight: bold;
+            }
+            &-value {
+                .make-md-column(9);
+            }
+        }
 
         table {
             width: 100%;
