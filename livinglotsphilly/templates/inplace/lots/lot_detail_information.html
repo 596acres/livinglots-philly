@@ -1,154 +1,158 @@
 {% load i18n lot_tags %}
 
-<div class="lot-detail-information lot-detail-main-section">
-    <h2>{% trans "Information about this lot" %}</h2>
+<div class="lot-detail-information">
+    <div class="lot-detail-main-section">
+        <h2>{% trans "Information about this lot" %}</h2>
 
-    {% if lot.available_property %}
-        <div class="alert alert-info">
-            {% trans "This lot is available for purchase from" %} {{ lot.available_property.agency }}{% if not lot.available_property.price_str != "$0.00" %}.{% else %} for {{ lot.available_property.price_str }}.{% endif %}
-            <a href="http://groundedinphilly.org/pathways/get-permission-use-land-Philly-Land-Works/" target="_blank">Learn more</a> or
-            <a href="{{ lot|express_interest_link }}" target="_blank">express interest in buying it</a>.
-        </div>
-    {% endif %}
+        {% if lot.available_property %}
+            <div class="alert alert-info">
+                {% trans "This lot is available for purchase from" %} {{ lot.available_property.agency }}{% if not lot.available_property.price_str != "$0.00" %}.{% else %} for {{ lot.available_property.price_str }}.{% endif %}
+                <a href="http://groundedinphilly.org/pathways/get-permission-use-land-Philly-Land-Works/" target="_blank">Learn more</a> or
+                <a href="{{ lot|express_interest_link }}" target="_blank">express interest in buying it</a>.
+            </div>
+        {% endif %}
 
-    <div class="lot-detail-information-item">
-        <div class="lot-detail-information-item-label">{% trans "address" %}:</div>
-        <div class="lot-detail-information-item-value">
-            {{ lot.address_line1|default:"unknown" }}{% if lot.postal_code %}, 
-            {{ lot.postal_code }}
-            {% endif %}
-        </div>
-    </div>
-
-    {% if lot.number_of_lots > 1 %}
         <div class="lot-detail-information-item">
-            <div class="lot-detail-information-item-label">
-                {% trans "number of lot" %}:
-            </div>
+            <div class="lot-detail-information-item-label">{% trans "address" %}:</div>
             <div class="lot-detail-information-item-value">
-                {{ lot.number_of_lots }}
+                {{ lot.address_line1|default:"unknown" }}{% if lot.postal_code %}, 
+                {{ lot.postal_code }}
+                {% endif %}
             </div>
         </div>
-    {% endif %}
 
-    <div class="lot-detail-information-item">
-        <div class="lot-detail-information-item-label">{% trans "owner" %}:</div>
-        <div class="lot-detail-information-item-value">
-            <div>
-                {{ lot.owner|default:"unknown" }}
-            </div>
-
-            {% if lot.owner and "owners.change_owner" in perms %}
-                <div class="lot-detail-admin admin-only grid">
-                    <a class="btn btn-small btn-warning" href="{% url "admin:lots_lot_changelist" %}?owner={{ lot.owner.pk }}">
-                        {% trans "View all lots this owner owns" %}
-                    </a>
+        {% if lot.number_of_lots > 1 %}
+            <div class="lot-detail-information-item">
+                <div class="lot-detail-information-item-label">
+                    {% trans "number of lot" %}:
                 </div>
-            {% endif %}
-        </div>
-    </div>
+                <div class="lot-detail-information-item-value">
+                    {{ lot.number_of_lots }}
+                </div>
+            </div>
+        {% endif %}
 
-    <div class="lot-detail-information-item">
-        <div class="lot-detail-information-item-label">{% trans "known use" %}:</div>
-        <div class="lot-detail-information-item-value">
-            {{ lot.known_use|default:"none" }}
-        </div>
-    </div>
+        <div class="lot-detail-information-item">
+            <div class="lot-detail-information-item-label">{% trans "owner" %}:</div>
+            <div class="lot-detail-information-item-value">
+                <div>
+                    {{ lot.owner|default:"unknown" }}
+                </div>
 
-    <div class="lot-detail-information-item">
-        <div class="lot-detail-information-item-label">
-            {% trans "Council District" %}:
+                {% if lot.owner and "owners.change_owner" in perms %}
+                    <div class="lot-detail-admin admin-only grid">
+                        <a class="btn btn-small btn-warning" href="{% url "admin:lots_lot_changelist" %}?owner={{ lot.owner.pk }}">
+                            {% trans "View all lots this owner owns" %}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-        <div class="lot-detail-information-item-value">
-            {% if lot.city_council_district %}
-                {{ lot.city_council_district.label }}
-                {% with member=lot.city_council_district.citycouncilmember_set.all.0 %}
-                <a href="{{ member.url }}" target="_blank">{{ member.name }}</a>
-                {% endwith %}
-            {% else %}
-                {% trans "unknown" %}
-            {% endif %}
-        </div>
-    </div>
 
-    <div class="lot-detail-information-item">
-        <div class="lot-detail-information-item-label">
-            {% trans "Planning District" %}:
+        <div class="lot-detail-information-item">
+            <div class="lot-detail-information-item-label">{% trans "known use" %}:</div>
+            <div class="lot-detail-information-item-value">
+                {{ lot.known_use|default:"none" }}
+            </div>
         </div>
-        <div class="lot-detail-information-item-value">
-            {% if lot.planning_district %}
-            <a href="http://phila2035.org/home-page/district/{{ lot.planning_district.label|slugify }}" target="_blank">
-                    {{ lot.planning_district.label }}
-                </a>
-            {% else %}
-                {% trans "unknown" %}
-            {% endif %}
-        </div>
-    </div>
 
-    <div class="lot-detail-information-item">
-        <div class="lot-detail-information-item-label">
-            {% trans "area" %}:
-        </div>
-        <div class="lot-detail-information-item-value">
-            {{ lot.polygon_area|floatformat:"-1"|default:"unknown" }} {% trans "square feet" %}
-        </div>
-    </div>
-
-    {% if lot.licenses.count > 0 %}
         <div class="lot-detail-information-item">
             <div class="lot-detail-information-item-label">
-                {% trans "licenses" %}
-                <span class="badge">{{ lot.licenses.count }}</span>
+                {% trans "Council District" %}:
             </div>
             <div class="lot-detail-information-item-value">
-                <ul>
-                    {% for license in lot.licenses.all %}
-                        <li>
-                            <a href="http://www.phila.gov/data/Pages/default.aspx?entity=licenses&eid={{ license.external_id }}" target="_blank" class="lot-page-tooltip" data-toggle="tooltip" title="{% trans "Active or recent licenses can indicate that the lot's owner is paying attention to the lot. They might be easier to get in touch with than other owners." %}">
-                                {{ license.status|lower }} ({{ license.external_id }})
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if lot.city_council_district %}
+                    {{ lot.city_council_district.label }}
+                    {% with member=lot.city_council_district.citycouncilmember_set.all.0 %}
+                    <a href="{{ member.url }}" target="_blank">{{ member.name }}</a>
+                    {% endwith %}
+                {% else %}
+                    {% trans "unknown" %}
+                {% endif %}
             </div>
         </div>
-    {% endif %}
 
-    {% if lot.violations.count > 0 %}
         <div class="lot-detail-information-item">
             <div class="lot-detail-information-item-label">
-                {% trans "violations" %}
-                <span class="badge">{{ lot.violations.count }}</span>
+                {% trans "Planning District" %}:
             </div>
             <div class="lot-detail-information-item-value">
-                <ul>
-                    {% for violation in lot.violations.all %}
-                        <li>
-                            {% if violation.case_number %}
-                                <a href="http://www.phila.gov/data/Pages/default.aspx?entity=violationdetails&eid={{ violation.case_number }}" target="_blank">
+                {% if lot.planning_district %}
+                <a href="http://phila2035.org/home-page/district/{{ lot.planning_district.label|slugify }}" target="_blank">
+                        {{ lot.planning_district.label }}
+                    </a>
+                {% else %}
+                    {% trans "unknown" %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="lot-detail-information-item">
+            <div class="lot-detail-information-item-label">
+                {% trans "area" %}:
+            </div>
+            <div class="lot-detail-information-item-value">
+                {{ lot.polygon_area|floatformat:"-1"|default:"unknown" }} {% trans "square feet" %}
+            </div>
+        </div>
+
+        {% if lot.licenses.count > 0 %}
+            <div class="lot-detail-information-item">
+                <div class="lot-detail-information-item-label">
+                    {% trans "licenses" %}
+                    <span class="badge">{{ lot.licenses.count }}</span>
+                </div>
+                <div class="lot-detail-information-item-value">
+                    <ul>
+                        {% for license in lot.licenses.all %}
+                            <li>
+                                <a href="http://www.phila.gov/data/Pages/default.aspx?entity=licenses&eid={{ license.external_id }}" target="_blank" class="lot-page-tooltip" data-toggle="tooltip" title="{% trans "Active or recent licenses can indicate that the lot's owner is paying attention to the lot. They might be easier to get in touch with than other owners." %}">
+                                    {{ license.status|lower }} ({{ license.external_id }})
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if lot.violations.count > 0 %}
+            <div class="lot-detail-information-item">
+                <div class="lot-detail-information-item-label">
+                    {% trans "violations" %}
+                    <span class="badge">{{ lot.violations.count }}</span>
+                </div>
+                <div class="lot-detail-information-item-value">
+                    <ul>
+                        {% for violation in lot.violations.all %}
+                            <li>
+                                {% if violation.case_number %}
+                                    <a href="http://www.phila.gov/data/Pages/default.aspx?entity=violationdetails&eid={{ violation.case_number }}" target="_blank">
+                                        {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}:
+                                        {{ violation.violation_type.description }}
+                                    </a>
+                                {% else %}
                                     {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}:
                                     {{ violation.violation_type.description }}
-                                </a>
-                            {% else %}
-                                {{ violation.violation_datetime|date:"SHORT_DATE_FORMAT" }}:
-                                {{ violation.violation_type.description }}
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
 
-    {% if lot.zoning_district %}
-        <div class="lot-detail-information-item">
-            <div class="lot-detail-information-item-label">
-                {% trans "zoning district" %}:
+        {% if lot.zoning_district %}
+            <div class="lot-detail-information-item">
+                <div class="lot-detail-information-item-label">
+                    {% trans "zoning district" %}:
+                </div>
+                <div class="lot-detail-information-item-value">
+                    {{ lot.zoning_district.zoning_type.code }}
+                </div>
             </div>
-            <div class="lot-detail-information-item-value">
-                {{ lot.zoning_district.zoning_type.code }}
-            </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
+
+    {% include "inplace/lots/lot_detail_reasons.html" %}
 </div>
