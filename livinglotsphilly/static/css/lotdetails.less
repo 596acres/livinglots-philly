@@ -62,6 +62,20 @@
         margin-left: 20px;
         margin-top: 10px;
     }
+
+    &-information {
+        background-color: fadeout(@welcome-background-color, 85%);
+
+        table {
+            width: 100%;
+
+            th {
+                width: 30%;
+                padding-bottom: 5px;
+                padding-top: 5px;
+            }
+        }
+    }
 }
 
 @media (max-width: 768px) {
@@ -90,19 +104,6 @@
 
 .lot-detail-admin {
     margin-bottom: 10px;
-}
-
-.lot-detail-details table {
-    width: 100%;
-}
-
-.lot-detail-details th {
-    width: 30%;
-}
-
-.lot-detail-details th {
-    padding-bottom: 5px;
-    padding-top: 5px;
 }
 
 ul.lot-detail-reasons {

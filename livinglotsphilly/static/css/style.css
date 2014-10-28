@@ -4049,6 +4049,17 @@ label {
   margin-left: 20px;
   margin-top: 10px;
 }
+.lot-detail-information {
+  background-color: rgba(159, 179, 58, 0.15);
+}
+.lot-detail-information table {
+  width: 100%;
+}
+.lot-detail-information table th {
+  width: 30%;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
 @media (max-width: 768px) {
   .lot-detail-map {
     padding-left: 0;
@@ -4068,16 +4079,6 @@ label {
 }
 .lot-detail-admin {
   margin-bottom: 10px;
-}
-.lot-detail-details table {
-  width: 100%;
-}
-.lot-detail-details th {
-  width: 30%;
-}
-.lot-detail-details th {
-  padding-bottom: 5px;
-  padding-top: 5px;
 }
 ul.lot-detail-reasons {
   list-style: outside disc;
@@ -4366,7 +4367,7 @@ ul.lot-detail-reasons li {
   }
 }
 .map-welcome {
-  background-color: #9FB33A;
+  background-color: #9fb33a;
   color: white;
   display: none;
   font-size: 18px;
