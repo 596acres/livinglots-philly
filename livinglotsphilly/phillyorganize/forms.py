@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from livinglots_usercontent.notes.models import Note
 from libapps.organize import forms as organize_forms
+from mailinglist.constantcontact import subscribe
 
 
 class OrganizerForm(organize_forms.OrganizerForm):
@@ -36,6 +37,10 @@ class OrganizerForm(organize_forms.OrganizerForm):
     def save(self, *args, **kwargs):
         organizer = super(OrganizerForm, self).save(*args, **kwargs)
         self.save_note(organizer, **self.cleaned_data)
+        if organizer.email:
+            note = ('Added when user started organizing a lot on Grounded in '
+                    'Philly')
+            subscribe(organizer.email, note=note)
         return organizer
 
     class Meta(organize_forms.OrganizerForm.Meta):
