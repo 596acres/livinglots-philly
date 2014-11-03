@@ -1,0 +1,13 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+    <div class="model-explanation">
+        <p>
+            <strong>Groundtruth Records</strong> are created when someone fills in the form you see after clicking "Have we made a mistake?" on a lot's page.
+        </p>
+        <p>
+            These records mean that we have the wrong <strong>known use</strong> for a lot. They are moderated, and once approved they update the lot's known use.
+        </p>
+    </div>
+    {{ block.super }}
+{% endblock %}

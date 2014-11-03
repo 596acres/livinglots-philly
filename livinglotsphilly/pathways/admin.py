@@ -9,6 +9,7 @@ from .models import Pathway
 
 
 class PathwayAdmin(item_editor.ItemEditor, CompareVersionAdmin):
+    change_list_template = 'admin/pathways/pathway/change_list.html'
     list_display = ['name', 'is_active',]
     list_editable = ['is_active',]
     list_filter = ['is_active',]

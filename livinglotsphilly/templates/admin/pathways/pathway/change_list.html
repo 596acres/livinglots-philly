@@ -1,0 +1,13 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+    <div class="model-explanation">
+        <p>
+            <strong>Pathways</strong> are ways in which people can get access to a piece of land.
+        </p>
+        <p>
+            When creating or editing a pathway, it's important to keep in mind that the filters in the <strong>Which lots does this pathway apply to?</strong> section decide which lots the pathway will show up on.
+        </p>
+    </div>
+    {{ block.super }}
+{% endblock %}
