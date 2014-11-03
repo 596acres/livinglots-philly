@@ -50,7 +50,17 @@ $(document).ready(function () {
         var map = new L.Map('map', {
             center: { lat: lat, lng: lon },
             mapboxId: $('#map').data('mapboxid'),
-            zoom: 17
+            zoom: 17,
+
+            // Make map not interactive
+            boxZoom: false,
+            doubleClickZoom: false,
+            dragging: false,
+            keyboard: false,
+            scrollWheelZoom: false,
+            tap: false,
+            touchZoom: false,
+            zoomControl: false
         });
 
         addBaseLayer(map);
