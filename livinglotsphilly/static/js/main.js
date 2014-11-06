@@ -8,6 +8,7 @@ require('./jquery.activitystream');
 require('chosen');
 require('bootstrap_dropdown');
 require('fancybox');
+require('jquery.timeago');
 require('noisy');
 
 
@@ -48,6 +49,11 @@ $(document).ready(function () {
      * Fancy the fancyboxes
      */
     $('.fancybox').fancybox();
+
+    /*
+     * Timeago the timeagoes
+     */
+    $('.timeago').timeago();
 
     /*
      * Activate the activitystreams

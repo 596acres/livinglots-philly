@@ -32,8 +32,9 @@ urlpatterns += patterns('',
     url(r'^forms/', include('forms_builder.forms.urls')),
     url(r'^survey/', include('survey.urls')),
 
-    url('^activity/', include('actstream.urls')),
-    url('^activity-stream/', include('inplace_activity_stream.urls')),
+    url(r'^activity/', include('actstream.urls')),
+    url(r'^activity-stream/', include('activity_stream.urls')),
+    url(r'^activity-stream/', include('inplace_activity_stream.urls')),
 
     url(r'^api/', include(v1_api.urls)),
 

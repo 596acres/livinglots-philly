@@ -205,25 +205,10 @@
         </ul>
     </div>
 
-    <div>
-        <h2>{% trans "Recent News" %}</h2>
-        <ul class="recent-entries">
-            {% get_entries 3 %}
-            {% for entry in entries %}
-                <li class="recent-entry">
-                    <a href="{{ entry.get_absolute_url }}">{{ entry }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
     <div class="activity-stream-section">
-        <h2>{% trans "Recent Activities" %}</h2>
+        <h2>{% trans "News" %}</h2>
         <div class="activity-stream">
             <div class="activity-stream-container"></div>
-            <div class="activity-stream-nav" style="display: none;">
-                <a href="/activity-stream/">next page</a>
-            </div>
         </div>
     </div>
 </div>

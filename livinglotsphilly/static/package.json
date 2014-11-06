@@ -39,6 +39,7 @@
     "jquery.form": "./bower_components/jquery-form/jquery.form.js",
     "jquery.infinitescroll": "./bower_components/infinite-scroll/jquery.infinitescroll.js",
     "jquery.serializeobject": "./bower_components/jquery-serializeObject/jquery.serializeObject.js",
+    "jquery.timeago": "./bower_components/jquery-timeago/jquery.timeago.js",
     "leaflet": "./bower_components/leaflet/dist/leaflet-src.js",
     "leaflet.bing": "./bower_components/leaflet-plugins/layer/tile/Bing.js",
     "leaflet.dataoptions": "./bower_components/leaflet.dataoptions/src/leaflet.dataoptions.js",
