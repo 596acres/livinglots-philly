@@ -1,6 +1,8 @@
 from django.utils.translation import ugettext_lazy as _
 from admin_tools.dashboard import modules, Dashboard
 
+from lots.admin_dashboard import LotsByOwnerModule
+
 
 class PhillyDashboard(Dashboard):
     columns = 3
@@ -8,6 +10,16 @@ class PhillyDashboard(Dashboard):
     def __init__(self, **kwargs):
 
         self.children = self.children or []
+
+        self.children.append(LotsByOwnerModule(
+            owner_type='public',
+            title=_('Top Public Owners'),
+        ))
+
+        self.children.append(LotsByOwnerModule(
+            owner_type='private',
+            title=_('Top Private Owners'),
+        ))
 
         self.children.append(modules.ModelList(
             title=_('Site Content'),

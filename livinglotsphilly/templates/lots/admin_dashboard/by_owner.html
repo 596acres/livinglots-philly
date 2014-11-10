@@ -1,0 +1,13 @@
+{% load i18n %}
+<div id="module_{{ module.id }}" class="{{ module.render_css_classes }}">
+    {% if module.show_title and module.title %}<h2>{% if module.title_url %}<a href="{{ module.title_url }}">{% trans module.title %}</a>{% else %}{% trans module.title %}{% endif %}</h2>{% endif %}
+    <div class="dashboard-module-content">
+        <ul>
+            {% for owner in owners %}
+                <li>
+                    <a href="{% url "admin:owners_owner_change" owner.pk %}">{{ owner.name }}</a>: {{ owner.lots }} lots
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
