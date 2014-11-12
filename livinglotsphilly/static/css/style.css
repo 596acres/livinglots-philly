@@ -4204,6 +4204,8 @@ ul.lot-detail-reasons li {
   }
 }
 #mainmenu {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
   float: left;
   height: 0;
   left: 195px;
@@ -4212,7 +4214,7 @@ ul.lot-detail-reasons li {
   top: -100px;
 }
 #mainmenu a {
-  color: #5F424D;
+  color: #888;
 }
 #mainmenu .mainmenu-item {
   border-right: 1px solid #D4DAAC;
