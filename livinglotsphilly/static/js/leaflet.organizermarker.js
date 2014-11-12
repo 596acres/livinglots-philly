@@ -16,16 +16,26 @@ L.OrganizerMarker = L.CircleMarker.extend({
         if (zoom >= 13) {
             radius = 6;
         }
-        if (zoom >= 14) {
+        else if (zoom >= 14) {
             radius = 9;
         }
-        if (zoom >= 15) {
+        else if (zoom >= 15) {
             radius = 12;
         }
-        if (zoom >= 16) {
+        else if (zoom >= 16) {
             radius = 15;
         }
         return radius;
+    },
+
+    _updateVisibility: function (zoom) {
+        // Hide circles once we zoom in enough to see polygons
+        if (zoom >= 17) {
+            this._path.style.display = 'none';
+        }
+        else {
+            this._path.style.display = 'block';
+        }
     },
 
     _updatePath: function () {
@@ -34,6 +44,7 @@ L.OrganizerMarker = L.CircleMarker.extend({
         // Update the circle's radius according to the map's zoom level
         this.options.radius = this._radius = this._pickRadius(zoom);
 
+        this._updateVisibility(zoom);
         this.updateActionPathScale();
         L.CircleMarker.prototype._updatePath.call(this);
     }

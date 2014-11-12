@@ -42,11 +42,11 @@ L.OrganizerPathMixin = {
             if (zoom >= 18) {
                 scale = 1.5;
             }
-            else if (zoom >= 13) {
-                scale = 0.5;
-            }
             else if (zoom >= 15) {
                 scale = 0.75;
+            }
+            else if (zoom >= 13) {
+                scale = 0.5;
             }
             this._actionPath.setAttribute('transform', 'translate(' + point.x + ',' + point.y + ') scale(' + scale + ')');
         }
