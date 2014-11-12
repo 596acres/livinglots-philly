@@ -9,20 +9,12 @@
     <!ENTITY z14 "50000">
     <!ENTITY z15 "25000">
     <!ENTITY point_color "#D38022">
-    <!ENTITY star_file "star_organizers.svg">
 ]>
 <Map srs="&map_srs;" maximum-extent="&map_maximum_extent;">
 
     <Style name="lot_points" filter-mode="first" >
 
         <!-- zoom 12 -->
-        <Rule>
-            <MaxScaleDenominator>&z12;</MaxScaleDenominator>
-            <MinScaleDenominator>&z13;</MinScaleDenominator>
-            <Filter>[has_organizers]=true</Filter>
-            <MarkersSymbolizer allow-overlap="true" opacity=".7" width="18" height="18" max-error="1" file="&star_file;" />
-            <MarkersSymbolizer allow-overlap="true" fill="&point_color;" opacity=".7" width="7" height="7" stroke="&point_color;" stroke-width="2" stroke-opacity=".2" max-error="1" placement="point" marker-type="ellipse"/>
-        </Rule>
         <Rule>
             <MaxScaleDenominator>&z12;</MaxScaleDenominator>
             <MinScaleDenominator>&z13;</MinScaleDenominator>
@@ -33,23 +25,10 @@
         <Rule>
             <MaxScaleDenominator>&z13;</MaxScaleDenominator>
             <MinScaleDenominator>&z14;</MinScaleDenominator>
-            <Filter>[has_organizers]=true</Filter>
-            <MarkersSymbolizer allow-overlap="true" opacity=".7" width="23" height="23" max-error="1" file="&star_file;" />
-            <MarkersSymbolizer allow-overlap="true" fill="&point_color;" opacity=".7" width="9" height="9" stroke="&point_color;" stroke-width="2" stroke-opacity=".2" max-error="1" placement="point" marker-type="ellipse"/>
-        </Rule>
-        <Rule>
-            <MaxScaleDenominator>&z13;</MaxScaleDenominator>
-            <MinScaleDenominator>&z14;</MinScaleDenominator>
             <MarkersSymbolizer allow-overlap="true" fill="&point_color;" opacity=".7" width="9" height="9" stroke="&point_color;" stroke-width="2" stroke-opacity=".2" max-error="1" placement="point" marker-type="ellipse"/>
         </Rule>
 
         <!-- zoom 14 -->
-        <Rule>
-            <MaxScaleDenominator>&z14;</MaxScaleDenominator>
-            <MinScaleDenominator>&z15;</MinScaleDenominator>
-            <MarkersSymbolizer allow-overlap="true" opacity=".7" width="23" height="23" max-error="1" file="&star_file;" />
-            <MarkersSymbolizer allow-overlap="true" fill="&point_color;" opacity=".7" width="11" height="11" stroke="&point_color;" stroke-width="2" stroke-opacity=".2" max-error="1" placement="point" marker-type="ellipse"/>
-        </Rule>
         <Rule>
             <MaxScaleDenominator>&z14;</MaxScaleDenominator>
             <MinScaleDenominator>&z15;</MinScaleDenominator>
@@ -59,22 +38,10 @@
         <!-- zoom 15 and higher -->
         <Rule>
             <MaxScaleDenominator>&z15;</MaxScaleDenominator>
-            <Filter>[has_organizers]=true</Filter>
-            <MarkersSymbolizer allow-overlap="true" opacity=".7" width="23" height="23" max-error="1" file="&star_file;" />
-            <MarkersSymbolizer allow-overlap="true" fill="&point_color;" opacity=".7" width="13" height="13" stroke="&point_color;" stroke-width="2" stroke-opacity=".2" max-error="1" placement="point" marker-type="ellipse"/>
-        </Rule>
-        <Rule>
-            <MaxScaleDenominator>&z15;</MaxScaleDenominator>
             <MarkersSymbolizer allow-overlap="true" fill="&point_color;" opacity=".7" width="13" height="13" stroke="&point_color;" stroke-width="2" stroke-opacity=".2" max-error="1" placement="point" marker-type="ellipse"/>
         </Rule>
 
         <!-- every other zoom -->
-        <Rule>
-            <Filter>[has_organizers]=true</Filter>
-            <ElseFilter />
-            <MarkersSymbolizer allow-overlap="true" opacity=".7" width="9" height="9" max-error="1" file="&star_file;" />
-            <MarkersSymbolizer allow-overlap="true" fill="&point_color;" opacity=".7" width="5" height="5" stroke="&point_color;" stroke-width="2" stroke-opacity=".2" max-error="1" placement="point" marker-type="ellipse"/>
-        </Rule>
         <Rule>
             <ElseFilter />
             <MarkersSymbolizer allow-overlap="true" fill="&point_color;" opacity=".7" width="5" height="5" stroke="&point_color;" stroke-width="2" stroke-opacity=".2" max-error="1" placement="point" marker-type="ellipse"/>
@@ -87,8 +54,7 @@
         <Datasource>
             <Parameter name="type">postgis</Parameter>
             <Parameter name="table">(
-                SELECT lots_lot.id, lots_lot.centroid,
-                    (SELECT COUNT(*) FROM phillyorganize_organizer WHERE object_id = lots_lot.id) > 0 as has_organizers
+                SELECT lots_lot.id, lots_lot.centroid
                 FROM lots_lot 
                     LEFT OUTER JOIN owners_owner ON (lots_lot.owner_id = owners_owner.id) 
                 WHERE 
