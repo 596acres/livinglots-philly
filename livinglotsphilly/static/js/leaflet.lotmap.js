@@ -17,6 +17,7 @@ require('./leaflet.geojsonbounds');
 require('./leaflet.lotlayer');
 require('./leaflet.message');
 require('./leaflet.legend');
+require('./leaflet.organizermarker');
 
 L.Map.include({
 
@@ -74,6 +75,7 @@ L.Map.include({
         this.addChoroplethLayer();
         this.addPolygonLayer();
         this.addTilesLayers();
+        this.addOrganizersLayer();
 
         // Add controls
         this.addLayersControl();
@@ -416,6 +418,42 @@ L.Map.include({
         if (instance.centroids) {
             instance.centroids.setMap(null);
         }
+    },
+
+
+    /*
+     * Organizers
+     */
+
+    addOrganizersLayer: function (queryString) {
+        var instance = this,
+            url = instance.options.centroidBaseUrl + '?' + [
+                'known_use__isnull=true',
+                'participant_types=organizers',
+                'owner__owner_type__in=private',
+                'owner__owner_type__in=public'
+            ].join('&');
+        $.getJSON(url, function (data) {
+            this.organizers = L.geoJson(data, {
+                onEachFeature: function (feature, layer) {
+                    layer.on('click', function (event) {
+                        instance.options.clickHandler(event, feature);
+                        instance.fire('lotclicked', {
+                            event: event,
+                            lot: feature,
+                        });
+                    });
+                },
+                pointToLayer: function (feature, latlng) {
+                    return L.organizerMarker(latlng);
+                },
+                style: function (feature) {
+                    var style = lotStyles.forLayer(feature.properties.layer);
+                    style.clickable = true;
+                    return style;
+                }
+            }).addTo(instance);
+        });
     },
 
 

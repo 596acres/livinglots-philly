@@ -17659,6 +17659,7 @@ require('./leaflet.geojsonbounds');
 require('./leaflet.lotlayer');
 require('./leaflet.message');
 require('./leaflet.legend');
+require('./leaflet.organizermarker');
 
 L.Map.include({
 
@@ -17716,6 +17717,7 @@ L.Map.include({
         this.addChoroplethLayer();
         this.addPolygonLayer();
         this.addTilesLayers();
+        this.addOrganizersLayer();
 
         // Add controls
         this.addLayersControl();
@@ -18062,6 +18064,42 @@ L.Map.include({
 
 
     /*
+     * Organizers
+     */
+
+    addOrganizersLayer: function (queryString) {
+        var instance = this,
+            url = instance.options.centroidBaseUrl + '?' + [
+                'known_use__isnull=true',
+                'participant_types=organizers',
+                'owner__owner_type__in=private',
+                'owner__owner_type__in=public'
+            ].join('&');
+        $.getJSON(url, function (data) {
+            this.organizers = L.geoJson(data, {
+                onEachFeature: function (feature, layer) {
+                    layer.on('click', function (event) {
+                        instance.options.clickHandler(event, feature);
+                        instance.fire('lotclicked', {
+                            event: event,
+                            lot: feature,
+                        });
+                    });
+                },
+                pointToLayer: function (feature, latlng) {
+                    return L.organizerMarker(latlng);
+                },
+                style: function (feature) {
+                    var style = lotStyles.forLayer(feature.properties.layer);
+                    style.clickable = true;
+                    return style;
+                }
+            }).addTo(instance);
+        });
+    },
+
+
+    /*
     * Choropleth
     */
 
@@ -18341,7 +18379,7 @@ L.Map.include({
 
 L.Map.addInitHook('_lotMapInitialize');
 
-},{"./leaflet.geojsonbounds":25,"./leaflet.legend":26,"./leaflet.lotlayer":27,"./leaflet.message":29,"./lotstyles":31,"./singleminded":36,"leaflet":17,"leaflet-vector-layers":14,"leaflet.bing":13,"leaflet.label":1,"leaflet.loading":15,"leaflet.utfgrid":2,"underscore":19}],29:[function(require,module,exports){
+},{"./leaflet.geojsonbounds":25,"./leaflet.legend":26,"./leaflet.lotlayer":27,"./leaflet.message":29,"./leaflet.organizermarker":30,"./lotstyles":33,"./singleminded":38,"leaflet":17,"leaflet-vector-layers":14,"leaflet.bing":13,"leaflet.label":1,"leaflet.loading":15,"leaflet.utfgrid":2,"underscore":19}],29:[function(require,module,exports){
 var L = require('leaflet');
 
 L.Control.Message = L.Control.extend({
@@ -18397,6 +18435,131 @@ L.control.message = function(options) {
 };
 
 },{"leaflet":17}],30:[function(require,module,exports){
+var L = require('leaflet');
+
+require('./leaflet.organizerpath');
+
+
+L.OrganizerMarker = L.CircleMarker.extend({
+
+    onZoomEnd: function () {
+        if (this._map && this.feature.properties.has_organizers) {
+            this.bringToFront();
+        }
+    },
+
+    _pickRadius: function (zoom) {
+        var radius = 4;   
+        if (zoom >= 13) {
+            radius = 6;
+        }
+        if (zoom >= 14) {
+            radius = 9;
+        }
+        if (zoom >= 15) {
+            radius = 12;
+        }
+        if (zoom >= 16) {
+            radius = 15;
+        }
+        return radius;
+    },
+
+    _updatePath: function () {
+        var zoom = this._map.getZoom();
+
+        // Update the circle's radius according to the map's zoom level
+        this.options.radius = this._radius = this._pickRadius(zoom);
+
+        this.updateActionPathScale();
+        L.CircleMarker.prototype._updatePath.call(this);
+    }
+
+});
+
+L.OrganizerMarker.include(L.OrganizerPathMixin);
+
+L.OrganizerMarker.addInitHook(function () {
+    this.on({
+        'add': function () {
+            this.initActionPath();
+
+            if (this.feature && this.feature.properties.has_organizers) {
+                var layer = this;
+                this._map.on('zoomend', this.onZoomEnd, layer);
+            }
+        },
+        'remove': function () {
+            if (this.feature && this.feature.properties.has_organizers) {
+                var layer = this;
+                this._map.off('zoomend', this.onZoomEnd, layer);
+            }
+        }
+    });
+});
+
+L.organizerMarker = function (latlng, options) {
+    return new L.OrganizerMarker(latlng, options);
+};
+
+},{"./leaflet.organizerpath":31,"leaflet":17}],31:[function(require,module,exports){
+var L = require('leaflet');
+
+
+L.OrganizerPathMixin = {
+
+    hide: function () {
+        if (!this._path) return;
+        this._path.style.display = 'none';
+        if (this._actionPath) {
+            this._actionPath.style.display = 'none';
+        }
+    },
+
+    show: function () {
+        if (!this._path) return;
+        this._path.style.display = 'block';
+        if (this._actionPath) {
+            this._actionPath.style.display = 'block';
+        }
+    },
+
+    initActionPath: function() {
+        this._actionPath = this._createElement('path');
+        this._actionPath.setAttribute('style', 'fill:#eec619; fill-opacity:1;');
+        this._actionPath.setAttribute('d', this.getActionPathSvgStr());
+        this._container.insertBefore(this._actionPath, this._path);
+
+        this.updateActionPathScale();
+    },
+
+    getActionPathSvgStr: function () {
+        return 'M 0,-39 c -0.6 0 -2.2 3.4 -3.5 7.6 -1.3 4.2 -3 7.8 -3.7 8.1 -0.7 0.3 -4.2 -1.6 -7.7 -4.1 -5.8 -4.1 -8.6 -5.5 -8.6 -4.2 0 0.2 1.1 4.1 2.6 8.6 1.4 4.5 2.4 8.3 2.1 8.6 -0.2 0.2 -4.3 0.7 -9.1 1.1 -4.7 0.3 -8.6 1 -8.6 1.5 0 0.5 2.9 3 6.5 5.5 3.6 2.6 6.5 5.2 6.5 5.8 0 0.6 -2.9 3.2 -6.5 5.8 -3.6 2.6 -6.5 5.1 -6.5 5.5 0 0.5 3.9 1.1 8.6 1.5 4.7 0.3 8.8 0.8 9.1 1.1 0.2 0.2 -0.7 4.1 -2.1 8.6 -1.4 4.5 -2.6 8.3 -2.6 8.6 0 1.3 2.8 -0 8.6 -4.2 3.5 -2.5 7 -4.4 7.7 -4.1 0.7 0.3 2.3 3.9 3.7 8.1 1.3 4.2 2.9 7.6 3.5 7.6 0.6 0 2.2 -3.4 3.5 -7.6 1.3 -4.2 3 -7.8 3.7 -8.1 0.7 -0.3 4.2 1.6 7.7 4.1 5.8 4.1 8.6 5.5 8.6 4.2 0 -0.2 -1.1 -4.1 -2.6 -8.6 -1.4 -4.5 -2.4 -8.3 -2.1 -8.6 0.2 -0.2 4.3 -0.7 9.1 -1.1 4.7 -0.3 8.6 -1 8.6 -1.5 0 -0.5 -2.9 -3 -6.5 -5.5 -3.6 -2.6 -6.5 -5.2 -6.5 -5.8 0 -0.6 2.9 -3.2 6.5 -5.8 3.6 -2.6 6.5 -5.1 6.5 -5.5 0 -0.5 -3.9 -1.1 -8.6 -1.5 -4.7 -0.3 -8.8 -0.8 -9.1 -1.1 -0.2 -0.2 0.7 -4.1 2.1 -8.6 1.4 -4.5 2.6 -8.3 2.6 -8.6 0 -1.3 -2.8 0 -8.6 4.2 -3.5 2.5 -7 4.4 -7.7 4.1 -0.7 -0.3 -2.3 -3.9 -3.7 -8.1 -1.3 -4.2 -2.9 -7.6 -3.5 -7.6 z';
+    },
+
+    updateActionPathScale: function () {
+        if (this._actionPath) {
+            var point = this._map.latLngToLayerPoint(this.getBounds().getCenter()),
+                zoom = this._map.getZoom(),
+                scale = 0.25;
+
+            // Translate and scale around the layer's point
+            if (zoom >= 18) {
+                scale = 1.5;
+            }
+            else if (zoom >= 13) {
+                scale = 0.5;
+            }
+            else if (zoom >= 15) {
+                scale = 0.75;
+            }
+            this._actionPath.setAttribute('transform', 'translate(' + point.x + ',' + point.y + ') scale(' + scale + ')');
+        }
+    }
+
+};
+
+},{"leaflet":17}],32:[function(require,module,exports){
 /*
  * Module for all pages derived from the base lot page.
  */
@@ -18473,7 +18636,7 @@ $(document).ready(function () {
     }
 });
 
-},{"./lotstyles":31,"./streetview":37,"bootstrap_tooltip":5,"leaflet":17}],31:[function(require,module,exports){
+},{"./lotstyles":33,"./streetview":39,"bootstrap_tooltip":5,"leaflet":17}],33:[function(require,module,exports){
 var _ = require('underscore');
 
 var layerFills = {
@@ -18509,7 +18672,7 @@ module.exports = {
     }
 };
 
-},{"underscore":19}],32:[function(require,module,exports){
+},{"underscore":19}],34:[function(require,module,exports){
 var lotsMap = require('./leaflet.lotmap.js');
 
 function mail_participants_update_counts(with_bbox) {
@@ -18549,7 +18712,7 @@ $(document).ready(function() {
     }
 });
 
-},{"./leaflet.lotmap.js":28}],33:[function(require,module,exports){
+},{"./leaflet.lotmap.js":28}],35:[function(require,module,exports){
 //
 // main.js
 //
@@ -18623,7 +18786,7 @@ require('./lotbasepage');
 require('./addorganizerpage');
 require('./mailparticipantspage');
 
-},{"./addorganizerpage":20,"./jquery.activitystream":22,"./lotbasepage":30,"./mailparticipantspage":32,"./mappage":34,"bootstrap_dropdown":4,"chosen":6,"fancybox":7,"jquery.timeago":12,"noisy":3}],34:[function(require,module,exports){
+},{"./addorganizerpage":20,"./jquery.activitystream":22,"./lotbasepage":32,"./mailparticipantspage":34,"./mappage":36,"bootstrap_dropdown":4,"chosen":6,"fancybox":7,"jquery.timeago":12,"noisy":3}],36:[function(require,module,exports){
 var L = require('leaflet');
 var Spinner = require('spinjs');
 var singleminded = require('./singleminded');
@@ -18995,7 +19158,7 @@ $(document).ready(function () {
     }
 });
 
-},{"./jquery.emailparticipants":23,"./jquery.searchbar":24,"./leaflet.lotmap":28,"./overlaymenu":35,"./singleminded":36,"./streetview":37,"./welcome":38,"jquery.debouncedresize":11,"jquery.deserialize":8,"jquery.serializeobject":10,"leaflet":17,"leaflet.usermarker":16,"spinjs":18}],35:[function(require,module,exports){
+},{"./jquery.emailparticipants":23,"./jquery.searchbar":24,"./leaflet.lotmap":28,"./overlaymenu":37,"./singleminded":38,"./streetview":39,"./welcome":40,"jquery.debouncedresize":11,"jquery.deserialize":8,"jquery.serializeobject":10,"leaflet":17,"leaflet.usermarker":16,"spinjs":18}],37:[function(require,module,exports){
 //
 // overlaymenu.js
 //
@@ -19063,7 +19226,7 @@ $.fn.overlaymenu = function (options) {
     return this;
 };
 
-},{"underscore":19}],36:[function(require,module,exports){
+},{"underscore":19}],38:[function(require,module,exports){
 var thoughts = {};
 
 function forget(name) {
@@ -19095,7 +19258,7 @@ module.exports = {
     remember: remember
 };
 
-},{}],37:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 function get_heading(lon0, lat0, lon1, lat1) {
     // Don't bother with great-circle calculations--should be close!
     var r = Math.atan2(-(lon1 - lon0), (lat1 - lat0));
@@ -19144,7 +19307,7 @@ module.exports = {
     load_streetview: load_streetview
 };
 
-},{}],38:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 //
 // Welcome header
 //
@@ -19176,4 +19339,4 @@ module.exports = {
     }
 };
 
-},{}]},{},[33]);
+},{}]},{},[35]);
