@@ -4277,7 +4277,8 @@ ul.lot-detail-reasons li {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  background-color: #E6E2E3;
+  background-color: #3a6d62;
+  margin-bottom: 25px;
   padding: 15px;
   padding-top: 5px;
 }
@@ -4292,8 +4293,25 @@ ul.lot-detail-reasons li {
     margin-left: 33.33333333%;
   }
 }
+.newsletter-signup h2 {
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: none;
+}
 .newsletter-signup form {
   margin: 0;
+}
+.newsletter-signup form .form-control {
+  border-radius: 0;
+}
+.newsletter-signup form .submit {
+  background-color: #437e71;
+  border: none;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  margin-top: 10px;
 }
 .note-detail {
   border-bottom: 1px solid #888;

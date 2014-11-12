@@ -151,26 +151,6 @@
         <div id="footer">
             {% feincms_render_region feincms_page "footer" request %}
 
-            <div class="newsletter-row">
-                <div class="newsletter-signup">
-                    <h2>{% trans "Get news from Grounded in Philly" %}</h2>
-
-                    <form class="non-filter" action="http://visitor.r20.constantcontact.com/d.jsp" method="post" name="ccoptin" target="_blank">
-                        <p>
-                            <input class="form-control" placeholder="{% trans "Enter Email Address" %}" type="text" name="ea" value="" /> 
-                            <button class="btn btn-default submit" type="submit" name="go">
-                                {% trans "GO" %}
-                            </button>
-                        </p>
-                        <p>
-                            <input type="hidden" name="llr" value="4zzjribab" /> 
-                            <input type="hidden" name="m" value="1100871952191" /> 
-                            <input type="hidden" name="p" value="oi" />
-                        </p>
-                    </form>
-                </div>
-            </div>
-
             <div class="logos">
                 {% spaceless %}
                     <a href="http://www.pilcop.org" target="_blank" id="pilcop">
@@ -180,6 +160,26 @@
                         <img src="{% static "img/logo-596acres.png" %}" />
                     </a>
                 {% endspaceless %}
+            </div>
+
+            <div class="newsletter-row">
+                <div class="newsletter-signup">
+                    <h2>{% trans "Get news from Grounded in Philly" %}</h2>
+
+                    <form class="non-filter" action="http://visitor.r20.constantcontact.com/d.jsp" method="post" name="ccoptin" target="_blank">
+                        <p>
+                            <input class="form-control" placeholder="{% trans "Enter Email Address" %}" type="text" name="ea" value="" /> 
+                            <button class="btn btn-default submit" type="submit" name="go">
+                                {% trans "Submit" %}
+                            </button>
+                        </p>
+                        <p>
+                            <input type="hidden" name="llr" value="4zzjribab" /> 
+                            <input type="hidden" name="m" value="1100871952191" /> 
+                            <input type="hidden" name="p" value="oi" />
+                        </p>
+                    </form>
+                </div>
             </div>
         </div>
     </body>

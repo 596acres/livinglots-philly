@@ -6,12 +6,33 @@
     &-signup {
         .make-md-column(4);
         .make-md-column-offset(4);
-        background-color: #E6E2E3;
+        background-color: darken(@background-color, 5%);
+        margin-bottom: 25px;
         padding: 15px;
         padding-top: 5px;
 
+        h2 {
+            color: white;
+            font-family: "Roboto", sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: none;
+        }
+
         form {
             margin: 0;
+
+            .form-control {
+                border-radius: 0;
+            }
+
+            .submit {
+                background-color: @background-color;
+                border: none;
+                color: white;
+                font-family: "Roboto", sans-serif;
+                margin-top: 10px;
+            }
         }
     }
 }
