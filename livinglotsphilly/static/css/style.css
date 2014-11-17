@@ -4506,6 +4506,10 @@ ul.lot-detail-reasons li {
   font-size: 18px;
   padding: 10px 25px;
 }
+.map-welcome h1 {
+  color: #7d8c2e;
+  font-family: "Roboto", sans-serif;
+}
 .map-welcome a {
   color: white;
   text-decoration: underline;
