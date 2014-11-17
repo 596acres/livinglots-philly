@@ -15,14 +15,7 @@
         <div class="map-tally-section">
             <a href="#" class="btn btn-default overlay-filter-button">{% trans "Filter" %}</a>
             <a href="#" class="btn btn-default overlay-news-button">{% trans "News" %}</a>
-        </div>
-
-        <div class="map-tally-section">
-            <a href="#" class="export-link">{% trans "Link to this view" %}</a>. 
-            {% trans "Or download current lots as" %}
-            <a href="#" class="export-csv" data-baseurl="{% url "lots:csv" %}?">{% trans "a spreadsheet" %}</a>,
-            <a href="#" class="export-geojson" data-baseurl="{% url "lots:geojson" %}?download=yes&">{% trans "GeoJSON" %}</a>, or
-            <a href="#" class="export-kml" data-baseurl="{% url "lots:kml" %}?">{% trans "KML" %}</a>.
+            <a href="#" class="btn btn-default overlay-download-button">{% trans "Download" %}</a>
         </div>
 
     </div>
@@ -210,5 +203,19 @@
         <div class="activity-stream">
             <div class="activity-stream-container"></div>
         </div>
+    </div>
+</div>
+
+<div class="overlaymenu overlaymenu-download">
+    <div class="overlaymenu-tip-container">
+        <div class="overlaymenu-tip"></div>
+    </div>
+
+    <div class="download-container">
+        <a href="#" class="export-link">{% trans "Link to this view" %}</a>. 
+        {% trans "Or download current lots as" %}
+        <a href="#" class="export-csv" data-baseurl="{% url "lots:csv" %}?">{% trans "a spreadsheet" %}</a>,
+        <a href="#" class="export-geojson" data-baseurl="{% url "lots:geojson" %}?download=yes&">{% trans "GeoJSON" %}</a>, or
+        <a href="#" class="export-kml" data-baseurl="{% url "lots:kml" %}?">{% trans "KML" %}</a>.
     </div>
 </div>

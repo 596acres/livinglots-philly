@@ -19166,6 +19166,10 @@ $(document).ready(function () {
         $('.overlay-news-button').overlaymenu({
             menu: '.overlaymenu-news'
         });
+
+        $('.overlay-download-button').overlaymenu({
+            menu: '.overlaymenu-download'
+        });
     }
 });
 
