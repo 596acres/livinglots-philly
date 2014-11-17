@@ -3,8 +3,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 
-from mailsender.helpers import (mail_multiple_personalized,
-                                get_target_email_address)
+from livinglots_mailsender.helpers import (mail_multiple_personalized,
+                                           get_target_email_address)
 
 
 def mass_mailing(subject, message, objects, template_name, **kwargs):

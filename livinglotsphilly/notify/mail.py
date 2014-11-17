@@ -2,8 +2,8 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 
-from mailsender.helpers import (mail_multiple_personalized,
-                                get_target_email_address)
+from livinglots_mailsender.helpers import (mail_multiple_personalized,
+                                           get_target_email_address)
 
 
 def mail_facilitators(target, subject, excluded_emails=[],
