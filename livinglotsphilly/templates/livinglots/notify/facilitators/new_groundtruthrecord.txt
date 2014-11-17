@@ -1,4 +1,4 @@
-{% extends "notify/facilitators/base.txt" %}
+{% extends "livinglots/notify/facilitators/base.txt" %}
 
 {% block details %}A new groundtruth record was posted on {{ target }}!
 

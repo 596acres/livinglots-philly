@@ -1,6 +1,6 @@
 from django.forms import HiddenInput, ModelForm
 
-from notify.forms import NotifyOnCreationForm
+from livinglots_notify.forms import NotifyOnCreationForm
 
 from .notifications import notify_participants_new_obj
 from .models import get_organizer_model, get_watcher_model

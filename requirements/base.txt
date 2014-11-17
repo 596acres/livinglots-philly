@@ -57,6 +57,7 @@ git+git://github.com/596acres/django-livinglots-genericviews/@master
 git+git://github.com/596acres/django-livinglots-groundtruth/@89955e
 git+git://github.com/596acres/django-livinglots-mailings/@master
 git+git://github.com/596acres/django-livinglots-mailsender/@master
+git+git://github.com/596acres/django-livinglots-notify/@master
 git+git://github.com/596acres/django-livinglots-usercontent/@master
 
 # Living Lots Philly

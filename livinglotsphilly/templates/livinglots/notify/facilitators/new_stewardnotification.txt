@@ -1,4 +1,4 @@
-{% extends "notify/facilitators/base.txt" %}
+{% extends "livinglots/notify/facilitators/base.txt" %}
 
 {% block details %}A new land steward was posted on {{ target }}!
 

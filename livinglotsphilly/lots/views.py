@@ -22,6 +22,7 @@ from inplace.views import (GeoJSONListView, KMLView, GeoJSONResponseMixin,
                            PlacesDetailView)
 
 from livinglots_genericviews import CSVView, JSONResponseView
+from livinglots_notify.views import NotifyFacilitatorsMixin
 from livinglots_usercontent.files.forms import FileForm
 from livinglots_usercontent.notes.forms import NoteForm
 from livinglots_usercontent.photos.forms import PhotoForm
@@ -31,7 +32,6 @@ from libapps.organize.views import DeleteOrganizerView, EditParticipantMixin
 from groundtruth.forms import GroundtruthRecordForm
 from groundtruth.models import GroundtruthRecord
 from monitor.views import MonitorMixin
-from notify.views import NotifyFacilitatorsMixin
 from phillyorganize.forms import OrganizerForm
 from phillyorganize.models import Organizer
 from steward.forms import StewardNotificationForm
