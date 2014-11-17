@@ -4140,8 +4140,8 @@ ul.lot-detail-reasons li {
   margin-left: 0;
   margin-right: 0;
   color: #553B43;
+  height: 90px;
   padding-left: 25px;
-  padding-right: 25px;
   padding-bottom: 10px;
   padding-top: 10px;
 }
@@ -4165,21 +4165,76 @@ ul.lot-detail-reasons li {
   font-size: 16px;
   text-transform: none;
 }
-.map-tally-container .map-tally-section {
+.map-tally-container .map-tally {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  .map-tally-container .map-tally-section {
+  .map-tally-container .map-tally {
     float: left;
-    width: 33.33333333%;
+    width: 75%;
   }
 }
 .map-tally-container .map-tally .count {
   color: #B1C06F;
   font-size: 24px;
+}
+.map-tally-container .main-buttons {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 0;
+  margin-right: 0;
+  padding-right: 0;
+}
+@media (min-width: 768px) {
+  .map-tally-container .main-buttons {
+    float: left;
+    width: 25%;
+  }
+}
+.map-tally-container .main-buttons:before,
+.map-tally-container .main-buttons:after {
+  content: " ";
+  display: table;
+}
+.map-tally-container .main-buttons:after {
+  clear: both;
+}
+.map-tally-container .main-buttons:before,
+.map-tally-container .main-buttons:after {
+  content: " ";
+  display: table;
+}
+.map-tally-container .main-buttons:after {
+  clear: both;
+}
+.map-tally-container .main-buttons .btn {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-bottom: none;
+  border-left-width: 2px;
+  border-top: none;
+  border-radius: 0;
+  color: #888888;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  line-height: 90px;
+  margin-top: -10px;
+}
+@media (min-width: 768px) {
+  .map-tally-container .main-buttons .btn {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+.map-tally-container .main-buttons .btn:last-child {
+  border-right: none;
 }
 .home-map-page #page-wrapper {
   margin: 0;
@@ -4214,7 +4269,7 @@ ul.lot-detail-reasons li {
   top: -100px;
 }
 #mainmenu a {
-  color: #888;
+  color: #888888;
 }
 #mainmenu .mainmenu-item {
   border-right: 1px solid #D4DAAC;

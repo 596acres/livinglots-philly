@@ -1,3 +1,6 @@
+@map-tally-height: 90px;
+@map-tally-vertical-padding: 10px;
+
 .recent-entry {
     margin-bottom: 5px;
     margin-top: 5px;
@@ -6,10 +9,10 @@
 .map-tally-container {
     .make-row(0);
     color: #553B43;
+    height: @map-tally-height;
     padding-left: 25px;
-    padding-right: 25px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: @map-tally-vertical-padding;
+    padding-top: @map-tally-vertical-padding;
 
     h2 {
         font-size: 16px;
@@ -17,13 +20,34 @@
     }
 
     .map-tally {
-        &-section {
-            .make-sm-column(4);
-        }
+        .make-sm-column(9);
 
         .count {
             color: #B1C06F;
             font-size: 24px;
+        }
+    }
+
+    .main-buttons {
+        .make-sm-column(3);
+        .make-row(0);
+        padding-right: 0;
+
+        .btn {
+            .make-sm-column(4);
+            border-bottom: none;
+            border-left-width: 2px;
+            border-top: none;
+            border-radius: 0;
+            color: @nav-color;
+            font-family: @nav-font-family;
+            font-weight: bold;
+            line-height: @map-tally-height;
+            margin-top: -@map-tally-vertical-padding;
+
+            &:last-child {
+                border-right: none;
+            }
         }
     }
 }

@@ -1,23 +1,18 @@
 {% load blog_widgets feincms_tags i18n static %}
 
 <div class="map-tally-container">
-    <h2>{% trans "You are currently looking at" %}</h2>
     <div class="map-tally">
-        <div class="map-tally-section">
-            <div>
-                <span class="count no-known-use-count">...</span> {% trans "lots with no known use" %}
-            </div>
-            <div>
-                <span class="count in-use-count">...</span> {% trans "lots being used as community spaces" %}
-            </div>
+        <h2>{% trans "You are currently looking at" %}</h2>
+        <div>
+            <span class="count no-known-use-count">...</span> {% trans "lots with no known use" %}
+            <span class="count in-use-count">...</span> {% trans "lots being used as community spaces" %}
         </div>
+    </div>
 
-        <div class="map-tally-section">
-            <a href="#" class="btn btn-default overlay-filter-button">{% trans "Filter" %}</a>
-            <a href="#" class="btn btn-default overlay-news-button">{% trans "News" %}</a>
-            <a href="#" class="btn btn-default overlay-download-button">{% trans "Download" %}</a>
-        </div>
-
+    <div class="main-buttons btn-group">
+        <a href="#" class="btn btn-default overlay-filter-button">{% trans "Filter" %}</a>
+        <a href="#" class="btn btn-default overlay-news-button">{% trans "News" %}</a>
+        <a href="#" class="btn btn-default overlay-download-button">{% trans "Download" %}</a>
     </div>
 </div>
 
