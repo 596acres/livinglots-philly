@@ -4242,6 +4242,8 @@ ul.lot-detail-reasons li {
   font-weight: bold;
   line-height: 80px;
   margin-top: -10px;
+  padding-bottom: 0;
+  padding-top: 0;
 }
 @media (min-width: 768px) {
   .map-tally-container .main-buttons .btn {
