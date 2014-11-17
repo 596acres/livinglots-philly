@@ -1,4 +1,4 @@
-@map-tally-height: 90px;
+@map-tally-height: 80px;
 @map-tally-vertical-padding: 10px;
 
 .recent-entry {
@@ -17,15 +17,32 @@
     h2 {
         font-size: 16px;
         font-weight: normal;
+        margin-bottom: 5px;
         text-transform: none;
     }
 
     .map-tally {
         .make-sm-column(8, 0);
 
+        &-counts {
+            color: @public-lot-color;
+            font-family: @nav-font-family;
+            font-size: 20px;
+        }
+
         .count {
-            color: #B1C06F;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: bold;
+
+            border-left: 1px solid @gray;
+            margin-left: 20px;
+            padding-left: 20px;
+
+            &:first-child {
+                border-left: none;
+                margin-left: 0;
+                padding-left: 0;
+            }
         }
     }
 

@@ -4140,7 +4140,7 @@ ul.lot-detail-reasons li {
   margin-left: 0;
   margin-right: 0;
   color: #553B43;
-  height: 90px;
+  height: 80px;
   padding-left: 25px;
   padding-bottom: 10px;
   padding-top: 10px;
@@ -4164,6 +4164,7 @@ ul.lot-detail-reasons li {
 .map-tally-container h2 {
   font-size: 16px;
   font-weight: normal;
+  margin-bottom: 5px;
   text-transform: none;
 }
 .map-tally-container .map-tally {
@@ -4178,9 +4179,22 @@ ul.lot-detail-reasons li {
     width: 66.66666667%;
   }
 }
+.map-tally-container .map-tally-counts {
+  color: #d38022;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+}
 .map-tally-container .map-tally .count {
-  color: #B1C06F;
-  font-size: 24px;
+  font-size: 28px;
+  font-weight: bold;
+  border-left: 1px solid #555555;
+  margin-left: 20px;
+  padding-left: 20px;
+}
+.map-tally-container .map-tally .count:first-child {
+  border-left: none;
+  margin-left: 0;
+  padding-left: 0;
 }
 .map-tally-container .main-buttons {
   position: relative;
@@ -4226,7 +4240,7 @@ ul.lot-detail-reasons li {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: bold;
-  line-height: 90px;
+  line-height: 80px;
   margin-top: -10px;
 }
 @media (min-width: 768px) {
