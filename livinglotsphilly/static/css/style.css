@@ -4168,8 +4168,8 @@ ul.lot-detail-reasons li {
 .map-tally-container .map-tally {
   position: relative;
   min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 0;
+  padding-right: 0;
 }
 @media (min-width: 768px) {
   .map-tally-container .map-tally {
