@@ -3945,13 +3945,13 @@ label {
   width: 15px;
 }
 .legend-marker-public {
-  background-color: #D38022;
+  background-color: #d38022;
 }
 .legend-marker-private {
-  background-color: #287A68;
+  background-color: #287a68;
 }
 .legend-marker-in-use {
-  background-color: #830F94;
+  background-color: #830f94;
 }
 @media (min-width: 768px) {
   .lot-content-inner {
