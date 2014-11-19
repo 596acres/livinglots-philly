@@ -1,12 +1,13 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from livinglots_organize.forms import OrganizerForm as BaseOrganizerForm
 from livinglots_usercontent.notes.models import Note
-from libapps.organize import forms as organize_forms
+
 from mailinglist.constantcontact import subscribe
 
 
-class OrganizerForm(organize_forms.OrganizerForm):
+class OrganizerForm(BaseOrganizerForm):
     note = forms.CharField(
         help_text=_('Enter a public note to let your neighbors know what you '
                     'would like to do on this lot'),
@@ -43,5 +44,5 @@ class OrganizerForm(organize_forms.OrganizerForm):
             subscribe(organizer.email, note=note)
         return organizer
 
-    class Meta(organize_forms.OrganizerForm.Meta):
+    class Meta(BaseOrganizerForm.Meta):
         exclude = ('notes',)

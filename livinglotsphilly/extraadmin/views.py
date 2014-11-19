@@ -4,8 +4,8 @@ from django.views.generic import FormView, TemplateView
 
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 from livinglots_genericviews import JSONResponseView
+from livinglots_organize.mail import mass_mail_organizers
 
-from libapps.organize.mail import mass_mail_organizers
 from phillyorganize.models import Organizer
 
 from forms import MailParticipantsForm

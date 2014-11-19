@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('phillyorganize', '0002_auto_20141014_1537'),
-        ('organize', '0001_initial'),
+        ('livinglots_organize', '0001_initial'),
         ('contenttypes', '0001_initial'),
         ('lots', '0001_initial'),
     ]
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('facebook_page', models.CharField(help_text=b'The Facebook page for the project. Please do not enter your personal Facebook page.', max_length=256, null=True, verbose_name='facebook page', blank=True)),
                 ('share_contact_details', models.BooleanField(default=False, help_text="Can we share your contact information (email and phone) on the project's page?", verbose_name='share contact details')),
                 ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
-                ('type', models.ForeignKey(help_text='The type of group working on the project.', to='organize.OrganizerType')),
+                ('type', models.ForeignKey(help_text='The type of group working on the project.', to='livinglots_organize.OrganizerType')),
                 ('use', models.ForeignKey(verbose_name='use', to='lots.Use', help_text='How is the project using the land?')),
             ],
             options={

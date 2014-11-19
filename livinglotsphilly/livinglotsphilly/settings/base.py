@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'feincms',
     'feincms.module.medialibrary',
     'feincms.module.page',
+    'flatblocks',
     'forms_builder.forms',
     'honeypot',
     'imagekit',
@@ -157,11 +158,11 @@ INSTALLED_APPS = (
     'external_data_sync',
     'inplace_activity_stream',
     'livinglots_mailings',
+    'livinglots_organize',
     'livinglots_usercontent.files',
     'livinglots_usercontent.notes',
     'livinglots_usercontent.photos',
     'libapps.facebook',
-    'libapps.organize',
     'libapps.twitter',
     'phillydata',
     'phillydata.availableproperties',
@@ -292,3 +293,9 @@ ADMIN_TOOLS_INDEX_DASHBOARD = 'livinglotsphilly.admindashboard.PhillyDashboard'
 CONSTANT_CONTACT_API_KEY = get_env_variable('PHILLY_CONSTANT_CONTACT_API_KEY')
 CONSTANT_CONTACT_LIST = get_env_variable('PHILLY_CONSTANT_CONTACT_LIST')
 CONSTANT_CONTACT_TOKEN = get_env_variable('PHILLY_CONSTANT_CONTACT_TOKEN')
+
+LIVING_LOTS = {
+    'MODELS': {
+        'organizer': 'phillyorganize.Organizer',
+    },
+}

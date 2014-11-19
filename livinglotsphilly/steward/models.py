@@ -114,7 +114,7 @@ class StewardNotification(BaseStewardProject):
     email = models.EmailField(_('email'),
         help_text=_('An email address where the project can be reached.'),
     )
-    type = models.ForeignKey('organize.OrganizerType',
+    type = models.ForeignKey('livinglots_organize.OrganizerType',
         help_text=_('The type of group working on the project.'),
     )
     url = models.URLField(_('url'),

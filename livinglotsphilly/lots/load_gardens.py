@@ -4,7 +4,8 @@ import itertools
 
 from django.conf import settings
 
-from libapps.organize.models import OrganizerType
+from livinglots_organize.models import OrganizerType
+
 from lots.models import Lot, LotGroup, Use
 from phillydata.parcels.models import Parcel
 from phillydata.utils import fix_address

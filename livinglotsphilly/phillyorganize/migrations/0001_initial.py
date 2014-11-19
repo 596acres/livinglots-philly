@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('organize', '0001_initial'),
+        ('livinglots_organize', '0001_initial'),
         ('contenttypes', '0001_initial'),
     ]
 
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('receive_text_messages', models.BooleanField(default=False, help_text='Do you want to get text messages from the Garden Justice Legal Initiative about this lot?', verbose_name='receive text messages')),
                 ('added_by', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
                 ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
-                ('type', models.ForeignKey(to='organize.OrganizerType')),
+                ('type', models.ForeignKey(to='livinglots_organize.OrganizerType')),
             ],
             options={
                 'abstract': False,

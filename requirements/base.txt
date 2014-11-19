@@ -29,6 +29,7 @@ django-classy-tags==0.4
 django-contact-form-gv==0.4.1
 django-extensions==1.4.0
 git+git://github.com/596acres/django-external-data-sync.git@e38df0ce9
+django-flatblocks==0.8
 git+git://github.com/ebrelsford/django-forms-builder.git@bump_django
 django-honeypot==0.4.0
 django-imagekit==3.2.4
@@ -52,12 +53,14 @@ geojson==1.0.1
 django-widget-tweaks==1.3
 
 # Living Lots
+git+git://github.com/596acres/django-livinglots/@master
 django-livinglots-generictags==1.0
 git+git://github.com/596acres/django-livinglots-genericviews/@master
 git+git://github.com/596acres/django-livinglots-groundtruth/@89955e
 git+git://github.com/596acres/django-livinglots-mailings/@master
 git+git://github.com/596acres/django-livinglots-mailsender/@master
 git+git://github.com/596acres/django-livinglots-notify/@master
+git+git://github.com/596acres/django-livinglots-organize/@master
 git+git://github.com/596acres/django-livinglots-usercontent/@master
 
 # Living Lots Philly
