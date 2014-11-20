@@ -39,7 +39,7 @@ django-jsonfield==0.9.13
 django-model-utils==1.4.0
 git+git://github.com/ebrelsford/Django-monitor/@master
 django-mptt==0.6.1
-django-report-builder==1.9
+git+git://github.com/burke-software/django-report-builder/@master
 django-reversion==1.8.5
 git+git://github.com/ebrelsford/django-reversion-compare/@master
 django-staticbuilder==0.4.0
