@@ -46,6 +46,8 @@ USE_L10N = True
 USE_TZ = True
 TIME_ZONE = 'America/New_York'
 
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
 PROJECT_ROOT = os.path.join(abspath(dirname(__file__)), '..', '..')
 
 DATA_ROOT = os.path.join(PROJECT_ROOT, '..', 'data')
