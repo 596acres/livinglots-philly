@@ -1,3 +1,0 @@
-{% for lot in lots %}
-* {{ lot.display_name|default:"unknown address" }}
-    view online: http://{{ BASE_URL }}{{ lot.get_absolute_url }}{% endfor %}
