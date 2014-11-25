@@ -22,7 +22,11 @@ class PreviewUrl(AsTag):
                 'pk': flatblock.mailing_set.all()[0].pk,
             })
 
-        # TODO: Elif flatblock.notification_set ...
+        # If we're looking at an organize notification...
+        if flatblock.slug.startswith('organize.notifications.'):
+            return reverse('organize:notification_preview', kwargs={
+                'slug': flatblock.slug,
+            })
         return ''
 
 register.tag(PreviewUrl)

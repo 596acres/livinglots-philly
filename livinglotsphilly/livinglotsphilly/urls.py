@@ -37,6 +37,7 @@ urlpatterns += patterns('',
     url(r'^activity-stream/', include('inplace_activity_stream.urls')),
 
     url(r'^mailings/', include('livinglots_mailings.urls')),
+    url(r'^organize/', include('livinglots_organize.urls', 'organize')),
 
     url(r'^api/', include(v1_api.urls)),
 
