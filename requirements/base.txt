@@ -25,7 +25,7 @@ django-appconf==0.6
 django-autocomplete-light==1.4.13
 django-braces==1.4.0
 -e git://github.com/ebrelsford/django-chosen.git@28b2358d99f1d6620fdf8047d68eac52c7594e70#egg=django_chosen-dev
-django-classy-tags==0.4
+django-classy-tags==0.5.1
 django-contact-form-gv==0.4.1
 django-extensions==1.4.0
 git+git://github.com/596acres/django-external-data-sync.git@e38df0ce9
@@ -54,6 +54,7 @@ django-widget-tweaks==1.3
 # Living Lots
 git+git://github.com/596acres/django-livinglots/@master
 django-livinglots-generictags==1.0
+git+git://github.com/596acres/django-livinglots-flatblockspreview/@master
 git+git://github.com/596acres/django-livinglots-genericviews/@master
 git+git://github.com/596acres/django-livinglots-groundtruth/@89955e
 git+git://github.com/596acres/django-livinglots-mailings/@master

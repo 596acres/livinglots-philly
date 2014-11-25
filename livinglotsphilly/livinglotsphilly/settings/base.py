@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     #
     'external_data_sync',
     'inplace_activity_stream',
+    'livinglots_flatblockspreview',
     'livinglots_mailings',
     'livinglots_organize',
     'livinglots_usercontent.files',
@@ -188,7 +189,6 @@ INSTALLED_APPS = (
     'cms',
     'contact',
     'extraadmin',
-    'flatblockspreview',
     'groundtruth',
     'lots',
     'mailreader',
