@@ -36,6 +36,8 @@ urlpatterns += patterns('',
     url(r'^activity-stream/', include('activity_stream.urls')),
     url(r'^activity-stream/', include('inplace_activity_stream.urls')),
 
+    url(r'^mailings/', include('livinglots_mailings.urls')),
+
     url(r'^api/', include(v1_api.urls)),
 
     url(r'^autocomplete/', include('autocomplete_light.urls')),

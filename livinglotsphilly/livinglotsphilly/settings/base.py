@@ -188,6 +188,7 @@ INSTALLED_APPS = (
     'cms',
     'contact',
     'extraadmin',
+    'flatblockspreview',
     'groundtruth',
     'lots',
     'mailreader',
