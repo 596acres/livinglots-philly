@@ -2,6 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from admin_tools.dashboard import modules, Dashboard
 
 from lots.admin_dashboard import LotsByOwnerModule
+from phillyorganize.admin_dashboard import EditEmailsModule
 
 
 class PhillyDashboard(Dashboard):
@@ -20,6 +21,8 @@ class PhillyDashboard(Dashboard):
             owner_type='private',
             title=_('Top Private Owners'),
         ))
+
+        self.children.append(EditEmailsModule())
 
         self.children.append(modules.ModelList(
             title=_('Site Content'),

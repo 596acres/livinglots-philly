@@ -1,0 +1,15 @@
+{% load i18n %}
+<div id="module_{{ module.id }}" class="{{ module.render_css_classes }}">
+    {% if module.show_title and module.title %}<h2>{% if module.title_url %}<a href="{{ module.title_url }}">{% trans module.title %}</a>{% else %}{% trans module.title %}{% endif %}</h2>{% endif %}
+    <div class="dashboard-module-content">
+        <ul>
+            {% for template in templates %}
+                <li>
+                    <a href="{% url "admin:flatblocks_flatblock_change" template.flatblock.pk %}">
+                        {{ template.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
