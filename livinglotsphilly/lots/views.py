@@ -214,7 +214,7 @@ class LotsGeoJSON(LotFieldsMixin, FilteredLotsMixin, GeoJSONResponseMixin,
     def render_to_response(self, context):
         response = super(LotsGeoJSON, self).render_to_response(context)
         if self.request.GET.get('download', 'no') == 'yes':
-            response['Content-Disposition'] = ('attachment; filename="%s.json"' %
+            response['Content-Disposition'] = ('attachment; filename="%s.geojson"' %
                                                self.get_filename())
         return response
 
