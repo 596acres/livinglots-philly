@@ -55,6 +55,7 @@ django-widget-tweaks==1.3
 git+git://github.com/596acres/django-livinglots/@master
 django-livinglots-generictags==1.0
 git+git://github.com/596acres/django-livinglots-flatblockspreview/@master
+git+git://github.com/596acres/django-livinglots-friendlyowners/@master
 git+git://github.com/596acres/django-livinglots-genericviews/@master
 git+git://github.com/596acres/django-livinglots-groundtruth/@89955e
 git+git://github.com/596acres/django-livinglots-mailings/@master

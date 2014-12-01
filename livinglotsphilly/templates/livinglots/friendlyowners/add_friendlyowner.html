@@ -1,0 +1,39 @@
+{% extends "modals/base.html" %}
+{% load i18n inplace_tags %}
+
+{% block modal_header %}
+    {% trans "Add your parcel" %}
+{% endblock %}
+
+{% block modal_body %}
+    {% url "friendlyowners:add" as action_url %}
+    <form id="friendlyowner-add-form" class="form-horizontal" method="post" 
+        {% if action_url %}action="{{ action_url }}"{% endif %}
+        >
+
+        {% include "forms/header.html" with form=form %}
+
+        <div class="row">
+            <div class="col-md-6">
+                {% include "forms/field.html" with field=form.name %}
+                {% include "forms/field.html" with field=form.email %}
+                {% include "forms/field.html" with field=form.phone %}
+            </div>
+            <div class="col-md-6">
+                {% include "forms/field.html" with field=form.notes %}
+            </div>
+        </div>
+
+        <p>{% trans "Select your parcel below. If you can't find it here, close this box, search for the address, and open this again." %}</p>
+
+        <div id="friendlyowner-parcel-map"
+            data-l-loading-control="true"
+            data-l-lot-polygons-url="{% url "lots:lot_geojson_polygon" %}"
+            data-l-mapbox-id="{% inplace_setting PLACES_MAPBOX_ID %}"
+            data-l-min-zoom="16"
+            data-l-parcels-url="{% url "parcels:parcel_geojson" %}"
+        ></div>
+
+        {% include "forms/footer.html" %}
+    </form>
+{% endblock %}

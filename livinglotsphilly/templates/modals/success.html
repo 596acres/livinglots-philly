@@ -1,0 +1,20 @@
+{% extends "modals/base.html" %}
+{% load i18n %}
+
+{% block modal_header %}
+    {% block modal_header_text %}{% trans "Success" %}{% endblock %}<br />
+    {{ object.content_object.display_name|title|default:"unknown" }}
+{% endblock %}
+
+{% block modal_body %}
+    <div>
+        {% block modal_body_text %}{% trans "Your content was added to" %}{% endblock %}
+        {{ object.content_object.display_name|title|default:"unknown" }}
+    </div>
+    <form class="pull-right">
+        <button class="btn btn-primary btn-close-modal" type="button">
+            {% trans "ok" %}
+        </button>
+    </form>
+    <div class="clearfix"></div>
+{% endblock %}

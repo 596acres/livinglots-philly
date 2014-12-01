@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     'external_data_sync',
     'inplace_activity_stream',
     'livinglots_flatblockspreview',
+    'livinglots_friendlyowners',
     'livinglots_mailings',
     'livinglots_organize',
     'livinglots_usercontent.files',
@@ -189,6 +190,7 @@ INSTALLED_APPS = (
     'cms',
     'contact',
     'extraadmin',
+    'friendlyowners',
     'groundtruth',
     'lots',
     'mailreader',
@@ -299,6 +301,8 @@ CONSTANT_CONTACT_TOKEN = get_env_variable('PHILLY_CONSTANT_CONTACT_TOKEN')
 
 LIVING_LOTS = {
     'MODELS': {
+        'lot': 'lots.Lot',
         'organizer': 'phillyorganize.Organizer',
+        'parcel': 'waterdept.WaterParcel',
     },
 }

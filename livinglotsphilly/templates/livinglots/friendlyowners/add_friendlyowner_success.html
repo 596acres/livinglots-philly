@@ -1,0 +1,10 @@
+{% extends "modals/base.html" %}
+{% load i18n inplace_tags %}
+
+{% block modal_header %}
+    {% trans "Add your parcel" %}
+{% endblock %}
+
+{% block modal_body %}
+    <p>{% trans "Success! Your parcel will be added once we have a chance to confirm it." %}</p>
+{% endblock %}
