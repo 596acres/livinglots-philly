@@ -3527,6 +3527,7 @@ header {
   background-color: white;
   margin-bottom: 15px;
   padding-bottom: 50px;
+  overflow-x: hidden;
 }
 @media (min-width: 992px) {
   .content-wrapper .main-content {
@@ -4161,17 +4162,29 @@ ul.lot-detail-reasons li {
 .map-tally-container:after {
   clear: both;
 }
+@media (max-width: 991px) {
+  .map-tally-container {
+    padding-left: 0;
+  }
+}
 .map-tally-container h2 {
   font-size: 16px;
   font-weight: normal;
   margin-bottom: 5px;
   text-transform: none;
 }
+@media (max-width: 991px) {
+  .map-tally-container h2 {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+}
 .map-tally-container .map-tally {
   position: relative;
   min-height: 1px;
   padding-left: 0;
   padding-right: 0;
+  display: block !important;
 }
 @media (min-width: 768px) {
   .map-tally-container .map-tally {
@@ -4179,10 +4192,57 @@ ul.lot-detail-reasons li {
     width: 66.66666667%;
   }
 }
+table.map-tally-container .map-tally {
+  display: table;
+}
+tr.map-tally-container .map-tally {
+  display: table-row !important;
+}
+th.map-tally-container .map-tally,
+td.map-tally-container .map-tally {
+  display: table-cell !important;
+}
+@media (max-width: 767px) {
+  .map-tally-container .map-tally,
+  tr.map-tally-container .map-tally,
+  th.map-tally-container .map-tally,
+  td.map-tally-container .map-tally {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .map-tally-container .map-tally.hidden-sm,
+  tr.map-tally-container .map-tally.hidden-sm,
+  th.map-tally-container .map-tally.hidden-sm,
+  td.map-tally-container .map-tally.hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .map-tally-container .map-tally.hidden-md,
+  tr.map-tally-container .map-tally.hidden-md,
+  th.map-tally-container .map-tally.hidden-md,
+  td.map-tally-container .map-tally.hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .map-tally-container .map-tally.hidden-lg,
+  tr.map-tally-container .map-tally.hidden-lg,
+  th.map-tally-container .map-tally.hidden-lg,
+  td.map-tally-container .map-tally.hidden-lg {
+    display: none !important;
+  }
+}
 .map-tally-container .map-tally-counts {
   color: #d38022;
   font-family: "Roboto", sans-serif;
   font-size: 20px;
+}
+@media (max-width: 991px) {
+  .map-tally-container .map-tally-counts {
+    font-size: 14px;
+  }
 }
 .map-tally-container .map-tally .count {
   font-size: 28px;
@@ -4227,8 +4287,16 @@ ul.lot-detail-reasons li {
 .map-tally-container .main-buttons:after {
   clear: both;
 }
+@media (max-width: 767px) {
+  .map-tally-container .main-buttons {
+    padding-left: 0;
+    width: 100%;
+  }
+}
 .map-tally-container .main-buttons .btn {
   position: relative;
+  float: left;
+  width: 33.33333333%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
@@ -4244,12 +4312,6 @@ ul.lot-detail-reasons li {
   margin-top: -10px;
   padding-bottom: 0;
   padding-top: 0;
-}
-@media (min-width: 768px) {
-  .map-tally-container .main-buttons .btn {
-    float: left;
-    width: 33.33333333%;
-  }
 }
 .map-tally-container .main-buttons .btn:last-child {
   border-right: none;
@@ -4275,6 +4337,9 @@ ul.lot-detail-reasons li {
   .home-map-page .main-content {
     margin-left: 0%;
   }
+}
+.home-map-page .content-wrapper {
+  padding: 0;
 }
 #mainmenu {
   font-family: "Roboto", sans-serif;
