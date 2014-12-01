@@ -50,12 +50,11 @@ function getBounds(map) {
 function updateCounts() {
     lotsMap.fire('dataloading');
     var baseUrl = $('#map').data('countsbaseurl'),
-        params = $('form').serialize(),
-        overlayParams = '&' + $('.overlaymenu-filter :input').serialize();
+        params = serializeFilters();
 
     singleminded.remember({
         name: 'counts',
-        jqxhr: $.getJSON(baseUrl + params + overlayParams, function (data) {
+        jqxhr: $.getJSON(baseUrl + params, function (data) {
             $.each(data, function (label, count) {
                 $('.' + label).text(count);
             });
@@ -73,7 +72,7 @@ function updateCounts() {
  * Handle filter inputs
  */
 function serializeFilters() {
-    return $('form').serialize();
+    return $('form').serialize() + '&' + $('.overlaymenu-filter :input').serialize();
 }
 
 function deserializeFilters() {
