@@ -214,9 +214,10 @@ class LotResource(ModelResource):
     def apply_custom_filter_boundary(self, qs, value):
         boundary_filters = None
         for layer, boundary_pks in value.items():
+            if not boundary_pks or boundary_pks[0] == '': continue
             boundaries = Boundary.objects.filter(
                 layer__name__iexact=layer,
-                label__in=boundary_pks,
+                pk__in=boundary_pks,
             )
 
             for boundary in boundaries:
