@@ -1,3 +1,4 @@
+var _ = require('underscore');
 var L = require('leaflet');
 var Spinner = require('spinjs');
 var singleminded = require('./singleminded');
@@ -148,6 +149,35 @@ function updateViewType(viewType) {
 
     // TODO for viewType===tiles, reset filters that are disabled 
     //  (ensures sanity and that counts are appropriate)
+}
+
+function initializeBoundaries(map) {
+    // Check for expected layers, console a warning
+    var url = window.location.protocol + '//' + window.location.host +
+        Django.url('inplace:layer_upload');
+    var expectedLayers = ['city council districts', 'planning districts', 'zipcodes'];
+    _.each(expectedLayers, function (layer) {
+        if ($('.filter-' + layer.replace(/ /g, '-')).length === 0) {
+            console.warn('No ' + layer + '! Add some here: ' + url);
+        }
+    });
+
+    $('.filter-boundaries').change(function () {
+        // Clear other boundary filters
+        $('.filter-boundaries').not('#' + $(this).attr('id')).val('');
+
+        addBoundary(map, $(this).data('layer'), $(this).val());
+    });
+}
+
+function addBoundary(map, layer, pk) {
+    if (!pk || pk === '') {
+        map.removeBoundaries();
+    }
+    var url = Django.url('inplace:boundary_detail', { pk: pk });
+    $.getJSON(url, function (data) {
+        map.updateBoundaries(data, { zoomToBounds: true });
+    });
 }
 
 function onFilterChange() {
@@ -370,5 +400,7 @@ $(document).ready(function () {
         $('.overlay-download-button').overlaymenu({
             menu: '.overlaymenu-download'
         });
+
+        initializeBoundaries(lotsMap);
     }
 });

@@ -12,6 +12,7 @@ require('leaflet.bing');
 require('leaflet.label');
 require('leaflet.loading');
 require('leaflet.utfgrid');
+require('livinglots-map/src/livinglots.boundaries');
 
 require('./leaflet.geojsonbounds');
 require('./leaflet.lotlayer');

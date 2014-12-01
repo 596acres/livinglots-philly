@@ -6,6 +6,7 @@
   "license": "BSD-2-Clause",
   "main": "index.js",
   "dependencies": {
+    "livinglots-map": "git://github.com/596acres/livinglots-map",
     "tinymce": "^4.0.28"
   },
   "devDependencies": {

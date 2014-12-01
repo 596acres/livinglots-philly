@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load boundaries_tags i18n %}
 
 <div class="overlaymenu-tip-container">
     <div class="overlaymenu-tip"></div>
@@ -37,5 +37,46 @@
                 <option value="only">{% trans "show only projects" %}</option>
             </select>
         </div>
+    </section>
+
+    <section class="filter-section filter-section-boundaries">
+        {% all_boundaries "City Council Districts" as ccs %}
+        {% if ccs %}
+            <div class="filter-section-boundaries-item">
+                <label for="city-council-districts">city council districts</label>
+                <select id="city-council-districts" name="city-council-districts" class="form-control filter-boundaries filter-city-council-districts" data-layer="city council districts">
+                    <option value="">all</option>
+                    {% for cc in ccs %}
+                        <option value="{{ cc.pk }}">{{ cc.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+
+        {% all_boundaries "Planning Districts" as planning_districts %}
+        {% if planning_districts %}
+            <div class="filter-section-boundaries-item">
+                <label for="planning-districts">planning districts</label>
+                <select id="planning-districts" name="planning-districts" class="form-control filter-boundaries filter-planning-districts" data-layer="planning districts">
+                    <option value="">all</option>
+                    {% for planning_district in planning_districts %}
+                        <option value="{{ planning_district.pk }}">{{ planning_district.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+
+        {% all_boundaries "zipcodes" as zipcodes %}
+        {% if zipcodes %}
+            <div class="filter-section-boundaries-item">
+                <label for="zipcodes">zip codes</label>
+                <select id="zipcodes" name="zipcodes" class="form-control filter-boundaries filter-zipcodes" data-layer="zipcodes">
+                    <option value="">all</option>
+                    {% for zipcode in zipcodes %}
+                        <option value="{{ zipcode.pk }}">{{ zipcode.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
     </section>
 </div>

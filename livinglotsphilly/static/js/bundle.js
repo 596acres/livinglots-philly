@@ -17654,6 +17654,7 @@ require('leaflet.bing');
 require('leaflet.label');
 require('leaflet.loading');
 require('leaflet.utfgrid');
+require('livinglots-map/src/livinglots.boundaries');
 
 require('./leaflet.geojsonbounds');
 require('./leaflet.lotlayer');
@@ -18379,7 +18380,7 @@ L.Map.include({
 
 L.Map.addInitHook('_lotMapInitialize');
 
-},{"./leaflet.geojsonbounds":25,"./leaflet.legend":26,"./leaflet.lotlayer":27,"./leaflet.message":29,"./leaflet.organizermarker":30,"./lotstyles":33,"./singleminded":38,"leaflet":17,"leaflet-vector-layers":14,"leaflet.bing":13,"leaflet.label":1,"leaflet.loading":15,"leaflet.utfgrid":2,"underscore":19}],29:[function(require,module,exports){
+},{"./leaflet.geojsonbounds":25,"./leaflet.legend":26,"./leaflet.lotlayer":27,"./leaflet.message":29,"./leaflet.organizermarker":30,"./lotstyles":33,"./singleminded":38,"leaflet":17,"leaflet-vector-layers":14,"leaflet.bing":13,"leaflet.label":1,"leaflet.loading":15,"leaflet.utfgrid":2,"livinglots-map/src/livinglots.boundaries":41,"underscore":19}],29:[function(require,module,exports){
 var L = require('leaflet');
 
 L.Control.Message = L.Control.extend({
@@ -18798,6 +18799,7 @@ require('./addorganizerpage');
 require('./mailparticipantspage');
 
 },{"./addorganizerpage":20,"./jquery.activitystream":22,"./lotbasepage":32,"./mailparticipantspage":34,"./mappage":36,"bootstrap_dropdown":4,"chosen":6,"fancybox":7,"jquery.timeago":12,"noisy":3}],36:[function(require,module,exports){
+var _ = require('underscore');
 var L = require('leaflet');
 var Spinner = require('spinjs');
 var singleminded = require('./singleminded');
@@ -18948,6 +18950,35 @@ function updateViewType(viewType) {
 
     // TODO for viewType===tiles, reset filters that are disabled 
     //  (ensures sanity and that counts are appropriate)
+}
+
+function initializeBoundaries(map) {
+    // Check for expected layers, console a warning
+    var url = window.location.protocol + '//' + window.location.host +
+        Django.url('inplace:layer_upload');
+    var expectedLayers = ['city council districts', 'planning districts', 'zipcodes'];
+    _.each(expectedLayers, function (layer) {
+        if ($('.filter-' + layer.replace(/ /g, '-')).length === 0) {
+            console.warn('No ' + layer + '! Add some here: ' + url);
+        }
+    });
+
+    $('.filter-boundaries').change(function () {
+        // Clear other boundary filters
+        $('.filter-boundaries').not('#' + $(this).attr('id')).val('');
+
+        addBoundary(map, $(this).data('layer'), $(this).val());
+    });
+}
+
+function addBoundary(map, layer, pk) {
+    if (!pk || pk === '') {
+        map.removeBoundaries();
+    }
+    var url = Django.url('inplace:boundary_detail', { pk: pk });
+    $.getJSON(url, function (data) {
+        map.updateBoundaries(data, { zoomToBounds: true });
+    });
 }
 
 function onFilterChange() {
@@ -19170,10 +19201,12 @@ $(document).ready(function () {
         $('.overlay-download-button').overlaymenu({
             menu: '.overlaymenu-download'
         });
+
+        initializeBoundaries(lotsMap);
     }
 });
 
-},{"./jquery.emailparticipants":23,"./jquery.searchbar":24,"./leaflet.lotmap":28,"./overlaymenu":37,"./singleminded":38,"./streetview":39,"./welcome":40,"jquery.debouncedresize":11,"jquery.deserialize":8,"jquery.serializeobject":10,"leaflet":17,"leaflet.usermarker":16,"spinjs":18}],37:[function(require,module,exports){
+},{"./jquery.emailparticipants":23,"./jquery.searchbar":24,"./leaflet.lotmap":28,"./overlaymenu":37,"./singleminded":38,"./streetview":39,"./welcome":40,"jquery.debouncedresize":11,"jquery.deserialize":8,"jquery.serializeobject":10,"leaflet":17,"leaflet.usermarker":16,"spinjs":18,"underscore":19}],37:[function(require,module,exports){
 //
 // overlaymenu.js
 //
@@ -19353,5 +19386,41 @@ module.exports = {
         initOpen();
     }
 };
+
+},{}],41:[function(require,module,exports){
+//
+// livinglots.boundaries.js
+//
+// Add boundary-handling to a Leaflet map
+//
+
+L.Map.include({
+    boundariesLayer: null,
+
+    _initBoundaries: function () {
+        this.boundariesLayer = L.geoJson(null, {
+            color: '#FFA813',
+            fill: false,
+            opacity: 1
+        }).addTo(this);
+    },
+
+    removeBoundaries: function (data, options) {
+        this.boundariesLayer.clearLayers();
+        this.fire('boundarieschange');
+    },
+
+    updateBoundaries: function (data, options) {
+        this.boundariesLayer.clearLayers();
+        this.boundariesLayer.addData(data);
+        this.fire('boundarieschange');
+        if (options.zoomToBounds) {
+            this.fitBounds(this.boundariesLayer.getBounds());
+        }
+    }
+
+});
+
+L.Map.addInitHook('_initBoundaries');
 
 },{}]},{},[35]);
