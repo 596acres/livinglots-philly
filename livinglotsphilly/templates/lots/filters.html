@@ -60,7 +60,9 @@
                 <select id="planning-districts" name="planning-districts" class="form-control filter-boundaries filter-planning-districts" data-layer="planning districts">
                     <option value="">all</option>
                     {% for planning_district in planning_districts %}
-                        <option value="{{ planning_district.pk }}">{{ planning_district.label }}</option>
+                        {% if planning_district.label %}
+                            <option value="{{ planning_district.pk }}">{{ planning_district.label }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </div>
