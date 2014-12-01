@@ -3707,6 +3707,9 @@ h2.entry-title {
   margin-bottom: 10px;
   margin-top: 10px;
 }
+.download-links-message {
+  margin-top: 10px;
+}
 .email-participants-container {
   display: none;
   min-height: 100px;
