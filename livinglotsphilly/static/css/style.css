@@ -4147,6 +4147,12 @@ ul.lot-detail-reasons li {
   margin-bottom: 5px;
   margin-top: 5px;
 }
+body.boundary .map-tally-header-boundary {
+  display: block;
+}
+body.boundary .map-tally-header-no-boundary {
+  display: none;
+}
 .map-tally-container {
   margin-left: 0;
   margin-right: 0;
@@ -4177,17 +4183,27 @@ ul.lot-detail-reasons li {
     padding-left: 0;
   }
 }
-.map-tally-container h2 {
+.map-tally-container .map-tally-header {
   font-size: 16px;
   font-weight: normal;
   margin-bottom: 5px;
   text-transform: none;
 }
 @media (max-width: 991px) {
-  .map-tally-container h2 {
+  .map-tally-container .map-tally-header {
     font-size: 12px;
     margin-bottom: 0;
   }
+}
+.map-tally-container .map-tally-header-boundary {
+  display: none;
+}
+.map-tally-container .map-tally-header-boundary-label {
+  font-weight: bold;
+}
+.map-tally-container .map-tally-header-boundary-layer {
+  font-weight: bold;
+  text-transform: capitalize;
 }
 .map-tally-container .map-tally {
   position: relative;

@@ -6,6 +6,16 @@
     margin-top: 5px;
 }
 
+// Show boundary message conditionally
+body.boundary {
+    .map-tally-header-boundary {
+        display: block;
+    }
+    .map-tally-header-no-boundary {
+        display: none;
+    }
+}
+
 .map-tally-container {
     .make-row(0);
     color: #553B43;
@@ -18,7 +28,7 @@
         padding-left: 0;
     }
 
-    h2 {
+    .map-tally-header {
         font-size: 16px;
         font-weight: normal;
         margin-bottom: 5px;
@@ -27,6 +37,19 @@
         @media (max-width: @screen-sm-max) {
             font-size: 12px;
             margin-bottom: 0;
+        }
+
+        &-boundary {
+            display: none;
+
+            &-label {
+                font-weight: bold;
+            }
+
+            &-layer {
+                font-weight: bold;
+                text-transform: capitalize;
+            }
         }
     }
 

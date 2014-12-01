@@ -19140,6 +19140,20 @@ $(document).ready(function () {
             lotsMap.changeView(currentView);
         });
 
+        lotsMap.on('boundarieschange', function () {
+            if (lotsMap.boundariesLayer.getLayers().length > 0) {
+                $('.filter-boundaries').each(function () {
+                    if ($(this).val() === '') return;
+                    $('.map-tally-header-boundary-layer').text($(this).data('layer').slice(0, -1));
+                    $('.map-tally-header-boundary-label').text($(this).val());
+                });
+                $('body').addClass('boundary');
+            }
+            else {
+                $('body').removeClass('no-boundary');
+            }
+        });
+
         /*
          * Filters events
          */
