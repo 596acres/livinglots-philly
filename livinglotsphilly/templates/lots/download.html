@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<div class="overlaymenu-tip-container">
+    <div class="overlaymenu-tip"></div>
+</div>
+
+<div class="download-container">
+    <a href="#" class="export-link">{% trans "Link to this view" %}</a>. 
+    {% trans "Or download current lots as" %}
+    <a href="#" class="export-csv" data-baseurl="{% url "lots:csv" %}?">{% trans "a spreadsheet" %}</a>,
+    <a href="#" class="export-geojson" data-baseurl="{% url "lots:geojson" %}?download=yes&">{% trans "GeoJSON" %}</a>, or
+    <a href="#" class="export-kml" data-baseurl="{% url "lots:kml" %}?">{% trans "KML" %}</a>.
+</div>
