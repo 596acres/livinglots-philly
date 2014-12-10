@@ -56,6 +56,7 @@ class LotResource(ModelResource):
         # Remove empty bbox filter
         if 'centroid__within' in orm_filters and orm_filters['centroid__within'] == '':
             del orm_filters['centroid__within']
+        orm_filters['bbox'] = filters.get('bbox', None)
 
         # Remove empty owner name filter
         if 'owner__name__icontains' in orm_filters and orm_filters['owner__name__icontains'] == '':
