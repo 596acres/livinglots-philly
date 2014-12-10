@@ -25,7 +25,6 @@
     "leaflet-hash": "https://github.com/mlevans/leaflet-hash.git#d73fc84d8cac7f1ea7068e4fe1dcf70f93791837",
     "spin.js": "~1.3.2",
     "leaflet-plugins": "https://github.com/shramov/leaflet-plugins.git#master",
-    "leaflet-tilelayer-vector": "https://github.com/ebrelsford/leaflet-tilelayer-vector.git#master",
     "select2": "~3.4.5",
     "leaflet.loading": "~0.1.13",
     "Noisy": "*",
