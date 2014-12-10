@@ -8,7 +8,7 @@ module.exports = function(grunt) {
                     },
                     watch: true
                 },
-                src: ['js/main.js'],
+                src: 'js/main.js',
                 dest: 'js/bundle.dev.js'
             },
             production: {
