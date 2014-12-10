@@ -1,18 +1,28 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         browserify: {
-            standalone: {
+            dev: {
                 options: {
+                    browserifyOptions: {
+                        debug: true
+                    },
                     watch: true
                 },
                 src: ['js/main.js'],
+                dest: 'js/bundle.dev.js'
+            },
+            production: {
+                options: {
+                    watch: true
+                },
+                src: '<%= browserify.dev.src %>',
                 dest: 'js/bundle.js'
             }
         },
 
         cssmin: {
             minify: {
-                src: 'css/style.css',
+                src: '<%= less.all.dest %>',
                 dest: 'css/style.min.css'
             }
         },
@@ -20,41 +30,48 @@ module.exports = function(grunt) {
         jshint: {
             all: {
                 files: {
-                    src: ["js/*.js", "!js/bundle.js"]
+                    src: [
+                        'js/*.js',
+                        '!<%= browserify.dev.dest %>',
+                        '!<%= browserify.production.dest %>',
+                        '!<%= uglify.production.dest %>'
+                    ]
                 }
             }
         },
 
         less: {
-            development: {
+            all: {
                 options: {
-                    paths: ["css"],
+                    paths: ['css'],
                     yuicompress: true
                 },
-                files: {
-                    "css/style.css": "css/style.less"
-                }
+                src: 'css/style.less',
+                dest: 'css/style.css'
             }
         },
 
-        lesslint: {
-            src: ["css/**/*.less"]
+        uglify: {
+            production: {
+                src: '<%= browserify.production.dest %>',
+                dest: 'js/bundle.min.js'
+            }
         },
 
         watch: {
             jshint: {
-                files: ["js/*.js", "!bundle.js"],
-                tasks: ["jshint"]
+                files: ['js/*.js'],
+                tasks: ['jshint']
             },
 
-            //lesslint: {
-                //files: ["css/**/*.less"],
-                //tasks: ["lesslint"]
-            //},
-
             less: {
-                files: ["css/*.less", "css/*/*.less"],
-                tasks: ["less", "cssmin"]
+                files: ['css/*.less', 'css/*/*.less'],
+                tasks: ['less', 'cssmin']
+            },
+
+            uglify: {
+                files: ['<%= browserify.production.dest %>'],
+                tasks: ['uglify']
             }
         }
     });
@@ -63,8 +80,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-lesslint');
 
-    grunt.registerTask("dev", ["browserify", "watch"]);
+    grunt.registerTask('dev', ['browserify', 'watch']);
 };
