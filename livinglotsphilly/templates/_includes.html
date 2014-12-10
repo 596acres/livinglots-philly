@@ -9,4 +9,8 @@
 
 {% django_js jquery=false i18n=false csrf=false %}
 
-<script src="{% static "js/bundle.js" %}"></script>
+{% if debug %}
+    <script src="{% static "js/bundle.dev.js" %}"></script>
+{% else %}
+    <script src="{% static "js/bundle.min.js" %}"></script>
+{% endif %}
