@@ -1,5 +1,6 @@
 from inspect import getmembers
 
+from django.contrib.gis.geos import Polygon
 from django.db.models import Q, Count
 
 from inplace.api.serializers import GeoJSONSerializer
@@ -166,6 +167,9 @@ class LotResource(ModelResource):
             boundary[layer] = filters.pop(f)
         return boundary
 
+    def pop_custom_filter_bbox(self, filters):
+        return filters.pop('bbox', None)
+
     def pop_custom_filter_available_property__status__in(self, filters):
         return filters.pop('available_property__status__in', [])
 
@@ -227,6 +231,11 @@ class LotResource(ModelResource):
                 else:
                     boundary_filters = boundary_filter
         if boundary_filters: qs = qs.filter(boundary_filters)
+        return qs
+
+    def apply_custom_filter_bbox(self, qs, value):
+        if value:
+            qs = qs.filter(centroid__within=Polygon.from_bbox(value.split(',')))
         return qs
 
     def apply_custom_filter_available_property__status__in(self, qs, value):
