@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Leaflet.label/dist/leaflet.label.js":[function(require,module,exports){
 /*
 	Leaflet.label, a plugin that adds labels to markers and vectors for Leaflet powered maps.
 	(c) 2012-2013, Jacob Toye, Smartrak
@@ -8,7 +8,7 @@
 	https://github.com/jacobtoye
 */
 (function(){L.labelVersion="0.2.1",L.Label=L.Class.extend({includes:L.Mixin.Events,options:{className:"",clickable:!1,direction:"right",noHide:!1,offset:[12,-15],opacity:1,zoomAnimation:!0},initialize:function(t,e){L.setOptions(this,t),this._source=e,this._animated=L.Browser.any3d&&this.options.zoomAnimation,this._isOpen=!1},onAdd:function(t){this._map=t,this._pane=this._source instanceof L.Marker?t._panes.markerPane:t._panes.popupPane,this._container||this._initLayout(),this._pane.appendChild(this._container),this._initInteraction(),this._update(),this.setOpacity(this.options.opacity),t.on("moveend",this._onMoveEnd,this).on("viewreset",this._onViewReset,this),this._animated&&t.on("zoomanim",this._zoomAnimation,this),L.Browser.touch&&!this.options.noHide&&L.DomEvent.on(this._container,"click",this.close,this)},onRemove:function(t){this._pane.removeChild(this._container),t.off({zoomanim:this._zoomAnimation,moveend:this._onMoveEnd,viewreset:this._onViewReset},this),this._removeInteraction(),this._map=null},setLatLng:function(t){return this._latlng=L.latLng(t),this._map&&this._updatePosition(),this},setContent:function(t){return this._previousContent=this._content,this._content=t,this._updateContent(),this},close:function(){var t=this._map;t&&(L.Browser.touch&&!this.options.noHide&&L.DomEvent.off(this._container,"click",this.close),t.removeLayer(this))},updateZIndex:function(t){this._zIndex=t,this._container&&this._zIndex&&(this._container.style.zIndex=t)},setOpacity:function(t){this.options.opacity=t,this._container&&L.DomUtil.setOpacity(this._container,t)},_initLayout:function(){this._container=L.DomUtil.create("div","leaflet-label "+this.options.className+" leaflet-zoom-animated"),this.updateZIndex(this._zIndex)},_update:function(){this._map&&(this._container.style.visibility="hidden",this._updateContent(),this._updatePosition(),this._container.style.visibility="")},_updateContent:function(){this._content&&this._map&&this._prevContent!==this._content&&"string"==typeof this._content&&(this._container.innerHTML=this._content,this._prevContent=this._content,this._labelWidth=this._container.offsetWidth)},_updatePosition:function(){var t=this._map.latLngToLayerPoint(this._latlng);this._setPosition(t)},_setPosition:function(t){var e=this._map,i=this._container,n=e.latLngToContainerPoint(e.getCenter()),o=e.layerPointToContainerPoint(t),s=this.options.direction,a=this._labelWidth,l=L.point(this.options.offset);"right"===s||"auto"===s&&o.x<n.x?(L.DomUtil.addClass(i,"leaflet-label-right"),L.DomUtil.removeClass(i,"leaflet-label-left"),t=t.add(l)):(L.DomUtil.addClass(i,"leaflet-label-left"),L.DomUtil.removeClass(i,"leaflet-label-right"),t=t.add(L.point(-l.x-a,l.y))),L.DomUtil.setPosition(i,t)},_zoomAnimation:function(t){var e=this._map._latLngToNewLayerPoint(this._latlng,t.zoom,t.center).round();this._setPosition(e)},_onMoveEnd:function(){this._animated&&"auto"!==this.options.direction||this._updatePosition()},_onViewReset:function(t){t&&t.hard&&this._update()},_initInteraction:function(){if(this.options.clickable){var t=this._container,e=["dblclick","mousedown","mouseover","mouseout","contextmenu"];L.DomUtil.addClass(t,"leaflet-clickable"),L.DomEvent.on(t,"click",this._onMouseClick,this);for(var i=0;e.length>i;i++)L.DomEvent.on(t,e[i],this._fireMouseEvent,this)}},_removeInteraction:function(){if(this.options.clickable){var t=this._container,e=["dblclick","mousedown","mouseover","mouseout","contextmenu"];L.DomUtil.removeClass(t,"leaflet-clickable"),L.DomEvent.off(t,"click",this._onMouseClick,this);for(var i=0;e.length>i;i++)L.DomEvent.off(t,e[i],this._fireMouseEvent,this)}},_onMouseClick:function(t){this.hasEventListeners(t.type)&&L.DomEvent.stopPropagation(t),this.fire(t.type,{originalEvent:t})},_fireMouseEvent:function(t){this.fire(t.type,{originalEvent:t}),"contextmenu"===t.type&&this.hasEventListeners(t.type)&&L.DomEvent.preventDefault(t),"mousedown"!==t.type?L.DomEvent.stopPropagation(t):L.DomEvent.preventDefault(t)}}),L.BaseMarkerMethods={showLabel:function(){return this.label&&this._map&&(this.label.setLatLng(this._latlng),this._map.showLabel(this.label)),this},hideLabel:function(){return this.label&&this.label.close(),this},setLabelNoHide:function(t){this._labelNoHide!==t&&(this._labelNoHide=t,t?(this._removeLabelRevealHandlers(),this.showLabel()):(this._addLabelRevealHandlers(),this.hideLabel()))},bindLabel:function(t,e){var i=this.options.icon?this.options.icon.options.labelAnchor:this.options.labelAnchor,n=L.point(i)||L.point(0,0);return n=n.add(L.Label.prototype.options.offset),e&&e.offset&&(n=n.add(e.offset)),e=L.Util.extend({offset:n},e),this._labelNoHide=e.noHide,this.label||(this._labelNoHide||this._addLabelRevealHandlers(),this.on("remove",this.hideLabel,this).on("move",this._moveLabel,this).on("add",this._onMarkerAdd,this),this._hasLabelHandlers=!0),this.label=new L.Label(e,this).setContent(t),this},unbindLabel:function(){return this.label&&(this.hideLabel(),this.label=null,this._hasLabelHandlers&&(this._labelNoHide||this._removeLabelRevealHandlers(),this.off("remove",this.hideLabel,this).off("move",this._moveLabel,this).off("add",this._onMarkerAdd,this)),this._hasLabelHandlers=!1),this},updateLabelContent:function(t){this.label&&this.label.setContent(t)},getLabel:function(){return this.label},_onMarkerAdd:function(){this._labelNoHide&&this.showLabel()},_addLabelRevealHandlers:function(){this.on("mouseover",this.showLabel,this).on("mouseout",this.hideLabel,this),L.Browser.touch&&this.on("click",this.showLabel,this)},_removeLabelRevealHandlers:function(){this.off("mouseover",this.showLabel,this).off("mouseout",this.hideLabel,this),L.Browser.touch&&this.off("click",this.showLabel,this)},_moveLabel:function(t){this.label.setLatLng(t.latlng)}},L.Icon.Default.mergeOptions({labelAnchor:new L.Point(9,-20)}),L.Marker.mergeOptions({icon:new L.Icon.Default}),L.Marker.include(L.BaseMarkerMethods),L.Marker.include({_originalUpdateZIndex:L.Marker.prototype._updateZIndex,_updateZIndex:function(t){var e=this._zIndex+t;this._originalUpdateZIndex(t),this.label&&this.label.updateZIndex(e)},_originalSetOpacity:L.Marker.prototype.setOpacity,setOpacity:function(t,e){this.options.labelHasSemiTransparency=e,this._originalSetOpacity(t)},_originalUpdateOpacity:L.Marker.prototype._updateOpacity,_updateOpacity:function(){var t=0===this.options.opacity?0:1;this._originalUpdateOpacity(),this.label&&this.label.setOpacity(this.options.labelHasSemiTransparency?this.options.opacity:t)},_originalSetLatLng:L.Marker.prototype.setLatLng,setLatLng:function(t){return this.label&&!this._labelNoHide&&this.hideLabel(),this._originalSetLatLng(t)}}),L.CircleMarker.mergeOptions({labelAnchor:new L.Point(0,0)}),L.CircleMarker.include(L.BaseMarkerMethods),L.Path.include({bindLabel:function(t,e){return this.label&&this.label.options===e||(this.label=new L.Label(e,this)),this.label.setContent(t),this._showLabelAdded||(this.on("mouseover",this._showLabel,this).on("mousemove",this._moveLabel,this).on("mouseout remove",this._hideLabel,this),L.Browser.touch&&this.on("click",this._showLabel,this),this._showLabelAdded=!0),this},unbindLabel:function(){return this.label&&(this._hideLabel(),this.label=null,this._showLabelAdded=!1,this.off("mouseover",this._showLabel,this).off("mousemove",this._moveLabel,this).off("mouseout remove",this._hideLabel,this)),this},updateLabelContent:function(t){this.label&&this.label.setContent(t)},_showLabel:function(t){this.label.setLatLng(t.latlng),this._map.showLabel(this.label)},_moveLabel:function(t){this.label.setLatLng(t.latlng)},_hideLabel:function(){this.label.close()}}),L.Map.include({showLabel:function(t){return this.addLayer(t)}}),L.FeatureGroup.include({clearLayers:function(){return this.unbindLabel(),this.eachLayer(this.removeLayer,this),this},bindLabel:function(t,e){return this.invoke("bindLabel",t,e)},unbindLabel:function(){return this.invoke("unbindLabel")},updateLabelContent:function(t){this.invoke("updateLabelContent",t)}})})(this,document);
-},{}],2:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Leaflet.utfgrid/dist/leaflet.utfgrid-src.js":[function(require,module,exports){
 (function (global){
 ;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*
@@ -276,8 +276,8 @@ L.utfGrid = function (url, options) {
 
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],3:[function(require,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Noisy/jquery/jquery.noisy.js":[function(require,module,exports){
 (function($){
 	
 	$.fn.noisy = function(options) {
@@ -406,7 +406,7 @@ L.utfGrid = function (url, options) {
 	};
 })(jQuery);
 
-},{}],4:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/bootstrap/js/dropdown.js":[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: dropdown.js v3.0.3
  * http://getbootstrap.com/javascript/#dropdowns
@@ -562,7 +562,7 @@ L.utfGrid = function (url, options) {
 
 }(jQuery);
 
-},{}],5:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/bootstrap/js/tooltip.js":[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: tooltip.js v3.0.3
  * http://getbootstrap.com/javascript/#tooltip
@@ -950,7 +950,7 @@ L.utfGrid = function (url, options) {
 
 }(jQuery);
 
-},{}],6:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/chosen_v1.2.0/chosen.jquery.js":[function(require,module,exports){
 /*!
 Chosen, a Select Box Enhancer for jQuery and Prototype
 by Patrick Filler for Harvest, http://getharvest.com
@@ -2181,7 +2181,7 @@ This file is generated by `grunt build`, do not edit it by hand.
 
 }).call(this);
 
-},{}],7:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/fancybox/source/jquery.fancybox.js":[function(require,module,exports){
 /*!
  * fancyBox - jQuery Plugin
  * version: 2.1.5 (Fri, 14 Jun 2013)
@@ -4202,7 +4202,7 @@ This file is generated by `grunt build`, do not edit it by hand.
 	});
 
 }(window, document, jQuery));
-},{}],8:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-deserialize/dist/jquery.deserialize.min.js":[function(require,module,exports){
 /**
  * @author Kyle Florence <kyle[dot]florence[at]gmail[dot]com>
  * @website https://github.com/kflorence/jquery-deserialize/
@@ -4211,7 +4211,7 @@ This file is generated by `grunt build`, do not edit it by hand.
  * Dual licensed under the MIT and GPLv2 licenses.
  */
 (function(i,b){var f=Array.prototype.push,a=/^(?:radio|checkbox)$/i,e=/\+/g,d=/^(?:option|select-one|select-multiple)$/i,g=/^(?:button|color|date|datetime|datetime-local|email|hidden|month|number|password|range|reset|search|submit|tel|text|textarea|time|url|week)$/i;function c(j){return j.map(function(){return this.elements?i.makeArray(this.elements):this}).filter(":input").get()}function h(j){var k,l={};i.each(j,function(n,m){k=l[m.name];l[m.name]=k===b?m:(i.isArray(k)?k.concat(m):[k,m])});return l}i.fn.deserialize=function(A,l){var y,n,q=c(this),t=[];if(!A||!q.length){return this}if(i.isArray(A)){t=A}else{if(i.isPlainObject(A)){var B,w;for(B in A){i.isArray(w=A[B])?f.apply(t,i.map(w,function(j){return{name:B,value:j}})):f.call(t,{name:B,value:w})}}else{if(typeof A==="string"){var v;A=A.split("&");for(y=0,n=A.length;y<n;y++){v=A[y].split("=");f.call(t,{name:decodeURIComponent(v[0]),value:decodeURIComponent(v[1].replace(e,"%20"))})}}}}if(!(n=t.length)){return this}var u,k,x,z,C,o,m,w,p=i.noop,s=i.noop,r={};l=l||{};q=h(q);if(i.isFunction(l)){s=l}else{p=i.isFunction(l.change)?l.change:p;s=i.isFunction(l.complete)?l.complete:s}for(y=0;y<n;y++){u=t[y];C=u.name;w=u.value;if(!(k=q[C])){continue}m=(z=k.length)?k[0]:k;m=(m.type||m.nodeName).toLowerCase();o=null;if(g.test(m)){if(z){x=r[C];k=k[r[C]=(x==b)?0:++x]}p.call(k,(k.value=w))}else{if(a.test(m)){o="checked"}else{if(d.test(m)){o="selected"}}}if(o){if(!z){k=[k];z=1}for(x=0;x<z;x++){u=k[x];if(u.value==w){p.call(u,(u[o]=true)&&w)}}}}s.call(this);return this}})(jQuery);
-},{}],9:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-form/jquery.form.js":[function(require,module,exports){
 /*!
  * jQuery Form Plugin
  * version: 3.46.0-2013.11.21
@@ -5430,7 +5430,7 @@ function log() {
 }));
 
 
-},{}],10:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-serializeObject/jquery.serializeObject.js":[function(require,module,exports){
 /**
   (The MIT License)
 
@@ -5490,7 +5490,7 @@ jQuery.fn.serializeObject = function() {
   return o;
 };
 
-},{}],11:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-smartresize/jquery.debouncedresize.js":[function(require,module,exports){
 /*
  * debouncedresize: special jQuery event that happens once after a window resize
  *
@@ -5538,7 +5538,7 @@ $special = $event.special.debouncedresize = {
 };
 
 })(jQuery);
-},{}],12:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-timeago/jquery.timeago.js":[function(require,module,exports){
 /**
  * Timeago is a jQuery plugin that makes it easy to support automatically
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
@@ -5754,7 +5754,7 @@ $special = $event.special.debouncedresize = {
   document.createElement("time");
 }));
 
-},{}],13:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet-plugins/layer/tile/Bing.js":[function(require,module,exports){
 L.BingLayer = L.TileLayer.extend({
 	options: {
 		subdomains: [0, 1, 2, 3],
@@ -5879,64 +5879,7 @@ L.bingLayer = function (key, options) {
     return new L.BingLayer(key, options);
 };
 
-},{}],14:[function(require,module,exports){
-(function (global){
-;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
-/*
- Copyright (c) 2013, Jason Sanford
- Leaflet Vector Layers is a library for showing geometry objects
- from multiple geoweb services in a Leaflet map
-*/
-(function(a){a.lvector={VERSION:"1.5.1",noConflict:function(){a.lvector=this._originallvector;return this},_originallvector:a.lvector}})(this);lvector.Layer=L.Class.extend({options:{fields:"",scaleRange:null,map:null,uniqueField:null,visibleAtScale:!0,dynamic:!1,autoUpdate:!1,autoUpdateInterval:null,popupTemplate:null,popupOptions:{},singlePopup:!1,symbology:null,showAll:!1},initialize:function(a){L.Util.setOptions(this,a)},setMap:function(a){if(!a||!this.options.map)if(a){this.options.map=a;if(this.options.scaleRange&&this.options.scaleRange instanceof Array&&this.options.scaleRange.length===2){var a=this.options.map.getZoom(),b=this.options.scaleRange;
-this.options.visibleAtScale=a>=b[0]&&a<=b[1]}this._show()}else if(this.options.map)this._hide(),this.options.map=a},getMap:function(){return this.options.map},setOptions:function(){},_show:function(){this._addIdleListener();this.options.scaleRange&&this.options.scaleRange instanceof Array&&this.options.scaleRange.length===2&&this._addZoomChangeListener();if(this.options.visibleAtScale){if(this.options.autoUpdate&&this.options.autoUpdateInterval){var a=this;this._autoUpdateInterval=setInterval(function(){a._getFeatures()},
-this.options.autoUpdateInterval)}this.options.map.fire("moveend").fire("zoomend")}},_hide:function(){this._idleListener&&this.options.map.off("moveend",this._idleListener);this._zoomChangeListener&&this.options.map.off("zoomend",this._zoomChangeListener);this._autoUpdateInterval&&clearInterval(this._autoUpdateInterval);this._clearFeatures();this._lastQueriedBounds=null;if(this._gotAll)this._gotAll=!1},_hideVectors:function(){for(var a=0;a<this._vectors.length;a++){if(this._vectors[a].vector)if(this.options.map.removeLayer(this._vectors[a].vector),
-this._vectors[a].popup)this.options.map.removeLayer(this._vectors[a].popup);else if(this.popup&&this.popup.associatedFeature&&this.popup.associatedFeature==this._vectors[a])this.options.map.removeLayer(this.popup),this.popup=null;if(this._vectors[a].vectors&&this._vectors[a].vectors.length)for(var b=0;b<this._vectors[a].vectors.length;b++)if(this.options.map.removeLayer(this._vectors[a].vectors[b]),this._vectors[a].vectors[b].popup)this.options.map.removeLayer(this._vectors[a].vectors[b].popup);else if(this.popup&&
-this.popup.associatedFeature&&this.popup.associatedFeature==this._vectors[a])this.options.map.removeLayer(this.popup),this.popup=null}},_showVectors:function(){for(var a=0;a<this._vectors.length;a++)if(this._vectors[a].vector&&this.options.map.addLayer(this._vectors[a].vector),this._vectors[a].vectors&&this._vectors[a].vectors.length)for(var b=0;b<this._vectors[a].vectors.length;b++)this.options.map.addLayer(this._vectors[a].vectors[b])},_clearFeatures:function(){this._hideVectors();this._vectors=
-[]},_addZoomChangeListener:function(){this._zoomChangeListener=this._zoomChangeListenerTemplate();this.options.map.on("zoomend",this._zoomChangeListener,this)},_zoomChangeListenerTemplate:function(){var a=this;return function(){a._checkLayerVisibility()}},_idleListenerTemplate:function(){var a=this;return function(){if(a.options.visibleAtScale)if(a.options.showAll){if(!a._gotAll)a._getFeatures(),a._gotAll=!0}else a._getFeatures()}},_addIdleListener:function(){this._idleListener=this._idleListenerTemplate();
-this.options.map.on("moveend",this._idleListener,this)},_checkLayerVisibility:function(){var a=this.options.visibleAtScale,b=this.options.map.getZoom(),d=this.options.scaleRange;this.options.visibleAtScale=b>=d[0]&&b<=d[1];if(a!==this.options.visibleAtScale)this[this.options.visibleAtScale?"_showVectors":"_hideVectors"]();if(a&&!this.options.visibleAtScale&&this._autoUpdateInterval)clearInterval(this._autoUpdateInterval);else if(!a&&this.options.autoUpdate&&this.options.autoUpdateInterval){var e=
-this;this._autoUpdateInterval=setInterval(function(){e._getFeatures()},this.options.autoUpdateInterval)}},_setPopupContent:function(a){var b=a.popupContent,d=a.attributes||a.properties,e;if(typeof this.options.popupTemplate=="string"){e=this.options.popupTemplate;for(var c in d)e=e.replace(RegExp("{"+c+"}","g"),d[c])}else if(typeof this.options.popupTemplate=="function")e=this.options.popupTemplate(d);else return;a.popupContent=e;a.popup?a.popupContent!==b&&a.popup.setContent(a.popupContent):this.popup&&
-this.popup.associatedFeature==a&&a.popupContent!==b&&this.popup.setContent(a.popupContent)},_showPopup:function(a,b){var d=b.latlng;d||L.Util.extend(this.options.popupOptions,{offset:b.target.options.icon.options.popupAnchor});var e;if(this.options.singlePopup){if(this.popup)this.options.map.removeLayer(this.popup),this.popup=null;this.popup=new L.Popup(this.options.popupOptions,a.vector);this.popup.associatedFeature=a;e=this}else a.popup=new L.Popup(this.options.popupOptions,a.vector),e=a;e.popup.setLatLng(d?
-b.latlng:b.target.getLatLng());e.popup.setContent(a.popupContent);this.options.map.addLayer(e.popup)},_fireClickEvent:function(a,b){this.options.clickEvent(a,b)},_getFeatureVectorOptions:function(a){var b={},a=a.attributes||a.properties;if(this.options.symbology)switch(this.options.symbology.type){case "single":for(var d in this.options.symbology.vectorOptions)if(b[d]=this.options.symbology.vectorOptions[d],b.title)for(var e in a){var c=RegExp("{"+e+"}","g");b.title=b.title.replace(c,a[e])}break;
-case "unique":for(var f=this.options.symbology.property,g=0,h=this.options.symbology.values.length;g<h;g++)if(a[f]==this.options.symbology.values[g].value)for(d in this.options.symbology.values[g].vectorOptions)if(b[d]=this.options.symbology.values[g].vectorOptions[d],b.title)for(e in a)c=RegExp("{"+e+"}","g"),b.title=b.title.replace(c,a[e]);break;case "range":f=this.options.symbology.property;g=0;for(h=this.options.symbology.ranges.length;g<h;g++)if(a[f]>=this.options.symbology.ranges[g].range[0]&&
-a[f]<=this.options.symbology.ranges[g].range[1])for(d in this.options.symbology.ranges[g].vectorOptions)if(b[d]=this.options.symbology.ranges[g].vectorOptions[d],b.title)for(e in a)c=RegExp("{"+e+"}","g"),b.title=b.title.replace(c,a[e])}return b},_getPropertiesChanged:function(a,b){var d=!1,e;for(e in a)a[e]!=b[e]&&(d=!0);return d},_getPropertyChanged:function(a,b,d){return a[d]!=b[d]},_getGeometryChanged:function(a,b){var d=!1;a.coordinates&&a.coordinates instanceof Array?a.coordinates[0]==b.coordinates[0]&&
-a.coordinates[1]==b.coordinates[1]||(d=!0):a.x==b.x&&a.y==b.y||(d=!0);return d},_makeJsonpRequest:function(a){var b=document.getElementsByTagName("head")[0],d=document.createElement("script");d.type="text/javascript";d.src=a;b.appendChild(d)},_processFeatures:function(a){if(this.options.map){var b=this.options.map.getBounds();if(!this._lastQueriedBounds||!this._lastQueriedBounds.equals(b)||this.options.autoUpdate){this._lastQueriedBounds=b;featuresHaveIds=a.features&&a.features.length&&a.features[0].id?
-!0:!1;!this.options.uniqueField&&!featuresHaveIds&&this._clearFeatures();if(this instanceof lvector.PRWSF){a.features=a.rows;delete a.rows;for(var b=0,d=a.features.length;b<d;b++){a.features[b].type="Feature";a.features[b].properties={};for(var e in a.features[b].row)e=="geojson"?a.features[b].geometry=a.features[b].row.geojson:a.features[b].properties[e]=a.features[b].row[e];delete a.features[b].row}}if(this instanceof lvector.GISCloud){a.features=a.data;delete a.data;b=0;for(d=a.features.length;b<
-d;b++)a.features[b].type="Feature",a.features[b].properties=a.features[b].data,a.features[b].properties.id=a.features[b].__id,delete a.features[b].data,a.features[b].geometry=a.features[b].__geometry,delete a.features[b].__geometry}if(a&&a.features&&a.features.length)for(b=0;b<a.features.length;b++){if(this instanceof lvector.EsriJSONLayer)a.features[b].properties=a.features[b].attributes,delete a.features[b].attributes;e=!1;d=a.features[b].id?!0:!1;if(this.options.uniqueField||d)for(var c=0;c<this._vectors.length;c++){var f=
-this._vectors[c].id?!0:!1;if(d&&f&&a.features[b].id==this._vectors[c].id||this.options.uniqueField&&a.features[b].properties[this.options.uniqueField]==this._vectors[c].properties[this.options.uniqueField])if(e=!0,this.options.dynamic){if(this._getGeometryChanged(this._vectors[c].geometry,a.features[b].geometry)&&!isNaN(a.features[b].geometry.coordinates[0])&&!isNaN(a.features[b].geometry.coordinates[1]))this._vectors[c].geometry=a.features[b].geometry,this._vectors[c].vector.setLatLng(new L.LatLng(this._vectors[c].geometry.coordinates[1],
-this._vectors[c].geometry.coordinates[0]));if(this._getPropertiesChanged(this._vectors[c].properties,a.features[b].properties)&&(f=this._getPropertyChanged(this._vectors[c].properties,a.features[b].properties,this.options.symbology.property),this._vectors[c].properties=a.features[b].properties,this.options.popupTemplate&&this._setPopupContent(this._vectors[c]),this.options.symbology&&this.options.symbology.type!="single"&&f))if(this._vectors[c].vectors)for(var f=0,g=this._vectors[c].vectors.length;f<
-g;f++)this._vectors[c].vectors[f].setStyle?this._vectors[c].vectors[f].setStyle(this._getFeatureVectorOptions(this._vectors[c])):this._vectors[c].vectors[f].setIcon&&this._vectors[c].vectors[f].setIcon(this._getFeatureVectorOptions(this._vectors[c]).icon);else this._vectors[c].vector&&(this._vectors[c].vector.setStyle?this._vectors[c].vector.setStyle(this._getFeatureVectorOptions(this._vectors[c])):this._vectors[c].vector.setIcon&&this._vectors[c].vector.setIcon(this._getFeatureVectorOptions(this._vectors[c]).icon))}}if(!e){this instanceof
-lvector.GeoJSONLayer?(e=this._geoJsonGeometryToLeaflet(a.features[b].geometry,this._getFeatureVectorOptions(a.features[b])),a.features[b][e instanceof Array?"vectors":"vector"]=e):this instanceof lvector.EsriJSONLayer&&(e=this._esriJsonGeometryToLeaflet(a.features[b].geometry,this._getFeatureVectorOptions(a.features[b])),a.features[b][e instanceof Array?"vectors":"vector"]=e);if(a.features[b].vector)this.options.map.addLayer(a.features[b].vector);else if(a.features[b].vectors&&a.features[b].vectors.length)for(f=
-0;f<a.features[b].vectors.length;f++)this.options.map.addLayer(a.features[b].vectors[f]);this._vectors.push(a.features[b]);if(this.options.popupTemplate){var h=this;e=a.features[b];this._setPopupContent(e);(function(a){if(a.vector)a.vector.on("click",function(b){h._showPopup(a,b)});else if(a.vectors)for(var b=0,c=a.vectors.length;b<c;b++)a.vectors[b].on("click",function(b){h._showPopup(a,b)})})(e)}this.options.clickEvent&&(h=this,e=a.features[b],function(a){if(a.vector)a.vector.on("click",function(b){h._fireClickEvent(a,
-b)});else if(a.vectors)for(var b=0,c=a.vectors.length;b<c;b++)a.vectors[b].on("click",function(b){h._fireClickEvent(a,b)})}(e))}}}}}});lvector.GeoJSONLayer=lvector.Layer.extend({_geoJsonGeometryToLeaflet:function(a,b){var d,e;switch(a.type){case "Point":d=b.circleMarker?new L.CircleMarker(new L.LatLng(a.coordinates[1],a.coordinates[0]),b):new L.Marker(new L.LatLng(a.coordinates[1],a.coordinates[0]),b);break;case "MultiPoint":e=[];for(var c=0,f=a.coordinates.length;c<f;c++)e.push(new L.Marker(new L.LatLng(a.coordinates[c][1],a.coordinates[c][0]),b));break;case "LineString":for(var g=[],c=0,f=a.coordinates.length;c<f;c++)g.push(new L.LatLng(a.coordinates[c][1],
-a.coordinates[c][0]));d=new L.Polyline(g,b);break;case "MultiLineString":e=[];c=0;for(f=a.coordinates.length;c<f;c++){for(var g=[],h=0,j=a.coordinates[c].length;h<j;h++)g.push(new L.LatLng(a.coordinates[c][h][1],a.coordinates[c][h][0]));e.push(new L.Polyline(g,b))}break;case "Polygon":for(var i=[],c=0,f=a.coordinates.length;c<f;c++){g=[];h=0;for(j=a.coordinates[c].length;h<j;h++)g.push(new L.LatLng(a.coordinates[c][h][1],a.coordinates[c][h][0]));i.push(g)}d=new L.Polygon(i,b);break;case "MultiPolygon":e=
-[];c=0;for(f=a.coordinates.length;c<f;c++){i=[];h=0;for(j=a.coordinates[c].length;h<j;h++){for(var g=[],k=0,l=a.coordinates[c][h].length;k<l;k++)g.push(new L.LatLng(a.coordinates[c][h][k][1],a.coordinates[c][h][k][0]));i.push(g)}e.push(new L.Polygon(i,b))}break;case "GeometryCollection":e=[];c=0;for(f=a.geometries.length;c<f;c++)e.push(this._geoJsonGeometryToLeaflet(a.geometries[c],b))}return d||e}});lvector.EsriJSONLayer=lvector.Layer.extend({_esriJsonGeometryToLeaflet:function(a,b){var d,e;if(a.x&&a.y)d=new L.Marker(new L.LatLng(a.y,a.x),b);else if(a.points){e=[];for(var c=0,f=a.points.length;c<f;c++)e.push(new L.Marker(new L.LatLng(a.points[c].y,a.points[c].x),b))}else if(a.paths)if(a.paths.length>1){e=[];c=0;for(f=a.paths.length;c<f;c++){for(var g=[],h=0,j=a.paths[c].length;h<j;h++)g.push(new L.LatLng(a.paths[c][h][1],a.paths[c][h][0]));e.push(new L.Polyline(g,b))}}else{g=[];c=0;for(f=a.paths[0].length;c<
-f;c++)g.push(new L.LatLng(a.paths[0][c][1],a.paths[0][c][0]));d=new L.Polyline(g,b)}else if(a.rings)if(a.rings.length>1){e=[];c=0;for(f=a.rings.length;c<f;c++){for(var i=[],g=[],h=0,j=a.rings[c].length;h<j;h++)g.push(new L.LatLng(a.rings[c][h][1],a.rings[c][h][0]));i.push(g);e.push(new L.Polygon(i,b))}}else{i=[];g=[];c=0;for(f=a.rings[0].length;c<f;c++)g.push(new L.LatLng(a.rings[0][c][1],a.rings[0][c][0]));i.push(g);d=new L.Polygon(i,b)}return d||e}});lvector.AGS=lvector.EsriJSONLayer.extend({initialize:function(a){for(var b=0,d=this._requiredParams.length;b<d;b++)if(!a[this._requiredParams[b]])throw Error('No "'+this._requiredParams[b]+'" parameter found.');this._globalPointer="AGS_"+Math.floor(Math.random()*1E5);window[this._globalPointer]=this;a.url.substr(a.url.length-1,1)!=="/"&&(a.url+="/");this._originalOptions=L.Util.extend({},a);if(a.esriOptions)if(typeof a.esriOptions=="object")L.Util.extend(a,this._convertEsriOptions(a.esriOptions));
-else{this._getEsriOptions();return}lvector.Layer.prototype.initialize.call(this,a);if(this.options.where)this.options.where=encodeURIComponent(this.options.where);this._vectors=[];if(this.options.map){if(this.options.scaleRange&&this.options.scaleRange instanceof Array&&this.options.scaleRange.length===2)a=this.options.map.getZoom(),b=this.options.scaleRange,this.options.visibleAtScale=a>=b[0]&&a<=b[1];this._show()}},options:{where:"1=1",url:null,useEsriOptions:!1},_requiredParams:["url"],_convertEsriOptions:function(a){var b=
-{};if(!(a.minScale==void 0||a.maxScale==void 0)){var d=this._scaleToLevel(a.minScale),e=this._scaleToLevel(a.maxScale);e==0&&(e=20);b.scaleRange=[d,e]}if(a.drawingInfo&&a.drawingInfo.renderer)b.symbology=this._renderOptionsToSymbology(a.drawingInfo.renderer);return b},_getEsriOptions:function(){this._makeJsonpRequest(this._originalOptions.url+"?f=json&callback="+this._globalPointer+"._processEsriOptions")},_processEsriOptions:function(a){var b=this._originalOptions;b.esriOptions=a;this.initialize(b)},
-_scaleToLevel:function(a){var b=[5.91657527591555E8,2.95828763795777E8,1.47914381897889E8,7.3957190948944E7,3.6978595474472E7,1.8489297737236E7,9244648.868618,4622324.434309,2311162.217155,1155581.108577,577790.554289,288895.277144,144447.638572,72223.819286,36111.909643,18055.954822,9027.977411,4513.988705,2256.994353,1128.497176,564.248588,282.124294];if(a==0)return 0;for(var d=0,e=0;e<b.length-1;e++){var c=b[e+1];if(a<=b[e]&&a>c){d=e;break}}return d},_renderOptionsToSymbology:function(a){symbology=
-{};switch(a.type){case "simple":symbology.type="single";symbology.vectorOptions=this._parseSymbology(a.symbol);break;case "uniqueValue":symbology.type="unique";symbology.property=a.field1;for(var b=[],d=0;d<a.uniqueValueInfos.length;d++){var e=a.uniqueValueInfos[d],c={};c.value=e.value;c.vectorOptions=this._parseSymbology(e.symbol);c.label=e.label;b.push(c)}symbology.values=b;break;case "classBreaks":symbology.type="range";symbology.property=rend.field;b=[];e=a.minValue;for(d=0;d<a.classBreakInfos.length;d++){var c=
-a.classBreakInfos[d],f={};f.range=[e,c.classMaxValue];e=c.classMaxValue;f.vectorOptions=this._parseSymbology(c.symbol);f.label=c.label;b.push(f)}symbology.ranges=b}return symbology},_parseSymbology:function(a){var b={};switch(a.type){case "esriSMS":case "esriPMS":a=L.icon({iconUrl:"data:"+a.contentType+";base64,"+a.imageData,shadowUrl:null,iconSize:new L.Point(a.width,a.height),iconAnchor:new L.Point(a.width/2+a.xoffset,a.height/2+a.yoffset),popupAnchor:new L.Point(0,-(a.height/2))});b.icon=a;break;
-case "esriSLS":b.weight=a.width;b.color=this._parseColor(a.color);b.opacity=this._parseAlpha(a.color[3]);break;case "esriSFS":a.outline?(b.weight=a.outline.width,b.color=this._parseColor(a.outline.color),b.opacity=this._parseAlpha(a.outline.color[3])):(b.weight=0,b.color="#000000",b.opacity=0),a.style!="esriSFSNull"?(b.fillColor=this._parseColor(a.color),b.fillOpacity=this._parseAlpha(a.color[3])):(b.fillColor="#000000",b.fillOpacity=0)}return b},_parseColor:function(a){red=this._normalize(a[0]);
-green=this._normalize(a[1]);blue=this._normalize(a[2]);return"#"+this._pad(red.toString(16))+this._pad(green.toString(16))+this._pad(blue.toString(16))},_normalize:function(a){return a<1&&a>0?Math.floor(a*255):a},_pad:function(a){return a.length>1?a.toUpperCase():"0"+a.toUpperCase()},_parseAlpha:function(a){return a/255},_getFeatures:function(){var a=this.options.url+"query?returnGeometry=true&outSR=4326&f=json&outFields="+this.options.fields+"&where="+this.options.where+"&callback="+this._globalPointer+
-"._processFeatures";this.options.showAll||(a+="&inSR=4326&spatialRel=esriSpatialRelIntersects&geometryType=esriGeometryEnvelope&geometry="+this.options.map.getBounds().toBBoxString());this._makeJsonpRequest(a)}});lvector.A2E=lvector.AGS.extend({initialize:function(a){for(var b=0,d=this._requiredParams.length;b<d;b++)if(!a[this._requiredParams[b]])throw Error('No "'+this._requiredParams[b]+'" parameter found.');this._globalPointer="A2E_"+Math.floor(Math.random()*1E5);window[this._globalPointer]=this;a.url.substr(a.url.length-1,1)!=="/"&&(a.url+="/");this._originalOptions=L.Util.extend({},a);if(a.esriOptions)if(typeof a.esriOptions=="object")L.Util.extend(a,this._convertEsriOptions(a.esriOptions));else{this._getEsriOptions();
-return}lvector.Layer.prototype.initialize.call(this,a);if(this.options.where)this.options.where=encodeURIComponent(this.options.where);this._vectors=[];if(this.options.map){if(this.options.scaleRange&&this.options.scaleRange instanceof Array&&this.options.scaleRange.length===2)a=this.options.map.getZoom(),b=this.options.scaleRange,this.options.visibleAtScale=a>=b[0]&&a<=b[1];this._show()}if(this.options.autoUpdate&&this.options.esriOptions.editFeedInfo){this._makeJsonpRequest("http://cdn.pubnub.com/pubnub-3.1.min.js");
-var e=this;this._pubNubScriptLoaderInterval=setInterval(function(){window.PUBNUB&&e._pubNubScriptLoaded()},200)}},_pubNubScriptLoaded:function(){clearInterval(this._pubNubScriptLoaderInterval);this.pubNub=PUBNUB.init({subscribe_key:this.options.esriOptions.editFeedInfo.pubnubSubscribeKey,ssl:!1,origin:"pubsub.pubnub.com"});var a=this;this.pubNub.subscribe({channel:this.options.esriOptions.editFeedInfo.pubnubChannel,callback:function(){a._getFeatures()},error:function(){}})}});lvector.GeoIQ=lvector.GeoJSONLayer.extend({initialize:function(a){for(var b=0,d=this._requiredParams.length;b<d;b++)if(!a[this._requiredParams[b]])throw Error('No "'+this._requiredParams[b]+'" parameter found.');lvector.Layer.prototype.initialize.call(this,a);this._globalPointer="GeoIQ_"+Math.floor(Math.random()*1E5);window[this._globalPointer]=this;this._vectors=[];if(this.options.map){if(this.options.scaleRange&&this.options.scaleRange instanceof Array&&this.options.scaleRange.length===2)a=this.options.map.getZoom(),
-b=this.options.scaleRange,this.options.visibleAtScale=a>=b[0]&&a<=b[1];this._show()}},options:{dataset:null},_requiredParams:["dataset"],_getFeatures:function(){var a="http://geocommons.com/datasets/"+this.options.dataset+"/features.json?geojson=1&callback="+this._globalPointer+"._processFeatures&limit=999";this.options.showAll||(a+="&bbox="+this.options.map.getBounds().toBBoxString()+"&intersect=full");this._makeJsonpRequest(a)}});lvector.CartoDB=lvector.GeoJSONLayer.extend({initialize:function(a){for(var b=0,d=this._requiredParams.length;b<d;b++)if(!a[this._requiredParams[b]])throw Error('No "'+this._requiredParams[b]+'" parameter found.');lvector.Layer.prototype.initialize.call(this,a);this._globalPointer="CartoDB_"+Math.floor(Math.random()*1E5);window[this._globalPointer]=this;this._vectors=[];if(this.options.map){if(this.options.scaleRange&&this.options.scaleRange instanceof Array&&this.options.scaleRange.length===2)a=
-this.options.map.getZoom(),b=this.options.scaleRange,this.options.visibleAtScale=a>=b[0]&&a<=b[1];this._show()}},options:{version:1,user:null,table:null,fields:"*",where:null,limit:null,uniqueField:"cartodb_id"},_requiredParams:["user","table"],_getFeatures:function(){var a=this.options.where||"";if(!this.options.showAll)for(var b=this.options.map.getBounds(),d=b.getSouthWest(),b=b.getNorthEast(),e=this.options.table.split(",").length,c=0;c<e;c++)a+=(a.length?" AND ":"")+(e>1?this.options.table.split(",")[c].split(".")[0]+
-".the_geom":"the_geom")+" && st_setsrid(st_makebox2d(st_point("+d.lng+","+d.lat+"),st_point("+b.lng+","+b.lat+")),4326)";this.options.limit&&(a+=(a.length?" ":"")+"limit "+this.options.limit);a=a.length?" "+a:"";this._makeJsonpRequest("http://"+this.options.user+".cartodb.com/api/v"+this.options.version+"/sql?q="+encodeURIComponent("SELECT "+this.options.fields+" FROM "+this.options.table+(a.length?" WHERE "+a:""))+"&format=geojson&callback="+this._globalPointer+"._processFeatures")}});lvector.PRWSF=lvector.GeoJSONLayer.extend({initialize:function(a){for(var b=0,d=this._requiredParams.length;b<d;b++)if(!a[this._requiredParams[b]])throw Error('No "'+this._requiredParams[b]+'" parameter found.');a.url.substr(a.url.length-1,1)!=="/"&&(a.url+="/");lvector.Layer.prototype.initialize.call(this,a);this._globalPointer="PRWSF_"+Math.floor(Math.random()*1E5);window[this._globalPointer]=this;this._vectors=[];if(this.options.map){if(this.options.scaleRange&&this.options.scaleRange instanceof
-Array&&this.options.scaleRange.length===2)a=this.options.map.getZoom(),b=this.options.scaleRange,this.options.visibleAtScale=a>=b[0]&&a<=b[1];this._show()}},options:{geotable:null,srid:null,geomFieldName:"the_geom",geomPrecision:"",fields:"",where:null,limit:null,uniqueField:null},_requiredParams:["url","geotable"],_getFeatures:function(){var a=this.options.where||"";if(!this.options.showAll){var b=this.options.map.getBounds(),d=b.getSouthWest(),b=b.getNorthEast();a+=a.length?" AND ":"";a+=this.options.srid?
-this.options.geomFieldName+" && transform(st_setsrid(st_makebox2d(st_point("+d.lng+","+d.lat+"),st_point("+b.lng+","+b.lat+")),4326),"+this.options.srid+")":"transform("+this.options.geomFieldName+",4326) && st_setsrid(st_makebox2d(st_point("+d.lng+","+d.lat+"),st_point("+b.lng+","+b.lat+")),4326)"}this.options.limit&&(a+=(a.length?" ":"")+"limit "+this.options.limit);d=(this.options.fields.length?this.options.fields+",":"")+"st_asgeojson(transform("+this.options.geomFieldName+",4326)"+(this.options.geomPrecision?
-","+this.options.geomPrecision:"")+") as geojson";this._makeJsonpRequest(this.options.url+"v1/ws_geo_attributequery.php?parameters="+encodeURIComponent(a)+"&geotable="+this.options.geotable+"&fields="+encodeURIComponent(d)+"&format=json&callback="+this._globalPointer+"._processFeatures")}});lvector.GISCloud=lvector.GeoJSONLayer.extend({initialize:function(a){for(var b=0,d=this._requiredParams.length;b<d;b++)if(!a[this._requiredParams[b]])throw Error('No "'+this._requiredParams[b]+'" parameter found.');lvector.Layer.prototype.initialize.call(this,a);this._globalPointer="GISCloud_"+Math.floor(Math.random()*1E5);window[this._globalPointer]=this;this._vectors=[];if(this.options.map){if(this.options.scaleRange&&this.options.scaleRange instanceof Array&&this.options.scaleRange.length===2)a=
-this.options.map.getZoom(),b=this.options.scaleRange,this.options.visibleAtScale=a>=b[0]&&a<=b[1];this._show()}},options:{mapID:null,layerID:null,uniqueField:"id"},_requiredParams:["mapID","layerID"],_getFeatures:function(){var a="http://api.giscloud.com/1/maps/"+this.options.mapID+"/layers/"+this.options.layerID+"/features.json?geometry=geojson&epsg=4326&callback="+this._globalPointer+"._processFeatures";this.options.showAll||(a+="&bounds="+this.options.map.getBounds().toBBoxString());this.options.where&&
-(a+="&where="+encodeURIComponent(this.options.where));this._makeJsonpRequest(a)}});lvector.GitSpatial=lvector.GeoJSONLayer.extend({initialize:function(a){for(var b=0,d=this._requiredParams.length;b<d;b++)if(!a[this._requiredParams[b]])throw Error('No "'+this._requiredParams[b]+'" parameter found.');lvector.Layer.prototype.initialize.call(this,a);this._globalPointer="GitSpatial_"+Math.floor(Math.random()*1E5);window[this._globalPointer]=this;this._vectors=[];if(this.options.map){if(this.options.scaleRange&&this.options.scaleRange instanceof Array&&this.options.scaleRange.length===
-2)a=this.options.map.getZoom(),b=this.options.scaleRange,this.options.visibleAtScale=a>=b[0]&&a<=b[1];this._show()}},options:{},_requiredParams:["user","repo","featureSet"],_getFeatures:function(){var a="http://gitspatial.com/api/v1/"+this.options.user+"/"+this.options.repo+"/"+this.options.featureSet+"?callback="+this._globalPointer+"._processFeatures";this.options.showAll||(a+="&bbox="+this.options.map.getBounds().toBBoxString());this._makeJsonpRequest(a)}});
-
-; browserify_shim__define__module__export__(typeof lvector != "undefined" ? lvector : window.lvector);
-
-}).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
-
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],15:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet.loading/src/Control.Loading.js":[function(require,module,exports){
 /*
  * L.Control.Loading is a control that shows a loading indicator when tiles are
  * loading or when map-related AJAX requests are taking place.
@@ -6200,7 +6143,7 @@ this.options.map.getZoom(),b=this.options.scaleRange,this.options.visibleAtScale
 
 })();
 
-},{}],16:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet.usermarker/src/leaflet.usermarker.js":[function(require,module,exports){
 /**
  * Leaflet.UserMarker v1.0
  * 
@@ -6306,7 +6249,4809 @@ this.options.map.getZoom(),b=this.options.scaleRange,this.options.visibleAtScale
     };
 })(window);
 
-},{}],17:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/spin.js/spin.js":[function(require,module,exports){
+(function (global){
+;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
+/**
+ * Copyright (c) 2011-2013 Felix Gnass
+ * Licensed under the MIT license
+ */
+(function(root, factory) {
+
+  /* CommonJS */
+  if (typeof exports == 'object')  module.exports = factory()
+
+  /* AMD module */
+  else if (typeof define == 'function' && define.amd) define(factory)
+
+  /* Browser global */
+  else root.Spinner = factory()
+}
+(this, function() {
+  "use strict";
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations /* Whether to use CSS animations or setTimeout */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+
+    for(n in prop) el[n] = prop[n]
+    return el
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i=1, n=arguments.length; i<n; i++)
+      parent.appendChild(arguments[i])
+
+    return parent
+  }
+
+  /**
+   * Insert a new stylesheet to hold the @keyframe or VML rules.
+   */
+  var sheet = (function() {
+    var el = createEl('style', {type : 'text/css'})
+    ins(document.getElementsByTagName('head')[0], el)
+    return el.sheet || el.styleSheet
+  }())
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
+      , start = 0.01 + i/lines * 100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-' + prefix + '-' || ''
+
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+
+      animations[name] = 1
+    }
+
+    return name
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor(el, prop) {
+    var s = el.style
+      , pp
+      , i
+
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    for(i=0; i<prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if(s[pp] !== undefined) return pp
+    }
+    if(s[prop] !== undefined) return prop
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop)
+      el.style[vendor(el, n)||n] = prop[n]
+
+    return el
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i=1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def)
+        if (obj[n] === undefined) obj[n] = def[n]
+    }
+    return obj
+  }
+
+  /**
+   * Returns the absolute page-offset of the given element.
+   */
+  function pos(el) {
+    var o = { x:el.offsetLeft, y:el.offsetTop }
+    while((el = el.offsetParent))
+      o.x+=el.offsetLeft, o.y+=el.offsetTop
+
+    return o
+  }
+
+  /**
+   * Returns the line color from the given string or array.
+   */
+  function getColor(color, idx) {
+    return typeof color == 'string' ? color : color[idx % color.length]
+  }
+
+  // Built-in defaults
+
+  var defaults = {
+    lines: 12,            // The number of lines to draw
+    length: 7,            // The length of each line
+    width: 5,             // The line thickness
+    radius: 10,           // The radius of the inner circle
+    rotate: 0,            // Rotation offset
+    corners: 1,           // Roundness (0..1)
+    color: '#000',        // #rgb or #rrggbb
+    direction: 1,         // 1: clockwise, -1: counterclockwise
+    speed: 1,             // Rounds per second
+    trail: 100,           // Afterglow percentage
+    opacity: 1/4,         // Opacity of the lines
+    fps: 20,              // Frames per second when using setTimeout()
+    zIndex: 2e9,          // Use a high z-index by default
+    className: 'spinner', // CSS class to assign to the element
+    top: 'auto',          // center vertically
+    left: 'auto',         // center horizontally
+    position: 'relative'  // element position
+  }
+
+  /** The constructor */
+  function Spinner(o) {
+    if (typeof this == 'undefined') return new Spinner(o)
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+
+  // Global defaults that override the built-ins:
+  Spinner.defaults = {}
+
+  merge(Spinner.prototype, {
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function(target) {
+      this.stop()
+
+      var self = this
+        , o = self.opts
+        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
+        , mid = o.radius+o.length+o.width
+        , ep // element position
+        , tp // target position
+
+      if (target) {
+        target.insertBefore(el, target.firstChild||null)
+        tp = pos(target)
+        ep = pos(el)
+        css(el, {
+          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
+          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
+        })
+      }
+
+      el.setAttribute('role', 'progressbar')
+      self.lines(el, self.opts)
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0
+          , start = (o.lines - 1) * (1 - o.direction) / 2
+          , alpha
+          , fps = o.fps
+          , f = fps/o.speed
+          , ostep = (1-o.opacity) / (f*o.trail / 100)
+          , astep = f/o.lines
+
+        ;(function anim() {
+          i++;
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
+
+            self.opacity(el, j * o.direction + start, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
+        })()
+      }
+      return self
+    },
+
+    /**
+     * Stops and removes the Spinner.
+     */
+    stop: function() {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    },
+
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    lines: function(el, o) {
+      var i = 0
+        , start = (o.lines - 1) * (1 - o.direction) / 2
+        , seg
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: (o.length+o.width) + 'px',
+          height: o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.width>>1) + 'px'
+        })
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1+~(o.width/2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
+        })
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
+        ins(el, ins(seg, fill(getColor(o.color, i), '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    },
+
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    opacity: function(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+
+  })
+
+
+  function initVML() {
+
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+
+    // No CSS transforms but VML support, add a CSS rule for VML elements:
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+
+    Spinner.prototype.lines = function(el, o) {
+      var r = o.length+o.width
+        , s = 2*r
+
+      function grp() {
+        return css(
+          vml('group', {
+            coordsize: s + ' ' + s,
+            coordorigin: -r + ' ' + -r
+          }),
+          { width: s, height: s }
+        )
+      }
+
+      var margin = -(o.width+o.length)*2 + 'px'
+        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+        , i
+
+      function seg(i, dx, filter) {
+        ins(g,
+          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
+            ins(css(vml('roundrect', {arcsize: o.corners}), {
+                width: r,
+                height: o.width,
+                left: o.radius,
+                top: -o.width>>1,
+                filter: filter
+              }),
+              vml('fill', {color: getColor(o.color, i), opacity: o.opacity}),
+              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
+            )
+          )
+        )
+      }
+
+      if (o.shadow)
+        for (i = 1; i <= o.lines; i++)
+          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+
+      for (i = 1; i <= o.lines; i++) seg(i)
+      return ins(el, g)
+    }
+
+    Spinner.prototype.opacity = function(el, i, val, o) {
+      var c = el.firstChild
+      o = o.shadow && o.lines || 0
+      if (c && i+o < c.childNodes.length) {
+        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
+        if (c) c.opacity = val
+      }
+    }
+  }
+
+  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+  if (!vendor(probe, 'transform') && probe.adj) initVML()
+  else useCssAnimations = vendor(probe, 'animation')
+
+  return Spinner
+
+}));
+
+; browserify_shim__define__module__export__(typeof Spinner != "undefined" ? Spinner : window.Spinner);
+
+}).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/underscore/underscore.js":[function(require,module,exports){
+//     Underscore.js 1.5.2
+//     http://underscorejs.org
+//     (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+//     Underscore may be freely distributed under the MIT license.
+
+(function() {
+
+  // Baseline setup
+  // --------------
+
+  // Establish the root object, `window` in the browser, or `exports` on the server.
+  var root = this;
+
+  // Save the previous value of the `_` variable.
+  var previousUnderscore = root._;
+
+  // Establish the object that gets returned to break out of a loop iteration.
+  var breaker = {};
+
+  // Save bytes in the minified (but not gzipped) version:
+  var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
+
+  // Create quick reference variables for speed access to core prototypes.
+  var
+    push             = ArrayProto.push,
+    slice            = ArrayProto.slice,
+    concat           = ArrayProto.concat,
+    toString         = ObjProto.toString,
+    hasOwnProperty   = ObjProto.hasOwnProperty;
+
+  // All **ECMAScript 5** native function implementations that we hope to use
+  // are declared here.
+  var
+    nativeForEach      = ArrayProto.forEach,
+    nativeMap          = ArrayProto.map,
+    nativeReduce       = ArrayProto.reduce,
+    nativeReduceRight  = ArrayProto.reduceRight,
+    nativeFilter       = ArrayProto.filter,
+    nativeEvery        = ArrayProto.every,
+    nativeSome         = ArrayProto.some,
+    nativeIndexOf      = ArrayProto.indexOf,
+    nativeLastIndexOf  = ArrayProto.lastIndexOf,
+    nativeIsArray      = Array.isArray,
+    nativeKeys         = Object.keys,
+    nativeBind         = FuncProto.bind;
+
+  // Create a safe reference to the Underscore object for use below.
+  var _ = function(obj) {
+    if (obj instanceof _) return obj;
+    if (!(this instanceof _)) return new _(obj);
+    this._wrapped = obj;
+  };
+
+  // Export the Underscore object for **Node.js**, with
+  // backwards-compatibility for the old `require()` API. If we're in
+  // the browser, add `_` as a global object via a string identifier,
+  // for Closure Compiler "advanced" mode.
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = _;
+    }
+    exports._ = _;
+  } else {
+    root._ = _;
+  }
+
+  // Current version.
+  _.VERSION = '1.5.2';
+
+  // Collection Functions
+  // --------------------
+
+  // The cornerstone, an `each` implementation, aka `forEach`.
+  // Handles objects with the built-in `forEach`, arrays, and raw objects.
+  // Delegates to **ECMAScript 5**'s native `forEach` if available.
+  var each = _.each = _.forEach = function(obj, iterator, context) {
+    if (obj == null) return;
+    if (nativeForEach && obj.forEach === nativeForEach) {
+      obj.forEach(iterator, context);
+    } else if (obj.length === +obj.length) {
+      for (var i = 0, length = obj.length; i < length; i++) {
+        if (iterator.call(context, obj[i], i, obj) === breaker) return;
+      }
+    } else {
+      var keys = _.keys(obj);
+      for (var i = 0, length = keys.length; i < length; i++) {
+        if (iterator.call(context, obj[keys[i]], keys[i], obj) === breaker) return;
+      }
+    }
+  };
+
+  // Return the results of applying the iterator to each element.
+  // Delegates to **ECMAScript 5**'s native `map` if available.
+  _.map = _.collect = function(obj, iterator, context) {
+    var results = [];
+    if (obj == null) return results;
+    if (nativeMap && obj.map === nativeMap) return obj.map(iterator, context);
+    each(obj, function(value, index, list) {
+      results.push(iterator.call(context, value, index, list));
+    });
+    return results;
+  };
+
+  var reduceError = 'Reduce of empty array with no initial value';
+
+  // **Reduce** builds up a single result from a list of values, aka `inject`,
+  // or `foldl`. Delegates to **ECMAScript 5**'s native `reduce` if available.
+  _.reduce = _.foldl = _.inject = function(obj, iterator, memo, context) {
+    var initial = arguments.length > 2;
+    if (obj == null) obj = [];
+    if (nativeReduce && obj.reduce === nativeReduce) {
+      if (context) iterator = _.bind(iterator, context);
+      return initial ? obj.reduce(iterator, memo) : obj.reduce(iterator);
+    }
+    each(obj, function(value, index, list) {
+      if (!initial) {
+        memo = value;
+        initial = true;
+      } else {
+        memo = iterator.call(context, memo, value, index, list);
+      }
+    });
+    if (!initial) throw new TypeError(reduceError);
+    return memo;
+  };
+
+  // The right-associative version of reduce, also known as `foldr`.
+  // Delegates to **ECMAScript 5**'s native `reduceRight` if available.
+  _.reduceRight = _.foldr = function(obj, iterator, memo, context) {
+    var initial = arguments.length > 2;
+    if (obj == null) obj = [];
+    if (nativeReduceRight && obj.reduceRight === nativeReduceRight) {
+      if (context) iterator = _.bind(iterator, context);
+      return initial ? obj.reduceRight(iterator, memo) : obj.reduceRight(iterator);
+    }
+    var length = obj.length;
+    if (length !== +length) {
+      var keys = _.keys(obj);
+      length = keys.length;
+    }
+    each(obj, function(value, index, list) {
+      index = keys ? keys[--length] : --length;
+      if (!initial) {
+        memo = obj[index];
+        initial = true;
+      } else {
+        memo = iterator.call(context, memo, obj[index], index, list);
+      }
+    });
+    if (!initial) throw new TypeError(reduceError);
+    return memo;
+  };
+
+  // Return the first value which passes a truth test. Aliased as `detect`.
+  _.find = _.detect = function(obj, iterator, context) {
+    var result;
+    any(obj, function(value, index, list) {
+      if (iterator.call(context, value, index, list)) {
+        result = value;
+        return true;
+      }
+    });
+    return result;
+  };
+
+  // Return all the elements that pass a truth test.
+  // Delegates to **ECMAScript 5**'s native `filter` if available.
+  // Aliased as `select`.
+  _.filter = _.select = function(obj, iterator, context) {
+    var results = [];
+    if (obj == null) return results;
+    if (nativeFilter && obj.filter === nativeFilter) return obj.filter(iterator, context);
+    each(obj, function(value, index, list) {
+      if (iterator.call(context, value, index, list)) results.push(value);
+    });
+    return results;
+  };
+
+  // Return all the elements for which a truth test fails.
+  _.reject = function(obj, iterator, context) {
+    return _.filter(obj, function(value, index, list) {
+      return !iterator.call(context, value, index, list);
+    }, context);
+  };
+
+  // Determine whether all of the elements match a truth test.
+  // Delegates to **ECMAScript 5**'s native `every` if available.
+  // Aliased as `all`.
+  _.every = _.all = function(obj, iterator, context) {
+    iterator || (iterator = _.identity);
+    var result = true;
+    if (obj == null) return result;
+    if (nativeEvery && obj.every === nativeEvery) return obj.every(iterator, context);
+    each(obj, function(value, index, list) {
+      if (!(result = result && iterator.call(context, value, index, list))) return breaker;
+    });
+    return !!result;
+  };
+
+  // Determine if at least one element in the object matches a truth test.
+  // Delegates to **ECMAScript 5**'s native `some` if available.
+  // Aliased as `any`.
+  var any = _.some = _.any = function(obj, iterator, context) {
+    iterator || (iterator = _.identity);
+    var result = false;
+    if (obj == null) return result;
+    if (nativeSome && obj.some === nativeSome) return obj.some(iterator, context);
+    each(obj, function(value, index, list) {
+      if (result || (result = iterator.call(context, value, index, list))) return breaker;
+    });
+    return !!result;
+  };
+
+  // Determine if the array or object contains a given value (using `===`).
+  // Aliased as `include`.
+  _.contains = _.include = function(obj, target) {
+    if (obj == null) return false;
+    if (nativeIndexOf && obj.indexOf === nativeIndexOf) return obj.indexOf(target) != -1;
+    return any(obj, function(value) {
+      return value === target;
+    });
+  };
+
+  // Invoke a method (with arguments) on every item in a collection.
+  _.invoke = function(obj, method) {
+    var args = slice.call(arguments, 2);
+    var isFunc = _.isFunction(method);
+    return _.map(obj, function(value) {
+      return (isFunc ? method : value[method]).apply(value, args);
+    });
+  };
+
+  // Convenience version of a common use case of `map`: fetching a property.
+  _.pluck = function(obj, key) {
+    return _.map(obj, function(value){ return value[key]; });
+  };
+
+  // Convenience version of a common use case of `filter`: selecting only objects
+  // containing specific `key:value` pairs.
+  _.where = function(obj, attrs, first) {
+    if (_.isEmpty(attrs)) return first ? void 0 : [];
+    return _[first ? 'find' : 'filter'](obj, function(value) {
+      for (var key in attrs) {
+        if (attrs[key] !== value[key]) return false;
+      }
+      return true;
+    });
+  };
+
+  // Convenience version of a common use case of `find`: getting the first object
+  // containing specific `key:value` pairs.
+  _.findWhere = function(obj, attrs) {
+    return _.where(obj, attrs, true);
+  };
+
+  // Return the maximum element or (element-based computation).
+  // Can't optimize arrays of integers longer than 65,535 elements.
+  // See [WebKit Bug 80797](https://bugs.webkit.org/show_bug.cgi?id=80797)
+  _.max = function(obj, iterator, context) {
+    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
+      return Math.max.apply(Math, obj);
+    }
+    if (!iterator && _.isEmpty(obj)) return -Infinity;
+    var result = {computed : -Infinity, value: -Infinity};
+    each(obj, function(value, index, list) {
+      var computed = iterator ? iterator.call(context, value, index, list) : value;
+      computed > result.computed && (result = {value : value, computed : computed});
+    });
+    return result.value;
+  };
+
+  // Return the minimum element (or element-based computation).
+  _.min = function(obj, iterator, context) {
+    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
+      return Math.min.apply(Math, obj);
+    }
+    if (!iterator && _.isEmpty(obj)) return Infinity;
+    var result = {computed : Infinity, value: Infinity};
+    each(obj, function(value, index, list) {
+      var computed = iterator ? iterator.call(context, value, index, list) : value;
+      computed < result.computed && (result = {value : value, computed : computed});
+    });
+    return result.value;
+  };
+
+  // Shuffle an array, using the modern version of the 
+  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
+  _.shuffle = function(obj) {
+    var rand;
+    var index = 0;
+    var shuffled = [];
+    each(obj, function(value) {
+      rand = _.random(index++);
+      shuffled[index - 1] = shuffled[rand];
+      shuffled[rand] = value;
+    });
+    return shuffled;
+  };
+
+  // Sample **n** random values from an array.
+  // If **n** is not specified, returns a single random element from the array.
+  // The internal `guard` argument allows it to work with `map`.
+  _.sample = function(obj, n, guard) {
+    if (arguments.length < 2 || guard) {
+      return obj[_.random(obj.length - 1)];
+    }
+    return _.shuffle(obj).slice(0, Math.max(0, n));
+  };
+
+  // An internal function to generate lookup iterators.
+  var lookupIterator = function(value) {
+    return _.isFunction(value) ? value : function(obj){ return obj[value]; };
+  };
+
+  // Sort the object's values by a criterion produced by an iterator.
+  _.sortBy = function(obj, value, context) {
+    var iterator = lookupIterator(value);
+    return _.pluck(_.map(obj, function(value, index, list) {
+      return {
+        value: value,
+        index: index,
+        criteria: iterator.call(context, value, index, list)
+      };
+    }).sort(function(left, right) {
+      var a = left.criteria;
+      var b = right.criteria;
+      if (a !== b) {
+        if (a > b || a === void 0) return 1;
+        if (a < b || b === void 0) return -1;
+      }
+      return left.index - right.index;
+    }), 'value');
+  };
+
+  // An internal function used for aggregate "group by" operations.
+  var group = function(behavior) {
+    return function(obj, value, context) {
+      var result = {};
+      var iterator = value == null ? _.identity : lookupIterator(value);
+      each(obj, function(value, index) {
+        var key = iterator.call(context, value, index, obj);
+        behavior(result, key, value);
+      });
+      return result;
+    };
+  };
+
+  // Groups the object's values by a criterion. Pass either a string attribute
+  // to group by, or a function that returns the criterion.
+  _.groupBy = group(function(result, key, value) {
+    (_.has(result, key) ? result[key] : (result[key] = [])).push(value);
+  });
+
+  // Indexes the object's values by a criterion, similar to `groupBy`, but for
+  // when you know that your index values will be unique.
+  _.indexBy = group(function(result, key, value) {
+    result[key] = value;
+  });
+
+  // Counts instances of an object that group by a certain criterion. Pass
+  // either a string attribute to count by, or a function that returns the
+  // criterion.
+  _.countBy = group(function(result, key) {
+    _.has(result, key) ? result[key]++ : result[key] = 1;
+  });
+
+  // Use a comparator function to figure out the smallest index at which
+  // an object should be inserted so as to maintain order. Uses binary search.
+  _.sortedIndex = function(array, obj, iterator, context) {
+    iterator = iterator == null ? _.identity : lookupIterator(iterator);
+    var value = iterator.call(context, obj);
+    var low = 0, high = array.length;
+    while (low < high) {
+      var mid = (low + high) >>> 1;
+      iterator.call(context, array[mid]) < value ? low = mid + 1 : high = mid;
+    }
+    return low;
+  };
+
+  // Safely create a real, live array from anything iterable.
+  _.toArray = function(obj) {
+    if (!obj) return [];
+    if (_.isArray(obj)) return slice.call(obj);
+    if (obj.length === +obj.length) return _.map(obj, _.identity);
+    return _.values(obj);
+  };
+
+  // Return the number of elements in an object.
+  _.size = function(obj) {
+    if (obj == null) return 0;
+    return (obj.length === +obj.length) ? obj.length : _.keys(obj).length;
+  };
+
+  // Array Functions
+  // ---------------
+
+  // Get the first element of an array. Passing **n** will return the first N
+  // values in the array. Aliased as `head` and `take`. The **guard** check
+  // allows it to work with `_.map`.
+  _.first = _.head = _.take = function(array, n, guard) {
+    if (array == null) return void 0;
+    return (n == null) || guard ? array[0] : slice.call(array, 0, n);
+  };
+
+  // Returns everything but the last entry of the array. Especially useful on
+  // the arguments object. Passing **n** will return all the values in
+  // the array, excluding the last N. The **guard** check allows it to work with
+  // `_.map`.
+  _.initial = function(array, n, guard) {
+    return slice.call(array, 0, array.length - ((n == null) || guard ? 1 : n));
+  };
+
+  // Get the last element of an array. Passing **n** will return the last N
+  // values in the array. The **guard** check allows it to work with `_.map`.
+  _.last = function(array, n, guard) {
+    if (array == null) return void 0;
+    if ((n == null) || guard) {
+      return array[array.length - 1];
+    } else {
+      return slice.call(array, Math.max(array.length - n, 0));
+    }
+  };
+
+  // Returns everything but the first entry of the array. Aliased as `tail` and `drop`.
+  // Especially useful on the arguments object. Passing an **n** will return
+  // the rest N values in the array. The **guard**
+  // check allows it to work with `_.map`.
+  _.rest = _.tail = _.drop = function(array, n, guard) {
+    return slice.call(array, (n == null) || guard ? 1 : n);
+  };
+
+  // Trim out all falsy values from an array.
+  _.compact = function(array) {
+    return _.filter(array, _.identity);
+  };
+
+  // Internal implementation of a recursive `flatten` function.
+  var flatten = function(input, shallow, output) {
+    if (shallow && _.every(input, _.isArray)) {
+      return concat.apply(output, input);
+    }
+    each(input, function(value) {
+      if (_.isArray(value) || _.isArguments(value)) {
+        shallow ? push.apply(output, value) : flatten(value, shallow, output);
+      } else {
+        output.push(value);
+      }
+    });
+    return output;
+  };
+
+  // Flatten out an array, either recursively (by default), or just one level.
+  _.flatten = function(array, shallow) {
+    return flatten(array, shallow, []);
+  };
+
+  // Return a version of the array that does not contain the specified value(s).
+  _.without = function(array) {
+    return _.difference(array, slice.call(arguments, 1));
+  };
+
+  // Produce a duplicate-free version of the array. If the array has already
+  // been sorted, you have the option of using a faster algorithm.
+  // Aliased as `unique`.
+  _.uniq = _.unique = function(array, isSorted, iterator, context) {
+    if (_.isFunction(isSorted)) {
+      context = iterator;
+      iterator = isSorted;
+      isSorted = false;
+    }
+    var initial = iterator ? _.map(array, iterator, context) : array;
+    var results = [];
+    var seen = [];
+    each(initial, function(value, index) {
+      if (isSorted ? (!index || seen[seen.length - 1] !== value) : !_.contains(seen, value)) {
+        seen.push(value);
+        results.push(array[index]);
+      }
+    });
+    return results;
+  };
+
+  // Produce an array that contains the union: each distinct element from all of
+  // the passed-in arrays.
+  _.union = function() {
+    return _.uniq(_.flatten(arguments, true));
+  };
+
+  // Produce an array that contains every item shared between all the
+  // passed-in arrays.
+  _.intersection = function(array) {
+    var rest = slice.call(arguments, 1);
+    return _.filter(_.uniq(array), function(item) {
+      return _.every(rest, function(other) {
+        return _.indexOf(other, item) >= 0;
+      });
+    });
+  };
+
+  // Take the difference between one array and a number of other arrays.
+  // Only the elements present in just the first array will remain.
+  _.difference = function(array) {
+    var rest = concat.apply(ArrayProto, slice.call(arguments, 1));
+    return _.filter(array, function(value){ return !_.contains(rest, value); });
+  };
+
+  // Zip together multiple lists into a single array -- elements that share
+  // an index go together.
+  _.zip = function() {
+    var length = _.max(_.pluck(arguments, "length").concat(0));
+    var results = new Array(length);
+    for (var i = 0; i < length; i++) {
+      results[i] = _.pluck(arguments, '' + i);
+    }
+    return results;
+  };
+
+  // Converts lists into objects. Pass either a single array of `[key, value]`
+  // pairs, or two parallel arrays of the same length -- one of keys, and one of
+  // the corresponding values.
+  _.object = function(list, values) {
+    if (list == null) return {};
+    var result = {};
+    for (var i = 0, length = list.length; i < length; i++) {
+      if (values) {
+        result[list[i]] = values[i];
+      } else {
+        result[list[i][0]] = list[i][1];
+      }
+    }
+    return result;
+  };
+
+  // If the browser doesn't supply us with indexOf (I'm looking at you, **MSIE**),
+  // we need this function. Return the position of the first occurrence of an
+  // item in an array, or -1 if the item is not included in the array.
+  // Delegates to **ECMAScript 5**'s native `indexOf` if available.
+  // If the array is large and already in sort order, pass `true`
+  // for **isSorted** to use binary search.
+  _.indexOf = function(array, item, isSorted) {
+    if (array == null) return -1;
+    var i = 0, length = array.length;
+    if (isSorted) {
+      if (typeof isSorted == 'number') {
+        i = (isSorted < 0 ? Math.max(0, length + isSorted) : isSorted);
+      } else {
+        i = _.sortedIndex(array, item);
+        return array[i] === item ? i : -1;
+      }
+    }
+    if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item, isSorted);
+    for (; i < length; i++) if (array[i] === item) return i;
+    return -1;
+  };
+
+  // Delegates to **ECMAScript 5**'s native `lastIndexOf` if available.
+  _.lastIndexOf = function(array, item, from) {
+    if (array == null) return -1;
+    var hasIndex = from != null;
+    if (nativeLastIndexOf && array.lastIndexOf === nativeLastIndexOf) {
+      return hasIndex ? array.lastIndexOf(item, from) : array.lastIndexOf(item);
+    }
+    var i = (hasIndex ? from : array.length);
+    while (i--) if (array[i] === item) return i;
+    return -1;
+  };
+
+  // Generate an integer Array containing an arithmetic progression. A port of
+  // the native Python `range()` function. See
+  // [the Python documentation](http://docs.python.org/library/functions.html#range).
+  _.range = function(start, stop, step) {
+    if (arguments.length <= 1) {
+      stop = start || 0;
+      start = 0;
+    }
+    step = arguments[2] || 1;
+
+    var length = Math.max(Math.ceil((stop - start) / step), 0);
+    var idx = 0;
+    var range = new Array(length);
+
+    while(idx < length) {
+      range[idx++] = start;
+      start += step;
+    }
+
+    return range;
+  };
+
+  // Function (ahem) Functions
+  // ------------------
+
+  // Reusable constructor function for prototype setting.
+  var ctor = function(){};
+
+  // Create a function bound to a given object (assigning `this`, and arguments,
+  // optionally). Delegates to **ECMAScript 5**'s native `Function.bind` if
+  // available.
+  _.bind = function(func, context) {
+    var args, bound;
+    if (nativeBind && func.bind === nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
+    if (!_.isFunction(func)) throw new TypeError;
+    args = slice.call(arguments, 2);
+    return bound = function() {
+      if (!(this instanceof bound)) return func.apply(context, args.concat(slice.call(arguments)));
+      ctor.prototype = func.prototype;
+      var self = new ctor;
+      ctor.prototype = null;
+      var result = func.apply(self, args.concat(slice.call(arguments)));
+      if (Object(result) === result) return result;
+      return self;
+    };
+  };
+
+  // Partially apply a function by creating a version that has had some of its
+  // arguments pre-filled, without changing its dynamic `this` context.
+  _.partial = function(func) {
+    var args = slice.call(arguments, 1);
+    return function() {
+      return func.apply(this, args.concat(slice.call(arguments)));
+    };
+  };
+
+  // Bind all of an object's methods to that object. Useful for ensuring that
+  // all callbacks defined on an object belong to it.
+  _.bindAll = function(obj) {
+    var funcs = slice.call(arguments, 1);
+    if (funcs.length === 0) throw new Error("bindAll must be passed function names");
+    each(funcs, function(f) { obj[f] = _.bind(obj[f], obj); });
+    return obj;
+  };
+
+  // Memoize an expensive function by storing its results.
+  _.memoize = function(func, hasher) {
+    var memo = {};
+    hasher || (hasher = _.identity);
+    return function() {
+      var key = hasher.apply(this, arguments);
+      return _.has(memo, key) ? memo[key] : (memo[key] = func.apply(this, arguments));
+    };
+  };
+
+  // Delays a function for the given number of milliseconds, and then calls
+  // it with the arguments supplied.
+  _.delay = function(func, wait) {
+    var args = slice.call(arguments, 2);
+    return setTimeout(function(){ return func.apply(null, args); }, wait);
+  };
+
+  // Defers a function, scheduling it to run after the current call stack has
+  // cleared.
+  _.defer = function(func) {
+    return _.delay.apply(_, [func, 1].concat(slice.call(arguments, 1)));
+  };
+
+  // Returns a function, that, when invoked, will only be triggered at most once
+  // during a given window of time. Normally, the throttled function will run
+  // as much as it can, without ever going more than once per `wait` duration;
+  // but if you'd like to disable the execution on the leading edge, pass
+  // `{leading: false}`. To disable execution on the trailing edge, ditto.
+  _.throttle = function(func, wait, options) {
+    var context, args, result;
+    var timeout = null;
+    var previous = 0;
+    options || (options = {});
+    var later = function() {
+      previous = options.leading === false ? 0 : new Date;
+      timeout = null;
+      result = func.apply(context, args);
+    };
+    return function() {
+      var now = new Date;
+      if (!previous && options.leading === false) previous = now;
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0) {
+        clearTimeout(timeout);
+        timeout = null;
+        previous = now;
+        result = func.apply(context, args);
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
+    };
+  };
+
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  _.debounce = function(func, wait, immediate) {
+    var timeout, args, context, timestamp, result;
+    return function() {
+      context = this;
+      args = arguments;
+      timestamp = new Date();
+      var later = function() {
+        var last = (new Date()) - timestamp;
+        if (last < wait) {
+          timeout = setTimeout(later, wait - last);
+        } else {
+          timeout = null;
+          if (!immediate) result = func.apply(context, args);
+        }
+      };
+      var callNow = immediate && !timeout;
+      if (!timeout) {
+        timeout = setTimeout(later, wait);
+      }
+      if (callNow) result = func.apply(context, args);
+      return result;
+    };
+  };
+
+  // Returns a function that will be executed at most one time, no matter how
+  // often you call it. Useful for lazy initialization.
+  _.once = function(func) {
+    var ran = false, memo;
+    return function() {
+      if (ran) return memo;
+      ran = true;
+      memo = func.apply(this, arguments);
+      func = null;
+      return memo;
+    };
+  };
+
+  // Returns the first function passed as an argument to the second,
+  // allowing you to adjust arguments, run code before and after, and
+  // conditionally execute the original function.
+  _.wrap = function(func, wrapper) {
+    return function() {
+      var args = [func];
+      push.apply(args, arguments);
+      return wrapper.apply(this, args);
+    };
+  };
+
+  // Returns a function that is the composition of a list of functions, each
+  // consuming the return value of the function that follows.
+  _.compose = function() {
+    var funcs = arguments;
+    return function() {
+      var args = arguments;
+      for (var i = funcs.length - 1; i >= 0; i--) {
+        args = [funcs[i].apply(this, args)];
+      }
+      return args[0];
+    };
+  };
+
+  // Returns a function that will only be executed after being called N times.
+  _.after = function(times, func) {
+    return function() {
+      if (--times < 1) {
+        return func.apply(this, arguments);
+      }
+    };
+  };
+
+  // Object Functions
+  // ----------------
+
+  // Retrieve the names of an object's properties.
+  // Delegates to **ECMAScript 5**'s native `Object.keys`
+  _.keys = nativeKeys || function(obj) {
+    if (obj !== Object(obj)) throw new TypeError('Invalid object');
+    var keys = [];
+    for (var key in obj) if (_.has(obj, key)) keys.push(key);
+    return keys;
+  };
+
+  // Retrieve the values of an object's properties.
+  _.values = function(obj) {
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var values = new Array(length);
+    for (var i = 0; i < length; i++) {
+      values[i] = obj[keys[i]];
+    }
+    return values;
+  };
+
+  // Convert an object into a list of `[key, value]` pairs.
+  _.pairs = function(obj) {
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var pairs = new Array(length);
+    for (var i = 0; i < length; i++) {
+      pairs[i] = [keys[i], obj[keys[i]]];
+    }
+    return pairs;
+  };
+
+  // Invert the keys and values of an object. The values must be serializable.
+  _.invert = function(obj) {
+    var result = {};
+    var keys = _.keys(obj);
+    for (var i = 0, length = keys.length; i < length; i++) {
+      result[obj[keys[i]]] = keys[i];
+    }
+    return result;
+  };
+
+  // Return a sorted list of the function names available on the object.
+  // Aliased as `methods`
+  _.functions = _.methods = function(obj) {
+    var names = [];
+    for (var key in obj) {
+      if (_.isFunction(obj[key])) names.push(key);
+    }
+    return names.sort();
+  };
+
+  // Extend a given object with all the properties in passed-in object(s).
+  _.extend = function(obj) {
+    each(slice.call(arguments, 1), function(source) {
+      if (source) {
+        for (var prop in source) {
+          obj[prop] = source[prop];
+        }
+      }
+    });
+    return obj;
+  };
+
+  // Return a copy of the object only containing the whitelisted properties.
+  _.pick = function(obj) {
+    var copy = {};
+    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
+    each(keys, function(key) {
+      if (key in obj) copy[key] = obj[key];
+    });
+    return copy;
+  };
+
+   // Return a copy of the object without the blacklisted properties.
+  _.omit = function(obj) {
+    var copy = {};
+    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
+    for (var key in obj) {
+      if (!_.contains(keys, key)) copy[key] = obj[key];
+    }
+    return copy;
+  };
+
+  // Fill in a given object with default properties.
+  _.defaults = function(obj) {
+    each(slice.call(arguments, 1), function(source) {
+      if (source) {
+        for (var prop in source) {
+          if (obj[prop] === void 0) obj[prop] = source[prop];
+        }
+      }
+    });
+    return obj;
+  };
+
+  // Create a (shallow-cloned) duplicate of an object.
+  _.clone = function(obj) {
+    if (!_.isObject(obj)) return obj;
+    return _.isArray(obj) ? obj.slice() : _.extend({}, obj);
+  };
+
+  // Invokes interceptor with the obj, and then returns obj.
+  // The primary purpose of this method is to "tap into" a method chain, in
+  // order to perform operations on intermediate results within the chain.
+  _.tap = function(obj, interceptor) {
+    interceptor(obj);
+    return obj;
+  };
+
+  // Internal recursive comparison function for `isEqual`.
+  var eq = function(a, b, aStack, bStack) {
+    // Identical objects are equal. `0 === -0`, but they aren't identical.
+    // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
+    if (a === b) return a !== 0 || 1 / a == 1 / b;
+    // A strict comparison is necessary because `null == undefined`.
+    if (a == null || b == null) return a === b;
+    // Unwrap any wrapped objects.
+    if (a instanceof _) a = a._wrapped;
+    if (b instanceof _) b = b._wrapped;
+    // Compare `[[Class]]` names.
+    var className = toString.call(a);
+    if (className != toString.call(b)) return false;
+    switch (className) {
+      // Strings, numbers, dates, and booleans are compared by value.
+      case '[object String]':
+        // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
+        // equivalent to `new String("5")`.
+        return a == String(b);
+      case '[object Number]':
+        // `NaN`s are equivalent, but non-reflexive. An `egal` comparison is performed for
+        // other numeric values.
+        return a != +a ? b != +b : (a == 0 ? 1 / a == 1 / b : a == +b);
+      case '[object Date]':
+      case '[object Boolean]':
+        // Coerce dates and booleans to numeric primitive values. Dates are compared by their
+        // millisecond representations. Note that invalid dates with millisecond representations
+        // of `NaN` are not equivalent.
+        return +a == +b;
+      // RegExps are compared by their source patterns and flags.
+      case '[object RegExp]':
+        return a.source == b.source &&
+               a.global == b.global &&
+               a.multiline == b.multiline &&
+               a.ignoreCase == b.ignoreCase;
+    }
+    if (typeof a != 'object' || typeof b != 'object') return false;
+    // Assume equality for cyclic structures. The algorithm for detecting cyclic
+    // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
+    var length = aStack.length;
+    while (length--) {
+      // Linear search. Performance is inversely proportional to the number of
+      // unique nested structures.
+      if (aStack[length] == a) return bStack[length] == b;
+    }
+    // Objects with different constructors are not equivalent, but `Object`s
+    // from different frames are.
+    var aCtor = a.constructor, bCtor = b.constructor;
+    if (aCtor !== bCtor && !(_.isFunction(aCtor) && (aCtor instanceof aCtor) &&
+                             _.isFunction(bCtor) && (bCtor instanceof bCtor))) {
+      return false;
+    }
+    // Add the first object to the stack of traversed objects.
+    aStack.push(a);
+    bStack.push(b);
+    var size = 0, result = true;
+    // Recursively compare objects and arrays.
+    if (className == '[object Array]') {
+      // Compare array lengths to determine if a deep comparison is necessary.
+      size = a.length;
+      result = size == b.length;
+      if (result) {
+        // Deep compare the contents, ignoring non-numeric properties.
+        while (size--) {
+          if (!(result = eq(a[size], b[size], aStack, bStack))) break;
+        }
+      }
+    } else {
+      // Deep compare objects.
+      for (var key in a) {
+        if (_.has(a, key)) {
+          // Count the expected number of properties.
+          size++;
+          // Deep compare each member.
+          if (!(result = _.has(b, key) && eq(a[key], b[key], aStack, bStack))) break;
+        }
+      }
+      // Ensure that both objects contain the same number of properties.
+      if (result) {
+        for (key in b) {
+          if (_.has(b, key) && !(size--)) break;
+        }
+        result = !size;
+      }
+    }
+    // Remove the first object from the stack of traversed objects.
+    aStack.pop();
+    bStack.pop();
+    return result;
+  };
+
+  // Perform a deep comparison to check if two objects are equal.
+  _.isEqual = function(a, b) {
+    return eq(a, b, [], []);
+  };
+
+  // Is a given array, string, or object empty?
+  // An "empty" object has no enumerable own-properties.
+  _.isEmpty = function(obj) {
+    if (obj == null) return true;
+    if (_.isArray(obj) || _.isString(obj)) return obj.length === 0;
+    for (var key in obj) if (_.has(obj, key)) return false;
+    return true;
+  };
+
+  // Is a given value a DOM element?
+  _.isElement = function(obj) {
+    return !!(obj && obj.nodeType === 1);
+  };
+
+  // Is a given value an array?
+  // Delegates to ECMA5's native Array.isArray
+  _.isArray = nativeIsArray || function(obj) {
+    return toString.call(obj) == '[object Array]';
+  };
+
+  // Is a given variable an object?
+  _.isObject = function(obj) {
+    return obj === Object(obj);
+  };
+
+  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp.
+  each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'], function(name) {
+    _['is' + name] = function(obj) {
+      return toString.call(obj) == '[object ' + name + ']';
+    };
+  });
+
+  // Define a fallback version of the method in browsers (ahem, IE), where
+  // there isn't any inspectable "Arguments" type.
+  if (!_.isArguments(arguments)) {
+    _.isArguments = function(obj) {
+      return !!(obj && _.has(obj, 'callee'));
+    };
+  }
+
+  // Optimize `isFunction` if appropriate.
+  if (typeof (/./) !== 'function') {
+    _.isFunction = function(obj) {
+      return typeof obj === 'function';
+    };
+  }
+
+  // Is a given object a finite number?
+  _.isFinite = function(obj) {
+    return isFinite(obj) && !isNaN(parseFloat(obj));
+  };
+
+  // Is the given value `NaN`? (NaN is the only number which does not equal itself).
+  _.isNaN = function(obj) {
+    return _.isNumber(obj) && obj != +obj;
+  };
+
+  // Is a given value a boolean?
+  _.isBoolean = function(obj) {
+    return obj === true || obj === false || toString.call(obj) == '[object Boolean]';
+  };
+
+  // Is a given value equal to null?
+  _.isNull = function(obj) {
+    return obj === null;
+  };
+
+  // Is a given variable undefined?
+  _.isUndefined = function(obj) {
+    return obj === void 0;
+  };
+
+  // Shortcut function for checking if an object has a given property directly
+  // on itself (in other words, not on a prototype).
+  _.has = function(obj, key) {
+    return hasOwnProperty.call(obj, key);
+  };
+
+  // Utility Functions
+  // -----------------
+
+  // Run Underscore.js in *noConflict* mode, returning the `_` variable to its
+  // previous owner. Returns a reference to the Underscore object.
+  _.noConflict = function() {
+    root._ = previousUnderscore;
+    return this;
+  };
+
+  // Keep the identity function around for default iterators.
+  _.identity = function(value) {
+    return value;
+  };
+
+  // Run a function **n** times.
+  _.times = function(n, iterator, context) {
+    var accum = Array(Math.max(0, n));
+    for (var i = 0; i < n; i++) accum[i] = iterator.call(context, i);
+    return accum;
+  };
+
+  // Return a random integer between min and max (inclusive).
+  _.random = function(min, max) {
+    if (max == null) {
+      max = min;
+      min = 0;
+    }
+    return min + Math.floor(Math.random() * (max - min + 1));
+  };
+
+  // List of HTML entities for escaping.
+  var entityMap = {
+    escape: {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;'
+    }
+  };
+  entityMap.unescape = _.invert(entityMap.escape);
+
+  // Regexes containing the keys and values listed immediately above.
+  var entityRegexes = {
+    escape:   new RegExp('[' + _.keys(entityMap.escape).join('') + ']', 'g'),
+    unescape: new RegExp('(' + _.keys(entityMap.unescape).join('|') + ')', 'g')
+  };
+
+  // Functions for escaping and unescaping strings to/from HTML interpolation.
+  _.each(['escape', 'unescape'], function(method) {
+    _[method] = function(string) {
+      if (string == null) return '';
+      return ('' + string).replace(entityRegexes[method], function(match) {
+        return entityMap[method][match];
+      });
+    };
+  });
+
+  // If the value of the named `property` is a function then invoke it with the
+  // `object` as context; otherwise, return it.
+  _.result = function(object, property) {
+    if (object == null) return void 0;
+    var value = object[property];
+    return _.isFunction(value) ? value.call(object) : value;
+  };
+
+  // Add your own custom functions to the Underscore object.
+  _.mixin = function(obj) {
+    each(_.functions(obj), function(name) {
+      var func = _[name] = obj[name];
+      _.prototype[name] = function() {
+        var args = [this._wrapped];
+        push.apply(args, arguments);
+        return result.call(this, func.apply(_, args));
+      };
+    });
+  };
+
+  // Generate a unique integer id (unique within the entire client session).
+  // Useful for temporary DOM ids.
+  var idCounter = 0;
+  _.uniqueId = function(prefix) {
+    var id = ++idCounter + '';
+    return prefix ? prefix + id : id;
+  };
+
+  // By default, Underscore uses ERB-style template delimiters, change the
+  // following template settings to use alternative delimiters.
+  _.templateSettings = {
+    evaluate    : /<%([\s\S]+?)%>/g,
+    interpolate : /<%=([\s\S]+?)%>/g,
+    escape      : /<%-([\s\S]+?)%>/g
+  };
+
+  // When customizing `templateSettings`, if you don't want to define an
+  // interpolation, evaluation or escaping regex, we need one that is
+  // guaranteed not to match.
+  var noMatch = /(.)^/;
+
+  // Certain characters need to be escaped so that they can be put into a
+  // string literal.
+  var escapes = {
+    "'":      "'",
+    '\\':     '\\',
+    '\r':     'r',
+    '\n':     'n',
+    '\t':     't',
+    '\u2028': 'u2028',
+    '\u2029': 'u2029'
+  };
+
+  var escaper = /\\|'|\r|\n|\t|\u2028|\u2029/g;
+
+  // JavaScript micro-templating, similar to John Resig's implementation.
+  // Underscore templating handles arbitrary delimiters, preserves whitespace,
+  // and correctly escapes quotes within interpolated code.
+  _.template = function(text, data, settings) {
+    var render;
+    settings = _.defaults({}, settings, _.templateSettings);
+
+    // Combine delimiters into one regular expression via alternation.
+    var matcher = new RegExp([
+      (settings.escape || noMatch).source,
+      (settings.interpolate || noMatch).source,
+      (settings.evaluate || noMatch).source
+    ].join('|') + '|$', 'g');
+
+    // Compile the template source, escaping string literals appropriately.
+    var index = 0;
+    var source = "__p+='";
+    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
+      source += text.slice(index, offset)
+        .replace(escaper, function(match) { return '\\' + escapes[match]; });
+
+      if (escape) {
+        source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
+      }
+      if (interpolate) {
+        source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
+      }
+      if (evaluate) {
+        source += "';\n" + evaluate + "\n__p+='";
+      }
+      index = offset + match.length;
+      return match;
+    });
+    source += "';\n";
+
+    // If a variable is not specified, place data values in local scope.
+    if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
+
+    source = "var __t,__p='',__j=Array.prototype.join," +
+      "print=function(){__p+=__j.call(arguments,'');};\n" +
+      source + "return __p;\n";
+
+    try {
+      render = new Function(settings.variable || 'obj', '_', source);
+    } catch (e) {
+      e.source = source;
+      throw e;
+    }
+
+    if (data) return render(data, _);
+    var template = function(data) {
+      return render.call(this, data, _);
+    };
+
+    // Provide the compiled function source as a convenience for precompilation.
+    template.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
+
+    return template;
+  };
+
+  // Add a "chain" function, which will delegate to the wrapper.
+  _.chain = function(obj) {
+    return _(obj).chain();
+  };
+
+  // OOP
+  // ---------------
+  // If Underscore is called as a function, it returns a wrapped object that
+  // can be used OO-style. This wrapper holds altered versions of all the
+  // underscore functions. Wrapped objects may be chained.
+
+  // Helper function to continue chaining intermediate results.
+  var result = function(obj) {
+    return this._chain ? _(obj).chain() : obj;
+  };
+
+  // Add all of the Underscore functions to the wrapper object.
+  _.mixin(_);
+
+  // Add all mutator Array functions to the wrapper.
+  each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      var obj = this._wrapped;
+      method.apply(obj, arguments);
+      if ((name == 'shift' || name == 'splice') && obj.length === 0) delete obj[0];
+      return result.call(this, obj);
+    };
+  });
+
+  // Add all accessor Array functions to the wrapper.
+  each(['concat', 'join', 'slice'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      return result.call(this, method.apply(this._wrapped, arguments));
+    };
+  });
+
+  _.extend(_.prototype, {
+
+    // Start chaining a wrapped Underscore object.
+    chain: function() {
+      this._chain = true;
+      return this;
+    },
+
+    // Extracts the result from a wrapped and chained object.
+    value: function() {
+      return this._wrapped;
+    }
+
+  });
+
+}).call(this);
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/addorganizerpage.js":[function(require,module,exports){
+/*
+ * Module for the add organizer page.
+ */
+function toggle_cbo_fields(show) {
+    var $cbo_fields = $(':input[name="facebook_page"],:input[name="url"]').parents('.control-group');
+    if (show) {
+        $cbo_fields.show();
+    }
+    else {
+        $cbo_fields.hide();
+    }
+}
+
+function is_cbo() {
+    return ($(':input[name="type"] :selected').text() === 'community based organization');
+}
+
+$(document).ready(function () {
+    if ($('.add-organizer-page').length > 0) {
+        toggle_cbo_fields(is_cbo());
+
+        $(':input[name="type"]').change(function () {
+            toggle_cbo_fields(is_cbo());
+        });
+    }
+});
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/geocode.js":[function(require,module,exports){
+var geocoder = new google.maps.Geocoder();
+
+function geocode(address, bounds, state, f) {
+    geocoder.geocode({
+        'address': address,
+        'bounds': to_google_bounds(bounds),
+    }, function (results, status) {
+        for (var i = 0; i < results.length; i++) {
+            var result_state = get_component(results[i], 'administrative_area_level_1');
+            if (result_state === state) {
+                return f(results[i], status);
+            }
+        }
+        return f(null, status);
+    });
+}
+
+function get_component(result, desired_type) {
+    var matches = $.grep(result.address_components, function (component, i) {
+        return ($.inArray(desired_type, component.types) >= 0);
+    });
+    if (matches.length >= 0 && matches[0] !== null) {
+        return matches[0].short_name;
+    }
+    return null;
+}
+
+function get_street(result) {
+    var street_number = get_component(result, 'street_number');
+    var route = get_component(result, 'route');
+    if (street_number === null || route === null) {
+        return null;
+    }
+    return street_number + ' ' + route;
+}
+
+function get_city(result) {
+    var city = get_component(result, 'sublocality');
+    if (city === null) {
+        city = get_component(result, 'locality');
+    }
+    return city;
+}
+
+function get_state(result) {
+    return get_component(result, 'administrative_area_level_1');
+}
+
+function get_zip(result) {
+    return get_component(result, 'postal_code');
+}
+
+function get_longitude(result) {
+    return result.geometry.location.lng();
+}
+
+function get_latitude(result) {
+    return result.geometry.location.lat();
+}
+
+function to_google_bounds(bounds) {
+    // bounds: left, bottom, right, top
+    return new google.maps.LatLngBounds(
+        new google.maps.LatLng(bounds[1], bounds[0]),
+        new google.maps.LatLng(bounds[3], bounds[2])
+    );
+}
+
+module.exports = {
+    geocode: geocode
+};
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/jquery.activitystream.js":[function(require,module,exports){
+var _ = require('underscore');
+var Spinner = require('spinjs');
+require('jquery.timeago');
+
+
+function createActivityItem(activity) {
+    var $item = $('<div></div>')
+        .addClass('activity-stream-list-item')
+        .addClass(activity.type);
+
+    // Append HTML of the activity
+    $item.append($.parseHTML(activity.html));
+
+    // Append timeago timestamp
+    $item.append($('<time></time>')
+        .addClass('timeago')
+        .attr('datetime', activity.time));
+
+    return $item;
+}
+
+function loadActivities($elem, filters, page) {
+    var params = _.extend({}, filters, { 'page': page }),
+        url = Django.url('activity_stream_combined') + '?' + $.param(params),
+        spinner = new Spinner({}).spin($elem[0]);
+
+    $.getJSON(url, function (activities) {
+        spinner.stop();
+
+        // Append activities to our stream
+        $.each(activities, function (i, activity) {
+            $elem.append(createActivityItem(activity));
+        });
+
+        // Fix timestamps up
+        $('.timeago').timeago();
+    });
+}
+
+function initActivityStream($elem, filters) {
+    var page = 1;
+    loadActivities($elem, filters, page);
+    $elem.scroll(function () {
+        var height = $(this).innerHeight(),
+            distanceToBottom = $(this)[0].scrollHeight - height - $(this).scrollTop();
+        if (distanceToBottom < height) {
+            loadActivities($elem, filters, ++page);
+        }    
+    });
+}
+
+(function ($) {
+    $.fn.activitystream = function (options) {
+        initActivityStream(this, options);
+        return this;
+    };
+} (jQuery));
+
+},{"jquery.timeago":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-timeago/jquery.timeago.js","spinjs":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/spin.js/spin.js","underscore":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/underscore/underscore.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/jquery.emailparticipants.js":[function(require,module,exports){
+require('jquery.form');
+var Spinner = require('spinjs');
+
+
+var defaultOptions = {
+    filterContainer: null
+};
+
+function show($container) {
+    var spinner = new Spinner({}).spin($container[0]);
+    $container.show()
+        .load(Django.url('extraadmin:mail_participants'), function() {
+            spinner.stop();
+            _initializeForm($container);
+            _updateCounts($container);
+        });
+}
+
+function hide($container) {
+    $container.hide();
+}
+
+function _initializeForm($container) {
+    _updateCounts($container);
+    var spinner = new Spinner({});
+    $container.find('form')
+        .ajaxForm({
+            target: $container,
+            success: function() {
+                // Initialize again in case the form was sent back due 
+                // to validation
+                _initializeForm($container);
+                spinner.stop();
+            },
+        })
+        .submit(function() {
+            spinner.spin($container[0]);
+        });
+}
+
+function _updateCounts($container) {
+    var url = Django.url('extraadmin:mail_participants_count') + '?' +
+        $container.find(':input[name=filters]').val();
+    $.getJSON(url, function(data) {
+        $container.find('.organizer-count').text(data.organizers);
+        $container.find('.watcher-count').text(data.watchers);
+    });
+}
+
+function _updateFilters($container, filters) {
+    $container.find(':input[name=filters]').val($.param(filters, true));
+}
+
+
+(function ($) {
+    $.fn.emailparticipants = function (passedOptions) {
+        var options = $.extend({}, defaultOptions, passedOptions),
+            $elem = this;
+
+        // Add our container
+        var $container = $('<div></div>').addClass('email-participants-container');
+        $elem.after($container);
+
+        options.filterContainer.on('filterschange', function(e) {
+            _updateFilters($container, e.filters);
+            _updateCounts($container);
+        });
+
+        // Show form on click
+        $elem.click(function() {
+            if (!$container.is(':visible')) {
+                show($container);
+            }
+            else {
+                hide($container);
+            }
+            return false;
+        });
+    };
+} (jQuery));
+
+},{"jquery.form":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-form/jquery.form.js","spinjs":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/spin.js/spin.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/jquery.searchbar.js":[function(require,module,exports){
+var geocode = require('./geocode').geocode;
+var Spinner = require('spinjs');
+
+function addCityAndState(query, options) {
+    var city = options.city.toLowerCase();
+    if (query.toLowerCase().indexOf(city) <= 0) {
+        query += ', ' + city;
+    }
+
+    var state = options.state.toLowerCase();
+    if (query.toLowerCase().indexOf(state) <= 0) {
+        query += ', ' + state;
+    }
+    return query;
+}
+
+function searchByAddress($elem, options) {
+    $elem.find(options.warningSelector).hide();
+
+    var $submit = $elem.find(':input[type=submit]').attr('disabled', 'disabled'),
+        spinner = new Spinner({}).spin($submit[0]);
+
+    var query = $elem.find('input[type="text"]').val();
+    query = addCityAndState(query, options);
+
+    geocode(query, options.bounds, options.state, function (result, status) {
+        // Done searching
+        $submit.removeAttr('disabled');
+        spinner.stop();
+
+        // Is result valid?
+        if (result === null) {
+            $elem.find(options.warningSelector)
+                .text(options.errorMessage)
+                .show();
+            return;
+        }
+
+        // Let the world know!
+        var found_location = result.geometry.location;
+        $elem.trigger('searchresultfound', [{
+            longitude: found_location.lng(),
+            latitude: found_location.lat(),
+            query_address: query,
+            found_address: result.formatted_address,
+        }]);
+    });
+}
+
+var defaultOptions = {
+    bounds: null,
+    city: null,
+    state: null,
+    errorMessage: null,
+    warningSelector: null,
+};
+
+(function ($) {
+    $.fn.searchbar = function (passedOptions) {
+        var options = $.extend({}, defaultOptions, passedOptions),
+            $elem = this;
+
+        this.keypress(function (e) {
+            if (e.keyCode === '13') {
+                e.preventDefault();
+                instance.searchByAddress();
+                return false;
+            }
+        });
+        this.find('form').submit(function (e) {
+            e.preventDefault();
+            searchByAddress($elem, options);
+            return false;
+        });
+        return this;
+    };
+} (jQuery));
+
+},{"./geocode":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/geocode.js","spinjs":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/spin.js/spin.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.geojsonbounds.js":[function(require,module,exports){
+// TODO can we just use Leaflet for this now?
+var L = require('leaflet');
+
+L.extend(L.LatLngBounds.prototype, {
+
+    fromGeoJson: function(geoJson) {
+        var ne = geoJson.coordinates[0][2],
+            sw = geoJson.coordinates[0][0];
+
+        // Construct LatLngBounds, swapping x,y to get lat,lng
+        return L.latLngBounds([
+            [ne[1], ne[0]],
+            [sw[1], sw[0]]
+        ]);
+    },
+
+    toGeoJson: function() {
+        return {
+            'type': 'Polygon',
+            'coordinates': [[
+                [this.getSouthWest().lng, this.getSouthWest().lat],
+                [this.getNorthWest().lng, this.getNorthWest().lat],
+                [this.getNorthEast().lng, this.getNorthEast().lat],
+                [this.getSouthEast().lng, this.getSouthEast().lat],
+                [this.getSouthWest().lng, this.getSouthWest().lat],
+            ]],
+        };
+    },
+
+});
+
+
+/*
+ * Shortcut for creating LatLngBounds out of a GeoJSON string representing the
+ * bounding box to be converted to LatLngBounds.
+ */
+L.geoJsonLatLngBounds = function(geoJsonString) {
+    var geoJson = JSON.parse(geoJsonString);
+    return L.LatLngBounds.prototype.fromGeoJson(geoJson);
+};
+
+},{"leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.legend.js":[function(require,module,exports){
+var L = require('leaflet');
+
+L.Control.Legend = L.Control.extend({
+    options: {
+        featureTypes: [],
+        position: 'bottomleft',
+    },
+
+    initialize: function (options) {
+        L.setOptions(this, options);
+    },
+
+    onAdd: function (map) {
+        this._container = L.DomUtil.create('div', 'leaflet-control-legend');
+        L.DomEvent.disableClickPropagation(this._container);
+
+        this.legendFeatures = L.DomUtil.create('ul', 'leaflet-control-legend-features', this._container);
+        this._update(this.options.featureTypes);
+
+        return this._container;
+    },
+
+    hide: function () {
+        L.DomUtil.addClass(this._container, 'is-hidden');
+    },
+
+    show: function () {
+        L.DomUtil.removeClass(this._container, 'is-hidden');
+    },
+
+    setFeatureTypes: function (featureTypes) {
+        this._update(featureTypes);
+    },
+
+    _slugify: function (s) {
+        return s.replace(' ', '-');
+    },
+
+    _update: function (featureTypes) {
+        if (!this._map) { return; }
+        var classes = 'legend-marker legend-marker-';
+        for (var i = 0; i < featureTypes.length; i++) {
+            var featureItem = L.DomUtil.create('li', 'legend-item', this.legendFeatures);
+            L.DomUtil.create('span',  classes + this._slugify(featureTypes[i].name), featureItem);
+            var label = L.DomUtil.create('label', '', featureItem);
+            label.innerHTML = featureTypes[i].name;
+        }
+    },
+
+});
+
+L.control.legend = function (options) {
+    return new L.Control.Legend(options);
+};
+
+L.Map.addInitHook(function () {
+    if (!this.options.legendControl) { return; }
+    var className = 'leaflet-bottom leaflet-left';
+    this.legendControl = L.control.legend({
+        featureTypes: this.options.legendFeatureTypes,
+    }).addTo(this);
+});
+
+},{"leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.lotmap.js":[function(require,module,exports){
+/*
+ * L.LotMap -- mixin for L.Map that adds layers for vacant to vibrant.
+ */
+
+var L = require('leaflet');
+var _ = require('underscore');
+var lotStyles = require('./lotstyles');
+var singleminded = require('./singleminded');
+
+require('leaflet.bing');
+require('leaflet.label');
+require('leaflet.loading');
+require('leaflet.utfgrid');
+require('livinglots.lotlayer');
+require('livinglots-map/src/livinglots.boundaries');
+
+require('./leaflet.geojsonbounds');
+require('./leaflet.message');
+require('./leaflet.legend');
+require('./leaflet.organizermarker');
+
+L.PhillyLotLayer = L.LotLayer.extend({
+    options: {
+        getTileQueryString: function () {
+            var filters = L.extend({}, this._map.filters),
+                omitKeys = ['centroid__within'];
+            return $.param(_.omit(filters, omitKeys), true);
+        },
+
+        onEachFeature: function (feature, layer) {
+            layer.on('click', function (event) {
+                layer._map.options.clickHandler(event, feature);
+                layer._map.fire('lotclicked', {
+                    event: event,
+                    lot: feature,
+                });
+            });
+        },
+
+        style: function (feature) {
+            return lotStyles.forLayer(feature.properties.layer);
+        }
+    }
+});
+
+L.PolygonLotLayer = L.PhillyLotLayer.extend({
+    options: L.extend(L.PhillyLotLayer.prototype.options, {
+        maxZoom: 19,
+        minZoom: 16,
+    })
+});
+
+L.polygonLotLayer = function (url, options) {
+    var opts = L.extend({}, L.PolygonLotLayer.prototype.options, options);
+    return new L.PolygonLotLayer(url, opts);
+};
+
+L.Map.include({
+
+    /*
+    options: {
+        bingKey: String,
+        centroidBaseUrl: String,
+        centroidInitialFilters: Object,
+        enableLayersControl: Boolean,
+        enableChoropleth: Boolean,
+        enablePointTiles: Boolean,
+        enablePolygons: Boolean,
+        polygonBaseUrl: String,
+        polygonInitialFilters: Object,
+        mapboxId: String,
+        messageControl: Boolean,
+        messageDefault: String,
+        lotsCentroidThreshold: Integer,
+    },
+    */
+
+    choroplethHsl: {
+        hue: 140,
+        saturation: 42,
+        lightness: 90,
+    },
+
+    choroplethStyle: {
+        fillOpacity: 0.7,
+        color: 'white',
+        opacity: 0.8,
+        weight: 2,
+    },
+
+    tileLayers: {
+        'public': [],
+        'private': [],
+        'not in use': [],
+        'in use': [],
+    },
+
+    choroplethBoundaryLayerName: null,
+    filters: {},
+    viewType: 'tiles',
+    visibleLotsCount: 0,
+
+
+    _lotMapInitialize: function () {
+        // Add base layers
+        this.addSatelliteLayer(false);
+        this.addStreetsLayer();
+
+        // Add overlays
+        //this.addCentroidLayer();
+        this.addChoroplethLayer();
+        this.addPolygonLayer();
+        this.addTilesLayers();
+        this.addOrganizersLayer();
+
+        // Add controls
+        this.addLayersControl();
+
+        // Add events
+        this.addZoomEvents();
+
+        // Update filters when they change
+        this.on('filterschange', function (event) {
+            this.filters = event.filters;
+        }, this);
+    },
+
+
+    /*
+    * Base layers
+    */
+
+    addStreetsLayer: function () {
+        if (Django.context.debug) {
+            this.streets = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this);
+        }
+        else {
+            this.streets = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{mapboxId}/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+                maxZoom: 18,
+                mapboxId: this.options.mapboxId
+            }).addTo(this);
+        }
+    },
+
+    addSatelliteLayer: function (add) {
+        this.satellite = new L.BingLayer(this.options.bingKey);
+        if (add) this.satellite.addTo(this);
+    },
+
+
+    /*
+    * Overlay layers
+    */
+
+
+    /*
+    * Tiles layers
+    */
+
+    addTilesLayers: function () {
+        this.addPointPrivateTilesLayer();
+        this.addPointPrivateGridLayer();
+        this.addPointPublicTilesLayer();
+        this.addPointPublicGridLayer();
+        this.addPointInUseTilesLayer();
+        this.addPointInUseGridLayer();
+    },
+
+    addGridLayer: function (baseUrl) {
+        if (!baseUrl) return;
+        var instance = this;
+        var url = baseUrl + '{z}/{x}/{y}.json?callback={cb}';
+        var gridLayer = new L.UtfGrid(url, {
+            resolution: this.options.gridResolution,
+        });
+        if (instance.options.clickHandler) {
+            gridLayer.on('click', function (e) {
+                e.targetType = 'utfgrid';
+                instance.options.clickHandler(e);
+            });
+        }
+        instance.addLayer(gridLayer);
+        return gridLayer;
+    },
+
+    addPointPrivateTilesLayer: function () {
+        if (!(this.options.enablePointPrivateTiles && this.viewType === 'tiles')) return;
+        if (!this.options.pointPrivateTilesBaseUrl) return;
+
+        var url = this.options.pointPrivateTilesBaseUrl + '{z}/{x}/{y}.png';
+        this.tilesPointPrivate = L.tileLayer(url, {
+            zIndex: 10,
+            // TODO maxZoom
+        }).addTo(this);
+        this.tileLayers.private.push(this.tilesPointPrivate);
+        this.tileLayers['not in use'].push(this.tilesPointPrivate);
+    },
+
+    addPointPrivateGridLayer: function () {
+        if (!(this.options.enablePointPrivateTiles && this.viewType === 'tiles')) return;
+        this.gridPointPrivate = this.addGridLayer(this.options.pointPrivateGridBaseUrl);
+        this.tileLayers.private.push(this.gridPointPrivate);
+        this.tileLayers['not in use'].push(this.gridPointPrivate);
+        this.addLayer(this.gridPointPrivate);
+    },
+
+    addPointPublicTilesLayer: function () {
+        if (!(this.options.enablePointPublicTiles && this.viewType === 'tiles')) return;
+        if (!this.options.pointPublicTilesBaseUrl) return;
+
+        var url = this.options.pointPublicTilesBaseUrl + '{z}/{x}/{y}.png';
+        this.tilesPointPublic = L.tileLayer(url, {
+            zIndex: 12,
+            // TODO maxZoom
+        }).addTo(this);
+        this.tileLayers.public.push(this.tilesPointPublic);
+        this.tileLayers['not in use'].push(this.tilesPointPublic);
+    },
+
+    addPointPublicGridLayer: function () {
+        if (!(this.options.enablePointPublicTiles && this.viewType === 'tiles')) return;
+        this.gridPointPublic = this.addGridLayer(this.options.pointPublicGridBaseUrl);
+        this.tileLayers.public.push(this.gridPointPublic);
+        this.tileLayers['not in use'].push(this.gridPointPublic);
+    },
+
+    addPointInUseTilesLayer: function () {
+        if (!(this.options.enablePointInUseTiles && this.viewType === 'tiles')) return;
+        if (!this.options.pointInUseTilesBaseUrl) return;
+
+        var url = this.options.pointInUseTilesBaseUrl + '{z}/{x}/{y}.png';
+        this.tilesPointInUse = L.tileLayer(url, {
+            zIndex: 14,
+            // TODO maxZoom
+        }).addTo(this);
+        this.tileLayers['in use'].push(this.tilesPointInUse);
+    },
+
+    addPointInUseGridLayer: function () {
+        if (!(this.options.enablePointInUseTiles && this.viewType === 'tiles')) return;
+        this.gridPointInUse = this.addGridLayer(this.options.pointInUseGridBaseUrl);
+        this.tileLayers['in use'].push(this.gridPointInUse);
+    },
+
+    showTiles: function () {
+        var instance = this;
+        if (instance.viewType !== 'tiles') return;
+        var filtered = _.size(instance.filters) > 0,
+            activeOwnerTypes = instance.getActiveOwnerTypes(instance.filters),
+            projects = instance.filters.projects;
+
+        _.each(_.keys(instance.tileLayers), function (layer) {
+            // Always show if there are no current filters
+            if (!filtered) {
+                instance.showTilesByLayer(layer);
+                return;
+            }
+
+            // Handle 'in use' layers
+            if (layer === 'in use' && (projects === 'include' || projects === 'only')) {
+                instance.showTilesByLayer(layer);
+                return;
+            }
+
+            // Handle project layer
+            if (_.contains(activeOwnerTypes, layer) && projects !== 'only') {
+                instance.showTilesByLayer(layer);
+                return;
+            }
+
+            if (layer !== 'not in use') {
+                instance.hideTilesByLayer(layer);
+                return;
+            }
+        });
+    },
+
+    hideTiles: function () {
+        var instance = this;
+        _.each(_.keys(instance.tileLayers), function (layer) {
+            instance.hideTilesByLayer(layer);
+        });
+    },
+
+    showTilesByLayer: function (name) {
+        var instance = this;
+        _.each(instance.tileLayers[name], function (layer) {
+            if (layer) {
+                instance.addLayer(layer);
+            }
+        });
+    },
+
+    hideTilesByLayer: function (name) {
+        var instance = this;
+        _.each(instance.tileLayers[name], function (layer) {
+            if (layer) {
+                instance.removeLayer(layer);
+            }
+        });
+    },
+
+    getActiveOwnerTypes: function (filters) {
+        var activeOwnerTypes = filters.owner__owner_type__in;
+        if (!activeOwnerTypes) {
+            return [];
+        }
+        else if (!_.isArray(activeOwnerTypes)) {
+            return [activeOwnerTypes,];
+        }
+        return activeOwnerTypes;
+    },
+
+    /*
+    * Update which tiles are shown by owner type
+    */
+    reloadTiles: function (filters) {
+        var instance = this;
+        instance.filters = filters;
+        instance.showTiles();
+    },
+
+
+    /*
+    * Polygons
+    */
+
+    addPolygonLayer: function (queryString) {
+        if (!queryString) {
+            queryString = this.options.polygonQueryString;
+        }
+        if (!(this.options.enablePolygons && this.options.polygonBaseUrl)) return;
+        if (!this.polygons) {
+            this.polygons = L.polygonLotLayer(this.options.polygonBaseUrl, {});
+        }
+        this.polygons.addTo(this);
+    },
+
+
+    /*
+     * Centroids
+     */
+
+    addCentroidLayer: function (queryString) {
+        if (!(this.options.enableCentroids && this.options.centroidBaseUrl)) return;
+        if (!this.centroids) {
+            this.centroids = L.centroidLotLayer(this.options.centroidBaseUrl);
+        }
+        this.centroids.addTo(this);
+    },
+
+    showCentroidLayer: function () {
+        this.addLayer(this.centroids);
+    },
+
+    hideCentroidLayer: function () {
+        if (this.centroids) {
+            this.removeLayer(this.centroids);
+        }
+    },
+
+
+    /*
+     * Organizers
+     */
+
+    addOrganizersLayer: function (queryString) {
+        var instance = this,
+            url = instance.options.centroidBaseUrl + '?' + [
+                'known_use__isnull=true',
+                'participant_types=organizers',
+                'owner__owner_type__in=private',
+                'owner__owner_type__in=public'
+            ].join('&');
+        $.getJSON(url, function (data) {
+            this.organizers = L.geoJson(data, {
+                onEachFeature: function (feature, layer) {
+                    layer.on('click', function (event) {
+                        instance.options.clickHandler(event, feature);
+                        instance.fire('lotclicked', {
+                            event: event,
+                            lot: feature,
+                        });
+                    });
+                },
+                pointToLayer: function (feature, latlng) {
+                    return L.organizerMarker(latlng);
+                },
+                style: function (feature) {
+                    var style = lotStyles.forLayer(feature.properties.layer);
+                    style.clickable = true;
+                    return style;
+                }
+            }).addTo(instance);
+        });
+    },
+
+
+    /*
+    * Choropleth
+    */
+
+    showChoropleth: function () {
+        var instance = this;
+        if (!instance.choropleth) {
+            instance.addChoroplethBoundaries(instance.filters.choropleth_boundary_layer);
+        }
+        else {
+            instance.addLayer(instance.choropleth);
+        }
+    },
+
+    hideChoropleth: function () {
+        var instance = this;
+        if (instance.choropleth) {
+            instance.removeLayer(instance.choropleth);
+        }
+    },
+
+    reloadChoropleth: function (filters) {
+        this.addChoroplethLayer(filters);
+    },
+
+    clearChoropleth: function () {
+        var instance = this;
+        instance.hideChoropleth();
+        instance.choropleth = null;
+        instance.choroplethLayers = {};
+    },
+
+    addChoroplethBoundaries: function (layer_name) {
+        var instance = this;
+        instance.choroplethBoundaryLayerName = layer_name;
+        var url = Django.url('inplace:layer_view', { name: layer_name });
+        instance.choroplethLayers = {};
+        instance.fire('dataloading');
+        singleminded.remember({
+            name: 'addChoroplethBoundaries',
+            jqxhr: $.getJSON(url, function (data) {
+                instance.choropleth = L.geoJson(data, {
+                    onEachFeature: function (feature, layer) {
+                        var boundaryLabel = feature.properties.boundary_label;
+                        instance.choroplethLayers[boundaryLabel] = layer;
+
+                        layer.on({
+                            click: function () {
+                                // Zoom to this polygon? Maybe show other
+                                // details besides count (breakdown, area,
+                                // etc.)? TODO
+                            },
+                        });
+                    },
+                });
+                instance.updateChoroplethStyles(null);
+                if (instance.getZoom() < 16 && instance.viewType === 'choropleth') {
+                    instance.choropleth.addTo(instance);
+                }
+
+                instance.updateChoropleth($.param(instance.filters, true));
+            })
+            .always(function () {
+                instance.fire('dataload');
+            }),
+        });
+    },
+
+    getChoroplethColor: function (count, maxCount) {
+        var instance = this;
+        var hue = instance.choroplethHsl.hue,
+            saturation = instance.choroplethHsl.saturation,
+            lightness = instance.choroplethHsl.lightness;
+
+        if (maxCount > 0) {
+            // Keep lightness between 30 and 90
+            lightness -= (count / maxCount) * 60;
+        }
+        return 'hsl(' + hue + ', ' + saturation + '%, ' + lightness + '%)';
+    },
+
+    getChoroplethStyle: function (count, maxCount) {
+        var instance = this;
+        var style = instance.choroplethStyle;
+        style.fillColor = instance.getChoroplethColor(count, maxCount);
+        return style;
+    },
+
+    updateChoroplethStyles: function (counts) {
+        var instance = this;
+        if (!instance.choroplethLayers) return;
+        var maxCount = 0;
+
+        if (counts && counts !== null) {
+            $.each(counts, function (layerLabel, count) {
+                maxCount = Math.max(maxCount, count);
+            });
+        }
+
+        $.each(instance.choroplethLayers, function (label, layer) {
+            var style = {};
+            if (counts && counts !== null) {
+                style = instance.getChoroplethStyle(counts[label], maxCount);
+            }
+            else {
+                style = instance.getChoroplethStyle(0, 0);
+            }
+            layer.setStyle(style);
+        });
+
+    },
+
+    updateChoroplethLabels: function (counts) {
+        var instance = this;
+
+        $.each(counts, function (layerLabel, count) {
+            var layer = instance.choroplethLayers[layerLabel];
+            var label = layer._label;
+            var content = instance.choroplethBoundaryLayerName.slice(0, -1);
+            content += ' ' + layerLabel + '<br/ >' + count + ' lots';
+            if (label) {
+                layer.updateLabelContent(content);
+            }
+            else {
+                layer.bindLabel(content);
+            }
+        });
+    },
+
+    addChoroplethLayer: function (filters) {
+        var instance = this;
+        if (!instance.options.enableChoropleth) return;
+
+        var newLabel;
+        var queryString = instance.options.choroplethQueryString;
+        if (filters) {
+            newLabel = filters.choropleth_boundary_layer;
+            queryString = $.param(filters, true);
+        }
+
+        // If boundaries don't yet exist or are new, load them
+        if ((!instance.choropleth && newLabel) ||
+            (newLabel && newLabel !== instance.choroplethBoundaryLayerName)) {
+            instance.clearChoropleth();
+            instance.addChoroplethBoundaries(newLabel);
+        }
+        else {
+            instance.updateChoropleth(queryString);
+        }
+    },
+
+    updateChoropleth: function (queryString) {
+        var instance = this;
+
+        // Update colors and labels
+        var url = instance.options.choroplethBaseUrl + '?' + queryString;
+        instance.fire('dataloading');
+        singleminded.remember({
+            name: 'addChoroplethLayer',
+            jqxhr: $.getJSON(url, function (data) {
+                instance.updateChoroplethStyles(data);
+                instance.updateChoroplethLabels(data);
+            })
+            .always(function () {
+                instance.fire('dataload');
+            }),
+        });
+
+    },
+
+    setVisibleLotsCount: function (count) {
+        this.visibleLotsCount = count;
+        this.pickChoroplethLayer();
+    },
+
+    /*
+     * Determine the choropleth / summary view layer that should be
+     * displayed. If it won't be too many lots, show centroids.
+     */
+    pickChoroplethLayer: function () {
+        var instance = this;
+        if (instance.viewType === 'choropleth') {
+            if (instance.visibleLotsCount <= instance.options.lotsCentroidThreshold) {
+                instance.hideChoropleth();
+                instance.showCentroidLayer();
+            }
+            else {
+                instance.hideCentroidLayer();
+                instance.showChoropleth();
+            }
+        }
+    },
+
+
+    /*
+    * Controls
+    */
+
+    addLayersControl: function () {
+        if (!this.options.enableLayersControl) return;
+        var baseLayers = {
+            'Streets': this.streets,
+            'Satellite': this.satellite,
+        };
+        var overlays = {};
+        var layersControl = L.control.layers(baseLayers, overlays).addTo(this);
+    },
+
+
+    /*
+    * Events
+    */
+
+    addZoomEvents: function () {
+        var instance = this;
+        instance.on('zoomend', function () {
+            var zoom = instance.getZoom();
+            if (zoom >= 16) {
+                instance.messageControl.hide();
+                instance.hideChoropleth();
+            }
+            else {
+                instance.messageControl.show();
+            }
+
+            if (zoom >= 17) {
+                instance.hideTiles();
+            }
+            else {
+                instance.showTiles();
+            }
+
+        });
+    },
+
+
+    /*
+    * Filters
+    */
+
+    updateFilters: function (filters) {
+        this.filters = filters;
+
+        // If the view type is changing, let the map know
+        if (filters.view_type && filters.view_type !== this.viewType) {
+            this.changeView(filters.view_type);
+        }
+
+        // Now, reload everything
+        this.reloadChoropleth(filters);
+        this.reloadTiles(filters);
+
+        this.fire('moveend').fire('zoomend');
+    },
+
+    changeView: function (viewType) {
+        this.viewType = viewType;
+        this.fire('viewtypechange', { viewType: viewType });
+        if (viewType === 'tiles') {
+            // Show tiles
+            this.showTiles();
+
+            // Hide everything else
+            this.hideChoropleth();
+        }
+        else if (viewType === 'choropleth') {
+            // Show choropleth
+            this.showChoropleth();
+
+            // Hide everything else
+            this.hideTiles();
+        }
+    },
+
+});
+
+L.Map.addInitHook('_lotMapInitialize');
+
+},{"./leaflet.geojsonbounds":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.geojsonbounds.js","./leaflet.legend":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.legend.js","./leaflet.message":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.message.js","./leaflet.organizermarker":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.organizermarker.js","./lotstyles":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/lotstyles.js","./singleminded":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/singleminded.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js","leaflet.bing":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet-plugins/layer/tile/Bing.js","leaflet.label":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Leaflet.label/dist/leaflet.label.js","leaflet.loading":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet.loading/src/Control.Loading.js","leaflet.utfgrid":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Leaflet.utfgrid/dist/leaflet.utfgrid-src.js","livinglots-map/src/livinglots.boundaries":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots-map/src/livinglots.boundaries.js","livinglots.lotlayer":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/index.js","underscore":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/underscore/underscore.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.message.js":[function(require,module,exports){
+var L = require('leaflet');
+
+L.Control.Message = L.Control.extend({
+    options: {
+        defaultHtml: 'Message goes here.',
+        position: 'topcenter',
+    },
+
+    initialize: function(options) {
+        L.setOptions(this, options);
+    },
+
+    onAdd: function(map) {
+        this._container = L.DomUtil.create('div', 'leaflet-control-message');
+        L.DomEvent.disableClickPropagation(this._container);
+
+        this._update(this.options.defaultHtml);
+
+        return this._container;
+    },
+
+    hide: function() {
+        L.DomUtil.addClass(this._container, 'is-hidden');
+    },
+
+    show: function() {
+        L.DomUtil.removeClass(this._container, 'is-hidden');
+    },
+
+    setMessage: function(html) {
+        this._update(html);
+    },
+
+    _update: function (html) {
+        if (!this._map) { return; }
+        this._container.innerHTML = html;
+    },
+
+});
+
+L.Map.addInitHook(function () {
+    if (!this.options.messageControl) { return; }
+    var className = 'leaflet-top leaflet-center';
+    this._controlCorners.topcenter = 
+        L.DomUtil.create('div', className, this._controlContainer);
+    this.messageControl = (new L.Control.Message({
+        defaultHtml: this.options.messageDefault,
+    })).addTo(this);
+});
+
+L.control.message = function(options) {
+    return new L.Control.Message(options);
+};
+
+},{"leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.organizermarker.js":[function(require,module,exports){
+var L = require('leaflet');
+
+require('./leaflet.organizerpath');
+
+
+L.OrganizerMarker = L.CircleMarker.extend({
+
+    onZoomEnd: function () {
+        if (this._map && this.feature.properties.has_organizers) {
+            this.bringToFront();
+        }
+    },
+
+    _pickRadius: function (zoom) {
+        var radius = 4;   
+        if (zoom >= 13) {
+            radius = 6;
+        }
+        else if (zoom >= 14) {
+            radius = 9;
+        }
+        else if (zoom >= 15) {
+            radius = 12;
+        }
+        else if (zoom >= 16) {
+            radius = 15;
+        }
+        return radius;
+    },
+
+    _updateVisibility: function (zoom) {
+        // Hide circles once we zoom in enough to see polygons
+        if (zoom >= 17) {
+            this._path.style.display = 'none';
+        }
+        else {
+            this._path.style.display = 'block';
+        }
+    },
+
+    _updatePath: function () {
+        var zoom = this._map.getZoom();
+
+        // Update the circle's radius according to the map's zoom level
+        this.options.radius = this._radius = this._pickRadius(zoom);
+
+        this._updateVisibility(zoom);
+        this.updateActionPathScale();
+        L.CircleMarker.prototype._updatePath.call(this);
+    }
+
+});
+
+L.OrganizerMarker.include(L.OrganizerPathMixin);
+
+L.OrganizerMarker.addInitHook(function () {
+    this.on({
+        'add': function () {
+            this.initActionPath();
+
+            if (this.feature && this.feature.properties.has_organizers) {
+                var layer = this;
+                this._map.on('zoomend', this.onZoomEnd, layer);
+            }
+        },
+        'remove': function () {
+            if (this.feature && this.feature.properties.has_organizers) {
+                var layer = this;
+                this._map.off('zoomend', this.onZoomEnd, layer);
+            }
+        }
+    });
+});
+
+L.organizerMarker = function (latlng, options) {
+    return new L.OrganizerMarker(latlng, options);
+};
+
+},{"./leaflet.organizerpath":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.organizerpath.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.organizerpath.js":[function(require,module,exports){
+var L = require('leaflet');
+
+
+L.OrganizerPathMixin = {
+
+    hide: function () {
+        if (!this._path) return;
+        this._path.style.display = 'none';
+        if (this._actionPath) {
+            this._actionPath.style.display = 'none';
+        }
+    },
+
+    show: function () {
+        if (!this._path) return;
+        this._path.style.display = 'block';
+        if (this._actionPath) {
+            this._actionPath.style.display = 'block';
+        }
+    },
+
+    initActionPath: function() {
+        this._actionPath = this._createElement('path');
+        this._actionPath.setAttribute('style', 'fill:#eec619; fill-opacity:1;');
+        this._actionPath.setAttribute('d', this.getActionPathSvgStr());
+        this._container.insertBefore(this._actionPath, this._path);
+
+        this.updateActionPathScale();
+    },
+
+    getActionPathSvgStr: function () {
+        return 'M 0,-39 c -0.6 0 -2.2 3.4 -3.5 7.6 -1.3 4.2 -3 7.8 -3.7 8.1 -0.7 0.3 -4.2 -1.6 -7.7 -4.1 -5.8 -4.1 -8.6 -5.5 -8.6 -4.2 0 0.2 1.1 4.1 2.6 8.6 1.4 4.5 2.4 8.3 2.1 8.6 -0.2 0.2 -4.3 0.7 -9.1 1.1 -4.7 0.3 -8.6 1 -8.6 1.5 0 0.5 2.9 3 6.5 5.5 3.6 2.6 6.5 5.2 6.5 5.8 0 0.6 -2.9 3.2 -6.5 5.8 -3.6 2.6 -6.5 5.1 -6.5 5.5 0 0.5 3.9 1.1 8.6 1.5 4.7 0.3 8.8 0.8 9.1 1.1 0.2 0.2 -0.7 4.1 -2.1 8.6 -1.4 4.5 -2.6 8.3 -2.6 8.6 0 1.3 2.8 -0 8.6 -4.2 3.5 -2.5 7 -4.4 7.7 -4.1 0.7 0.3 2.3 3.9 3.7 8.1 1.3 4.2 2.9 7.6 3.5 7.6 0.6 0 2.2 -3.4 3.5 -7.6 1.3 -4.2 3 -7.8 3.7 -8.1 0.7 -0.3 4.2 1.6 7.7 4.1 5.8 4.1 8.6 5.5 8.6 4.2 0 -0.2 -1.1 -4.1 -2.6 -8.6 -1.4 -4.5 -2.4 -8.3 -2.1 -8.6 0.2 -0.2 4.3 -0.7 9.1 -1.1 4.7 -0.3 8.6 -1 8.6 -1.5 0 -0.5 -2.9 -3 -6.5 -5.5 -3.6 -2.6 -6.5 -5.2 -6.5 -5.8 0 -0.6 2.9 -3.2 6.5 -5.8 3.6 -2.6 6.5 -5.1 6.5 -5.5 0 -0.5 -3.9 -1.1 -8.6 -1.5 -4.7 -0.3 -8.8 -0.8 -9.1 -1.1 -0.2 -0.2 0.7 -4.1 2.1 -8.6 1.4 -4.5 2.6 -8.3 2.6 -8.6 0 -1.3 -2.8 0 -8.6 4.2 -3.5 2.5 -7 4.4 -7.7 4.1 -0.7 -0.3 -2.3 -3.9 -3.7 -8.1 -1.3 -4.2 -2.9 -7.6 -3.5 -7.6 z';
+    },
+
+    updateActionPathScale: function () {
+        if (this._actionPath) {
+            var point = this._map.latLngToLayerPoint(this.getBounds().getCenter()),
+                zoom = this._map.getZoom(),
+                scale = 0.25;
+
+            // Translate and scale around the layer's point
+            if (zoom >= 18) {
+                scale = 1.5;
+            }
+            else if (zoom >= 15) {
+                scale = 0.75;
+            }
+            else if (zoom >= 13) {
+                scale = 0.5;
+            }
+            this._actionPath.setAttribute('transform', 'translate(' + point.x + ',' + point.y + ') scale(' + scale + ')');
+        }
+    }
+
+};
+
+},{"leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/lotbasepage.js":[function(require,module,exports){
+/*
+ * Module for all pages derived from the base lot page.
+ */
+var L = require('leaflet');
+var lotStyles = require('./lotstyles');
+var streetview = require('./streetview');
+require('bootstrap_tooltip');
+
+var lotPk;
+
+function styleLayer(feature) {
+    var style = lotStyles.forLayer(feature.properties.layer);
+    if (+feature.properties.pk !== lotPk) {
+        style.fillOpacity = 0.3;
+        style.weight = 0.5;
+    }
+    else {
+        style.fillOpacity = 1;
+        style.weight = 3;
+    }
+    return style;
+}
+
+function addBaseLayer(map) {
+    if (Django.context.debug) {
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+    }
+    else {
+        L.tileLayer('https://{s}.tiles.mapbox.com/v3/{mapboxId}/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            mapboxId: $('#map').data('mapboxid')
+        }).addTo(map);
+    }
+}
+
+$(document).ready(function () {
+    if ($('.lot-base-page').length > 0) {
+        var $streetviewContainer = $('#streetview-container'),
+            $streetviewError = $('#streetview-error'),
+            lon = $('body').data('lon'),
+            lat = $('body').data('lat');
+
+        lotPk = $('body').data('lotpk');
+
+        // Set up streetview
+        streetview.load_streetview(lon, lat, $streetviewContainer, $streetviewError);
+
+        // Set up lot map
+        var map = new L.Map('map', {
+            center: { lat: lat, lng: lon },
+            mapboxId: $('#map').data('mapboxid'),
+            zoom: 17,
+
+            // Make map not interactive
+            boxZoom: false,
+            doubleClickZoom: false,
+            dragging: false,
+            keyboard: false,
+            scrollWheelZoom: false,
+            tap: false,
+            touchZoom: false,
+            zoomControl: false
+        });
+
+        addBaseLayer(map);
+
+        $.get($('#map').data('url'), function (data) {
+            var feature_layer = new L.GeoJSON(data, { style: styleLayer })
+                .addTo(map);
+        });
+
+        $('.lot-page-tooltip').tooltip({ container: 'body' });
+    }
+});
+
+},{"./lotstyles":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/lotstyles.js","./streetview":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/streetview.js","bootstrap_tooltip":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/bootstrap/js/tooltip.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/lotstyles.js":[function(require,module,exports){
+var _ = require('underscore');
+
+var layerFills = {
+    'in use': '#830F94',
+    'public': '#D38022',
+    'private': '#287A68'
+};
+
+var defaultStyle = {
+    fillOpacity: 0.7,
+    color: 'white',
+    opacity: 0.8,
+    weight: 1
+};
+
+function forLayer(layer) {
+    var style = $.extend({}, defaultStyle);
+    if (layerFills[layer]) {
+        style.fillColor = layerFills[layer];
+    }
+    return style;
+}
+
+module.exports = {
+    forLayer: forLayer,
+
+    layers: function () {
+        var layers = {};
+        _.each(layerFills, function (fill, name) {
+            layers[name] = forLayer(name);
+        });
+        return layers;
+    }
+};
+
+},{"underscore":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/underscore/underscore.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/mailparticipantspage.js":[function(require,module,exports){
+var lotsMap = require('./leaflet.lotmap.js');
+
+function mail_participants_update_counts(with_bbox) {
+    // TODO refactor urls to be outside of FeinCMS control
+    var url = Django.url('extraadmin:mail_participants_count') + $('form').serialize();
+    $.getJSON(url, function(data) {
+        $('.organizer-count').text(data.organizers);
+        $('.watcher-count').text(data.watchers);
+    });
+}
+
+$(document).ready(function() {
+    if ($('.extraadmin-mail-participants-page').length > 0) {
+        lotsMap.on('moveend', function(e) {
+            var g = JSON.stringify(lotsMap.getBounds().toGeoJson());
+            $(':input[name="centroid__within"]').val(
+                JSON.stringify(lotsMap.getBounds().toGeoJson())
+            );
+            mail_participants_update_counts(true);
+        });
+
+        // initialize counts
+        mail_participants_update_counts(false);
+
+        $(':input').change(function() {
+            mail_participants_update_counts(true);
+
+            if ($(':input[name="participant_types"]:checked').length > 0) {
+                lotsMap.reloadLotCentroidLayer($('form').serialize());
+            }
+            else {
+                // if there aren't any participant types selected,
+                // don't show anything--no emails will go out
+                lotsMap.clearLotCentroidLayer();
+            }
+        });
+    }
+});
+
+},{"./leaflet.lotmap.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.lotmap.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/main.js":[function(require,module,exports){
+//
+// main.js
+//
+// Scripts that should run on every page.
+//
+
+require('./jquery.activitystream');
+require('chosen');
+require('bootstrap_dropdown');
+require('fancybox');
+require('jquery.timeago');
+require('noisy');
+
+
+/*
+ * Global form-related scripts
+ */
+$(document).ready(function () {
+    /*
+     * Disable submit buttons on forms once they have been submitted once.
+     */
+    $('form').submit(function () {
+        $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+    });
+
+    $('body').noisy({
+        'intensity' : 0.5,
+        'size' : 100,
+        'opacity' : 0.15,
+        'fallback' : '',
+        'monochrome' : false
+    });
+
+    /*
+     * Collapse the collapsible sections
+     */
+    // Slide up those sections not initially expanded
+    $('.collapsible-section:not(.is-expanded) .collapsible-section-text').slideUp();
+
+    // Prepare headers for clicking
+    $('.collapsible-section-header').click(function () {
+        var $section = $(this).parent(),
+            $sectionText = $section.find('.collapsible-section-text');
+        $section.toggleClass('is-expanded');
+        $sectionText.slideToggle();
+    });
+
+    /*
+     * Fancy the fancyboxes
+     */
+    $('.fancybox').fancybox();
+
+    /*
+     * Timeago the timeagoes
+     */
+    $('.timeago').timeago();
+
+    /*
+     * Activate the activitystreams
+     */
+    $('.activity-stream-container').activitystream();
+
+});
+
+
+/*
+ * Page-specific modules
+ */
+require('./mappage');
+require('./lotbasepage');
+require('./addorganizerpage');
+require('./mailparticipantspage');
+
+},{"./addorganizerpage":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/addorganizerpage.js","./jquery.activitystream":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/jquery.activitystream.js","./lotbasepage":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/lotbasepage.js","./mailparticipantspage":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/mailparticipantspage.js","./mappage":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/mappage.js","bootstrap_dropdown":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/bootstrap/js/dropdown.js","chosen":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/chosen_v1.2.0/chosen.jquery.js","fancybox":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/fancybox/source/jquery.fancybox.js","jquery.timeago":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-timeago/jquery.timeago.js","noisy":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Noisy/jquery/jquery.noisy.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/mappage.js":[function(require,module,exports){
+var _ = require('underscore');
+var L = require('leaflet');
+var Spinner = require('spinjs');
+var singleminded = require('./singleminded');
+var streetview = require('./streetview');
+var welcome = require('./welcome');
+
+require('./jquery.emailparticipants');
+require('./jquery.searchbar');
+
+// Filter [de]serialization
+require('jquery.deserialize');
+require('jquery.serializeobject');
+
+require('./leaflet.lotmap');
+require('./overlaymenu');
+require('jquery.debouncedresize');
+
+require('leaflet.usermarker');
+
+
+var MAX_LOTS_DOWNLOAD = 2000;
+
+var currentViewType,
+    lotsMap,
+    mapViewportSet = false,
+    visibleLotsCount = 0;
+
+
+/*
+ * Get bounds for searching
+ */
+function getBounds(map) {
+    var bounds = map.options.maxBounds;
+    var seBounds = bounds.getSouthEast();
+    var nwBounds = bounds.getNorthWest();
+
+    return [
+        seBounds.lng,
+        seBounds.lat,
+        nwBounds.lng,
+        nwBounds.lat
+    ];
+}
+
+
+/*
+ * Update counts
+ */
+function updateCounts() {
+    lotsMap.fire('dataloading');
+    var baseUrl = $('#map').data('countsbaseurl'),
+        params = serializeFilters();
+
+    singleminded.remember({
+        name: 'counts',
+        jqxhr: $.getJSON(baseUrl + params, function (data) {
+            $.each(data, function (label, count) {
+                $('.' + label).text(count);
+            });
+            visibleLotsCount = data['lots-count'];
+            lotsMap.setVisibleLotsCount(visibleLotsCount);
+        })
+        .always(function () {
+            lotsMap.fire('dataload');
+        }),
+    });
+}
+
+
+/*
+ * Handle filter inputs
+ */
+function serializeFilters() {
+    return $('form').serialize() + '&' + $('.overlaymenu-filter :input').serialize();
+}
+
+function deserializeFilters() {
+    // Get filters from url query string
+    var filters = window.location.search.slice(1);
+
+    // Clear the form of any defaults, first
+    if (filters.length > 1) {
+        $(':checkbox').prop('checked', false);
+    }
+
+    // Drop filters into the form (which is spread over multiple forms)
+    $('form').deserialize(filters);
+
+    // Trigger Chosen to update selects
+    $('select').trigger('liszt:updated');
+
+    // Update map viewport
+    var bboxString = $(':input[name="centroid__within"]').val();
+    if (bboxString) {
+        mapViewportSet = true;
+        lotsMap.fitBounds(L.geoJsonLatLngBounds(bboxString));
+    }
+    var zoomString = $(':input[name="zoom"]').val();
+    var zoom = 16;
+    if (zoomString) {
+        zoom = parseInt(zoomString, 10);
+    }
+    var centroidString = $(':input[name="centroid"]').val();
+    if (centroidString) {
+        mapViewportSet = true;
+        // TODO This works, but doesn't seem to make the lotlayer load?
+        lotsMap.setView(JSON.parse(centroidString), zoom);
+    }
+}
+
+function exportView() {
+    if (visibleLotsCount > MAX_LOTS_DOWNLOAD) {
+        alert('Too many lots to download! Filter the map and try again once the number of lots is no more than ' + MAX_LOTS_DOWNLOAD + '.');
+    }
+    else {
+        window.location = $(this).data('baseurl') + serializeFilters();
+    }
+    return false;
+}
+
+function updateViewType(viewType) {
+    currentViewType = viewType;
+    var viewTypeFilterSelector = '.view-type-' + viewType;
+
+    // {En,Dis}able filters that should be {en,dis}abled for this view type
+    $('.filter :input').prop('disabled', function (i, value) {
+        return !$(this).parents('.filter').is(viewTypeFilterSelector);
+    });
+
+    // Hide filters that have been disabled, show those enabled
+    $('.filter' + viewTypeFilterSelector).removeClass('is-disabled');
+    $('.filter:not(' + viewTypeFilterSelector + ')').addClass('is-disabled');
+
+    // Hide/Show filter labels if there are any filters enabled below
+    // them
+    $('.map-filters h2:not(.always-enabled)').each(function () {
+        if ($(this).nextAll().find('.filter:not(.is-disabled)').length > 0) {
+            $(this).show();
+        }
+        else {
+            $(this).hide();
+        }
+    });
+
+    // Always enable default filters (for counts)
+    $('.filter.default :input').prop('disabled', false);
+
+    // TODO for viewType===tiles, reset filters that are disabled 
+    //  (ensures sanity and that counts are appropriate)
+}
+
+function initializeBoundaries(map) {
+    // Check for expected layers, console a warning
+    var url = window.location.protocol + '//' + window.location.host +
+        Django.url('inplace:layer_upload');
+    var expectedLayers = ['city council districts', 'planning districts', 'zipcodes'];
+    _.each(expectedLayers, function (layer) {
+        if ($('.filter-' + layer.replace(/ /g, '-')).length === 0) {
+            console.warn('No ' + layer + '! Add some here: ' + url);
+        }
+    });
+
+    $('.filter-boundaries').change(function () {
+        // Clear other boundary filters
+        $('.filter-boundaries').not('#' + $(this).attr('id')).val('');
+
+        addBoundary(map, $(this).data('layer'), $(this).val());
+    });
+}
+
+function addBoundary(map, layer, pk) {
+    if (!pk || pk === '') {
+        map.removeBoundaries();
+    }
+    var url = Django.url('inplace:boundary_detail', { pk: pk });
+    $.getJSON(url, function (data) {
+        map.updateBoundaries(data, { zoomToBounds: true });
+    });
+}
+
+function onFilterChange() {
+    if ($(this).attr('name') === 'view_type') {
+        updateViewType($(this).val());
+    }
+    updateCounts();
+    var serializedFilters = $('.filters :input:not(.non-filter)').serializeObject();
+    lotsMap.updateFilters(serializedFilters);
+    lotsMap.fire('filterschange', { filters: serializedFilters, });
+}
+
+$(document).ready(function () {
+    if ($('.home-map-page').length > 0) {
+        var mapboxId = $('#map').data('mapboxid'),
+            popupSpinner;
+
+        // Prepare our map
+        lotsMap = L.map('map', {
+            center: [39.952335, -75.163789],
+            maxBounds: [
+                [39.147, -76.358],
+                [40.772, -73.952],
+            ],
+            zoom: 11,
+            mapboxId: mapboxId,
+            bingKey: 'ArBLp_jhvmrzT5Kg4_FXohJCKjbKmBW-nEEItp2dbceyHrJPMJJEqXDp8XsPy_cr',
+            clickHandler: function (e, feature) {
+                var featureId = null;
+                if (feature) featureId = feature.id;
+                var popupOptions = {
+                    maxHeight: 150
+                };
+                if (L.Browser.mobile === true) {
+                    popupOptions.maxWidth = 200;
+                    popupOptions.minWidth = 200;
+                }
+                else {
+                    popupOptions.minWidth = 300;
+                }
+                var popupContent = '<div id="popup-content" class="loading"></div>';
+                if (e.targetType === 'utfgrid' && e.data !== null) {
+                    featureId = e.data.id;
+                    var popup = L.popup(popupOptions)
+                        .setContent(popupContent)
+                        .setLatLng(e.latlng)
+                        .openOn(lotsMap);
+                }
+                else {
+                    try {
+                        e.target.bindPopup(popupContent, popupOptions).openPopup();
+                    }
+                    catch (exception) {}
+                }
+                var url = Django.url('inplace:lots_lot_detail_popup', { pk: featureId });
+                if (featureId !== null) {
+                    singleminded.remember({
+                        name: 'clickHandler',
+                        jqxhr: $.get(url, function (response) {
+                            popupSpinner.stop();
+                            $('#popup-content')
+                                .html(response)
+                                .removeClass('loading');
+                        }),
+                    });
+                }
+            },
+
+            messageControl: true,
+            messageDefault: 'Zoom in for details',
+
+            legendControl: true,
+            legendFeatureTypes: [
+                { name: 'public', },
+                { name: 'private', },
+                { name: 'in use', },
+            ],
+
+            loadingControl: true,
+
+            enableLayersControl: true,
+
+            enableChoropleth: true,
+            choroplethBaseUrl: $('#map').data('choroplethbaseurl'),
+            choroplethQueryString: 'parents_only=True',
+
+            enablePolygons: true,
+            polygonBaseUrl: $('#map').data('polygonbaseurl'),
+            polygonInitialFilters: {
+                parentsOnly: true,
+            },
+
+            enableCentroids: true,
+            centroidBaseUrl: $('#map').data('centroidbaseurl'),
+            centroidInitialFilters: {
+                parentsOnly: true,
+            },
+
+            lotsCentroidThreshold: 2000,
+
+            gridResolution: 8,
+
+            enablePointPrivateTiles: true,
+            pointPrivateTilesBaseUrl: $('#map').data('pointprivatetilesbaseurl'),
+            pointPrivateGridBaseUrl: $('#map').data('pointprivategridbaseurl'),
+
+            enablePointPublicTiles: true,
+            pointPublicTilesBaseUrl: $('#map').data('pointpublictilesbaseurl'),
+            pointPublicGridBaseUrl: $('#map').data('pointpublicgridbaseurl'),
+
+            enablePointInUseTiles: true,
+            pointInUseTilesBaseUrl: $('#map').data('pointinusetilesbaseurl'),
+            pointInUseGridBaseUrl: $('#map').data('pointinusegridbaseurl'),
+
+        });
+
+        /*
+         * Map events
+         */
+        lotsMap.on('moveend', function (e) {
+            var g = JSON.stringify(lotsMap.getBounds().toGeoJson());
+            $(':input[name="centroid__within"]').val(
+                JSON.stringify(lotsMap.getBounds().toGeoJson())
+            );
+            $(':input[name="centroid"]').val(
+                JSON.stringify(lotsMap.getCenter())
+            );
+            $(':input[name="zoom"]').val(lotsMap.getZoom());
+
+            updateCounts();
+            var serializedFilters = $('.filters :input:not(.non-filter)').serializeObject();
+            lotsMap.fire('filterschange', { filters: serializedFilters, });
+        });
+
+        lotsMap.on('lotclicked', function (data) {
+            var event = data.event;
+            streetview.load_streetview(event.latlng.lng, event.latlng.lat,
+                                       $('#streetview-container'),
+                                       $('#streetview-error'));
+        });
+
+        lotsMap.on('popupopen', function (e) {
+            popupSpinner = new Spinner({}).spin($('#popup-content.loading')[0]);
+            lotsMap.messageControl.hide();
+        });
+
+        lotsMap.on('popupclose', function (e) {
+            $('#streetview-container').hide();
+        });
+
+        lotsMap.whenReady(function (e) {
+            // Load filters from search string in URL, update map/counts accordingly
+            deserializeFilters();
+            onFilterChange();
+
+            // Update map and UI with the current view
+            var currentView = $(':input[name=view_type]').val();
+            updateViewType(currentView);
+            lotsMap.changeView(currentView);
+        });
+
+        lotsMap.on('boundarieschange', function () {
+            if (lotsMap.boundariesLayer.getLayers().length > 0) {
+                $('.filter-boundaries').each(function () {
+                    if ($(this).val() === '') return;
+                    $('.map-tally-header-boundary-layer').text($(this).data('layer').slice(0, -1));
+                    $('.map-tally-header-boundary-label').text($(this).val());
+                });
+                $('body').addClass('boundary');
+            }
+            else {
+                $('body').removeClass('no-boundary');
+            }
+        });
+
+        /*
+         * Filters events
+         */
+        $('.filters :input:not(.non-filter)').change(onFilterChange);
+
+
+        /*
+         * Handle export actions
+         */
+        $('.export-link').click(function () {
+            // TODO make shorter urls
+            window.location.search = serializeFilters();
+        });
+
+        $('.export-csv').click(exportView);
+        $('.export-geojson').click(exportView);
+        $('.export-kml').click(exportView);
+
+        // Fire up the emailparticipants
+        $('.email-participants').emailparticipants({
+            filterContainer: lotsMap,
+        });
+
+
+        // Fire up searchbar
+        $('.searchbar')
+            .searchbar({
+                bounds: getBounds(lotsMap),
+                city: 'Philadelphia',
+                state: 'PA',
+                errorMessage: "Sorry, it doesn't seem that the address you " +
+                    "entered is in Philadelphia. Try again?",
+                warningSelector: '.warning',
+            })
+            .on('searchresultfound', function (e, data) {
+                var latlng = [data.latitude, data.longitude];
+                lotsMap.setView(latlng, 18);
+                var usermarker = L.userMarker(latlng, { smallIcon: true })
+                    .bindPopup('This is the address you searched for.');
+                usermarker.addTo(lotsMap);
+            });
+
+
+        // Show/hide filters
+        $('.map-filters-toggle').click(function () {
+            $('.map-filters').toggle();
+        });
+
+        welcome.init();
+
+        $('.overlay-filter-button').overlaymenu({
+            menu: '.overlaymenu-filter'
+        });
+
+        $('.overlay-news-button').overlaymenu({
+            menu: '.overlaymenu-news'
+        });
+
+        $('.overlay-download-button').overlaymenu({
+            menu: '.overlaymenu-download'
+        });
+
+        initializeBoundaries(lotsMap);
+    }
+});
+
+},{"./jquery.emailparticipants":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/jquery.emailparticipants.js","./jquery.searchbar":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/jquery.searchbar.js","./leaflet.lotmap":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.lotmap.js","./overlaymenu":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/overlaymenu.js","./singleminded":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/singleminded.js","./streetview":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/streetview.js","./welcome":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/welcome.js","jquery.debouncedresize":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-smartresize/jquery.debouncedresize.js","jquery.deserialize":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-deserialize/dist/jquery.deserialize.min.js","jquery.serializeobject":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/jquery-serializeObject/jquery.serializeObject.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js","leaflet.usermarker":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet.usermarker/src/leaflet.usermarker.js","spinjs":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/spin.js/spin.js","underscore":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/underscore/underscore.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/overlaymenu.js":[function(require,module,exports){
+//
+// overlaymenu.js
+//
+// Overlay / dropdown menus, like modals but less intrusive
+//
+
+var _ = require('underscore');
+
+
+function show(button, menu) {
+    var offset = button.offset(),
+        outerWidth = button.outerWidth(),
+        outerHeight = button.outerHeight(),
+        menuWidth = menu.outerWidth();
+
+    button.trigger('overlaymenuopen');
+
+    menu
+        .show()
+        .offset({
+            left: offset.left + outerWidth - menuWidth,
+            top: offset.top + outerHeight + 13
+        });
+}
+
+function hide(button, menu) {
+    button.trigger('overlaymenuclose');
+    menu.hide();
+}
+
+function isVisible(menu) {
+    return menu.is(':visible');
+}
+
+function isInMenu(target, menu) {
+    return (target[0] === menu[0] ||
+            _.find(target.parents(), function (ele) { return ele === menu[0]; }));
+}
+
+$.fn.overlaymenu = function (options) {
+    var button = this,
+        menu = $(options.menu);
+
+    $('html').click(function (e) {
+        var target = $(e.target);
+
+        // If user not clicking in menu, consider hiding or showing it
+        if (!isInMenu(target, menu)) {
+            if (target[0] === button[0]) {
+                // If button clicked, show or hide the menu appropriately
+                if (isVisible(menu)) {
+                    hide(button, menu);
+                }
+                else {
+                    show(button, menu);
+                }
+                return false;
+            }
+            else {
+                // Something else was clicked--hide the menu
+                hide(button, menu);
+            }
+        }
+    });
+    return this;
+};
+
+},{"underscore":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/underscore/underscore.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/singleminded.js":[function(require,module,exports){
+var thoughts = {};
+
+function forget(name) {
+    var request = thoughts[name];
+
+    // If request exists and does not have a DONE state, abort it
+    if (request && request.readyState != 4) {
+        request.abort();
+    }
+
+    thoughts[name] = null;
+}
+
+function remember(params) {
+    var name = params.name,
+        jqxhr = params.jqxhr;
+
+    forget(name);
+
+    jqxhr.done(function() {
+        // Don't bother remembering requests we've finished
+        forget(name);
+    });
+    thoughts[name] = jqxhr;
+}
+
+module.exports = {
+    forget: forget,
+    remember: remember
+};
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/streetview.js":[function(require,module,exports){
+function get_heading(lon0, lat0, lon1, lat1) {
+    // Don't bother with great-circle calculations--should be close!
+    var r = Math.atan2(-(lon1 - lon0), (lat1 - lat0));
+    if (r < 0) {
+        r += 2 * Math.PI;
+    }
+    var d = r * (180 / Math.PI);
+
+    // Convert to google's heading: "True north is 0°, east is 90°,
+    // south is 180°, west is 270°."
+    if (d >= 45 && d < 135) { d += 180; }
+    else if (d >= 225 && d < 315) { d -= 180; }
+    return d;
+}
+
+function load_streetview(lon, lat, $elem, $errorBox) {
+    var service = new google.maps.StreetViewService();
+
+    if (!(lon && lat)) {
+        return;
+    }
+    var latLng = new google.maps.LatLng(lat, lon);
+
+    service.getPanoramaByLocation(latLng, 50, function (result, status) {
+        // TODO result.imageDate could be useful
+
+        if (status === google.maps.StreetViewStatus.OK) {
+            var lon0 = result.location.latLng.lng(),
+                lat0 = result.location.latLng.lat();
+
+            var pano = new google.maps.StreetViewPanorama($elem[0], {
+                pano: result.location.pano,
+                pov: {
+                    heading: get_heading(lon0, lat0, lon, lat),
+                    pitch: 0,
+                },
+            });
+        }
+        else {
+            $errorBox.show();
+        }
+    });
+}
+
+module.exports = {
+    load_streetview: load_streetview
+};
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/welcome.js":[function(require,module,exports){
+//
+// Welcome header
+//
+
+function initClose() {
+    $('.map-welcome-close-button').click(function (e) {
+        $('.map-welcome').addClass('closed');
+        $('.map-welcome h1').animate({ 'font-size': '28px' });
+        $('.map-welcome-body').slideUp();
+        e.preventDefault();
+        return false;
+    });
+}
+
+function initOpen() {
+    $('.map-welcome-open-button').click(function (e) {
+        $('.map-welcome').removeClass('closed');
+        $('.map-welcome h1').animate({ 'font-size': '56px' });
+        $('.map-welcome-body').slideDown();
+        e.preventDefault();
+        return false;
+    });
+}
+
+module.exports = {
+    init: function () {
+        initClose();
+        initOpen();
+    }
+};
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/lib/communist.min.js":[function(require,module,exports){
+/*! communist 2013-05-30*/
+/*!(c)2013 Calvin Metcalf @license MIT https://github.com/calvinmetcalf/communist */
+/*!Includes Promiscuous (c)2013 Ruben Verborgh @license MIT https://github.com/RubenVerborgh/promiscuous*/
+/*!Includes Material from setImmediate Copyright (c) 2012 Barnesandnoble.com, llc, Donavon West, and Domenic Denicola @license MIT https://github.com/NobleJS/setImmediate */
+"undefined"==typeof document?(self._noTransferable=!0,self.onmessage=function(e){eval(e.data)}):function(){"use strict";function moveImports(e){var n,t=e.match(/(importScripts\(.*\);)/);return n=t?t[0].replace(/importScripts\((.*\.js\')\);?/,function(e,n){return n?"importScripts("+n.split(",").map(function(e){return"'"+c.makeUrl(e.slice(1,-1))+"'"})+");\n":""})+e.replace(/(importScripts\(.*\.js\'\);?)/,"\n"):e}function getPath(){if("undefined"!=typeof SHIM_WORKER_PATH)return SHIM_WORKER_PATH;for(var e=document.getElementsByTagName("script"),n=e.length,t=0;n>t;){if(/communist(\.min)?\.js/.test(e[t].src))return e[t].src;t++}}function makeWorker(e){var n,t=moveImports(e.join(""));c.URL=c.URL||window.URL||window.webkitURL;try{n=new Worker(c.URL.createObjectURL(new Blob([t],{type:"text/javascript"})))}catch(r){c._noTransferable=!0,n=new Worker(getPath()),n.postMessage(t)}finally{return n}}function single(e,n){var t=c.deferred(),r=makeWorker(["var _self={};\n_self.fun = ",e,";\n	_self.cb=function(data,transfer){\n			!self._noTransferable?self.postMessage(data,transfer):self.postMessage(data);\n			self.close();\n		};\n		_self.result = _self.fun(",JSON.stringify(n),',_self.cb);\n		if(typeof _self.result !== "undefined"){\n			_self.cb(_self.result);\n		}']);return r.onmessage=function(e){t.resolve(e.data)},r.onerror=function(e){e.preventDefault(),t.reject(e.message)},t.promise}function mapWorker(e,n,t){var r=new Communist,a=makeWorker(["\n	var _db={};\n	_db.__close__=function(){\n		self.close();\n	};\n	var _self={};\n	_db.__fun__ = ",e,';\n	_self.cb=function(data,transfer){\n		!self._noTransferable?self.postMessage(data,transfer):self.postMessage(data);\n	};\n	self.onmessage=function(e){\n		_self.result = _db.__fun__(e.data,_self.cb);\n			if(typeof _self.result !== "undefined"){\n				_self.cb(_self.result);\n		}\n	}']);return a.onmessage=function(e){n(e.data)},a.onerror=t?t:function(){n()},r.data=function(e,n){return c._noTransferable?a.postMessage(e):a.postMessage(e,n),r},r.close=function(){return a.terminate()},r}function multiUse(e){return object({data:e})}function object(e){var n=new Communist,t=0,r=[],a=function(e){"string"!=typeof e&&e.preventDefault&&(e.preventDefault(),e=e.message),r.forEach(function(n){n&&n.reject(e)})};"initialize"in e||(e.initialize=function(){});var o="{",s=function(e){var n=function(n,t){var a=r.length;return r[a]=c.deferred(),c._noTransferable?i.postMessage([a,e,n]):i.postMessage([a,e,n],t),r[a].promise};return n};for(var u in e)0!==t?o+=",":t++,o=o+u+":"+(""+e[u]),n[u]=s(u);o+="}";var i=makeWorker(["\n	var _db="+o+';\n	self.onmessage=function(e){\n	var cb=function(data,transfer){\n		!self._noTransferable?self.postMessage([e.data[0],data],transfer):self.postMessage([e.data[0],data]);\n	};\n		var result = _db[e.data[1]](e.data[2],cb);\n			if(typeof result !== "undefined"){\n				cb(result);\n			}\n	}\n	_db.initialize()']);return i.onmessage=function(e){r[e.data[0]].resolve(e.data[1]),r[e.data[0]]=0},i.onerror=a,n._close=function(){return i.terminate(),a("closed"),c.resolve()},"close"in n||(n.close=n._close),n}function queue(e,n,t){function r(e){return function(n,t){return f(e,n,t)}}function a(e){return function(n){return c.all(n.map(function(n){return f(e,n)}))}}function o(e){return function(n){var t=this;return c.all(n.map(function(n){return f(e,n).then(t.__cb__)}))}}function s(e){return function(n){return c.all(n.map(function(n){return f(e,n[0],n[1])}))}}function u(e){return function(n){var t=this;return c.all(n.map(function(n){return f(e,n[0],n[1]).then(t.__cb__)}))}}function i(e){var n;v?(n=p.shift(),v--,d[e][n[0]](n[1],n[2]).then(function(t){i(e),n[3].resolve(t)},function(t){i(e),n[3].reject(t)})):(m++,_.push(e))}function f(e,r,a){if(t)return d[~~(Math.random()*n)][e](r,a);var o,s=c.deferred();return!v&&m?(o=_.pop(),m--,d[o][e](r,a).then(function(e){i(o),s.resolve(e)},function(e){i(o),s.reject(e)})):(v||!m)&&(v=p.push([e,r,a,s])),s.promise}var l=new Communist;l.__batchcb__=new Communist,l.__batchtcb__=new Communist,l.batch=function(e){return l.__batchcb__.__cb__=e,l.__batchcb__},l.batchTransfer=function(e){return l.__batchtcb__.__cb__=e,l.__batchtcb__};for(var d=Array(n),m=0,_=[],p=[],v=0;n>m;)d[m]=object(e),_.push(m),m++;e._close=function(){};for(var b in e)l[b]=r(b),l.batch[b]=a(b),l.__batchcb__[b]=o(b),l.batchTransfer[b]=s(b),l.__batchtcb__[b]=u(b);return"close"in l||(l.close=l._close),l}function rWorker(e,n){var t=new Communist,r="function(dat,cb){ var fun = "+e+';\n		switch(dat[0]){\n			case "data":\n				if(!this._r){\n					this._r = dat[1];\n				}else{\n					this._r = fun(this._r,dat[1]);\n				}\n				break;\n			case "get":\n				return cb(this._r);\n			case "close":\n				cb(this._r);\n				this.__close__();\n				break;\n		}\n	};',a=function(e){n(e)},o=mapWorker(r,a);return t.data=function(e,n){return c._noTransferable?o.data(["data",e]):o.data(["data",e],n),t},t.fetch=function(){return o.data(["get"]),t},t.close=function(e){e&&(n=function(){}),o.data(["close"])},t}function incrementalMapReduce(e){function n(){for(var e=0,n=u.length;n>e&&s>0&&f>0;)s--,u[e].data(i.pop()),e++,f--;return o}function t(){a.close(),u.forEach(function(e){e.close()})}var r,a,o=new Communist,s=0,u=[],i=[],f=e,l=!1,d=!1,m={map:!1,reduce:!1,data:!1},_=function(){return m.map&&m.reduce&&m.data?n():o};return o.map=function(n,r){function c(){var o,c=mapWorker(n,function(n){void 0!==typeof n&&a.data(n),s>0?(s--,o=i.pop(),r?c.data(o,[o]):c.data(o)):(f++,f===e&&(m.data=!1,d?t():l&&(l=!1,a.fetch())))});u.push(c)}if(m.map)return o;for(var p=0;e>p;)c(),p++;return m.map=!0,_()},o.reduce=function(e){return m.reduce?o:(a=rWorker(e,function(e){r&&(r.resolve(e),r=!1)}),m.reduce=!0,_())},o.data=function(e){return d?void 0:(s+=e.length,i=i.concat(e),m.data=!0,_())},o.fetch=function(n){return r||(r=c.deferred()),e>f&&!n?l=!0:a.fetch(),r.promise},o.close=function(){return r||(r=c.deferred()),e>f?d=!0:t(),r.promise},o}function nonIncrementalMapReduce(e){function n(){return a.data&&a.map&&a.reduce?r.close():t}var t=new Communist,r=incrementalMapReduce(e),a={data:!1,map:!1,reduce:!1};return t.map=function(e,t){return a.map=!0,r.map(e,t),n()},t.reduce=function(e){return a.reduce=!0,r.reduce(e),n()},t.data=function(e){return a.data=!0,r.data(e),n()},t}function c(e,n,t){return"number"!=typeof e&&"function"==typeof n?mapWorker(e,n,t):"object"!=typeof e||Array.isArray(e)?"number"!=typeof e?n?single(e,n):multiUse(e):"number"==typeof e?n?nonIncrementalMapReduce(e):incrementalMapReduce(e):void 0:"number"==typeof n?queue(e,n,t):object(e)}(function(attachTo,global){function isStringAndStartsWith(e,n){return"string"==typeof e&&e.substring(0,n.length)===n}function onGlobalMessage(e){if(e.source===global&&isStringAndStartsWith(e.data,MESSAGE_PREFIX)){var n=e.data.substring(MESSAGE_PREFIX.length);tasks.runIfPresent(n)}}var tasks=function(){function Task(e,n){this.handler=e,this.args=n}Task.prototype.run=function(){if("function"==typeof this.handler)this.handler.apply(void 0,this.args);else{var scriptSource=""+this.handler;eval(scriptSource)}};var nextHandle=1,tasksByHandle={},currentlyRunningATask=!1;return{addFromSetImmediateArguments:function(e){var n=e[0],t=Array.prototype.slice.call(e,1),r=new Task(n,t),a=nextHandle++;return tasksByHandle[a]=r,a},runIfPresent:function(e){if(currentlyRunningATask)global.setTimeout(function(){tasks.runIfPresent(e)},0);else{var n=tasksByHandle[e];if(n){currentlyRunningATask=!0;try{n.run()}finally{delete tasksByHandle[e],currentlyRunningATask=!1}}}},remove:function(e){delete tasksByHandle[e]}}}(),MESSAGE_PREFIX="com.communistjs.setImmediate"+Math.random();global.addEventListener?global.addEventListener("message",onGlobalMessage,!1):global.attachEvent("onmessage",onGlobalMessage),attachTo.setImmediate=function(){var e=tasks.addFromSetImmediateArguments(arguments);return global.postMessage(MESSAGE_PREFIX+e,"*"),e}})(c,window),function(e){function n(){var e=function(c,s,u){var i;if(c!==e)return i=n(),e.c.push({d:i,resolve:c,reject:s}),i.promise;for(var f,l,d,m=s?"resolve":"reject",_=0,p=e.c.length;p>_;_++)f=e.c[_],l=f.d,d=f[m],typeof d!==a?l[m](u):r(d,u,l);e=t(o,u,s)},o={then:function(n,t){return e(n,t)}};return e.c=[],{promise:o,resolve:function(n){e.c&&e(e,!0,n)},reject:function(n){e.c&&e(e,!1,n)}}}function t(e,t,o){return function(c,s){var u,i=o?c:s;return typeof i!==a?e:(r(i,t,u=n()),u.promise)}}function r(n,t,r){e.setImmediate(function(){var e;try{e=n(t),e&&typeof e.then===a?e.then(r.resolve,r.reject):r.resolve(e)}catch(o){r.reject(o)}})}var a="function";e.resolve=function(e){var n={};return n.then=t(n,e,!0),n},e.reject=function(e){var n={};return n.then=t(n,e,!1),n},e.deferred=n}(c),c.all=function(e){var n=c.deferred(),t=e.length,r=0,a=Array(t),o=function(e){return function(o){a[e]=o,r++,r===t&&n.resolve(a)}};return e.forEach(function(e,t){e.then(o(t),function(e){n.reject(e)})}),n.promise};var Communist=function(){};c.reducer=rWorker,c.worker=makeWorker,c.makeUrl=function(e){var n=document.createElement("link");return n.href=e,n.href},c.ajax=function(e,n,t){var r=t?"request.responseText":"JSON.parse(request.responseText)",a=n?"("+(""+n)+")("+r+",_cb)":r,o='function (url, _cb) {\n		var request = new XMLHttpRequest();\n		request.open("GET", url);\n			request.onreadystatechange = function() {\n				var _resp;\n				if (request.readyState === 4 && request.status === 200) {\n_resp = '+a+';\n					if(typeof _resp!=="undefined"){_cb(_resp);}\n					}\n			};\n			request.onerror=function(e){throw(e);}\n		request.send();\n	}';return c(o,c.makeUrl(e))},"undefined"==typeof module?window.communist=c:module.exports=c}();
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/AbstractWorker.js":[function(require,module,exports){
+
+(function () {
+
+    function defineAbstractWorker(L) {
+        L.AbstractWorker = L.Class.extend({
+            initialize: function () {
+            },
+
+            onAdd: function (map) {
+            },
+
+            onRemove: function (map) {
+            },
+
+            process: function(tile, callback) {
+                callback(tile);
+            },
+            
+            abort: function(tile) {
+            },
+            
+            clear: function() {
+            }
+        });
+
+        // dummy worker (= no worker) when used directly
+        L.noWorker = function () {
+            return new L.AbstractWorker();
+        };
+    }
+
+    if (typeof define === 'function' && define.amd) {
+        // Try to add to Leaflet using AMD
+        define(['leaflet'], function (L) {
+            defineAbstractWorker(L);
+        });
+    }
+    else {
+        // Else use the global L
+        defineAbstractWorker(L);
+    }
+
+})();
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/CommunistWorker.js":[function(require,module,exports){
+var communist = require('../lib/communist.min');
+
+(function () {
+
+    function defineCommunistWorker(L, communist) {
+        L.CommunistWorker = L.AbstractWorker.extend({
+
+            statics: {
+                // number of web workers, not using web workers when falsy
+                NUM_WORKERS: 2
+            },
+
+            initialize: function (workerFunc) {
+                this.workerFunc = workerFunc;
+            },
+
+            onAdd: function (map) {
+                this._workers = L.CommunistWorker.createWorkers(this.workerFunc);
+            },
+
+            onRemove: function (map) {
+                if (this._workers) {
+                    // TODO do not close when other layers are still using the static instance
+                    //this._workers.close();
+                }
+            },
+
+            process: function(tile, callback) {
+                if (this._workers){ 
+                    tile._worker = this._workers.data(tile.datum).then(function(parsed) {
+                        if (tile._worker) {
+                            tile._worker = null;
+                            tile.parsed = parsed;
+                            tile.datum = null;
+                            callback(tile);
+                        } else {
+                            // tile has been unloaded, don't continue with adding
+                            //console.log('worker aborted ' + tile.key);
+                        }
+                    });
+                } else {
+                    callback(tile);
+                }
+            },
+            
+            abort: function(tile) {
+                if (tile._worker) {
+                    // TODO abort worker, would need to recreate after close
+                    //tile._worker.close();
+                    tile._worker = null;
+                }
+            }
+        });
+
+        L.communistWorker = function (workerFunc) {
+            return new L.CommunistWorker(workerFunc);
+        };
+
+        L.extend(L.CommunistWorker, {
+            createWorkers: function(workerFunc) {
+                if ( L.CommunistWorker.NUM_WORKERS && typeof Worker === "function" && typeof communist === "function"
+                        && !("workers" in L.CommunistWorker)) {
+                    L.CommunistWorker.workers = communist({
+                        //data : L.TileLayer.Vector.parseData
+                        data : workerFunc
+                    }, L.CommunistWorker.NUM_WORKERS);
+                }
+                return L.CommunistWorker.workers;
+            }
+        });
+    }
+
+    if (typeof define === 'function' && define.amd) {
+        // Try to add to Leaflet using AMD
+        define(['leaflet', 'communist', 'AbstractWorker'], function (L, communist) {
+            defineCommunistWorker(L, communist);
+        });
+    }
+    else {
+        // Else use the global L, communist
+        defineCommunistWorker(L, communist);
+    }
+
+})();
+
+},{"../lib/communist.min":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/lib/communist.min.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/Leaflet.label-patch.js":[function(require,module,exports){
+
+// patch Leaflet.label plugin to avoid null error on viewreset when label has
+// already been removed (v0.5.1), also see comment in L.TileLayer.Vector.onAdd
+if (L.Label) {
+    var orig = L.Label.prototype._updatePosition;
+    L.Label.prototype._updatePosition = function() {
+        if (this._map) {
+            orig.apply(this, arguments);
+        }
+    };
+}
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileCache.js":[function(require,module,exports){
+/**
+ * Simple tile cache to keep tiles while zooming with overzoom
+ */
+
+(function () {
+
+    function defineTileCache(L) {
+        L.TileCache = function() {
+        };
+
+        L.TileCache.prototype = {
+            // cache key: tile (String: Object)
+            _cache: {},
+
+            // flag to determine switch between tile unloading (put) and loading (get) phase
+            _unloading: false,
+
+            // flag to only cache tiles when zooming, not when moving
+            _zooming: false,
+
+            onAdd: function(map) {
+                this._map = map;
+                
+                map.on('zoomstart', this._onZoomStart, this);
+                map.on('zoomend', this._onZoomEnd, this);
+            },
+
+            onRemove: function(map) {
+                this._map = null;
+
+                map.off('zoomstart', this._onZoomStart, this);
+                map.off('zoomend', this._onZoomEnd, this);
+            },
+
+            _onZoomStart: function(evt) {
+                this._zooming = true;
+            },
+
+            _onZoomEnd: function(evt) {
+                this._zooming = false;
+            },
+
+            get: function(key, urlZoom) {
+                var ckey = this._getCacheKey(key, urlZoom);
+                var tile = this._cache[ckey];
+                this._unloading = false;
+                //console.log('cache ' + (tile ? 'hit ' : 'miss') + ': ' + ckey);
+                return tile;
+            },
+            
+            put: function(tile) {
+                if (!this._zooming) return;
+
+                if (!this._unloading) {
+                    // clear old entries before adding newly removed tiles after zoom or move
+                    this.clear();
+                    this._unloading = true;
+                }
+
+                var ckey = this._getCacheKeyFromTile(tile);
+                if (!(ckey in this._cache)) {
+                    // vector layer is recreated because of feature filter
+                    delete tile.layer;
+                    this._cache[ckey] = tile;
+                    //console.log('cache put : ' + ckey + ' (' + Object.keys(this._cache).length + ')');
+                }
+            },
+            
+            clear: function() {
+                //console.log('cache clear');
+                this._cache = {};
+            },
+
+            _getCacheKeyFromTile: function(tile) {
+                return this._getCacheKey(tile.key, tile.urlZoom);
+            },
+
+            _getCacheKey: function(key, urlZoom) {
+                return urlZoom + ':' + key
+            }
+        };
+
+        L.tileCache = function() {
+            return new L.TileCache();
+        };
+
+        // dummy impl. to turn caching off
+        L.tileCacheNone = function() {
+            return {
+                onAdd: function(map) {},
+                onRemove: function(map) {},
+                get: function(key, urlZoom) {},
+                put: function(tile) {},
+                clear: function() {}
+            };
+        };
+    }
+
+    if (typeof define === 'function' && define.amd) {
+        // Try to add to Leaflet using AMD
+        define(['leaflet'], function (L) {
+            defineTileCache(L);
+        });
+    }
+    else {
+        // Else use the global L
+        defineTileCache(L);
+    }
+
+})();
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.BBox.js":[function(require,module,exports){
+var L = require('leaflet');
+
+L.TileLayer.Vector.include({
+
+    getTileUrl: function (coords) {
+        var x = coords.x,
+            y = coords.y,
+            z = this._getZoomForUrl(),
+            bounds = this.getTileBBox(x, y, z),
+            url = this._url;
+        if (url.indexOf('?') < 0) {
+            url += '?';
+        }
+        if (this.options.getTileQueryString) {
+            url += this.options.getTileQueryString.apply(this);
+        }
+        return url + '&bbox=' + bounds.toBBoxString();
+    },
+
+    getTileBBox: function (x, y, z) {
+        var west = this.getTileLng(x, z),
+            north = this.getTileLat(y, z),
+            east = this.getTileLng(x + 1, z),
+            south = this.getTileLat(y + 1, z),
+            bounds = L.latLngBounds([[south, west], [north, east]]);
+        return bounds;
+    },
+
+    getTileLng: function (x, z) {
+        return (x / Math.pow(2, z) * 360 - 180);
+    },
+
+    getTileLat: function (y, z) {
+        var n = Math.PI - 2 * Math.PI * y / Math.pow(2, z);
+        return (180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n))));
+    }
+
+});
+
+},{"leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.Div.js":[function(require,module,exports){
+L.TileLayer.Div = L.TileLayer.extend({
+
+    initialize: function (options) {
+        L.TileLayer.prototype.initialize.call(this, null, options);
+    },
+
+    _createTile: function () {
+        var tile = L.DomUtil.create('div', 'leaflet-tile leaflet-tile-loaded');
+        var tileSize = this._getTileSize();
+        tile.style.width = tileSize + 'px';
+        tile.style.height = tileSize + 'px';
+        tile.onselectstart = tile.onmousemove = L.Util.falseFn;
+        return tile;        
+    },
+
+    _loadTile: function (tile, tilePoint) {
+        tile._layer = this;
+        tile._tilePoint = tilePoint;
+        this._adjustTilePoint(tilePoint);
+        
+        this.drawTile(tile, tilePoint);
+        
+        this._tileLoaded();
+    },
+    
+    drawTile: function (tile, tilePoint) {
+        // override with rendering code
+    }
+});
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.GeoJSON.js":[function(require,module,exports){
+// Load data tiles using the JQuery ajax function
+
+(function () {
+
+    function defineTileLayerGeoJSON(L) {
+
+        L.TileLayer.Ajax = L.TileLayer.extend({
+            options: {
+                // use L.tileCacheNone to turn caching off
+                tileCacheFactory: L.tileCache
+            },
+
+            _tileCache: null,
+
+            initialize: function (url, options) {
+                L.TileLayer.prototype.initialize.call(this, url, options);
+                
+                this._tileCache = this.options.tileCacheFactory();
+            },
+
+            onAdd: function (map) {
+                L.TileLayer.prototype.onAdd.call(this, map);
+                this.on('tileunload', this._unloadTile);
+            },
+
+            onRemove: function (map) {
+                L.TileLayer.prototype.onRemove.call(this, map);
+                this.off('tileunload', this._unloadTile);
+            },
+
+            _addTile: function(tilePoint, container) {
+                var cached = null;
+                var key = tilePoint.x + ':' + tilePoint.y;
+                var urlZoom = this._getZoomForUrl();
+                var tile = cached = this._tileCache.get(key, urlZoom);
+                if (!tile) {
+                    tile = { key: key, urlZoom: urlZoom, datum: null, loading: true };
+                } else {
+                    tile.loading = true;
+                }
+
+                this._tiles[key] = tile;
+                this.fire('tileloadstart', {tile: tile});
+
+                if (cached) {
+                    this._addTileData(tile);
+                } else {
+                    this._loadTile(tile, tilePoint);
+                }
+            },
+
+            _addTileData: function(tile) {
+                // override in subclass
+            },
+
+            // XMLHttpRequest handler; closure over the XHR object, the layer, and the tile
+            _xhrHandler: function (req, layer, tile) {
+                return function() {
+                    if (req.readyState != 4) {
+                        return;
+                    }
+                    var s = req.status;
+
+                    // Fire dataload for Leaflet.loading
+                    layer._map.fire('dataload');
+
+                    if ((s >= 200 && s < 300) || s == 304) {
+                        // check if request is about to be aborted, avoid rare error when aborted while parsing
+                        if (tile._request) {
+                            tile._request = null;
+                            layer.fire('tileresponse', {tile: tile, request: req});
+                            tile.datum = req.responseText;
+                            layer._addTileData(tile);
+                        }
+                    } else {
+                        tile.loading = false;
+                        tile._request = null;
+                        layer.fire('tileerror', {tile: tile, request: req});
+                        layer._tileLoaded();
+                    }
+                }
+            },
+
+            // Load the requested tile via AJAX
+            _loadTile: function (tile, tilePoint) {
+                this._adjustTilePoint(tilePoint);
+                var layer = this;
+
+                // File dataloading for Leaflet.loading
+                layer._map.fire('dataloading');
+
+                var req = new XMLHttpRequest();
+                tile._request = req;
+                req.onreadystatechange = this._xhrHandler(req, layer, tile);
+                this.fire('tilerequest', {tile: tile, request: req});
+                req.open('GET', this.getTileUrl(tilePoint), true);
+                req.send();
+            },
+
+            _unloadTile: function(evt) {
+                var tile = evt.tile,
+                    req = tile._request;
+                if (req) {
+                    tile._request = null;
+                    req.abort();
+                    this.fire('tilerequestabort', {tile: tile, request: req});
+                }
+            }
+        });
+
+
+        L.TileLayer.Vector = L.TileLayer.Ajax.extend({
+            options: {
+                // factory function to create the vector tile layers (defaults to L.GeoJSON)
+                layerFactory: L.geoJson,
+                // factory function to create a web worker for parsing/preparing tile data
+                workerFactory: L.communistWorker
+                //workerFactory: L.noWorker
+            },
+
+            initialize: function (url, options, vectorOptions) {
+                L.TileLayer.Ajax.prototype.initialize.call(this, url, options);
+                this.vectorOptions = vectorOptions || {};
+                this._worker = this.options.workerFactory(L.TileLayer.Vector.parseData);
+                this._addQueue = new L.TileQueue(L.bind(this._addTileDataInternal, this));
+            },
+
+            onAdd: function (map) {
+                this._map = map;
+                
+                L.TileLayer.Ajax.prototype.onAdd.call(this, map);
+
+                // root vector layer, contains tile vector layers as children 
+                this.vectorLayer = this._createVectorLayer(); 
+                map.addLayer(this.vectorLayer);
+
+                this._worker.onAdd(map);
+                this._tileCache.onAdd(map);
+            },
+
+            onRemove: function (map) {
+                // unload tiles (L.TileLayer only calls _reset in onAdd)
+                this._reset();
+                map.removeLayer(this.vectorLayer);
+
+                L.TileLayer.Ajax.prototype.onRemove.call(this, map);
+
+                this._worker.onRemove(map);
+                this._tileCache.onRemove(map);
+
+                this.vectorLayer = null;
+                this._map = null;
+            },
+
+            _createVectorLayer: function() {
+                return this.options.layerFactory(null, this.vectorOptions);
+            },
+
+            _createTileLayer: function() {
+                return this._createVectorLayer();
+            },
+
+            _addTileData: function(tile) {
+                if (!tile.parsed) {
+                    this._worker.process(tile, L.bind(function(tile) {
+                        this._addQueue.add(tile);
+                    },this));
+                } else {
+                    // from cache
+                    this._addQueue.add(tile);
+                }
+            },
+
+            _addTileDataInternal: function(tile) {
+                var tileLayer = this._createTileLayer();
+                if (!tile.parsed) {
+                    // when no worker for parsing
+                    tile.parsed = L.TileLayer.Vector.parseData(tile.datum);
+                    tile.datum = null;
+                }
+                tileLayer.addData(tile.parsed);
+                tile.layer = tileLayer;
+                this.vectorLayer.addLayer(tileLayer);
+
+                tile.loading = false;
+                this.fire('tileload', {tile: tile});
+                this._tileLoaded();
+            },
+
+            _unloadTile: function(evt) {
+                L.TileLayer.Ajax.prototype._unloadTile.apply(this, arguments);
+
+                var tile = evt.tile,
+                    tileLayer = tile.layer;
+                if (tile.loading) {
+                    this._addQueue.remove(tile);
+                    // not from cache or not loaded and parsed yet
+                    if (!tile.parsed) {
+                        this._worker.abort(tile);
+                    }
+                    this.fire('tileabort', {tile: tile});
+                    this._tileLoaded();
+                }
+                if (tileLayer && this.vectorLayer.hasLayer(tileLayer)) {
+                    if (this._shouldRemoveLayersAtZoom(this._map.getZoom())) {
+                        this.vectorLayer.removeLayer(tileLayer);
+                    }
+                }
+
+                if (tile.parsed) {
+                    this._tileCache.put(tile);
+                }
+            },
+
+            _shouldRemoveLayersAtZoom: function(zoom) {
+                return true;
+            },
+
+            _retainTiles: function() {
+                return {};
+            },
+
+            _reset: function(e) {
+                var tilesToRetain = this._retainTiles();
+
+                L.TileLayer.Ajax.prototype._reset.apply(this, arguments);
+
+                // Restore useful tiles
+                L.extend(this._tiles, tilesToRetain);
+
+                this._addQueue.clear();
+                this._worker.clear();
+            }
+        });
+
+
+        L.extend(L.TileLayer.Vector, {
+            parseData: function(data) {
+                return JSON.parse(data);
+            }
+        });
+    }
+
+    if (typeof define === 'function' && define.amd) {
+        // Try to add to Leaflet using AMD
+        define(['leaflet', 'CommunistWorker', 'TileCache', 'TileQueue'], function (L) {
+            defineTileLayerGeoJSON(L);
+        });
+    }
+    else {
+        // Else use the global L
+        defineTileLayerGeoJSON(L);
+    }
+
+})();
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.Overzoom.js":[function(require,module,exports){
+(function () {
+
+    function defineOverzoom(L) {
+        L.TileLayer.Overzoom = {
+            
+            overzoomOptions: {
+                // List of available server zoom levels in ascending order. Empty means all  
+                // client zooms are available (default). Allows to only request tiles at certain
+                // zooms and resizes tiles on the other zooms.
+                serverZooms: [],
+                // workaround: wrapping loads tiles multiple times when zoom < serverZooms[0]
+                noWrap: true
+            },
+
+            // override _getTileSize to add serverZooms (when maxNativeZoom is not defined)
+            _getTileSize: function() {
+                var map = this._map,
+                    options = this.options,
+                    zoom = map.getZoom() + options.zoomOffset,
+                    zoomN = options.maxNativeZoom || this._getServerZoom(zoom);
+
+                // increase tile size when overscaling
+                //return zoomN && zoom > zoomN ?
+                var tileSize = zoomN && zoom !== zoomN ?
+                    Math.round(map.getZoomScale(zoom) / map.getZoomScale(zoomN) * options.tileSize) :
+                    options.tileSize;
+
+                //console.log('tileSize = ' + tileSize + ', zoomOffset = ' + this.options.zoomOffset + ', serverZoom = ' + zoomN + ', zoom = ' + zoom);
+                return tileSize;
+            },
+
+            _getZoomForUrl: function () {
+                var zoom = L.TileLayer.prototype._getZoomForUrl.call(this);
+                var result = this._getServerZoom(zoom);
+                //console.log('zoomForUrl = ' + result);
+                return result;
+            },
+
+            // Returns the appropriate server zoom to request tiles for the current zoom level.
+            // Next lower or equal server zoom to current zoom, or minimum server zoom if no lower 
+            // (should be restricted by setting minZoom to avoid loading too many tiles).
+            _getServerZoom: function(zoom) {
+                var serverZooms = this.options.serverZooms || [],
+                    result = zoom;
+                // expects serverZooms to be sorted ascending
+                for (var i = 0, len = serverZooms.length; i < len; i++) {
+                    if (serverZooms[i] <= zoom) {
+                        result = serverZooms[i];
+                    } else {
+                        if (i === 0) {
+                            // zoom < smallest serverZoom
+                            result = serverZooms[0];
+                        }
+                        break;
+                    }
+                }
+                return result;
+            },
+
+            _shouldRemoveLayersAtZoom: function(zoom) {
+                if (this.options.serverZooms) {
+                    if (this._map.getZoom() in this.options.serverZooms) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                return true;
+            },
+
+            // Only keep the tiles that are going to be useful on the map's current zoom
+            _retainTiles: function() {
+                var tiles = L.extend({}, this._tiles),
+                    zoom = this._getServerZoom(this._map.getZoom());
+
+                for (var key in tiles) {
+                    // Do not retain tiles that won't be used at this zoom
+                    if (tiles[key].urlZoom !== zoom) {
+                        delete tiles[key];
+                    }
+
+                    // Do not retain tiles that don't have a layer. They might
+                    // have been interrupted from loading that layer because the
+                    // user zoomed in or out very quickly, for example.
+                    if (!tiles[key] || !tiles[key].layer) {
+                        delete tiles[key];
+                    }
+                }
+                return tiles;
+            }
+        };
+
+        if (typeof L.TileLayer.Vector !== 'undefined') {
+            L.TileLayer.Vector.include(L.TileLayer.Overzoom);
+            L.TileLayer.Vector.mergeOptions(L.TileLayer.Overzoom.overzoomOptions);
+        }
+
+        if (typeof L.TileLayer.Div !== 'undefined') {
+            L.TileLayer.Div.include(L.TileLayer.Overzoom);
+            L.TileLayer.Div.mergeOptions(L.TileLayer.Overzoom.overzoomOptions);
+        }
+    }
+
+    if (typeof define === 'function' && define.amd) {
+        // Try to add to Leaflet using AMD
+        define(['leaflet', 'TileLayer.GeoJSON'], function (L) {
+            defineOverzoom(L);
+        });
+    }
+    else {
+        // Else use the global L
+        defineOverzoom(L);
+    }
+
+})();
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.Progress.js":[function(require,module,exports){
+/*
+ * Loading progress info layer for L.TileLayer.Vector
+ */
+L.TileLayer.Progress = L.TileLayer.Div.extend({
+    _adding: false,
+
+    /* key hash of vector tiles currently loading {String: true} */
+    _loadingTiles: {},
+    
+    initialize: function (vectorLayer) {
+        L.TileLayer.Div.prototype.initialize.call(this, vectorLayer.options);
+
+        this.vectorLayer = vectorLayer;
+    },
+
+    onAdd: function (map) {
+        this._adding = true;
+        map.on('layerremove', this._onVecRemove, this);
+        this.vectorLayer.on('tileloadstart', this._onTileLoading, this);
+        this.vectorLayer.on('tileload', this._onTileLoad, this);
+        this.vectorLayer.on('tileerror', this._onTileError, this);
+        this.vectorLayer.on('tileunload', this._onTileLoad, this);
+        L.TileLayer.Div.prototype.onAdd.apply(this, arguments);
+        this._adding = false;
+    },
+
+    onRemove: function (map) {
+        L.TileLayer.Div.prototype.onRemove.apply(this, arguments);
+        this._loadingTiles = {};
+        this.vectorLayer.off('tileloadstart', this._onTileLoading, this);
+        this.vectorLayer.off('tileload', this._onTileLoad, this);
+        this.vectorLayer.off('tileerror', this._onTileError, this);
+        this.vectorLayer.off('tileunload', this._onTileLoad, this);
+    },
+
+    drawTile: function (tile, tilePoint) {
+        var vecTile, 
+            loading, 
+            key = tilePoint.x + ':' + tilePoint.y;
+
+        tile.style.backgroundColor = 'rgba(128, 128, 128, 0.3)';
+        tile.style.border = '1px solid rgba(128, 128, 128, 0.8)';
+        tile.style.boxSizing = 'border-box';
+
+        if (!this._loadingTiles[key]) {
+            this._hide(tile);
+        }
+
+        // check for already loading tiles, because initial tileloadstart
+        // events might have been missed when layer is added
+        if (this._adding) {
+            vecTile = this.vectorLayer._tiles[key];
+            loading = vecTile && vecTile.loading;
+            if (loading) {
+                this._show(tile);
+            }
+        }
+    },
+
+    _onVecRemove: function(evt) {
+        if (evt.layer === this.vectorLayer) {
+            this._hideAll();
+        }
+    },
+
+    _hideAll: function() {
+        for (var key in this._tiles) {
+            var tile = this._tiles[key];
+            this._hide(tile);
+        }
+    },
+
+    _onTileLoading: function(evt) {
+        var key = evt.tile.key,
+            tile = this._tiles[key];
+        if (tile) {
+            this._show(tile);
+        } else {
+            this._loadingTiles[key] = true;
+        }
+    },
+
+    _onTileLoad: function(evt) {
+        var key = evt.tile.key,
+            tile = this._tiles[key];
+        this._hide(tile);
+        delete this._loadingTiles[key];
+    },
+
+    _onTileError: function(evt) {
+        var key = evt.tile.key,
+            tile = this._tiles[key];
+        if (tile) {
+            tile.style.backgroundColor = 'rgba(128, 128, 128, 0.7)';
+            tile.style.border = 'none';
+        }
+        delete this._loadingTiles[key];
+    },
+    
+    _show: function(tile) {
+        if (tile) {
+            tile.classList.add('leaflet-tile-loaded');
+        }
+    },
+    
+    _hide: function(tile) {
+        if (tile) {
+            tile.classList.remove('leaflet-tile-loaded');
+        }
+    }
+});
+
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.Vector.Unclipped.js":[function(require,module,exports){
+/*
+ * Tile layer for unclipped vector tiles where features spanning multiple tiles are contained with
+ * their full geometry in each tile (as opposed to clipping geometries at tile boundary).
+ * 
+ * This layer loads such duplicated features only once by using a 'unique' function given in the options
+ * to identify identical features and to keep track of the tiles that are referencing the same feature.
+ * 
+ * Uses a filter to remove duplicates, so a vector layer set with options.layerFactory must support 
+ * feature filtering like in L.GeoJSON.
+ */
+L.TileLayer.Vector.Unclipped = L.TileLayer.Vector.extend({
+    // hash: unique featureKey -> number of tiles referencing the feature
+    featureRefCounts: {},
+    // hash: unique featureKey -> feature layer
+    commonFeatures: {},
+
+    initialize: function (url, options, vectorOptions) {
+        L.TileLayer.Vector.prototype.initialize.apply(this, arguments);
+
+        if (!options || !options.unique) {
+            console.warn('"unique" function missing in options, deduplicating disabled');
+        }
+    },
+
+    _createTileLayer: function() {
+        var tileLayer = L.TileLayer.Vector.prototype._createTileLayer.apply(this, arguments);
+        if (this.options.unique) {
+            if (tileLayer.options.filter) {
+                tileLayer.options.filter = this._andFilter(tileLayer.options.filter, L.bind(this._filterDuplicates, tileLayer));
+            } else {
+                tileLayer.options.filter = L.bind(this._filterDuplicates, tileLayer);
+            }
+            tileLayer._tilingLayer = this;
+            // common features this tile is referencing (array of unique feature keys)
+            tileLayer._featureRefs = [];
+        }
+        return tileLayer;
+    },
+
+    // filter out duplicate features that are contained in multiple tiles
+    // (true keeps, false discards feature)
+    _filterDuplicates: function(feature) {
+        var featureKey = this._tilingLayer.options.unique(feature);
+        var refs = this._tilingLayer.featureRefCounts[featureKey];
+
+        if (refs && refs > 0) {
+            refs++;
+            this._featureRefs.push(featureKey);
+        } else {
+            refs = 1;
+        }
+        this._tilingLayer.featureRefCounts[featureKey] = refs;
+
+        return refs <= 1;
+    },
+    
+    _andFilter: function(filterA, filterB) {
+        return function(feature) {
+            return filterA(feature) && filterB(feature);
+        };
+    },
+    
+    _unloadTile: function(evt) {
+        var tileLayer = evt.tile.layer;
+        if (tileLayer) {
+            if (this.options.unique) {
+                this._clearFeatureLayers(tileLayer);
+                this._clearCommonFeatureLayers(tileLayer);
+            }
+        }        
+        L.TileLayer.Vector.prototype._unloadTile.apply(this, arguments);
+    },
+    
+    // Remove feature layers from the given tile layer and
+    // decrease reference counter for all features of the tile. 
+    _clearFeatureLayers: function(tileLayer) {
+        tileLayer.eachLayer(function (layer) {
+            if (layer.feature) {
+                var featureKey = this.options.unique(layer.feature);
+                var refs = this._decreaseFeatureRefCount(featureKey);
+                if (refs > 0) {
+                    // referenced by other tiles, keep feature (move to root vector layer)
+                    this.vectorLayer.addLayer(layer);
+                    this.commonFeatures[featureKey] = layer;
+
+                    // from removeLayer: remove layer from tileLayer but not from map (not sure if necessary)
+                    var id = L.stamp(layer);
+                    delete tileLayer._layers[id];
+                } else {
+                    tileLayer.removeLayer(layer);
+                }
+            }
+        }, this);
+    },
+
+    // Remove common features that are only referenced by the given tile
+    _clearCommonFeatureLayers: function(tileLayer) {
+        var featureRefs = tileLayer._featureRefs;
+        for (i = 0, len = featureRefs.length; i < len; i++) {
+            var featureKey = featureRefs[i];
+            var refs = this._decreaseFeatureRefCount(featureKey);
+            if (refs <= 0) {
+                var layer = this.commonFeatures[featureKey];
+                if (layer) {
+                    this.vectorLayer.removeLayer(layer);
+                }
+            }
+        }
+    },
+
+    _decreaseFeatureRefCount: function(featureKey) {
+        var refs = --this.featureRefCounts[featureKey];
+        if (refs <= 0) {
+            delete this.featureRefCounts[featureKey];
+        }
+        return refs;
+    }
+});
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileQueue.js":[function(require,module,exports){
+(function () {
+
+    function defineTileQueue(L) {
+        L.TileQueue = function(callback) {
+            this.callback = callback;
+        };
+
+        L.TileQueue.prototype = {
+
+            _queue: [],
+            _queueTimeout: null,
+            
+            add: function(aTile) {
+                this._queue.push(aTile);
+                if (!this._queueTimeout) {
+                    this._queueTimeout = setTimeout(L.bind(function(){
+                        var time, timeout, start = +new Date, tile;
+
+                        // handle empty elements, see remove
+                        do { 
+                            tile = this._queue.shift();
+                        }
+                        while (!tile && this._queue.length > 0);
+
+                        if (tile) {
+                            //console.log('adding ' + tile.key + ' ...');
+
+                            this.callback(tile);
+
+                            // pause a percentage of adding time to keep UI responsive
+                            time = +new Date - start;
+                            timeout = Math.floor(time * 0.3);
+                            //console.log('added  ' + tile.key + ' (' + time + 'ms > ' + timeout + 'ms)');
+                            this._queueTimeout = setTimeout(L.bind(arguments.callee, this), timeout);
+                        } else {
+                            this._queueTimeout = null;
+                        }
+                    }, this), 0);
+                }
+            },
+
+            remove: function(tile) {
+                var key = tile.key, 
+                    val;
+                for (var i = 0, len = this._queue.length; i < len; i++) {
+                    val = this._queue[i];
+                    if (val && val.key === key) {
+                        //console.log('##### delete ' + key);
+                        // set entry to undefined only for better performance (?) - 
+                        // queue consumer needs to handle empty entries!
+                        delete this._queue[i];
+                    }
+                }
+            },
+
+            clear: function() {
+                if (this._queueTimeout) {
+                    clearTimeout(this._queueTimeout);
+                    this._queueTimeout = null;
+                }
+                this._queue = [];
+            }
+        };
+    }
+
+    if (typeof define === 'function' && define.amd) {
+        // Try to add to Leaflet using AMD
+        define(['leaflet'], function (L) {
+            defineTileQueue(L);
+        });
+    }
+    else {
+        // Else use the global L
+        defineTileQueue(L);
+    }
+
+})();
+
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/index.js":[function(require,module,exports){
+// Index for npm/browserify
+//
+// No explicit exports, as classes add themselves to the global Leaflet package
+// structure.
+require('./AbstractWorker.js');
+require('./CommunistWorker.js');
+require('./TileCache.js');
+require('./TileQueue.js');
+require('./TileLayer.GeoJSON.js');
+require('./TileLayer.BBox.js');
+require('./TileLayer.Vector.Unclipped.js');
+require('./TileLayer.Div.js');
+require('./TileLayer.Progress.js');
+require('./TileLayer.Overzoom.js');
+require('./Leaflet.label-patch.js');
+
+},{"./AbstractWorker.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/AbstractWorker.js","./CommunistWorker.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/CommunistWorker.js","./Leaflet.label-patch.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/Leaflet.label-patch.js","./TileCache.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileCache.js","./TileLayer.BBox.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.BBox.js","./TileLayer.Div.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.Div.js","./TileLayer.GeoJSON.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.GeoJSON.js","./TileLayer.Overzoom.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.Overzoom.js","./TileLayer.Progress.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.Progress.js","./TileLayer.Vector.Unclipped.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileLayer.Vector.Unclipped.js","./TileQueue.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/TileQueue.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js":[function(require,module,exports){
 /*
  Leaflet, a JavaScript library for mobile-friendly interactive maps. http://leafletjs.com
  (c) 2010-2013, Vladimir Agafonkin
@@ -6316,7 +11061,7 @@ this.options.map.getZoom(),b=this.options.scaleRange,this.options.visibleAtScale
 var oldL = window.L,
     L = {};
 
-L.version = '0.7.3';
+L.version = '0.7.2';
 
 // define Leaflet for Node module pattern loaders, including Browserify
 if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -15487,3920 +20232,7 @@ L.Map.include({
 
 
 }(window, document));
-},{}],18:[function(require,module,exports){
-(function (global){
-;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
-/**
- * Copyright (c) 2011-2013 Felix Gnass
- * Licensed under the MIT license
- */
-(function(root, factory) {
-
-  /* CommonJS */
-  if (typeof exports == 'object')  module.exports = factory()
-
-  /* AMD module */
-  else if (typeof define == 'function' && define.amd) define(factory)
-
-  /* Browser global */
-  else root.Spinner = factory()
-}
-(this, function() {
-  "use strict";
-
-  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
-    , animations = {} /* Animation rules keyed by their name */
-    , useCssAnimations /* Whether to use CSS animations or setTimeout */
-
-  /**
-   * Utility function to create elements. If no tag name is given,
-   * a DIV is created. Optionally properties can be passed.
-   */
-  function createEl(tag, prop) {
-    var el = document.createElement(tag || 'div')
-      , n
-
-    for(n in prop) el[n] = prop[n]
-    return el
-  }
-
-  /**
-   * Appends children and returns the parent.
-   */
-  function ins(parent /* child1, child2, ...*/) {
-    for (var i=1, n=arguments.length; i<n; i++)
-      parent.appendChild(arguments[i])
-
-    return parent
-  }
-
-  /**
-   * Insert a new stylesheet to hold the @keyframe or VML rules.
-   */
-  var sheet = (function() {
-    var el = createEl('style', {type : 'text/css'})
-    ins(document.getElementsByTagName('head')[0], el)
-    return el.sheet || el.styleSheet
-  }())
-
-  /**
-   * Creates an opacity keyframe animation rule and returns its name.
-   * Since most mobile Webkits have timing issues with animation-delay,
-   * we create separate rules for each line/segment.
-   */
-  function addAnimation(alpha, trail, i, lines) {
-    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
-      , start = 0.01 + i/lines * 100
-      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
-      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
-      , pre = prefix && '-' + prefix + '-' || ''
-
-    if (!animations[name]) {
-      sheet.insertRule(
-        '@' + pre + 'keyframes ' + name + '{' +
-        '0%{opacity:' + z + '}' +
-        start + '%{opacity:' + alpha + '}' +
-        (start+0.01) + '%{opacity:1}' +
-        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
-        '100%{opacity:' + z + '}' +
-        '}', sheet.cssRules.length)
-
-      animations[name] = 1
-    }
-
-    return name
-  }
-
-  /**
-   * Tries various vendor prefixes and returns the first supported property.
-   */
-  function vendor(el, prop) {
-    var s = el.style
-      , pp
-      , i
-
-    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
-    for(i=0; i<prefixes.length; i++) {
-      pp = prefixes[i]+prop
-      if(s[pp] !== undefined) return pp
-    }
-    if(s[prop] !== undefined) return prop
-  }
-
-  /**
-   * Sets multiple style properties at once.
-   */
-  function css(el, prop) {
-    for (var n in prop)
-      el.style[vendor(el, n)||n] = prop[n]
-
-    return el
-  }
-
-  /**
-   * Fills in default values.
-   */
-  function merge(obj) {
-    for (var i=1; i < arguments.length; i++) {
-      var def = arguments[i]
-      for (var n in def)
-        if (obj[n] === undefined) obj[n] = def[n]
-    }
-    return obj
-  }
-
-  /**
-   * Returns the absolute page-offset of the given element.
-   */
-  function pos(el) {
-    var o = { x:el.offsetLeft, y:el.offsetTop }
-    while((el = el.offsetParent))
-      o.x+=el.offsetLeft, o.y+=el.offsetTop
-
-    return o
-  }
-
-  /**
-   * Returns the line color from the given string or array.
-   */
-  function getColor(color, idx) {
-    return typeof color == 'string' ? color : color[idx % color.length]
-  }
-
-  // Built-in defaults
-
-  var defaults = {
-    lines: 12,            // The number of lines to draw
-    length: 7,            // The length of each line
-    width: 5,             // The line thickness
-    radius: 10,           // The radius of the inner circle
-    rotate: 0,            // Rotation offset
-    corners: 1,           // Roundness (0..1)
-    color: '#000',        // #rgb or #rrggbb
-    direction: 1,         // 1: clockwise, -1: counterclockwise
-    speed: 1,             // Rounds per second
-    trail: 100,           // Afterglow percentage
-    opacity: 1/4,         // Opacity of the lines
-    fps: 20,              // Frames per second when using setTimeout()
-    zIndex: 2e9,          // Use a high z-index by default
-    className: 'spinner', // CSS class to assign to the element
-    top: 'auto',          // center vertically
-    left: 'auto',         // center horizontally
-    position: 'relative'  // element position
-  }
-
-  /** The constructor */
-  function Spinner(o) {
-    if (typeof this == 'undefined') return new Spinner(o)
-    this.opts = merge(o || {}, Spinner.defaults, defaults)
-  }
-
-  // Global defaults that override the built-ins:
-  Spinner.defaults = {}
-
-  merge(Spinner.prototype, {
-
-    /**
-     * Adds the spinner to the given target element. If this instance is already
-     * spinning, it is automatically removed from its previous target b calling
-     * stop() internally.
-     */
-    spin: function(target) {
-      this.stop()
-
-      var self = this
-        , o = self.opts
-        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
-        , mid = o.radius+o.length+o.width
-        , ep // element position
-        , tp // target position
-
-      if (target) {
-        target.insertBefore(el, target.firstChild||null)
-        tp = pos(target)
-        ep = pos(el)
-        css(el, {
-          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
-          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
-        })
-      }
-
-      el.setAttribute('role', 'progressbar')
-      self.lines(el, self.opts)
-
-      if (!useCssAnimations) {
-        // No CSS animation support, use setTimeout() instead
-        var i = 0
-          , start = (o.lines - 1) * (1 - o.direction) / 2
-          , alpha
-          , fps = o.fps
-          , f = fps/o.speed
-          , ostep = (1-o.opacity) / (f*o.trail / 100)
-          , astep = f/o.lines
-
-        ;(function anim() {
-          i++;
-          for (var j = 0; j < o.lines; j++) {
-            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
-
-            self.opacity(el, j * o.direction + start, alpha, o)
-          }
-          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
-        })()
-      }
-      return self
-    },
-
-    /**
-     * Stops and removes the Spinner.
-     */
-    stop: function() {
-      var el = this.el
-      if (el) {
-        clearTimeout(this.timeout)
-        if (el.parentNode) el.parentNode.removeChild(el)
-        this.el = undefined
-      }
-      return this
-    },
-
-    /**
-     * Internal method that draws the individual lines. Will be overwritten
-     * in VML fallback mode below.
-     */
-    lines: function(el, o) {
-      var i = 0
-        , start = (o.lines - 1) * (1 - o.direction) / 2
-        , seg
-
-      function fill(color, shadow) {
-        return css(createEl(), {
-          position: 'absolute',
-          width: (o.length+o.width) + 'px',
-          height: o.width + 'px',
-          background: color,
-          boxShadow: shadow,
-          transformOrigin: 'left',
-          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
-          borderRadius: (o.corners * o.width>>1) + 'px'
-        })
-      }
-
-      for (; i < o.lines; i++) {
-        seg = css(createEl(), {
-          position: 'absolute',
-          top: 1+~(o.width/2) + 'px',
-          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
-          opacity: o.opacity,
-          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
-        })
-
-        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
-        ins(el, ins(seg, fill(getColor(o.color, i), '0 0 1px rgba(0,0,0,.1)')))
-      }
-      return el
-    },
-
-    /**
-     * Internal method that adjusts the opacity of a single line.
-     * Will be overwritten in VML fallback mode below.
-     */
-    opacity: function(el, i, val) {
-      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
-    }
-
-  })
-
-
-  function initVML() {
-
-    /* Utility function to create a VML tag */
-    function vml(tag, attr) {
-      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
-    }
-
-    // No CSS transforms but VML support, add a CSS rule for VML elements:
-    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
-
-    Spinner.prototype.lines = function(el, o) {
-      var r = o.length+o.width
-        , s = 2*r
-
-      function grp() {
-        return css(
-          vml('group', {
-            coordsize: s + ' ' + s,
-            coordorigin: -r + ' ' + -r
-          }),
-          { width: s, height: s }
-        )
-      }
-
-      var margin = -(o.width+o.length)*2 + 'px'
-        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
-        , i
-
-      function seg(i, dx, filter) {
-        ins(g,
-          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
-            ins(css(vml('roundrect', {arcsize: o.corners}), {
-                width: r,
-                height: o.width,
-                left: o.radius,
-                top: -o.width>>1,
-                filter: filter
-              }),
-              vml('fill', {color: getColor(o.color, i), opacity: o.opacity}),
-              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
-            )
-          )
-        )
-      }
-
-      if (o.shadow)
-        for (i = 1; i <= o.lines; i++)
-          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
-
-      for (i = 1; i <= o.lines; i++) seg(i)
-      return ins(el, g)
-    }
-
-    Spinner.prototype.opacity = function(el, i, val, o) {
-      var c = el.firstChild
-      o = o.shadow && o.lines || 0
-      if (c && i+o < c.childNodes.length) {
-        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
-        if (c) c.opacity = val
-      }
-    }
-  }
-
-  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
-
-  if (!vendor(probe, 'transform') && probe.adj) initVML()
-  else useCssAnimations = vendor(probe, 'animation')
-
-  return Spinner
-
-}));
-
-; browserify_shim__define__module__export__(typeof Spinner != "undefined" ? Spinner : window.Spinner);
-
-}).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
-
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],19:[function(require,module,exports){
-//     Underscore.js 1.5.2
-//     http://underscorejs.org
-//     (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-//     Underscore may be freely distributed under the MIT license.
-
-(function() {
-
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `exports` on the server.
-  var root = this;
-
-  // Save the previous value of the `_` variable.
-  var previousUnderscore = root._;
-
-  // Establish the object that gets returned to break out of a loop iteration.
-  var breaker = {};
-
-  // Save bytes in the minified (but not gzipped) version:
-  var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
-
-  // Create quick reference variables for speed access to core prototypes.
-  var
-    push             = ArrayProto.push,
-    slice            = ArrayProto.slice,
-    concat           = ArrayProto.concat,
-    toString         = ObjProto.toString,
-    hasOwnProperty   = ObjProto.hasOwnProperty;
-
-  // All **ECMAScript 5** native function implementations that we hope to use
-  // are declared here.
-  var
-    nativeForEach      = ArrayProto.forEach,
-    nativeMap          = ArrayProto.map,
-    nativeReduce       = ArrayProto.reduce,
-    nativeReduceRight  = ArrayProto.reduceRight,
-    nativeFilter       = ArrayProto.filter,
-    nativeEvery        = ArrayProto.every,
-    nativeSome         = ArrayProto.some,
-    nativeIndexOf      = ArrayProto.indexOf,
-    nativeLastIndexOf  = ArrayProto.lastIndexOf,
-    nativeIsArray      = Array.isArray,
-    nativeKeys         = Object.keys,
-    nativeBind         = FuncProto.bind;
-
-  // Create a safe reference to the Underscore object for use below.
-  var _ = function(obj) {
-    if (obj instanceof _) return obj;
-    if (!(this instanceof _)) return new _(obj);
-    this._wrapped = obj;
-  };
-
-  // Export the Underscore object for **Node.js**, with
-  // backwards-compatibility for the old `require()` API. If we're in
-  // the browser, add `_` as a global object via a string identifier,
-  // for Closure Compiler "advanced" mode.
-  if (typeof exports !== 'undefined') {
-    if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = _;
-    }
-    exports._ = _;
-  } else {
-    root._ = _;
-  }
-
-  // Current version.
-  _.VERSION = '1.5.2';
-
-  // Collection Functions
-  // --------------------
-
-  // The cornerstone, an `each` implementation, aka `forEach`.
-  // Handles objects with the built-in `forEach`, arrays, and raw objects.
-  // Delegates to **ECMAScript 5**'s native `forEach` if available.
-  var each = _.each = _.forEach = function(obj, iterator, context) {
-    if (obj == null) return;
-    if (nativeForEach && obj.forEach === nativeForEach) {
-      obj.forEach(iterator, context);
-    } else if (obj.length === +obj.length) {
-      for (var i = 0, length = obj.length; i < length; i++) {
-        if (iterator.call(context, obj[i], i, obj) === breaker) return;
-      }
-    } else {
-      var keys = _.keys(obj);
-      for (var i = 0, length = keys.length; i < length; i++) {
-        if (iterator.call(context, obj[keys[i]], keys[i], obj) === breaker) return;
-      }
-    }
-  };
-
-  // Return the results of applying the iterator to each element.
-  // Delegates to **ECMAScript 5**'s native `map` if available.
-  _.map = _.collect = function(obj, iterator, context) {
-    var results = [];
-    if (obj == null) return results;
-    if (nativeMap && obj.map === nativeMap) return obj.map(iterator, context);
-    each(obj, function(value, index, list) {
-      results.push(iterator.call(context, value, index, list));
-    });
-    return results;
-  };
-
-  var reduceError = 'Reduce of empty array with no initial value';
-
-  // **Reduce** builds up a single result from a list of values, aka `inject`,
-  // or `foldl`. Delegates to **ECMAScript 5**'s native `reduce` if available.
-  _.reduce = _.foldl = _.inject = function(obj, iterator, memo, context) {
-    var initial = arguments.length > 2;
-    if (obj == null) obj = [];
-    if (nativeReduce && obj.reduce === nativeReduce) {
-      if (context) iterator = _.bind(iterator, context);
-      return initial ? obj.reduce(iterator, memo) : obj.reduce(iterator);
-    }
-    each(obj, function(value, index, list) {
-      if (!initial) {
-        memo = value;
-        initial = true;
-      } else {
-        memo = iterator.call(context, memo, value, index, list);
-      }
-    });
-    if (!initial) throw new TypeError(reduceError);
-    return memo;
-  };
-
-  // The right-associative version of reduce, also known as `foldr`.
-  // Delegates to **ECMAScript 5**'s native `reduceRight` if available.
-  _.reduceRight = _.foldr = function(obj, iterator, memo, context) {
-    var initial = arguments.length > 2;
-    if (obj == null) obj = [];
-    if (nativeReduceRight && obj.reduceRight === nativeReduceRight) {
-      if (context) iterator = _.bind(iterator, context);
-      return initial ? obj.reduceRight(iterator, memo) : obj.reduceRight(iterator);
-    }
-    var length = obj.length;
-    if (length !== +length) {
-      var keys = _.keys(obj);
-      length = keys.length;
-    }
-    each(obj, function(value, index, list) {
-      index = keys ? keys[--length] : --length;
-      if (!initial) {
-        memo = obj[index];
-        initial = true;
-      } else {
-        memo = iterator.call(context, memo, obj[index], index, list);
-      }
-    });
-    if (!initial) throw new TypeError(reduceError);
-    return memo;
-  };
-
-  // Return the first value which passes a truth test. Aliased as `detect`.
-  _.find = _.detect = function(obj, iterator, context) {
-    var result;
-    any(obj, function(value, index, list) {
-      if (iterator.call(context, value, index, list)) {
-        result = value;
-        return true;
-      }
-    });
-    return result;
-  };
-
-  // Return all the elements that pass a truth test.
-  // Delegates to **ECMAScript 5**'s native `filter` if available.
-  // Aliased as `select`.
-  _.filter = _.select = function(obj, iterator, context) {
-    var results = [];
-    if (obj == null) return results;
-    if (nativeFilter && obj.filter === nativeFilter) return obj.filter(iterator, context);
-    each(obj, function(value, index, list) {
-      if (iterator.call(context, value, index, list)) results.push(value);
-    });
-    return results;
-  };
-
-  // Return all the elements for which a truth test fails.
-  _.reject = function(obj, iterator, context) {
-    return _.filter(obj, function(value, index, list) {
-      return !iterator.call(context, value, index, list);
-    }, context);
-  };
-
-  // Determine whether all of the elements match a truth test.
-  // Delegates to **ECMAScript 5**'s native `every` if available.
-  // Aliased as `all`.
-  _.every = _.all = function(obj, iterator, context) {
-    iterator || (iterator = _.identity);
-    var result = true;
-    if (obj == null) return result;
-    if (nativeEvery && obj.every === nativeEvery) return obj.every(iterator, context);
-    each(obj, function(value, index, list) {
-      if (!(result = result && iterator.call(context, value, index, list))) return breaker;
-    });
-    return !!result;
-  };
-
-  // Determine if at least one element in the object matches a truth test.
-  // Delegates to **ECMAScript 5**'s native `some` if available.
-  // Aliased as `any`.
-  var any = _.some = _.any = function(obj, iterator, context) {
-    iterator || (iterator = _.identity);
-    var result = false;
-    if (obj == null) return result;
-    if (nativeSome && obj.some === nativeSome) return obj.some(iterator, context);
-    each(obj, function(value, index, list) {
-      if (result || (result = iterator.call(context, value, index, list))) return breaker;
-    });
-    return !!result;
-  };
-
-  // Determine if the array or object contains a given value (using `===`).
-  // Aliased as `include`.
-  _.contains = _.include = function(obj, target) {
-    if (obj == null) return false;
-    if (nativeIndexOf && obj.indexOf === nativeIndexOf) return obj.indexOf(target) != -1;
-    return any(obj, function(value) {
-      return value === target;
-    });
-  };
-
-  // Invoke a method (with arguments) on every item in a collection.
-  _.invoke = function(obj, method) {
-    var args = slice.call(arguments, 2);
-    var isFunc = _.isFunction(method);
-    return _.map(obj, function(value) {
-      return (isFunc ? method : value[method]).apply(value, args);
-    });
-  };
-
-  // Convenience version of a common use case of `map`: fetching a property.
-  _.pluck = function(obj, key) {
-    return _.map(obj, function(value){ return value[key]; });
-  };
-
-  // Convenience version of a common use case of `filter`: selecting only objects
-  // containing specific `key:value` pairs.
-  _.where = function(obj, attrs, first) {
-    if (_.isEmpty(attrs)) return first ? void 0 : [];
-    return _[first ? 'find' : 'filter'](obj, function(value) {
-      for (var key in attrs) {
-        if (attrs[key] !== value[key]) return false;
-      }
-      return true;
-    });
-  };
-
-  // Convenience version of a common use case of `find`: getting the first object
-  // containing specific `key:value` pairs.
-  _.findWhere = function(obj, attrs) {
-    return _.where(obj, attrs, true);
-  };
-
-  // Return the maximum element or (element-based computation).
-  // Can't optimize arrays of integers longer than 65,535 elements.
-  // See [WebKit Bug 80797](https://bugs.webkit.org/show_bug.cgi?id=80797)
-  _.max = function(obj, iterator, context) {
-    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
-      return Math.max.apply(Math, obj);
-    }
-    if (!iterator && _.isEmpty(obj)) return -Infinity;
-    var result = {computed : -Infinity, value: -Infinity};
-    each(obj, function(value, index, list) {
-      var computed = iterator ? iterator.call(context, value, index, list) : value;
-      computed > result.computed && (result = {value : value, computed : computed});
-    });
-    return result.value;
-  };
-
-  // Return the minimum element (or element-based computation).
-  _.min = function(obj, iterator, context) {
-    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
-      return Math.min.apply(Math, obj);
-    }
-    if (!iterator && _.isEmpty(obj)) return Infinity;
-    var result = {computed : Infinity, value: Infinity};
-    each(obj, function(value, index, list) {
-      var computed = iterator ? iterator.call(context, value, index, list) : value;
-      computed < result.computed && (result = {value : value, computed : computed});
-    });
-    return result.value;
-  };
-
-  // Shuffle an array, using the modern version of the 
-  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
-  _.shuffle = function(obj) {
-    var rand;
-    var index = 0;
-    var shuffled = [];
-    each(obj, function(value) {
-      rand = _.random(index++);
-      shuffled[index - 1] = shuffled[rand];
-      shuffled[rand] = value;
-    });
-    return shuffled;
-  };
-
-  // Sample **n** random values from an array.
-  // If **n** is not specified, returns a single random element from the array.
-  // The internal `guard` argument allows it to work with `map`.
-  _.sample = function(obj, n, guard) {
-    if (arguments.length < 2 || guard) {
-      return obj[_.random(obj.length - 1)];
-    }
-    return _.shuffle(obj).slice(0, Math.max(0, n));
-  };
-
-  // An internal function to generate lookup iterators.
-  var lookupIterator = function(value) {
-    return _.isFunction(value) ? value : function(obj){ return obj[value]; };
-  };
-
-  // Sort the object's values by a criterion produced by an iterator.
-  _.sortBy = function(obj, value, context) {
-    var iterator = lookupIterator(value);
-    return _.pluck(_.map(obj, function(value, index, list) {
-      return {
-        value: value,
-        index: index,
-        criteria: iterator.call(context, value, index, list)
-      };
-    }).sort(function(left, right) {
-      var a = left.criteria;
-      var b = right.criteria;
-      if (a !== b) {
-        if (a > b || a === void 0) return 1;
-        if (a < b || b === void 0) return -1;
-      }
-      return left.index - right.index;
-    }), 'value');
-  };
-
-  // An internal function used for aggregate "group by" operations.
-  var group = function(behavior) {
-    return function(obj, value, context) {
-      var result = {};
-      var iterator = value == null ? _.identity : lookupIterator(value);
-      each(obj, function(value, index) {
-        var key = iterator.call(context, value, index, obj);
-        behavior(result, key, value);
-      });
-      return result;
-    };
-  };
-
-  // Groups the object's values by a criterion. Pass either a string attribute
-  // to group by, or a function that returns the criterion.
-  _.groupBy = group(function(result, key, value) {
-    (_.has(result, key) ? result[key] : (result[key] = [])).push(value);
-  });
-
-  // Indexes the object's values by a criterion, similar to `groupBy`, but for
-  // when you know that your index values will be unique.
-  _.indexBy = group(function(result, key, value) {
-    result[key] = value;
-  });
-
-  // Counts instances of an object that group by a certain criterion. Pass
-  // either a string attribute to count by, or a function that returns the
-  // criterion.
-  _.countBy = group(function(result, key) {
-    _.has(result, key) ? result[key]++ : result[key] = 1;
-  });
-
-  // Use a comparator function to figure out the smallest index at which
-  // an object should be inserted so as to maintain order. Uses binary search.
-  _.sortedIndex = function(array, obj, iterator, context) {
-    iterator = iterator == null ? _.identity : lookupIterator(iterator);
-    var value = iterator.call(context, obj);
-    var low = 0, high = array.length;
-    while (low < high) {
-      var mid = (low + high) >>> 1;
-      iterator.call(context, array[mid]) < value ? low = mid + 1 : high = mid;
-    }
-    return low;
-  };
-
-  // Safely create a real, live array from anything iterable.
-  _.toArray = function(obj) {
-    if (!obj) return [];
-    if (_.isArray(obj)) return slice.call(obj);
-    if (obj.length === +obj.length) return _.map(obj, _.identity);
-    return _.values(obj);
-  };
-
-  // Return the number of elements in an object.
-  _.size = function(obj) {
-    if (obj == null) return 0;
-    return (obj.length === +obj.length) ? obj.length : _.keys(obj).length;
-  };
-
-  // Array Functions
-  // ---------------
-
-  // Get the first element of an array. Passing **n** will return the first N
-  // values in the array. Aliased as `head` and `take`. The **guard** check
-  // allows it to work with `_.map`.
-  _.first = _.head = _.take = function(array, n, guard) {
-    if (array == null) return void 0;
-    return (n == null) || guard ? array[0] : slice.call(array, 0, n);
-  };
-
-  // Returns everything but the last entry of the array. Especially useful on
-  // the arguments object. Passing **n** will return all the values in
-  // the array, excluding the last N. The **guard** check allows it to work with
-  // `_.map`.
-  _.initial = function(array, n, guard) {
-    return slice.call(array, 0, array.length - ((n == null) || guard ? 1 : n));
-  };
-
-  // Get the last element of an array. Passing **n** will return the last N
-  // values in the array. The **guard** check allows it to work with `_.map`.
-  _.last = function(array, n, guard) {
-    if (array == null) return void 0;
-    if ((n == null) || guard) {
-      return array[array.length - 1];
-    } else {
-      return slice.call(array, Math.max(array.length - n, 0));
-    }
-  };
-
-  // Returns everything but the first entry of the array. Aliased as `tail` and `drop`.
-  // Especially useful on the arguments object. Passing an **n** will return
-  // the rest N values in the array. The **guard**
-  // check allows it to work with `_.map`.
-  _.rest = _.tail = _.drop = function(array, n, guard) {
-    return slice.call(array, (n == null) || guard ? 1 : n);
-  };
-
-  // Trim out all falsy values from an array.
-  _.compact = function(array) {
-    return _.filter(array, _.identity);
-  };
-
-  // Internal implementation of a recursive `flatten` function.
-  var flatten = function(input, shallow, output) {
-    if (shallow && _.every(input, _.isArray)) {
-      return concat.apply(output, input);
-    }
-    each(input, function(value) {
-      if (_.isArray(value) || _.isArguments(value)) {
-        shallow ? push.apply(output, value) : flatten(value, shallow, output);
-      } else {
-        output.push(value);
-      }
-    });
-    return output;
-  };
-
-  // Flatten out an array, either recursively (by default), or just one level.
-  _.flatten = function(array, shallow) {
-    return flatten(array, shallow, []);
-  };
-
-  // Return a version of the array that does not contain the specified value(s).
-  _.without = function(array) {
-    return _.difference(array, slice.call(arguments, 1));
-  };
-
-  // Produce a duplicate-free version of the array. If the array has already
-  // been sorted, you have the option of using a faster algorithm.
-  // Aliased as `unique`.
-  _.uniq = _.unique = function(array, isSorted, iterator, context) {
-    if (_.isFunction(isSorted)) {
-      context = iterator;
-      iterator = isSorted;
-      isSorted = false;
-    }
-    var initial = iterator ? _.map(array, iterator, context) : array;
-    var results = [];
-    var seen = [];
-    each(initial, function(value, index) {
-      if (isSorted ? (!index || seen[seen.length - 1] !== value) : !_.contains(seen, value)) {
-        seen.push(value);
-        results.push(array[index]);
-      }
-    });
-    return results;
-  };
-
-  // Produce an array that contains the union: each distinct element from all of
-  // the passed-in arrays.
-  _.union = function() {
-    return _.uniq(_.flatten(arguments, true));
-  };
-
-  // Produce an array that contains every item shared between all the
-  // passed-in arrays.
-  _.intersection = function(array) {
-    var rest = slice.call(arguments, 1);
-    return _.filter(_.uniq(array), function(item) {
-      return _.every(rest, function(other) {
-        return _.indexOf(other, item) >= 0;
-      });
-    });
-  };
-
-  // Take the difference between one array and a number of other arrays.
-  // Only the elements present in just the first array will remain.
-  _.difference = function(array) {
-    var rest = concat.apply(ArrayProto, slice.call(arguments, 1));
-    return _.filter(array, function(value){ return !_.contains(rest, value); });
-  };
-
-  // Zip together multiple lists into a single array -- elements that share
-  // an index go together.
-  _.zip = function() {
-    var length = _.max(_.pluck(arguments, "length").concat(0));
-    var results = new Array(length);
-    for (var i = 0; i < length; i++) {
-      results[i] = _.pluck(arguments, '' + i);
-    }
-    return results;
-  };
-
-  // Converts lists into objects. Pass either a single array of `[key, value]`
-  // pairs, or two parallel arrays of the same length -- one of keys, and one of
-  // the corresponding values.
-  _.object = function(list, values) {
-    if (list == null) return {};
-    var result = {};
-    for (var i = 0, length = list.length; i < length; i++) {
-      if (values) {
-        result[list[i]] = values[i];
-      } else {
-        result[list[i][0]] = list[i][1];
-      }
-    }
-    return result;
-  };
-
-  // If the browser doesn't supply us with indexOf (I'm looking at you, **MSIE**),
-  // we need this function. Return the position of the first occurrence of an
-  // item in an array, or -1 if the item is not included in the array.
-  // Delegates to **ECMAScript 5**'s native `indexOf` if available.
-  // If the array is large and already in sort order, pass `true`
-  // for **isSorted** to use binary search.
-  _.indexOf = function(array, item, isSorted) {
-    if (array == null) return -1;
-    var i = 0, length = array.length;
-    if (isSorted) {
-      if (typeof isSorted == 'number') {
-        i = (isSorted < 0 ? Math.max(0, length + isSorted) : isSorted);
-      } else {
-        i = _.sortedIndex(array, item);
-        return array[i] === item ? i : -1;
-      }
-    }
-    if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item, isSorted);
-    for (; i < length; i++) if (array[i] === item) return i;
-    return -1;
-  };
-
-  // Delegates to **ECMAScript 5**'s native `lastIndexOf` if available.
-  _.lastIndexOf = function(array, item, from) {
-    if (array == null) return -1;
-    var hasIndex = from != null;
-    if (nativeLastIndexOf && array.lastIndexOf === nativeLastIndexOf) {
-      return hasIndex ? array.lastIndexOf(item, from) : array.lastIndexOf(item);
-    }
-    var i = (hasIndex ? from : array.length);
-    while (i--) if (array[i] === item) return i;
-    return -1;
-  };
-
-  // Generate an integer Array containing an arithmetic progression. A port of
-  // the native Python `range()` function. See
-  // [the Python documentation](http://docs.python.org/library/functions.html#range).
-  _.range = function(start, stop, step) {
-    if (arguments.length <= 1) {
-      stop = start || 0;
-      start = 0;
-    }
-    step = arguments[2] || 1;
-
-    var length = Math.max(Math.ceil((stop - start) / step), 0);
-    var idx = 0;
-    var range = new Array(length);
-
-    while(idx < length) {
-      range[idx++] = start;
-      start += step;
-    }
-
-    return range;
-  };
-
-  // Function (ahem) Functions
-  // ------------------
-
-  // Reusable constructor function for prototype setting.
-  var ctor = function(){};
-
-  // Create a function bound to a given object (assigning `this`, and arguments,
-  // optionally). Delegates to **ECMAScript 5**'s native `Function.bind` if
-  // available.
-  _.bind = function(func, context) {
-    var args, bound;
-    if (nativeBind && func.bind === nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
-    if (!_.isFunction(func)) throw new TypeError;
-    args = slice.call(arguments, 2);
-    return bound = function() {
-      if (!(this instanceof bound)) return func.apply(context, args.concat(slice.call(arguments)));
-      ctor.prototype = func.prototype;
-      var self = new ctor;
-      ctor.prototype = null;
-      var result = func.apply(self, args.concat(slice.call(arguments)));
-      if (Object(result) === result) return result;
-      return self;
-    };
-  };
-
-  // Partially apply a function by creating a version that has had some of its
-  // arguments pre-filled, without changing its dynamic `this` context.
-  _.partial = function(func) {
-    var args = slice.call(arguments, 1);
-    return function() {
-      return func.apply(this, args.concat(slice.call(arguments)));
-    };
-  };
-
-  // Bind all of an object's methods to that object. Useful for ensuring that
-  // all callbacks defined on an object belong to it.
-  _.bindAll = function(obj) {
-    var funcs = slice.call(arguments, 1);
-    if (funcs.length === 0) throw new Error("bindAll must be passed function names");
-    each(funcs, function(f) { obj[f] = _.bind(obj[f], obj); });
-    return obj;
-  };
-
-  // Memoize an expensive function by storing its results.
-  _.memoize = function(func, hasher) {
-    var memo = {};
-    hasher || (hasher = _.identity);
-    return function() {
-      var key = hasher.apply(this, arguments);
-      return _.has(memo, key) ? memo[key] : (memo[key] = func.apply(this, arguments));
-    };
-  };
-
-  // Delays a function for the given number of milliseconds, and then calls
-  // it with the arguments supplied.
-  _.delay = function(func, wait) {
-    var args = slice.call(arguments, 2);
-    return setTimeout(function(){ return func.apply(null, args); }, wait);
-  };
-
-  // Defers a function, scheduling it to run after the current call stack has
-  // cleared.
-  _.defer = function(func) {
-    return _.delay.apply(_, [func, 1].concat(slice.call(arguments, 1)));
-  };
-
-  // Returns a function, that, when invoked, will only be triggered at most once
-  // during a given window of time. Normally, the throttled function will run
-  // as much as it can, without ever going more than once per `wait` duration;
-  // but if you'd like to disable the execution on the leading edge, pass
-  // `{leading: false}`. To disable execution on the trailing edge, ditto.
-  _.throttle = function(func, wait, options) {
-    var context, args, result;
-    var timeout = null;
-    var previous = 0;
-    options || (options = {});
-    var later = function() {
-      previous = options.leading === false ? 0 : new Date;
-      timeout = null;
-      result = func.apply(context, args);
-    };
-    return function() {
-      var now = new Date;
-      if (!previous && options.leading === false) previous = now;
-      var remaining = wait - (now - previous);
-      context = this;
-      args = arguments;
-      if (remaining <= 0) {
-        clearTimeout(timeout);
-        timeout = null;
-        previous = now;
-        result = func.apply(context, args);
-      } else if (!timeout && options.trailing !== false) {
-        timeout = setTimeout(later, remaining);
-      }
-      return result;
-    };
-  };
-
-  // Returns a function, that, as long as it continues to be invoked, will not
-  // be triggered. The function will be called after it stops being called for
-  // N milliseconds. If `immediate` is passed, trigger the function on the
-  // leading edge, instead of the trailing.
-  _.debounce = function(func, wait, immediate) {
-    var timeout, args, context, timestamp, result;
-    return function() {
-      context = this;
-      args = arguments;
-      timestamp = new Date();
-      var later = function() {
-        var last = (new Date()) - timestamp;
-        if (last < wait) {
-          timeout = setTimeout(later, wait - last);
-        } else {
-          timeout = null;
-          if (!immediate) result = func.apply(context, args);
-        }
-      };
-      var callNow = immediate && !timeout;
-      if (!timeout) {
-        timeout = setTimeout(later, wait);
-      }
-      if (callNow) result = func.apply(context, args);
-      return result;
-    };
-  };
-
-  // Returns a function that will be executed at most one time, no matter how
-  // often you call it. Useful for lazy initialization.
-  _.once = function(func) {
-    var ran = false, memo;
-    return function() {
-      if (ran) return memo;
-      ran = true;
-      memo = func.apply(this, arguments);
-      func = null;
-      return memo;
-    };
-  };
-
-  // Returns the first function passed as an argument to the second,
-  // allowing you to adjust arguments, run code before and after, and
-  // conditionally execute the original function.
-  _.wrap = function(func, wrapper) {
-    return function() {
-      var args = [func];
-      push.apply(args, arguments);
-      return wrapper.apply(this, args);
-    };
-  };
-
-  // Returns a function that is the composition of a list of functions, each
-  // consuming the return value of the function that follows.
-  _.compose = function() {
-    var funcs = arguments;
-    return function() {
-      var args = arguments;
-      for (var i = funcs.length - 1; i >= 0; i--) {
-        args = [funcs[i].apply(this, args)];
-      }
-      return args[0];
-    };
-  };
-
-  // Returns a function that will only be executed after being called N times.
-  _.after = function(times, func) {
-    return function() {
-      if (--times < 1) {
-        return func.apply(this, arguments);
-      }
-    };
-  };
-
-  // Object Functions
-  // ----------------
-
-  // Retrieve the names of an object's properties.
-  // Delegates to **ECMAScript 5**'s native `Object.keys`
-  _.keys = nativeKeys || function(obj) {
-    if (obj !== Object(obj)) throw new TypeError('Invalid object');
-    var keys = [];
-    for (var key in obj) if (_.has(obj, key)) keys.push(key);
-    return keys;
-  };
-
-  // Retrieve the values of an object's properties.
-  _.values = function(obj) {
-    var keys = _.keys(obj);
-    var length = keys.length;
-    var values = new Array(length);
-    for (var i = 0; i < length; i++) {
-      values[i] = obj[keys[i]];
-    }
-    return values;
-  };
-
-  // Convert an object into a list of `[key, value]` pairs.
-  _.pairs = function(obj) {
-    var keys = _.keys(obj);
-    var length = keys.length;
-    var pairs = new Array(length);
-    for (var i = 0; i < length; i++) {
-      pairs[i] = [keys[i], obj[keys[i]]];
-    }
-    return pairs;
-  };
-
-  // Invert the keys and values of an object. The values must be serializable.
-  _.invert = function(obj) {
-    var result = {};
-    var keys = _.keys(obj);
-    for (var i = 0, length = keys.length; i < length; i++) {
-      result[obj[keys[i]]] = keys[i];
-    }
-    return result;
-  };
-
-  // Return a sorted list of the function names available on the object.
-  // Aliased as `methods`
-  _.functions = _.methods = function(obj) {
-    var names = [];
-    for (var key in obj) {
-      if (_.isFunction(obj[key])) names.push(key);
-    }
-    return names.sort();
-  };
-
-  // Extend a given object with all the properties in passed-in object(s).
-  _.extend = function(obj) {
-    each(slice.call(arguments, 1), function(source) {
-      if (source) {
-        for (var prop in source) {
-          obj[prop] = source[prop];
-        }
-      }
-    });
-    return obj;
-  };
-
-  // Return a copy of the object only containing the whitelisted properties.
-  _.pick = function(obj) {
-    var copy = {};
-    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
-    each(keys, function(key) {
-      if (key in obj) copy[key] = obj[key];
-    });
-    return copy;
-  };
-
-   // Return a copy of the object without the blacklisted properties.
-  _.omit = function(obj) {
-    var copy = {};
-    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
-    for (var key in obj) {
-      if (!_.contains(keys, key)) copy[key] = obj[key];
-    }
-    return copy;
-  };
-
-  // Fill in a given object with default properties.
-  _.defaults = function(obj) {
-    each(slice.call(arguments, 1), function(source) {
-      if (source) {
-        for (var prop in source) {
-          if (obj[prop] === void 0) obj[prop] = source[prop];
-        }
-      }
-    });
-    return obj;
-  };
-
-  // Create a (shallow-cloned) duplicate of an object.
-  _.clone = function(obj) {
-    if (!_.isObject(obj)) return obj;
-    return _.isArray(obj) ? obj.slice() : _.extend({}, obj);
-  };
-
-  // Invokes interceptor with the obj, and then returns obj.
-  // The primary purpose of this method is to "tap into" a method chain, in
-  // order to perform operations on intermediate results within the chain.
-  _.tap = function(obj, interceptor) {
-    interceptor(obj);
-    return obj;
-  };
-
-  // Internal recursive comparison function for `isEqual`.
-  var eq = function(a, b, aStack, bStack) {
-    // Identical objects are equal. `0 === -0`, but they aren't identical.
-    // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
-    if (a === b) return a !== 0 || 1 / a == 1 / b;
-    // A strict comparison is necessary because `null == undefined`.
-    if (a == null || b == null) return a === b;
-    // Unwrap any wrapped objects.
-    if (a instanceof _) a = a._wrapped;
-    if (b instanceof _) b = b._wrapped;
-    // Compare `[[Class]]` names.
-    var className = toString.call(a);
-    if (className != toString.call(b)) return false;
-    switch (className) {
-      // Strings, numbers, dates, and booleans are compared by value.
-      case '[object String]':
-        // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
-        // equivalent to `new String("5")`.
-        return a == String(b);
-      case '[object Number]':
-        // `NaN`s are equivalent, but non-reflexive. An `egal` comparison is performed for
-        // other numeric values.
-        return a != +a ? b != +b : (a == 0 ? 1 / a == 1 / b : a == +b);
-      case '[object Date]':
-      case '[object Boolean]':
-        // Coerce dates and booleans to numeric primitive values. Dates are compared by their
-        // millisecond representations. Note that invalid dates with millisecond representations
-        // of `NaN` are not equivalent.
-        return +a == +b;
-      // RegExps are compared by their source patterns and flags.
-      case '[object RegExp]':
-        return a.source == b.source &&
-               a.global == b.global &&
-               a.multiline == b.multiline &&
-               a.ignoreCase == b.ignoreCase;
-    }
-    if (typeof a != 'object' || typeof b != 'object') return false;
-    // Assume equality for cyclic structures. The algorithm for detecting cyclic
-    // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
-    var length = aStack.length;
-    while (length--) {
-      // Linear search. Performance is inversely proportional to the number of
-      // unique nested structures.
-      if (aStack[length] == a) return bStack[length] == b;
-    }
-    // Objects with different constructors are not equivalent, but `Object`s
-    // from different frames are.
-    var aCtor = a.constructor, bCtor = b.constructor;
-    if (aCtor !== bCtor && !(_.isFunction(aCtor) && (aCtor instanceof aCtor) &&
-                             _.isFunction(bCtor) && (bCtor instanceof bCtor))) {
-      return false;
-    }
-    // Add the first object to the stack of traversed objects.
-    aStack.push(a);
-    bStack.push(b);
-    var size = 0, result = true;
-    // Recursively compare objects and arrays.
-    if (className == '[object Array]') {
-      // Compare array lengths to determine if a deep comparison is necessary.
-      size = a.length;
-      result = size == b.length;
-      if (result) {
-        // Deep compare the contents, ignoring non-numeric properties.
-        while (size--) {
-          if (!(result = eq(a[size], b[size], aStack, bStack))) break;
-        }
-      }
-    } else {
-      // Deep compare objects.
-      for (var key in a) {
-        if (_.has(a, key)) {
-          // Count the expected number of properties.
-          size++;
-          // Deep compare each member.
-          if (!(result = _.has(b, key) && eq(a[key], b[key], aStack, bStack))) break;
-        }
-      }
-      // Ensure that both objects contain the same number of properties.
-      if (result) {
-        for (key in b) {
-          if (_.has(b, key) && !(size--)) break;
-        }
-        result = !size;
-      }
-    }
-    // Remove the first object from the stack of traversed objects.
-    aStack.pop();
-    bStack.pop();
-    return result;
-  };
-
-  // Perform a deep comparison to check if two objects are equal.
-  _.isEqual = function(a, b) {
-    return eq(a, b, [], []);
-  };
-
-  // Is a given array, string, or object empty?
-  // An "empty" object has no enumerable own-properties.
-  _.isEmpty = function(obj) {
-    if (obj == null) return true;
-    if (_.isArray(obj) || _.isString(obj)) return obj.length === 0;
-    for (var key in obj) if (_.has(obj, key)) return false;
-    return true;
-  };
-
-  // Is a given value a DOM element?
-  _.isElement = function(obj) {
-    return !!(obj && obj.nodeType === 1);
-  };
-
-  // Is a given value an array?
-  // Delegates to ECMA5's native Array.isArray
-  _.isArray = nativeIsArray || function(obj) {
-    return toString.call(obj) == '[object Array]';
-  };
-
-  // Is a given variable an object?
-  _.isObject = function(obj) {
-    return obj === Object(obj);
-  };
-
-  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp.
-  each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'], function(name) {
-    _['is' + name] = function(obj) {
-      return toString.call(obj) == '[object ' + name + ']';
-    };
-  });
-
-  // Define a fallback version of the method in browsers (ahem, IE), where
-  // there isn't any inspectable "Arguments" type.
-  if (!_.isArguments(arguments)) {
-    _.isArguments = function(obj) {
-      return !!(obj && _.has(obj, 'callee'));
-    };
-  }
-
-  // Optimize `isFunction` if appropriate.
-  if (typeof (/./) !== 'function') {
-    _.isFunction = function(obj) {
-      return typeof obj === 'function';
-    };
-  }
-
-  // Is a given object a finite number?
-  _.isFinite = function(obj) {
-    return isFinite(obj) && !isNaN(parseFloat(obj));
-  };
-
-  // Is the given value `NaN`? (NaN is the only number which does not equal itself).
-  _.isNaN = function(obj) {
-    return _.isNumber(obj) && obj != +obj;
-  };
-
-  // Is a given value a boolean?
-  _.isBoolean = function(obj) {
-    return obj === true || obj === false || toString.call(obj) == '[object Boolean]';
-  };
-
-  // Is a given value equal to null?
-  _.isNull = function(obj) {
-    return obj === null;
-  };
-
-  // Is a given variable undefined?
-  _.isUndefined = function(obj) {
-    return obj === void 0;
-  };
-
-  // Shortcut function for checking if an object has a given property directly
-  // on itself (in other words, not on a prototype).
-  _.has = function(obj, key) {
-    return hasOwnProperty.call(obj, key);
-  };
-
-  // Utility Functions
-  // -----------------
-
-  // Run Underscore.js in *noConflict* mode, returning the `_` variable to its
-  // previous owner. Returns a reference to the Underscore object.
-  _.noConflict = function() {
-    root._ = previousUnderscore;
-    return this;
-  };
-
-  // Keep the identity function around for default iterators.
-  _.identity = function(value) {
-    return value;
-  };
-
-  // Run a function **n** times.
-  _.times = function(n, iterator, context) {
-    var accum = Array(Math.max(0, n));
-    for (var i = 0; i < n; i++) accum[i] = iterator.call(context, i);
-    return accum;
-  };
-
-  // Return a random integer between min and max (inclusive).
-  _.random = function(min, max) {
-    if (max == null) {
-      max = min;
-      min = 0;
-    }
-    return min + Math.floor(Math.random() * (max - min + 1));
-  };
-
-  // List of HTML entities for escaping.
-  var entityMap = {
-    escape: {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#x27;'
-    }
-  };
-  entityMap.unescape = _.invert(entityMap.escape);
-
-  // Regexes containing the keys and values listed immediately above.
-  var entityRegexes = {
-    escape:   new RegExp('[' + _.keys(entityMap.escape).join('') + ']', 'g'),
-    unescape: new RegExp('(' + _.keys(entityMap.unescape).join('|') + ')', 'g')
-  };
-
-  // Functions for escaping and unescaping strings to/from HTML interpolation.
-  _.each(['escape', 'unescape'], function(method) {
-    _[method] = function(string) {
-      if (string == null) return '';
-      return ('' + string).replace(entityRegexes[method], function(match) {
-        return entityMap[method][match];
-      });
-    };
-  });
-
-  // If the value of the named `property` is a function then invoke it with the
-  // `object` as context; otherwise, return it.
-  _.result = function(object, property) {
-    if (object == null) return void 0;
-    var value = object[property];
-    return _.isFunction(value) ? value.call(object) : value;
-  };
-
-  // Add your own custom functions to the Underscore object.
-  _.mixin = function(obj) {
-    each(_.functions(obj), function(name) {
-      var func = _[name] = obj[name];
-      _.prototype[name] = function() {
-        var args = [this._wrapped];
-        push.apply(args, arguments);
-        return result.call(this, func.apply(_, args));
-      };
-    });
-  };
-
-  // Generate a unique integer id (unique within the entire client session).
-  // Useful for temporary DOM ids.
-  var idCounter = 0;
-  _.uniqueId = function(prefix) {
-    var id = ++idCounter + '';
-    return prefix ? prefix + id : id;
-  };
-
-  // By default, Underscore uses ERB-style template delimiters, change the
-  // following template settings to use alternative delimiters.
-  _.templateSettings = {
-    evaluate    : /<%([\s\S]+?)%>/g,
-    interpolate : /<%=([\s\S]+?)%>/g,
-    escape      : /<%-([\s\S]+?)%>/g
-  };
-
-  // When customizing `templateSettings`, if you don't want to define an
-  // interpolation, evaluation or escaping regex, we need one that is
-  // guaranteed not to match.
-  var noMatch = /(.)^/;
-
-  // Certain characters need to be escaped so that they can be put into a
-  // string literal.
-  var escapes = {
-    "'":      "'",
-    '\\':     '\\',
-    '\r':     'r',
-    '\n':     'n',
-    '\t':     't',
-    '\u2028': 'u2028',
-    '\u2029': 'u2029'
-  };
-
-  var escaper = /\\|'|\r|\n|\t|\u2028|\u2029/g;
-
-  // JavaScript micro-templating, similar to John Resig's implementation.
-  // Underscore templating handles arbitrary delimiters, preserves whitespace,
-  // and correctly escapes quotes within interpolated code.
-  _.template = function(text, data, settings) {
-    var render;
-    settings = _.defaults({}, settings, _.templateSettings);
-
-    // Combine delimiters into one regular expression via alternation.
-    var matcher = new RegExp([
-      (settings.escape || noMatch).source,
-      (settings.interpolate || noMatch).source,
-      (settings.evaluate || noMatch).source
-    ].join('|') + '|$', 'g');
-
-    // Compile the template source, escaping string literals appropriately.
-    var index = 0;
-    var source = "__p+='";
-    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
-      source += text.slice(index, offset)
-        .replace(escaper, function(match) { return '\\' + escapes[match]; });
-
-      if (escape) {
-        source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
-      }
-      if (interpolate) {
-        source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
-      }
-      if (evaluate) {
-        source += "';\n" + evaluate + "\n__p+='";
-      }
-      index = offset + match.length;
-      return match;
-    });
-    source += "';\n";
-
-    // If a variable is not specified, place data values in local scope.
-    if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
-
-    source = "var __t,__p='',__j=Array.prototype.join," +
-      "print=function(){__p+=__j.call(arguments,'');};\n" +
-      source + "return __p;\n";
-
-    try {
-      render = new Function(settings.variable || 'obj', '_', source);
-    } catch (e) {
-      e.source = source;
-      throw e;
-    }
-
-    if (data) return render(data, _);
-    var template = function(data) {
-      return render.call(this, data, _);
-    };
-
-    // Provide the compiled function source as a convenience for precompilation.
-    template.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
-
-    return template;
-  };
-
-  // Add a "chain" function, which will delegate to the wrapper.
-  _.chain = function(obj) {
-    return _(obj).chain();
-  };
-
-  // OOP
-  // ---------------
-  // If Underscore is called as a function, it returns a wrapped object that
-  // can be used OO-style. This wrapper holds altered versions of all the
-  // underscore functions. Wrapped objects may be chained.
-
-  // Helper function to continue chaining intermediate results.
-  var result = function(obj) {
-    return this._chain ? _(obj).chain() : obj;
-  };
-
-  // Add all of the Underscore functions to the wrapper object.
-  _.mixin(_);
-
-  // Add all mutator Array functions to the wrapper.
-  each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
-    var method = ArrayProto[name];
-    _.prototype[name] = function() {
-      var obj = this._wrapped;
-      method.apply(obj, arguments);
-      if ((name == 'shift' || name == 'splice') && obj.length === 0) delete obj[0];
-      return result.call(this, obj);
-    };
-  });
-
-  // Add all accessor Array functions to the wrapper.
-  each(['concat', 'join', 'slice'], function(name) {
-    var method = ArrayProto[name];
-    _.prototype[name] = function() {
-      return result.call(this, method.apply(this._wrapped, arguments));
-    };
-  });
-
-  _.extend(_.prototype, {
-
-    // Start chaining a wrapped Underscore object.
-    chain: function() {
-      this._chain = true;
-      return this;
-    },
-
-    // Extracts the result from a wrapped and chained object.
-    value: function() {
-      return this._wrapped;
-    }
-
-  });
-
-}).call(this);
-
-},{}],20:[function(require,module,exports){
-/*
- * Module for the add organizer page.
- */
-function toggle_cbo_fields(show) {
-    var $cbo_fields = $(':input[name="facebook_page"],:input[name="url"]').parents('.control-group');
-    if (show) {
-        $cbo_fields.show();
-    }
-    else {
-        $cbo_fields.hide();
-    }
-}
-
-function is_cbo() {
-    return ($(':input[name="type"] :selected').text() === 'community based organization');
-}
-
-$(document).ready(function () {
-    if ($('.add-organizer-page').length > 0) {
-        toggle_cbo_fields(is_cbo());
-
-        $(':input[name="type"]').change(function () {
-            toggle_cbo_fields(is_cbo());
-        });
-    }
-});
-
-},{}],21:[function(require,module,exports){
-var geocoder = new google.maps.Geocoder();
-
-function geocode(address, bounds, state, f) {
-    geocoder.geocode({
-        'address': address,
-        'bounds': to_google_bounds(bounds),
-    }, function (results, status) {
-        for (var i = 0; i < results.length; i++) {
-            var result_state = get_component(results[i], 'administrative_area_level_1');
-            if (result_state === state) {
-                return f(results[i], status);
-            }
-        }
-        return f(null, status);
-    });
-}
-
-function get_component(result, desired_type) {
-    var matches = $.grep(result.address_components, function (component, i) {
-        return ($.inArray(desired_type, component.types) >= 0);
-    });
-    if (matches.length >= 0 && matches[0] !== null) {
-        return matches[0].short_name;
-    }
-    return null;
-}
-
-function get_street(result) {
-    var street_number = get_component(result, 'street_number');
-    var route = get_component(result, 'route');
-    if (street_number === null || route === null) {
-        return null;
-    }
-    return street_number + ' ' + route;
-}
-
-function get_city(result) {
-    var city = get_component(result, 'sublocality');
-    if (city === null) {
-        city = get_component(result, 'locality');
-    }
-    return city;
-}
-
-function get_state(result) {
-    return get_component(result, 'administrative_area_level_1');
-}
-
-function get_zip(result) {
-    return get_component(result, 'postal_code');
-}
-
-function get_longitude(result) {
-    return result.geometry.location.lng();
-}
-
-function get_latitude(result) {
-    return result.geometry.location.lat();
-}
-
-function to_google_bounds(bounds) {
-    // bounds: left, bottom, right, top
-    return new google.maps.LatLngBounds(
-        new google.maps.LatLng(bounds[1], bounds[0]),
-        new google.maps.LatLng(bounds[3], bounds[2])
-    );
-}
-
-module.exports = {
-    geocode: geocode
-};
-
-},{}],22:[function(require,module,exports){
-var _ = require('underscore');
-var Spinner = require('spinjs');
-require('jquery.timeago');
-
-
-function createActivityItem(activity) {
-    var $item = $('<div></div>')
-        .addClass('activity-stream-list-item')
-        .addClass(activity.type);
-
-    // Append HTML of the activity
-    $item.append($.parseHTML(activity.html));
-
-    // Append timeago timestamp
-    $item.append($('<time></time>')
-        .addClass('timeago')
-        .attr('datetime', activity.time));
-
-    return $item;
-}
-
-function loadActivities($elem, filters, page) {
-    var params = _.extend({}, filters, { 'page': page }),
-        url = Django.url('activity_stream_combined') + '?' + $.param(params),
-        spinner = new Spinner({}).spin($elem[0]);
-
-    $.getJSON(url, function (activities) {
-        spinner.stop();
-
-        // Append activities to our stream
-        $.each(activities, function (i, activity) {
-            $elem.append(createActivityItem(activity));
-        });
-
-        // Fix timestamps up
-        $('.timeago').timeago();
-    });
-}
-
-function initActivityStream($elem, filters) {
-    var page = 1;
-    loadActivities($elem, filters, page);
-    $elem.scroll(function () {
-        var height = $(this).innerHeight(),
-            distanceToBottom = $(this)[0].scrollHeight - height - $(this).scrollTop();
-        if (distanceToBottom < height) {
-            loadActivities($elem, filters, ++page);
-        }    
-    });
-}
-
-(function ($) {
-    $.fn.activitystream = function (options) {
-        initActivityStream(this, options);
-        return this;
-    };
-} (jQuery));
-
-},{"jquery.timeago":12,"spinjs":18,"underscore":19}],23:[function(require,module,exports){
-require('jquery.form');
-var Spinner = require('spinjs');
-
-
-var defaultOptions = {
-    filterContainer: null
-};
-
-function show($container) {
-    var spinner = new Spinner({}).spin($container[0]);
-    $container.show()
-        .load(Django.url('extraadmin:mail_participants'), function() {
-            spinner.stop();
-            _initializeForm($container);
-            _updateCounts($container);
-        });
-}
-
-function hide($container) {
-    $container.hide();
-}
-
-function _initializeForm($container) {
-    _updateCounts($container);
-    var spinner = new Spinner({});
-    $container.find('form')
-        .ajaxForm({
-            target: $container,
-            success: function() {
-                // Initialize again in case the form was sent back due 
-                // to validation
-                _initializeForm($container);
-                spinner.stop();
-            },
-        })
-        .submit(function() {
-            spinner.spin($container[0]);
-        });
-}
-
-function _updateCounts($container) {
-    var url = Django.url('extraadmin:mail_participants_count') + '?' +
-        $container.find(':input[name=filters]').val();
-    $.getJSON(url, function(data) {
-        $container.find('.organizer-count').text(data.organizers);
-        $container.find('.watcher-count').text(data.watchers);
-    });
-}
-
-function _updateFilters($container, filters) {
-    $container.find(':input[name=filters]').val($.param(filters, true));
-}
-
-
-(function ($) {
-    $.fn.emailparticipants = function (passedOptions) {
-        var options = $.extend({}, defaultOptions, passedOptions),
-            $elem = this;
-
-        // Add our container
-        var $container = $('<div></div>').addClass('email-participants-container');
-        $elem.after($container);
-
-        options.filterContainer.on('filterschange', function(e) {
-            _updateFilters($container, e.filters);
-            _updateCounts($container);
-        });
-
-        // Show form on click
-        $elem.click(function() {
-            if (!$container.is(':visible')) {
-                show($container);
-            }
-            else {
-                hide($container);
-            }
-            return false;
-        });
-    };
-} (jQuery));
-
-},{"jquery.form":9,"spinjs":18}],24:[function(require,module,exports){
-var geocode = require('./geocode').geocode;
-var Spinner = require('spinjs');
-
-function addCityAndState(query, options) {
-    var city = options.city.toLowerCase();
-    if (query.toLowerCase().indexOf(city) <= 0) {
-        query += ', ' + city;
-    }
-
-    var state = options.state.toLowerCase();
-    if (query.toLowerCase().indexOf(state) <= 0) {
-        query += ', ' + state;
-    }
-    return query;
-}
-
-function searchByAddress($elem, options) {
-    $elem.find(options.warningSelector).hide();
-
-    var $submit = $elem.find(':input[type=submit]').attr('disabled', 'disabled'),
-        spinner = new Spinner({}).spin($submit[0]);
-
-    var query = $elem.find('input[type="text"]').val();
-    query = addCityAndState(query, options);
-
-    geocode(query, options.bounds, options.state, function (result, status) {
-        // Done searching
-        $submit.removeAttr('disabled');
-        spinner.stop();
-
-        // Is result valid?
-        if (result === null) {
-            $elem.find(options.warningSelector)
-                .text(options.errorMessage)
-                .show();
-            return;
-        }
-
-        // Let the world know!
-        var found_location = result.geometry.location;
-        $elem.trigger('searchresultfound', [{
-            longitude: found_location.lng(),
-            latitude: found_location.lat(),
-            query_address: query,
-            found_address: result.formatted_address,
-        }]);
-    });
-}
-
-var defaultOptions = {
-    bounds: null,
-    city: null,
-    state: null,
-    errorMessage: null,
-    warningSelector: null,
-};
-
-(function ($) {
-    $.fn.searchbar = function (passedOptions) {
-        var options = $.extend({}, defaultOptions, passedOptions),
-            $elem = this;
-
-        this.keypress(function (e) {
-            if (e.keyCode === '13') {
-                e.preventDefault();
-                instance.searchByAddress();
-                return false;
-            }
-        });
-        this.find('form').submit(function (e) {
-            e.preventDefault();
-            searchByAddress($elem, options);
-            return false;
-        });
-        return this;
-    };
-} (jQuery));
-
-},{"./geocode":21,"spinjs":18}],25:[function(require,module,exports){
-// TODO can we just use Leaflet for this now?
-var L = require('leaflet');
-
-L.extend(L.LatLngBounds.prototype, {
-
-    fromGeoJson: function(geoJson) {
-        var ne = geoJson.coordinates[0][2],
-            sw = geoJson.coordinates[0][0];
-
-        // Construct LatLngBounds, swapping x,y to get lat,lng
-        return L.latLngBounds([
-            [ne[1], ne[0]],
-            [sw[1], sw[0]]
-        ]);
-    },
-
-    toGeoJson: function() {
-        return {
-            'type': 'Polygon',
-            'coordinates': [[
-                [this.getSouthWest().lng, this.getSouthWest().lat],
-                [this.getNorthWest().lng, this.getNorthWest().lat],
-                [this.getNorthEast().lng, this.getNorthEast().lat],
-                [this.getSouthEast().lng, this.getSouthEast().lat],
-                [this.getSouthWest().lng, this.getSouthWest().lat],
-            ]],
-        };
-    },
-
-});
-
-
-/*
- * Shortcut for creating LatLngBounds out of a GeoJSON string representing the
- * bounding box to be converted to LatLngBounds.
- */
-L.geoJsonLatLngBounds = function(geoJsonString) {
-    var geoJson = JSON.parse(geoJsonString);
-    return L.LatLngBounds.prototype.fromGeoJson(geoJson);
-};
-
-},{"leaflet":17}],26:[function(require,module,exports){
-var L = require('leaflet');
-
-L.Control.Legend = L.Control.extend({
-    options: {
-        featureTypes: [],
-        position: 'bottomleft',
-    },
-
-    initialize: function (options) {
-        L.setOptions(this, options);
-    },
-
-    onAdd: function (map) {
-        this._container = L.DomUtil.create('div', 'leaflet-control-legend');
-        L.DomEvent.disableClickPropagation(this._container);
-
-        this.legendFeatures = L.DomUtil.create('ul', 'leaflet-control-legend-features', this._container);
-        this._update(this.options.featureTypes);
-
-        return this._container;
-    },
-
-    hide: function () {
-        L.DomUtil.addClass(this._container, 'is-hidden');
-    },
-
-    show: function () {
-        L.DomUtil.removeClass(this._container, 'is-hidden');
-    },
-
-    setFeatureTypes: function (featureTypes) {
-        this._update(featureTypes);
-    },
-
-    _slugify: function (s) {
-        return s.replace(' ', '-');
-    },
-
-    _update: function (featureTypes) {
-        if (!this._map) { return; }
-        var classes = 'legend-marker legend-marker-';
-        for (var i = 0; i < featureTypes.length; i++) {
-            var featureItem = L.DomUtil.create('li', 'legend-item', this.legendFeatures);
-            L.DomUtil.create('span',  classes + this._slugify(featureTypes[i].name), featureItem);
-            var label = L.DomUtil.create('label', '', featureItem);
-            label.innerHTML = featureTypes[i].name;
-        }
-    },
-
-});
-
-L.control.legend = function (options) {
-    return new L.Control.Legend(options);
-};
-
-L.Map.addInitHook(function () {
-    if (!this.options.legendControl) { return; }
-    var className = 'leaflet-bottom leaflet-left';
-    this.legendControl = L.control.legend({
-        featureTypes: this.options.legendFeatureTypes,
-    }).addTo(this);
-});
-
-},{"leaflet":17}],27:[function(require,module,exports){
-/*
- * Extend Leaflet Vector Layer's GeoJSONLayer to intelligently display polygons
- * and centroids of lots.
- */
-var L = require('leaflet');
-var lvector = require('leaflet-vector-layers');
-
-
-lvector.LotLayer = lvector.GeoJSONLayer.extend({
-
-    initialize: function (options) {
-        // Check for required parameters
-        for (var i = 0, len = this._requiredParams.length; i < len; i++) {
-            if (!options[this._requiredParams[i]]) {
-                throw new Error("No \"" + this._requiredParams[i] +
-                    "\" parameter found.");
-            }
-        }
-
-        // Extend Layer
-        lvector.Layer.prototype.initialize.call(this, options);
-
-        // Create an array to hold the features
-        this._vectors = [];
-
-        if (this.options.map) {
-            if (this.options.scaleRange && this.options.scaleRange instanceof Array && this.options.scaleRange.length === 2) {
-                var z = this.options.map.getZoom();
-                var sr = this.options.scaleRange;
-                this.options.visibleAtScale = (z >= sr[0] && z <= sr[1]);
-            }
-            this._show();
-        }
-    },
-
-    options: {
-        filters: {},
-        url: null,
-    },
-
-    // Override zoom change listener--only check visibility if the 
-    // layer is on a map currently.
-    _zoomChangeListenerTemplate: function () {
-        var instance = this;
-        return function () {
-            if (instance.getMap()) {
-                instance._checkLayerVisibility();
-            }
-        };
-    },
-
-    _requiredParams: ["url",],
-
-    _getFeatures: function () {
-        // Only load when map at a visible zoom
-        if (!this.options.visibleAtScale || !this.getMap()) {
-            return;
-        }
-
-        // Add bounds to filters
-        this.options.filters.centroid__within = JSON.stringify(
-                this.getMap().getBounds().toGeoJson());
-
-        // Build request url
-        var url = this.options.url + '?' + $.param(this.options.filters, true);
-        this._makeJsonRequest(url, this._processFeatures);
-    },
-
-    _makeJsonRequest: function (url, callback) {
-        var instance = this;
-        instance.getMap().fire('dataloading');
-        $.getJSON(url, function (data) {
-            // Ensure this is the layer
-            callback.apply(instance, [data,]);
-        })
-        .always(function () {
-            if (instance.getMap()) {
-                instance.getMap().fire('dataload');
-            }
-        });
-    },
-
-});
-
-},{"leaflet":17,"leaflet-vector-layers":14}],28:[function(require,module,exports){
-/*
- * L.LotMap -- mixin for L.Map that adds layers for vacant to vibrant.
- */
-
-var L = require('leaflet');
-var _ = require('underscore');
-var lotStyles = require('./lotstyles');
-var lvector = require('leaflet-vector-layers');
-var singleminded = require('./singleminded');
-
-require('leaflet.bing');
-require('leaflet.label');
-require('leaflet.loading');
-require('leaflet.utfgrid');
-require('livinglots-map/src/livinglots.boundaries');
-
-require('./leaflet.geojsonbounds');
-require('./leaflet.lotlayer');
-require('./leaflet.message');
-require('./leaflet.legend');
-require('./leaflet.organizermarker');
-
-L.Map.include({
-
-    /*
-    options: {
-        bingKey: String,
-        centroidBaseUrl: String,
-        centroidInitialFilters: Object,
-        enableLayersControl: Boolean,
-        enableChoropleth: Boolean,
-        enablePointTiles: Boolean,
-        enablePolygons: Boolean,
-        polygonBaseUrl: String,
-        polygonInitialFilters: Object,
-        mapboxId: String,
-        messageControl: Boolean,
-        messageDefault: String,
-        lotsCentroidThreshold: Integer,
-    },
-    */
-
-    choroplethHsl: {
-        hue: 140,
-        saturation: 42,
-        lightness: 90,
-    },
-
-    choroplethStyle: {
-        fillOpacity: 0.7,
-        color: 'white',
-        opacity: 0.8,
-        weight: 2,
-    },
-
-    tileLayers: {
-        'public': [],
-        'private': [],
-        'not in use': [],
-        'in use': [],
-    },
-
-    choroplethBoundaryLayerName: null,
-    filters: {},
-    viewType: 'tiles',
-    visibleLotsCount: 0,
-
-
-    _lotMapInitialize: function () {
-        // Add base layers
-        this.addSatelliteLayer(false);
-        this.addStreetsLayer();
-
-        // Add overlays
-        this.addCentroidLayer();
-        this.addChoroplethLayer();
-        this.addPolygonLayer();
-        this.addTilesLayers();
-        this.addOrganizersLayer();
-
-        // Add controls
-        this.addLayersControl();
-
-        // Add events
-        this.addZoomEvents();
-    },
-
-
-    /*
-    * Base layers
-    */
-
-    addStreetsLayer: function () {
-        if (Django.context.debug) {
-            this.streets = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this);
-        }
-        else {
-            this.streets = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{mapboxId}/{z}/{x}/{y}.png', {
-                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
-                maxZoom: 18,
-                mapboxId: this.options.mapboxId
-            }).addTo(this);
-        }
-    },
-
-    addSatelliteLayer: function (add) {
-        this.satellite = new L.BingLayer(this.options.bingKey);
-        if (add) this.satellite.addTo(this);
-    },
-
-
-    /*
-    * Overlay layers
-    */
-
-
-    /*
-    * Tiles layers
-    */
-
-    addTilesLayers: function () {
-        this.addPointPrivateTilesLayer();
-        this.addPointPrivateGridLayer();
-        this.addPointPublicTilesLayer();
-        this.addPointPublicGridLayer();
-        this.addPointInUseTilesLayer();
-        this.addPointInUseGridLayer();
-    },
-
-    addGridLayer: function (baseUrl) {
-        if (!baseUrl) return;
-        var instance = this;
-        var url = baseUrl + '{z}/{x}/{y}.json?callback={cb}';
-        var gridLayer = new L.UtfGrid(url, {
-            resolution: this.options.gridResolution,
-        });
-        if (instance.options.clickHandler) {
-            gridLayer.on('click', function (e) {
-                e.targetType = 'utfgrid';
-                instance.options.clickHandler(e);
-            });
-        }
-        instance.addLayer(gridLayer);
-        return gridLayer;
-    },
-
-    addPointPrivateTilesLayer: function () {
-        if (!(this.options.enablePointPrivateTiles && this.viewType === 'tiles')) return;
-        if (!this.options.pointPrivateTilesBaseUrl) return;
-
-        var url = this.options.pointPrivateTilesBaseUrl + '{z}/{x}/{y}.png';
-        this.tilesPointPrivate = L.tileLayer(url, {
-            zIndex: 10,
-            // TODO maxZoom
-        }).addTo(this);
-        this.tileLayers.private.push(this.tilesPointPrivate);
-        this.tileLayers['not in use'].push(this.tilesPointPrivate);
-    },
-
-    addPointPrivateGridLayer: function () {
-        if (!(this.options.enablePointPrivateTiles && this.viewType === 'tiles')) return;
-        this.gridPointPrivate = this.addGridLayer(this.options.pointPrivateGridBaseUrl);
-        this.tileLayers.private.push(this.gridPointPrivate);
-        this.tileLayers['not in use'].push(this.gridPointPrivate);
-        this.addLayer(this.gridPointPrivate);
-    },
-
-    addPointPublicTilesLayer: function () {
-        if (!(this.options.enablePointPublicTiles && this.viewType === 'tiles')) return;
-        if (!this.options.pointPublicTilesBaseUrl) return;
-
-        var url = this.options.pointPublicTilesBaseUrl + '{z}/{x}/{y}.png';
-        this.tilesPointPublic = L.tileLayer(url, {
-            zIndex: 12,
-            // TODO maxZoom
-        }).addTo(this);
-        this.tileLayers.public.push(this.tilesPointPublic);
-        this.tileLayers['not in use'].push(this.tilesPointPublic);
-    },
-
-    addPointPublicGridLayer: function () {
-        if (!(this.options.enablePointPublicTiles && this.viewType === 'tiles')) return;
-        this.gridPointPublic = this.addGridLayer(this.options.pointPublicGridBaseUrl);
-        this.tileLayers.public.push(this.gridPointPublic);
-        this.tileLayers['not in use'].push(this.gridPointPublic);
-    },
-
-    addPointInUseTilesLayer: function () {
-        if (!(this.options.enablePointInUseTiles && this.viewType === 'tiles')) return;
-        if (!this.options.pointInUseTilesBaseUrl) return;
-
-        var url = this.options.pointInUseTilesBaseUrl + '{z}/{x}/{y}.png';
-        this.tilesPointInUse = L.tileLayer(url, {
-            zIndex: 14,
-            // TODO maxZoom
-        }).addTo(this);
-        this.tileLayers['in use'].push(this.tilesPointInUse);
-    },
-
-    addPointInUseGridLayer: function () {
-        if (!(this.options.enablePointInUseTiles && this.viewType === 'tiles')) return;
-        this.gridPointInUse = this.addGridLayer(this.options.pointInUseGridBaseUrl);
-        this.tileLayers['in use'].push(this.gridPointInUse);
-    },
-
-    showTiles: function () {
-        var instance = this;
-        if (instance.viewType !== 'tiles') return;
-        var filtered = _.size(instance.filters) > 0,
-            activeOwnerTypes = instance.getActiveOwnerTypes(instance.filters),
-            projects = instance.filters.projects;
-
-        _.each(_.keys(instance.tileLayers), function (layer) {
-            // Always show if there are no current filters
-            if (!filtered) {
-                instance.showTilesByLayer(layer);
-                return;
-            }
-
-            // Handle 'in use' layers
-            if (layer === 'in use' && (projects === 'include' || projects === 'only')) {
-                instance.showTilesByLayer(layer);
-                return;
-            }
-
-            // Handle project layer
-            if (_.contains(activeOwnerTypes, layer) && projects !== 'only') {
-                instance.showTilesByLayer(layer);
-                return;
-            }
-
-            if (layer !== 'not in use') {
-                instance.hideTilesByLayer(layer);
-                return;
-            }
-        });
-    },
-
-    hideTiles: function () {
-        var instance = this;
-        _.each(_.keys(instance.tileLayers), function (layer) {
-            instance.hideTilesByLayer(layer);
-        });
-    },
-
-    showTilesByLayer: function (name) {
-        var instance = this;
-        _.each(instance.tileLayers[name], function (layer) {
-            if (layer) {
-                instance.addLayer(layer);
-            }
-        });
-    },
-
-    hideTilesByLayer: function (name) {
-        var instance = this;
-        _.each(instance.tileLayers[name], function (layer) {
-            if (layer) {
-                instance.removeLayer(layer);
-            }
-        });
-    },
-
-    getActiveOwnerTypes: function (filters) {
-        var activeOwnerTypes = filters.owner__owner_type__in;
-        if (!activeOwnerTypes) {
-            return [];
-        }
-        else if (!_.isArray(activeOwnerTypes)) {
-            return [activeOwnerTypes,];
-        }
-        return activeOwnerTypes;
-    },
-
-    /*
-    * Update which tiles are shown by owner type
-    */
-    reloadTiles: function (filters) {
-        var instance = this;
-        instance.filters = filters;
-        instance.showTiles();
-    },
-
-
-    /*
-    * Polygons
-    */
-
-    addPolygonLayer: function (queryString) {
-        if (!queryString) {
-            queryString = this.options.polygonQueryString;
-        }
-        this._loadPolygonLayer(queryString, true);
-    },
-
-    addToPolygonLayer: function (queryString) {
-        this._loadPolygonLayer(queryString, false);
-    },
-
-    reloadPolygonLayer: function (filters) {
-        if (this.polygons === undefined) return;
-        this.polygons._clearFeatures();
-        this.polygons._lastQueriedBounds = null;
-        this.polygons.options.filters = filters;
-        this.polygons._getFeatures();
-    },
-
-    _getPolygonLayer: function () {
-        var instance = this;
-        var symbologyValues = _.map(lotStyles.layers(), function (style, name) {
-            return {
-                value: name,
-                vectorOptions: style
-            };
-        });
-
-        return new lvector.LotLayer({
-            map: instance,
-            clickEvent: function (feature, event) {
-                instance.options.clickHandler(event, feature);
-                instance.fire('lotclicked', {
-                    event: event,
-                    lot: feature,
-                });
-            },
-            filters: this.options.polygonInitialFilters,
-            scaleRange: [16, 18],
-            symbology: {
-                type: 'unique',
-                property: 'layer',
-                values: symbologyValues,
-            },
-            uniqueField: 'pk',
-            url: this.options.polygonBaseUrl,
-        });
-    },
-
-    _loadPolygonLayer: function (queryString, clear) {
-        if (!this.options.enablePolygons) return;
-        if (!this.options.polygonBaseUrl) return;
-        var instance = this;
-
-        if (!instance.polygons) {
-            instance.polygons = instance._getPolygonLayer();
-        }
-        if (clear) {
-            //instance.clearPolygonLayer();
-        }
-        //instance.addLayer(instance.polygons);
-        instance.polygons.setMap(instance);
-    },
-
-
-    /*
-     * Centroids
-     */
-
-    _getCentroidLayer: function () {
-        var instance = this;
-
-        var symbologyValues = _.map(lotStyles.layers(), function (style, name) {
-            style.circleMarker = true;
-            return {
-                value: name,
-                vectorOptions: style
-            };
-        });
-
-        return new lvector.LotLayer({
-            map: null,
-            clickEvent: function (feature, event) {
-                instance.options.clickHandler(event, feature);
-                instance.fire('lotclicked', {
-                    event: event,
-                    lot: feature,
-                });
-            },
-            filters: instance.options.centroidInitialFilters,
-            scaleRange: [1, 16],
-            symbology: {
-                type: 'unique',
-                property: 'layer',
-                values: symbologyValues,
-            },
-            uniqueField: 'pk',
-            url: instance.options.centroidBaseUrl,
-        });
-    },
-
-    _loadCentroidLayer: function (queryString) {
-        if (!this.options.enableCentroids) return;
-        if (!this.options.centroidBaseUrl) return;
-        var instance = this;
-
-        if (!instance.centroids) {
-            instance.centroids = instance._getCentroidLayer();
-        }
-    },
-
-    addCentroidLayer: function (queryString) {
-        this._loadCentroidLayer(queryString, true);
-    },
-
-    reloadCentroidLayer: function (filters) {
-        if (this.centroids === undefined) return;
-        this.centroids._clearFeatures();
-        this.centroids._lastQueriedBounds = null;
-        this.centroids.options.filters = filters;
-        this.centroids._getFeatures();
-    },
-
-    showCentroidLayer: function () {
-        var instance = this;
-        instance.centroids.setMap(instance);
-    },
-
-    hideCentroidLayer: function () {
-        var instance = this;
-        if (instance.centroids) {
-            instance.centroids.setMap(null);
-        }
-    },
-
-
-    /*
-     * Organizers
-     */
-
-    addOrganizersLayer: function (queryString) {
-        var instance = this,
-            url = instance.options.centroidBaseUrl + '?' + [
-                'known_use__isnull=true',
-                'participant_types=organizers',
-                'owner__owner_type__in=private',
-                'owner__owner_type__in=public'
-            ].join('&');
-        $.getJSON(url, function (data) {
-            this.organizers = L.geoJson(data, {
-                onEachFeature: function (feature, layer) {
-                    layer.on('click', function (event) {
-                        instance.options.clickHandler(event, feature);
-                        instance.fire('lotclicked', {
-                            event: event,
-                            lot: feature,
-                        });
-                    });
-                },
-                pointToLayer: function (feature, latlng) {
-                    return L.organizerMarker(latlng);
-                },
-                style: function (feature) {
-                    var style = lotStyles.forLayer(feature.properties.layer);
-                    style.clickable = true;
-                    return style;
-                }
-            }).addTo(instance);
-        });
-    },
-
-
-    /*
-    * Choropleth
-    */
-
-    showChoropleth: function () {
-        var instance = this;
-        if (!instance.choropleth) {
-            instance.addChoroplethBoundaries(instance.filters.choropleth_boundary_layer);
-        }
-        else {
-            instance.addLayer(instance.choropleth);
-        }
-    },
-
-    hideChoropleth: function () {
-        var instance = this;
-        if (instance.choropleth) {
-            instance.removeLayer(instance.choropleth);
-        }
-    },
-
-    reloadChoropleth: function (filters) {
-        this.addChoroplethLayer(filters);
-    },
-
-    clearChoropleth: function () {
-        var instance = this;
-        instance.hideChoropleth();
-        instance.choropleth = null;
-        instance.choroplethLayers = {};
-    },
-
-    addChoroplethBoundaries: function (layer_name) {
-        var instance = this;
-        instance.choroplethBoundaryLayerName = layer_name;
-        var url = Django.url('inplace:layer_view', { name: layer_name });
-        instance.choroplethLayers = {};
-        instance.fire('dataloading');
-        singleminded.remember({
-            name: 'addChoroplethBoundaries',
-            jqxhr: $.getJSON(url, function (data) {
-                instance.choropleth = L.geoJson(data, {
-                    onEachFeature: function (feature, layer) {
-                        var boundaryLabel = feature.properties.boundary_label;
-                        instance.choroplethLayers[boundaryLabel] = layer;
-
-                        layer.on({
-                            click: function () {
-                                // Zoom to this polygon? Maybe show other
-                                // details besides count (breakdown, area,
-                                // etc.)? TODO
-                            },
-                        });
-                    },
-                });
-                instance.updateChoroplethStyles(null);
-                if (instance.getZoom() < 16 && instance.viewType === 'choropleth') {
-                    instance.choropleth.addTo(instance);
-                }
-
-                instance.updateChoropleth($.param(instance.filters, true));
-            })
-            .always(function () {
-                instance.fire('dataload');
-            }),
-        });
-    },
-
-    getChoroplethColor: function (count, maxCount) {
-        var instance = this;
-        var hue = instance.choroplethHsl.hue,
-            saturation = instance.choroplethHsl.saturation,
-            lightness = instance.choroplethHsl.lightness;
-
-        if (maxCount > 0) {
-            // Keep lightness between 30 and 90
-            lightness -= (count / maxCount) * 60;
-        }
-        return 'hsl(' + hue + ', ' + saturation + '%, ' + lightness + '%)';
-    },
-
-    getChoroplethStyle: function (count, maxCount) {
-        var instance = this;
-        var style = instance.choroplethStyle;
-        style.fillColor = instance.getChoroplethColor(count, maxCount);
-        return style;
-    },
-
-    updateChoroplethStyles: function (counts) {
-        var instance = this;
-        if (!instance.choroplethLayers) return;
-        var maxCount = 0;
-
-        if (counts && counts !== null) {
-            $.each(counts, function (layerLabel, count) {
-                maxCount = Math.max(maxCount, count);
-            });
-        }
-
-        $.each(instance.choroplethLayers, function (label, layer) {
-            var style = {};
-            if (counts && counts !== null) {
-                style = instance.getChoroplethStyle(counts[label], maxCount);
-            }
-            else {
-                style = instance.getChoroplethStyle(0, 0);
-            }
-            layer.setStyle(style);
-        });
-
-    },
-
-    updateChoroplethLabels: function (counts) {
-        var instance = this;
-
-        $.each(counts, function (layerLabel, count) {
-            var layer = instance.choroplethLayers[layerLabel];
-            var label = layer._label;
-            var content = instance.choroplethBoundaryLayerName.slice(0, -1);
-            content += ' ' + layerLabel + '<br/ >' + count + ' lots';
-            if (label) {
-                layer.updateLabelContent(content);
-            }
-            else {
-                layer.bindLabel(content);
-            }
-        });
-    },
-
-    addChoroplethLayer: function (filters) {
-        var instance = this;
-        if (!instance.options.enableChoropleth) return;
-
-        var newLabel;
-        var queryString = instance.options.choroplethQueryString;
-        if (filters) {
-            newLabel = filters.choropleth_boundary_layer;
-            queryString = $.param(filters, true);
-        }
-
-        // If boundaries don't yet exist or are new, load them
-        if ((!instance.choropleth && newLabel) ||
-            (newLabel && newLabel !== instance.choroplethBoundaryLayerName)) {
-            instance.clearChoropleth();
-            instance.addChoroplethBoundaries(newLabel);
-        }
-        else {
-            instance.updateChoropleth(queryString);
-        }
-    },
-
-    updateChoropleth: function (queryString) {
-        var instance = this;
-
-        // Update colors and labels
-        var url = instance.options.choroplethBaseUrl + '?' + queryString;
-        instance.fire('dataloading');
-        singleminded.remember({
-            name: 'addChoroplethLayer',
-            jqxhr: $.getJSON(url, function (data) {
-                instance.updateChoroplethStyles(data);
-                instance.updateChoroplethLabels(data);
-            })
-            .always(function () {
-                instance.fire('dataload');
-            }),
-        });
-
-    },
-
-    setVisibleLotsCount: function (count) {
-        this.visibleLotsCount = count;
-        this.pickChoroplethLayer();
-    },
-
-    /*
-     * Determine the choropleth / summary view layer that should be
-     * displayed. If it won't be too many lots, show centroids.
-     */
-    pickChoroplethLayer: function () {
-        var instance = this;
-        if (instance.viewType === 'choropleth') {
-            if (instance.visibleLotsCount <= instance.options.lotsCentroidThreshold) {
-                instance.hideChoropleth();
-                instance.showCentroidLayer();
-            }
-            else {
-                instance.hideCentroidLayer();
-                instance.showChoropleth();
-            }
-        }
-    },
-
-
-    /*
-    * Controls
-    */
-
-    addLayersControl: function () {
-        if (!this.options.enableLayersControl) return;
-        var baseLayers = {
-            'Streets': this.streets,
-            'Satellite': this.satellite,
-        };
-        var overlays = {};
-        var layersControl = L.control.layers(baseLayers, overlays).addTo(this);
-    },
-
-
-    /*
-    * Events
-    */
-
-    addZoomEvents: function () {
-        var instance = this;
-        instance.on('zoomend', function () {
-            var zoom = instance.getZoom();
-            if (zoom >= 16) {
-                instance.messageControl.hide();
-                instance.hideChoropleth();
-            }
-            else {
-                instance.messageControl.show();
-            }
-
-            if (zoom >= 17) {
-                instance.hideTiles();
-            }
-            else {
-                instance.showTiles();
-            }
-
-        });
-    },
-
-
-    /*
-    * Filters
-    */
-
-    updateFilters: function (filters) {
-        this.filters = filters;
-
-        // If the view type is changing, let the map know
-        if (filters.view_type && filters.view_type !== this.viewType) {
-            this.changeView(filters.view_type);
-        }
-
-        // Now, reload everything
-        this.reloadCentroidLayer(filters);
-        this.reloadChoropleth(filters);
-        this.reloadPolygonLayer(filters);
-        this.reloadTiles(filters);
-
-        this.fire('moveend').fire('zoomend');
-    },
-
-    changeView: function (viewType) {
-        this.viewType = viewType;
-        this.fire('viewtypechange', { viewType: viewType });
-        if (viewType === 'tiles') {
-            // Show tiles
-            this.showTiles();
-
-            // Hide everything else
-            this.hideChoropleth();
-        }
-        else if (viewType === 'choropleth') {
-            // Show choropleth
-            this.showChoropleth();
-
-            // Hide everything else
-            this.hideTiles();
-        }
-    },
-
-});
-
-L.Map.addInitHook('_lotMapInitialize');
-
-},{"./leaflet.geojsonbounds":25,"./leaflet.legend":26,"./leaflet.lotlayer":27,"./leaflet.message":29,"./leaflet.organizermarker":30,"./lotstyles":33,"./singleminded":38,"leaflet":17,"leaflet-vector-layers":14,"leaflet.bing":13,"leaflet.label":1,"leaflet.loading":15,"leaflet.utfgrid":2,"livinglots-map/src/livinglots.boundaries":41,"underscore":19}],29:[function(require,module,exports){
-var L = require('leaflet');
-
-L.Control.Message = L.Control.extend({
-    options: {
-        defaultHtml: 'Message goes here.',
-        position: 'topcenter',
-    },
-
-    initialize: function(options) {
-        L.setOptions(this, options);
-    },
-
-    onAdd: function(map) {
-        this._container = L.DomUtil.create('div', 'leaflet-control-message');
-        L.DomEvent.disableClickPropagation(this._container);
-
-        this._update(this.options.defaultHtml);
-
-        return this._container;
-    },
-
-    hide: function() {
-        L.DomUtil.addClass(this._container, 'is-hidden');
-    },
-
-    show: function() {
-        L.DomUtil.removeClass(this._container, 'is-hidden');
-    },
-
-    setMessage: function(html) {
-        this._update(html);
-    },
-
-    _update: function (html) {
-        if (!this._map) { return; }
-        this._container.innerHTML = html;
-    },
-
-});
-
-L.Map.addInitHook(function () {
-    if (!this.options.messageControl) { return; }
-    var className = 'leaflet-top leaflet-center';
-    this._controlCorners.topcenter = 
-        L.DomUtil.create('div', className, this._controlContainer);
-    this.messageControl = (new L.Control.Message({
-        defaultHtml: this.options.messageDefault,
-    })).addTo(this);
-});
-
-L.control.message = function(options) {
-    return new L.Control.Message(options);
-};
-
-},{"leaflet":17}],30:[function(require,module,exports){
-var L = require('leaflet');
-
-require('./leaflet.organizerpath');
-
-
-L.OrganizerMarker = L.CircleMarker.extend({
-
-    onZoomEnd: function () {
-        if (this._map && this.feature.properties.has_organizers) {
-            this.bringToFront();
-        }
-    },
-
-    _pickRadius: function (zoom) {
-        var radius = 4;   
-        if (zoom >= 13) {
-            radius = 6;
-        }
-        else if (zoom >= 14) {
-            radius = 9;
-        }
-        else if (zoom >= 15) {
-            radius = 12;
-        }
-        else if (zoom >= 16) {
-            radius = 15;
-        }
-        return radius;
-    },
-
-    _updateVisibility: function (zoom) {
-        // Hide circles once we zoom in enough to see polygons
-        if (zoom >= 17) {
-            this._path.style.display = 'none';
-        }
-        else {
-            this._path.style.display = 'block';
-        }
-    },
-
-    _updatePath: function () {
-        var zoom = this._map.getZoom();
-
-        // Update the circle's radius according to the map's zoom level
-        this.options.radius = this._radius = this._pickRadius(zoom);
-
-        this._updateVisibility(zoom);
-        this.updateActionPathScale();
-        L.CircleMarker.prototype._updatePath.call(this);
-    }
-
-});
-
-L.OrganizerMarker.include(L.OrganizerPathMixin);
-
-L.OrganizerMarker.addInitHook(function () {
-    this.on({
-        'add': function () {
-            this.initActionPath();
-
-            if (this.feature && this.feature.properties.has_organizers) {
-                var layer = this;
-                this._map.on('zoomend', this.onZoomEnd, layer);
-            }
-        },
-        'remove': function () {
-            if (this.feature && this.feature.properties.has_organizers) {
-                var layer = this;
-                this._map.off('zoomend', this.onZoomEnd, layer);
-            }
-        }
-    });
-});
-
-L.organizerMarker = function (latlng, options) {
-    return new L.OrganizerMarker(latlng, options);
-};
-
-},{"./leaflet.organizerpath":31,"leaflet":17}],31:[function(require,module,exports){
-var L = require('leaflet');
-
-
-L.OrganizerPathMixin = {
-
-    hide: function () {
-        if (!this._path) return;
-        this._path.style.display = 'none';
-        if (this._actionPath) {
-            this._actionPath.style.display = 'none';
-        }
-    },
-
-    show: function () {
-        if (!this._path) return;
-        this._path.style.display = 'block';
-        if (this._actionPath) {
-            this._actionPath.style.display = 'block';
-        }
-    },
-
-    initActionPath: function() {
-        this._actionPath = this._createElement('path');
-        this._actionPath.setAttribute('style', 'fill:#eec619; fill-opacity:1;');
-        this._actionPath.setAttribute('d', this.getActionPathSvgStr());
-        this._container.insertBefore(this._actionPath, this._path);
-
-        this.updateActionPathScale();
-    },
-
-    getActionPathSvgStr: function () {
-        return 'M 0,-39 c -0.6 0 -2.2 3.4 -3.5 7.6 -1.3 4.2 -3 7.8 -3.7 8.1 -0.7 0.3 -4.2 -1.6 -7.7 -4.1 -5.8 -4.1 -8.6 -5.5 -8.6 -4.2 0 0.2 1.1 4.1 2.6 8.6 1.4 4.5 2.4 8.3 2.1 8.6 -0.2 0.2 -4.3 0.7 -9.1 1.1 -4.7 0.3 -8.6 1 -8.6 1.5 0 0.5 2.9 3 6.5 5.5 3.6 2.6 6.5 5.2 6.5 5.8 0 0.6 -2.9 3.2 -6.5 5.8 -3.6 2.6 -6.5 5.1 -6.5 5.5 0 0.5 3.9 1.1 8.6 1.5 4.7 0.3 8.8 0.8 9.1 1.1 0.2 0.2 -0.7 4.1 -2.1 8.6 -1.4 4.5 -2.6 8.3 -2.6 8.6 0 1.3 2.8 -0 8.6 -4.2 3.5 -2.5 7 -4.4 7.7 -4.1 0.7 0.3 2.3 3.9 3.7 8.1 1.3 4.2 2.9 7.6 3.5 7.6 0.6 0 2.2 -3.4 3.5 -7.6 1.3 -4.2 3 -7.8 3.7 -8.1 0.7 -0.3 4.2 1.6 7.7 4.1 5.8 4.1 8.6 5.5 8.6 4.2 0 -0.2 -1.1 -4.1 -2.6 -8.6 -1.4 -4.5 -2.4 -8.3 -2.1 -8.6 0.2 -0.2 4.3 -0.7 9.1 -1.1 4.7 -0.3 8.6 -1 8.6 -1.5 0 -0.5 -2.9 -3 -6.5 -5.5 -3.6 -2.6 -6.5 -5.2 -6.5 -5.8 0 -0.6 2.9 -3.2 6.5 -5.8 3.6 -2.6 6.5 -5.1 6.5 -5.5 0 -0.5 -3.9 -1.1 -8.6 -1.5 -4.7 -0.3 -8.8 -0.8 -9.1 -1.1 -0.2 -0.2 0.7 -4.1 2.1 -8.6 1.4 -4.5 2.6 -8.3 2.6 -8.6 0 -1.3 -2.8 0 -8.6 4.2 -3.5 2.5 -7 4.4 -7.7 4.1 -0.7 -0.3 -2.3 -3.9 -3.7 -8.1 -1.3 -4.2 -2.9 -7.6 -3.5 -7.6 z';
-    },
-
-    updateActionPathScale: function () {
-        if (this._actionPath) {
-            var point = this._map.latLngToLayerPoint(this.getBounds().getCenter()),
-                zoom = this._map.getZoom(),
-                scale = 0.25;
-
-            // Translate and scale around the layer's point
-            if (zoom >= 18) {
-                scale = 1.5;
-            }
-            else if (zoom >= 15) {
-                scale = 0.75;
-            }
-            else if (zoom >= 13) {
-                scale = 0.5;
-            }
-            this._actionPath.setAttribute('transform', 'translate(' + point.x + ',' + point.y + ') scale(' + scale + ')');
-        }
-    }
-
-};
-
-},{"leaflet":17}],32:[function(require,module,exports){
-/*
- * Module for all pages derived from the base lot page.
- */
-var L = require('leaflet');
-var lotStyles = require('./lotstyles');
-var streetview = require('./streetview');
-require('bootstrap_tooltip');
-
-var lotPk;
-
-function styleLayer(feature) {
-    var style = lotStyles.forLayer(feature.properties.layer);
-    if (+feature.properties.pk !== lotPk) {
-        style.fillOpacity = 0.3;
-        style.weight = 0.5;
-    }
-    else {
-        style.fillOpacity = 1;
-        style.weight = 3;
-    }
-    return style;
-}
-
-function addBaseLayer(map) {
-    if (Django.context.debug) {
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
-    }
-    else {
-        L.tileLayer('https://{s}.tiles.mapbox.com/v3/{mapboxId}/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
-            maxZoom: 18,
-            mapboxId: $('#map').data('mapboxid')
-        }).addTo(map);
-    }
-}
-
-$(document).ready(function () {
-    if ($('.lot-base-page').length > 0) {
-        var $streetviewContainer = $('#streetview-container'),
-            $streetviewError = $('#streetview-error'),
-            lon = $('body').data('lon'),
-            lat = $('body').data('lat');
-
-        lotPk = $('body').data('lotpk');
-
-        // Set up streetview
-        streetview.load_streetview(lon, lat, $streetviewContainer, $streetviewError);
-
-        // Set up lot map
-        var map = new L.Map('map', {
-            center: { lat: lat, lng: lon },
-            mapboxId: $('#map').data('mapboxid'),
-            zoom: 17,
-
-            // Make map not interactive
-            boxZoom: false,
-            doubleClickZoom: false,
-            dragging: false,
-            keyboard: false,
-            scrollWheelZoom: false,
-            tap: false,
-            touchZoom: false,
-            zoomControl: false
-        });
-
-        addBaseLayer(map);
-
-        $.get($('#map').data('url'), function (data) {
-            var feature_layer = new L.GeoJSON(data, { style: styleLayer })
-                .addTo(map);
-        });
-
-        $('.lot-page-tooltip').tooltip({ container: 'body' });
-    }
-});
-
-},{"./lotstyles":33,"./streetview":39,"bootstrap_tooltip":5,"leaflet":17}],33:[function(require,module,exports){
-var _ = require('underscore');
-
-var layerFills = {
-    'in use': '#830F94',
-    'public': '#D38022',
-    'private': '#287A68'
-};
-
-var defaultStyle = {
-    fillOpacity: 0.7,
-    color: 'white',
-    opacity: 0.8,
-    weight: 1
-};
-
-function forLayer(layer) {
-    var style = $.extend({}, defaultStyle);
-    if (layerFills[layer]) {
-        style.fillColor = layerFills[layer];
-    }
-    return style;
-}
-
-module.exports = {
-    forLayer: forLayer,
-
-    layers: function () {
-        var layers = {};
-        _.each(layerFills, function (fill, name) {
-            layers[name] = forLayer(name);
-        });
-        return layers;
-    }
-};
-
-},{"underscore":19}],34:[function(require,module,exports){
-var lotsMap = require('./leaflet.lotmap.js');
-
-function mail_participants_update_counts(with_bbox) {
-    // TODO refactor urls to be outside of FeinCMS control
-    var url = Django.url('extraadmin:mail_participants_count') + $('form').serialize();
-    $.getJSON(url, function(data) {
-        $('.organizer-count').text(data.organizers);
-        $('.watcher-count').text(data.watchers);
-    });
-}
-
-$(document).ready(function() {
-    if ($('.extraadmin-mail-participants-page').length > 0) {
-        lotsMap.on('moveend', function(e) {
-            var g = JSON.stringify(lotsMap.getBounds().toGeoJson());
-            $(':input[name="centroid__within"]').val(
-                JSON.stringify(lotsMap.getBounds().toGeoJson())
-            );
-            mail_participants_update_counts(true);
-        });
-
-        // initialize counts
-        mail_participants_update_counts(false);
-
-        $(':input').change(function() {
-            mail_participants_update_counts(true);
-
-            if ($(':input[name="participant_types"]:checked').length > 0) {
-                lotsMap.reloadLotCentroidLayer($('form').serialize());
-            }
-            else {
-                // if there aren't any participant types selected,
-                // don't show anything--no emails will go out
-                lotsMap.clearLotCentroidLayer();
-            }
-        });
-    }
-});
-
-},{"./leaflet.lotmap.js":28}],35:[function(require,module,exports){
-//
-// main.js
-//
-// Scripts that should run on every page.
-//
-
-require('./jquery.activitystream');
-require('chosen');
-require('bootstrap_dropdown');
-require('fancybox');
-require('jquery.timeago');
-require('noisy');
-
-
-/*
- * Global form-related scripts
- */
-$(document).ready(function () {
-    /*
-     * Disable submit buttons on forms once they have been submitted once.
-     */
-    $('form').submit(function () {
-        $(this).find('input[type="submit"]').attr('disabled', 'disabled');
-    });
-
-    $('body').noisy({
-        'intensity' : 0.5,
-        'size' : 100,
-        'opacity' : 0.15,
-        'fallback' : '',
-        'monochrome' : false
-    });
-
-    /*
-     * Collapse the collapsible sections
-     */
-    // Slide up those sections not initially expanded
-    $('.collapsible-section:not(.is-expanded) .collapsible-section-text').slideUp();
-
-    // Prepare headers for clicking
-    $('.collapsible-section-header').click(function () {
-        var $section = $(this).parent(),
-            $sectionText = $section.find('.collapsible-section-text');
-        $section.toggleClass('is-expanded');
-        $sectionText.slideToggle();
-    });
-
-    /*
-     * Fancy the fancyboxes
-     */
-    $('.fancybox').fancybox();
-
-    /*
-     * Timeago the timeagoes
-     */
-    $('.timeago').timeago();
-
-    /*
-     * Activate the activitystreams
-     */
-    $('.activity-stream-container').activitystream();
-
-});
-
-
-/*
- * Page-specific modules
- */
-require('./mappage');
-require('./lotbasepage');
-require('./addorganizerpage');
-require('./mailparticipantspage');
-
-},{"./addorganizerpage":20,"./jquery.activitystream":22,"./lotbasepage":32,"./mailparticipantspage":34,"./mappage":36,"bootstrap_dropdown":4,"chosen":6,"fancybox":7,"jquery.timeago":12,"noisy":3}],36:[function(require,module,exports){
-var _ = require('underscore');
-var L = require('leaflet');
-var Spinner = require('spinjs');
-var singleminded = require('./singleminded');
-var streetview = require('./streetview');
-var welcome = require('./welcome');
-
-require('./jquery.emailparticipants');
-require('./jquery.searchbar');
-
-// Filter [de]serialization
-require('jquery.deserialize');
-require('jquery.serializeobject');
-
-require('./leaflet.lotmap');
-require('./overlaymenu');
-require('jquery.debouncedresize');
-
-require('leaflet.usermarker');
-
-
-var MAX_LOTS_DOWNLOAD = 2000;
-
-var currentViewType,
-    lotsMap,
-    mapViewportSet = false,
-    visibleLotsCount = 0;
-
-
-/*
- * Get bounds for searching
- */
-function getBounds(map) {
-    var bounds = map.options.maxBounds;
-    var seBounds = bounds.getSouthEast();
-    var nwBounds = bounds.getNorthWest();
-
-    return [
-        seBounds.lng,
-        seBounds.lat,
-        nwBounds.lng,
-        nwBounds.lat
-    ];
-}
-
-
-/*
- * Update counts
- */
-function updateCounts() {
-    lotsMap.fire('dataloading');
-    var baseUrl = $('#map').data('countsbaseurl'),
-        params = serializeFilters();
-
-    singleminded.remember({
-        name: 'counts',
-        jqxhr: $.getJSON(baseUrl + params, function (data) {
-            $.each(data, function (label, count) {
-                $('.' + label).text(count);
-            });
-            visibleLotsCount = data['lots-count'];
-            lotsMap.setVisibleLotsCount(visibleLotsCount);
-        })
-        .always(function () {
-            lotsMap.fire('dataload');
-        }),
-    });
-}
-
-
-/*
- * Handle filter inputs
- */
-function serializeFilters() {
-    return $('form').serialize() + '&' + $('.overlaymenu-filter :input').serialize();
-}
-
-function deserializeFilters() {
-    // Get filters from url query string
-    var filters = window.location.search.slice(1);
-
-    // Clear the form of any defaults, first
-    if (filters.length > 1) {
-        $(':checkbox').prop('checked', false);
-    }
-
-    // Drop filters into the form (which is spread over multiple forms)
-    $('form').deserialize(filters);
-
-    // Trigger Chosen to update selects
-    $('select').trigger('liszt:updated');
-
-    // Update map viewport
-    var bboxString = $(':input[name="centroid__within"]').val();
-    if (bboxString) {
-        mapViewportSet = true;
-        lotsMap.fitBounds(L.geoJsonLatLngBounds(bboxString));
-    }
-    var zoomString = $(':input[name="zoom"]').val();
-    var zoom = 16;
-    if (zoomString) {
-        zoom = parseInt(zoomString, 10);
-    }
-    var centroidString = $(':input[name="centroid"]').val();
-    if (centroidString) {
-        mapViewportSet = true;
-        // TODO This works, but doesn't seem to make the lotlayer load?
-        lotsMap.setView(JSON.parse(centroidString), zoom);
-    }
-}
-
-function exportView() {
-    if (visibleLotsCount > MAX_LOTS_DOWNLOAD) {
-        alert('Too many lots to download! Filter the map and try again once the number of lots is no more than ' + MAX_LOTS_DOWNLOAD + '.');
-    }
-    else {
-        window.location = $(this).data('baseurl') + serializeFilters();
-    }
-    return false;
-}
-
-function updateViewType(viewType) {
-    currentViewType = viewType;
-    var viewTypeFilterSelector = '.view-type-' + viewType;
-
-    // {En,Dis}able filters that should be {en,dis}abled for this view type
-    $('.filter :input').prop('disabled', function (i, value) {
-        return !$(this).parents('.filter').is(viewTypeFilterSelector);
-    });
-
-    // Hide filters that have been disabled, show those enabled
-    $('.filter' + viewTypeFilterSelector).removeClass('is-disabled');
-    $('.filter:not(' + viewTypeFilterSelector + ')').addClass('is-disabled');
-
-    // Hide/Show filter labels if there are any filters enabled below
-    // them
-    $('.map-filters h2:not(.always-enabled)').each(function () {
-        if ($(this).nextAll().find('.filter:not(.is-disabled)').length > 0) {
-            $(this).show();
-        }
-        else {
-            $(this).hide();
-        }
-    });
-
-    // Always enable default filters (for counts)
-    $('.filter.default :input').prop('disabled', false);
-
-    // TODO for viewType===tiles, reset filters that are disabled 
-    //  (ensures sanity and that counts are appropriate)
-}
-
-function initializeBoundaries(map) {
-    // Check for expected layers, console a warning
-    var url = window.location.protocol + '//' + window.location.host +
-        Django.url('inplace:layer_upload');
-    var expectedLayers = ['city council districts', 'planning districts', 'zipcodes'];
-    _.each(expectedLayers, function (layer) {
-        if ($('.filter-' + layer.replace(/ /g, '-')).length === 0) {
-            console.warn('No ' + layer + '! Add some here: ' + url);
-        }
-    });
-
-    $('.filter-boundaries').change(function () {
-        // Clear other boundary filters
-        $('.filter-boundaries').not('#' + $(this).attr('id')).val('');
-
-        addBoundary(map, $(this).data('layer'), $(this).val());
-    });
-}
-
-function addBoundary(map, layer, pk) {
-    if (!pk || pk === '') {
-        map.removeBoundaries();
-    }
-    var url = Django.url('inplace:boundary_detail', { pk: pk });
-    $.getJSON(url, function (data) {
-        map.updateBoundaries(data, { zoomToBounds: true });
-    });
-}
-
-function onFilterChange() {
-    if ($(this).attr('name') === 'view_type') {
-        updateViewType($(this).val());
-    }
-    updateCounts();
-    var serializedFilters = $('.filters :input:not(.non-filter)').serializeObject();
-    lotsMap.updateFilters(serializedFilters);
-    lotsMap.fire('filterschange', { filters: serializedFilters, });
-}
-
-$(document).ready(function () {
-    if ($('.home-map-page').length > 0) {
-        var mapboxId = $('#map').data('mapboxid'),
-            popupSpinner;
-
-        // Prepare our map
-        lotsMap = L.map('map', {
-            center: [39.952335, -75.163789],
-            maxBounds: [
-                [39.147, -76.358],
-                [40.772, -73.952],
-            ],
-            zoom: 11,
-            mapboxId: mapboxId,
-            bingKey: 'ArBLp_jhvmrzT5Kg4_FXohJCKjbKmBW-nEEItp2dbceyHrJPMJJEqXDp8XsPy_cr',
-            clickHandler: function (e, feature) {
-                var featureId = null;
-                if (feature) featureId = feature.id;
-                var popupOptions = {
-                    maxHeight: 150
-                };
-                if (L.Browser.mobile === true) {
-                    popupOptions.maxWidth = 200;
-                    popupOptions.minWidth = 200;
-                }
-                else {
-                    popupOptions.minWidth = 300;
-                }
-                var popupContent = '<div id="popup-content" class="loading"></div>';
-                if (e.targetType === 'utfgrid' && e.data !== null) {
-                    featureId = e.data.id;
-                    var popup = L.popup(popupOptions)
-                        .setContent(popupContent)
-                        .setLatLng(e.latlng)
-                        .openOn(lotsMap);
-                }
-                else {
-                    try {
-                        e.target.bindPopup(popupContent, popupOptions).openPopup();
-                    }
-                    catch (exception) {}
-                }
-                var url = Django.url('inplace:lots_lot_detail_popup', { pk: featureId });
-                if (featureId !== null) {
-                    singleminded.remember({
-                        name: 'clickHandler',
-                        jqxhr: $.get(url, function (response) {
-                            popupSpinner.stop();
-                            $('#popup-content')
-                                .html(response)
-                                .removeClass('loading');
-                        }),
-                    });
-                }
-            },
-
-            messageControl: true,
-            messageDefault: 'Zoom in for details',
-
-            legendControl: true,
-            legendFeatureTypes: [
-                { name: 'public', },
-                { name: 'private', },
-                { name: 'in use', },
-            ],
-
-            loadingControl: true,
-
-            enableLayersControl: true,
-
-            enableChoropleth: true,
-            choroplethBaseUrl: $('#map').data('choroplethbaseurl'),
-            choroplethQueryString: 'parents_only=True',
-
-            enablePolygons: true,
-            polygonBaseUrl: $('#map').data('polygonbaseurl'),
-            polygonInitialFilters: {
-                parentsOnly: true,
-            },
-
-            enableCentroids: true,
-            centroidBaseUrl: $('#map').data('centroidbaseurl'),
-            centroidInitialFilters: {
-                parentsOnly: true,
-            },
-
-            lotsCentroidThreshold: 2000,
-
-            gridResolution: 8,
-
-            enablePointPrivateTiles: true,
-            pointPrivateTilesBaseUrl: $('#map').data('pointprivatetilesbaseurl'),
-            pointPrivateGridBaseUrl: $('#map').data('pointprivategridbaseurl'),
-
-            enablePointPublicTiles: true,
-            pointPublicTilesBaseUrl: $('#map').data('pointpublictilesbaseurl'),
-            pointPublicGridBaseUrl: $('#map').data('pointpublicgridbaseurl'),
-
-            enablePointInUseTiles: true,
-            pointInUseTilesBaseUrl: $('#map').data('pointinusetilesbaseurl'),
-            pointInUseGridBaseUrl: $('#map').data('pointinusegridbaseurl'),
-
-        });
-
-        /*
-         * Map events
-         */
-        lotsMap.on('moveend', function (e) {
-            var g = JSON.stringify(lotsMap.getBounds().toGeoJson());
-            $(':input[name="centroid__within"]').val(
-                JSON.stringify(lotsMap.getBounds().toGeoJson())
-            );
-            $(':input[name="centroid"]').val(
-                JSON.stringify(lotsMap.getCenter())
-            );
-            $(':input[name="zoom"]').val(lotsMap.getZoom());
-
-            updateCounts();
-            var serializedFilters = $('.filters :input:not(.non-filter)').serializeObject();
-            lotsMap.fire('filterschange', { filters: serializedFilters, });
-        });
-
-        lotsMap.on('lotclicked', function (data) {
-            var event = data.event;
-            streetview.load_streetview(event.latlng.lng, event.latlng.lat,
-                                       $('#streetview-container'),
-                                       $('#streetview-error'));
-        });
-
-        lotsMap.on('popupopen', function (e) {
-            popupSpinner = new Spinner({}).spin($('#popup-content.loading')[0]);
-            lotsMap.messageControl.hide();
-        });
-
-        lotsMap.on('popupclose', function (e) {
-            $('#streetview-container').hide();
-        });
-
-        lotsMap.whenReady(function (e) {
-            // Load filters from search string in URL, update map/counts accordingly
-            deserializeFilters();
-            onFilterChange();
-
-            // Update map and UI with the current view
-            var currentView = $(':input[name=view_type]').val();
-            updateViewType(currentView);
-            lotsMap.changeView(currentView);
-        });
-
-        lotsMap.on('boundarieschange', function () {
-            if (lotsMap.boundariesLayer.getLayers().length > 0) {
-                $('.filter-boundaries').each(function () {
-                    if ($(this).val() === '') return;
-                    $('.map-tally-header-boundary-layer').text($(this).data('layer').slice(0, -1));
-                    $('.map-tally-header-boundary-label').text($(this).val());
-                });
-                $('body').addClass('boundary');
-            }
-            else {
-                $('body').removeClass('no-boundary');
-            }
-        });
-
-        /*
-         * Filters events
-         */
-        $('.filters :input:not(.non-filter)').change(onFilterChange);
-
-
-        /*
-         * Handle export actions
-         */
-        $('.export-link').click(function () {
-            // TODO make shorter urls
-            window.location.search = serializeFilters();
-        });
-
-        $('.export-csv').click(exportView);
-        $('.export-geojson').click(exportView);
-        $('.export-kml').click(exportView);
-
-        // Fire up the emailparticipants
-        $('.email-participants').emailparticipants({
-            filterContainer: lotsMap,
-        });
-
-
-        // Fire up searchbar
-        $('.searchbar')
-            .searchbar({
-                bounds: getBounds(lotsMap),
-                city: 'Philadelphia',
-                state: 'PA',
-                errorMessage: "Sorry, it doesn't seem that the address you " +
-                    "entered is in Philadelphia. Try again?",
-                warningSelector: '.warning',
-            })
-            .on('searchresultfound', function (e, data) {
-                var latlng = [data.latitude, data.longitude];
-                lotsMap.setView(latlng, 18);
-                var usermarker = L.userMarker(latlng, { smallIcon: true })
-                    .bindPopup('This is the address you searched for.');
-                usermarker.addTo(lotsMap);
-            });
-
-
-        // Show/hide filters
-        $('.map-filters-toggle').click(function () {
-            $('.map-filters').toggle();
-        });
-
-        welcome.init();
-
-        $('.overlay-filter-button').overlaymenu({
-            menu: '.overlaymenu-filter'
-        });
-
-        $('.overlay-news-button').overlaymenu({
-            menu: '.overlaymenu-news'
-        });
-
-        $('.overlay-download-button').overlaymenu({
-            menu: '.overlaymenu-download'
-        });
-
-        initializeBoundaries(lotsMap);
-    }
-});
-
-},{"./jquery.emailparticipants":23,"./jquery.searchbar":24,"./leaflet.lotmap":28,"./overlaymenu":37,"./singleminded":38,"./streetview":39,"./welcome":40,"jquery.debouncedresize":11,"jquery.deserialize":8,"jquery.serializeobject":10,"leaflet":17,"leaflet.usermarker":16,"spinjs":18,"underscore":19}],37:[function(require,module,exports){
-//
-// overlaymenu.js
-//
-// Overlay / dropdown menus, like modals but less intrusive
-//
-
-var _ = require('underscore');
-
-
-function show(button, menu) {
-    var offset = button.offset(),
-        outerWidth = button.outerWidth(),
-        outerHeight = button.outerHeight(),
-        menuWidth = menu.outerWidth();
-
-    button.trigger('overlaymenuopen');
-
-    menu
-        .show()
-        .offset({
-            left: offset.left + outerWidth - menuWidth,
-            top: offset.top + outerHeight + 13
-        });
-}
-
-function hide(button, menu) {
-    button.trigger('overlaymenuclose');
-    menu.hide();
-}
-
-function isVisible(menu) {
-    return menu.is(':visible');
-}
-
-function isInMenu(target, menu) {
-    return (target[0] === menu[0] ||
-            _.find(target.parents(), function (ele) { return ele === menu[0]; }));
-}
-
-$.fn.overlaymenu = function (options) {
-    var button = this,
-        menu = $(options.menu);
-
-    $('html').click(function (e) {
-        var target = $(e.target);
-
-        // If user not clicking in menu, consider hiding or showing it
-        if (!isInMenu(target, menu)) {
-            if (target[0] === button[0]) {
-                // If button clicked, show or hide the menu appropriately
-                if (isVisible(menu)) {
-                    hide(button, menu);
-                }
-                else {
-                    show(button, menu);
-                }
-                return false;
-            }
-            else {
-                // Something else was clicked--hide the menu
-                hide(button, menu);
-            }
-        }
-    });
-    return this;
-};
-
-},{"underscore":19}],38:[function(require,module,exports){
-var thoughts = {};
-
-function forget(name) {
-    var request = thoughts[name];
-
-    // If request exists and does not have a DONE state, abort it
-    if (request && request.readyState != 4) {
-        request.abort();
-    }
-
-    thoughts[name] = null;
-}
-
-function remember(params) {
-    var name = params.name,
-        jqxhr = params.jqxhr;
-
-    forget(name);
-
-    jqxhr.done(function() {
-        // Don't bother remembering requests we've finished
-        forget(name);
-    });
-    thoughts[name] = jqxhr;
-}
-
-module.exports = {
-    forget: forget,
-    remember: remember
-};
-
-},{}],39:[function(require,module,exports){
-function get_heading(lon0, lat0, lon1, lat1) {
-    // Don't bother with great-circle calculations--should be close!
-    var r = Math.atan2(-(lon1 - lon0), (lat1 - lat0));
-    if (r < 0) {
-        r += 2 * Math.PI;
-    }
-    var d = r * (180 / Math.PI);
-
-    // Convert to google's heading: "True north is 0°, east is 90°,
-    // south is 180°, west is 270°."
-    if (d >= 45 && d < 135) { d += 180; }
-    else if (d >= 225 && d < 315) { d -= 180; }
-    return d;
-}
-
-function load_streetview(lon, lat, $elem, $errorBox) {
-    var service = new google.maps.StreetViewService();
-
-    if (!(lon && lat)) {
-        return;
-    }
-    var latLng = new google.maps.LatLng(lat, lon);
-
-    service.getPanoramaByLocation(latLng, 50, function (result, status) {
-        // TODO result.imageDate could be useful
-
-        if (status === google.maps.StreetViewStatus.OK) {
-            var lon0 = result.location.latLng.lng(),
-                lat0 = result.location.latLng.lat();
-
-            var pano = new google.maps.StreetViewPanorama($elem[0], {
-                pano: result.location.pano,
-                pov: {
-                    heading: get_heading(lon0, lat0, lon, lat),
-                    pitch: 0,
-                },
-            });
-        }
-        else {
-            $errorBox.show();
-        }
-    });
-}
-
-module.exports = {
-    load_streetview: load_streetview
-};
-
-},{}],40:[function(require,module,exports){
-//
-// Welcome header
-//
-
-function initClose() {
-    $('.map-welcome-close-button').click(function (e) {
-        $('.map-welcome').addClass('closed');
-        $('.map-welcome h1').animate({ 'font-size': '28px' });
-        $('.map-welcome-body').slideUp();
-        e.preventDefault();
-        return false;
-    });
-}
-
-function initOpen() {
-    $('.map-welcome-open-button').click(function (e) {
-        $('.map-welcome').removeClass('closed');
-        $('.map-welcome h1').animate({ 'font-size': '56px' });
-        $('.map-welcome-body').slideDown();
-        e.preventDefault();
-        return false;
-    });
-}
-
-module.exports = {
-    init: function () {
-        initClose();
-        initOpen();
-    }
-};
-
-},{}],41:[function(require,module,exports){
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots-map/src/livinglots.boundaries.js":[function(require,module,exports){
 //
 // livinglots.boundaries.js
 //
@@ -19436,4 +20268,263 @@ L.Map.include({
 
 L.Map.addInitHook('_initBoundaries');
 
-},{}]},{},[35]);
+},{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js":[function(require,module,exports){
+module.exports=require("/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js")
+},{"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/index.js":[function(require,module,exports){
+require('./lotlayer.js');
+
+},{"./lotlayer.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotlayer.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotlayer.js":[function(require,module,exports){
+var L = require('leaflet');
+require('leaflet-tilelayer-vector');
+
+require('./lotmultipolygon');
+require('./lotpolygon');
+
+L.LotGeoJson = L.GeoJSON.extend({
+
+    initialize: function (geojson, options) {
+        L.GeoJSON.prototype.initialize.call(this, geojson, options);
+    },
+
+    addData: function (geojson) {
+        var features = L.Util.isArray(geojson) ? geojson : geojson.features,
+            i, len, feature;
+
+        if (features) {
+            for (i = 0, len = features.length; i < len; i++) {
+                // Only add this if geometry or geometries are set and not null
+                feature = features[i];
+                if (feature.geometries || feature.geometry || feature.features || feature.coordinates) {
+                    this.addData(features[i]);
+                }
+            }
+            return this;
+        }
+
+        var options = this.options;
+
+        if (options.filter && !options.filter(geojson)) { return; }
+
+        var layer = this.geometryToLotLayer(geojson, options.pointToLayer, options.coordsToLatLng, options);
+        layer.feature = L.GeoJSON.asFeature(geojson);
+
+        layer.defaultOptions = layer.options;
+        this.resetStyle(layer);
+
+        if (options.onEachFeature) {
+            options.onEachFeature(geojson, layer);
+        }
+
+        return this.addLayer(layer);
+    },
+
+    geometryToLotLayer: function (geojson, pointToLayer, coordsToLatLng, vectorOptions) {
+        var geometry = geojson.type === 'Feature' ? geojson.geometry : geojson,
+            coords = geometry.coordinates,
+            layers = [],
+            latlng, latlngs, i, len;
+
+        var options = L.extend({}, vectorOptions);
+        coordsToLatLng = coordsToLatLng || L.GeoJSON.coordsToLatLng;
+
+        switch (geometry.type) {
+        case 'Point':
+            latlng = coordsToLatLng(coords);
+            return pointToLayer ? pointToLayer(geojson, latlng) : new L.Marker(latlng);
+
+        case 'MultiPoint':
+            for (i = 0, len = coords.length; i < len; i++) {
+                latlng = coordsToLatLng(coords[i]);
+                layers.push(pointToLayer ? pointToLayer(geojson, latlng) : new L.Marker(latlng));
+            }
+            return new L.FeatureGroup(layers);
+
+        case 'LineString':
+            latlngs = L.GeoJSON.coordsToLatLngs(coords, 0, coordsToLatLng);
+            return new L.Polyline(latlngs, options);
+
+        case 'Polygon':
+            if (coords.length === 2 && !coords[1].length) {
+                throw new Error('Invalid GeoJSON object.');
+            }
+            latlngs = L.GeoJSON.coordsToLatLngs(coords, 1, coordsToLatLng);
+            return new L.LotPolygon(latlngs, options);
+
+        case 'MultiLineString':
+            latlngs = L.GeoJSON.coordsToLatLngs(coords, 1, coordsToLatLng);
+            return new L.MultiPolyline(latlngs, options);
+
+        case 'MultiPolygon':
+            latlngs = L.GeoJSON.coordsToLatLngs(coords, 2, coordsToLatLng);
+            return new L.LotMultiPolygon(latlngs, options);
+
+        case 'GeometryCollection':
+            for (i = 0, len = geometry.geometries.length; i < len; i++) {
+
+                layers.push(L.GeoJSON.geometryToLayer({
+                    geometry: geometry.geometries[i],
+                    type: 'Feature',
+                    properties: geojson.properties
+                }, pointToLayer, coordsToLatLng, options));
+            }
+            return new L.FeatureGroup(layers);
+
+        default:
+            throw new Error('Invalid GeoJSON object.');
+        }
+    }
+
+});
+
+L.lotGeoJson = function (geojson, options) {
+    return new L.LotGeoJson(geojson, options);
+};
+
+
+L.LotLayer = L.TileLayer.Vector.extend({
+
+    initialize: function (url, options) {
+        var tileLayerOptions = L.extend({
+            layerFactory: L.lotGeoJson,
+            tileCacheFactory: L.tileCache
+        }, options);
+        L.TileLayer.Vector.prototype.initialize.call(this, url, tileLayerOptions, options);
+    }
+
+});
+
+L.lotLayer = function (url, options) {
+    return new L.LotLayer(url, options);
+};
+
+},{"./lotmultipolygon":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotmultipolygon.js","./lotpolygon":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotpolygon.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js","leaflet-tilelayer-vector":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet-tilelayer-vector/src/index.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotmultipolygon.js":[function(require,module,exports){
+var L = require('leaflet');
+require('./lotpolygon');
+
+L.LotMultiPolygon = L.FeatureGroup.extend({
+    initialize: function (latlngs, options) {
+        this._layers = {};
+        this._options = options;
+        this.setLatLngs(latlngs);
+    },
+
+    setLatLngs: function (latlngs) {
+        var i = 0,
+            len = latlngs.length;
+
+        this.eachLayer(function (layer) {
+            if (i < len) {
+                layer.setLatLngs(latlngs[i++]);
+            } else {
+                this.removeLayer(layer);
+            }
+        }, this);
+
+        while (i < len) {
+            this.addLayer(new L.LotPolygon(latlngs[i++], this._options));
+        }
+
+        return this;
+    },
+
+    getLatLngs: function () {
+        var latlngs = [];
+        this.eachLayer(function (layer) {
+            latlngs.push(layer.getLatLngs());
+        });
+        return latlngs;
+    }
+});
+
+},{"./lotpolygon":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotpolygon.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotpath.js":[function(require,module,exports){
+var L = require('leaflet');
+
+L.Map.include({
+    shouldGetActionStar: function (layer) {
+        return layer.options.organizing || layer.options.friendly_owner;
+    },
+
+    actionStarFill: function (layer) {
+        // Override to get color for layer
+        return '#000000';
+    }
+});
+
+L.LotPathMixin = {
+    initActionPath: function() {
+        if (!this._map.shouldGetActionStar(this)) return;
+        this._actionPath = this._createElement('path');
+        this._actionPath.setAttribute('style', 'fill:' + this._map.actionStarFill(this) + '; fill-opacity:1;');
+        this._actionPath.setAttribute('d', this.getActionPathSvgStr());
+        this._container.insertBefore(this._actionPath, this._path);
+        this.updateActionPathScale();
+    },
+
+    // TODO make this an option / extensible
+    getActionPathSvgStr: function () {
+        return 'M 0,-39 c -0.6 0 -2.2 3.4 -3.5 7.6 -1.3 4.2 -3 7.8 -3.7 8.1 -0.7 0.3 -4.2 -1.6 -7.7 -4.1 -5.8 -4.1 -8.6 -5.5 -8.6 -4.2 0 0.2 1.1 4.1 2.6 8.6 1.4 4.5 2.4 8.3 2.1 8.6 -0.2 0.2 -4.3 0.7 -9.1 1.1 -4.7 0.3 -8.6 1 -8.6 1.5 0 0.5 2.9 3 6.5 5.5 3.6 2.6 6.5 5.2 6.5 5.8 0 0.6 -2.9 3.2 -6.5 5.8 -3.6 2.6 -6.5 5.1 -6.5 5.5 0 0.5 3.9 1.1 8.6 1.5 4.7 0.3 8.8 0.8 9.1 1.1 0.2 0.2 -0.7 4.1 -2.1 8.6 -1.4 4.5 -2.6 8.3 -2.6 8.6 0 1.3 2.8 -0 8.6 -4.2 3.5 -2.5 7 -4.4 7.7 -4.1 0.7 0.3 2.3 3.9 3.7 8.1 1.3 4.2 2.9 7.6 3.5 7.6 0.6 0 2.2 -3.4 3.5 -7.6 1.3 -4.2 3 -7.8 3.7 -8.1 0.7 -0.3 4.2 1.6 7.7 4.1 5.8 4.1 8.6 5.5 8.6 4.2 0 -0.2 -1.1 -4.1 -2.6 -8.6 -1.4 -4.5 -2.4 -8.3 -2.1 -8.6 0.2 -0.2 4.3 -0.7 9.1 -1.1 4.7 -0.3 8.6 -1 8.6 -1.5 0 -0.5 -2.9 -3 -6.5 -5.5 -3.6 -2.6 -6.5 -5.2 -6.5 -5.8 0 -0.6 2.9 -3.2 6.5 -5.8 3.6 -2.6 6.5 -5.1 6.5 -5.5 0 -0.5 -3.9 -1.1 -8.6 -1.5 -4.7 -0.3 -8.8 -0.8 -9.1 -1.1 -0.2 -0.2 0.7 -4.1 2.1 -8.6 1.4 -4.5 2.6 -8.3 2.6 -8.6 0 -1.3 -2.8 0 -8.6 4.2 -3.5 2.5 -7 4.4 -7.7 4.1 -0.7 -0.3 -2.3 -3.9 -3.7 -8.1 -1.3 -4.2 -2.9 -7.6 -3.5 -7.6 z';
+    },
+
+    // TODO make this an option / extensible
+    updateActionPathScale: function () {
+        if (this._actionPath) {
+            var point = this._map.latLngToLayerPoint(this.getBounds().getCenter()),
+                zoom = this._map.getZoom(),
+                scale = 0.5;
+
+            // Translate and scale around the layer's point
+            if (zoom >= 18) {
+                scale = 1.5;
+            }
+            else if (zoom >= 15) {
+                scale = 0.75;
+            }
+            this._actionPath.setAttribute('transform', 'translate(' + point.x + ',' + point.y + ') scale(' + scale + ')');
+        }
+    }
+};
+
+},{"leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotpolygon.js":[function(require,module,exports){
+var L = require('leaflet');
+require('./lotpath');
+
+L.LotPolygon = L.Polygon.extend({
+    // TODO make this an option / extensible
+    _pickOpacity: function (zoom) {
+        if (zoom >= 19) {
+            return 0.25;
+        }
+        if (zoom >= 18) {
+            return 0.5;
+        }
+        if (zoom >= 17) {
+            return 0.85;
+        }
+        return 1;
+    },
+
+    _updatePath: function () {
+        // Update opacity
+        this.options.fillOpacity = this._pickOpacity(this._map.getZoom());
+        this._updateStyle();
+
+        this.updateActionPathScale();
+        L.Polygon.prototype._updatePath.call(this);
+    }
+});
+
+L.LotPolygon.include(L.LotPathMixin);
+
+L.LotPolygon.addInitHook(function () {
+    this.on({
+        'add': function () {
+            this.initActionPath();
+        }
+    });
+});
+
+L.lotPolygon = function (latlngs, options) {
+    return new L.LotPolygon(latlngs, options);
+};
+
+},{"./lotpath":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotpath.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js"}]},{},["/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/main.js"]);

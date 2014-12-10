@@ -32,7 +32,6 @@
     "jquery-deserialize": "~1.2.1",
     "jquery-serializeObject": "~1.0.0",
     "jquery-smartresize": "*",
-    "leaflet-vector-layers": "https://github.com/JasonSanford/leaflet-vector-layers.git#~1.5.1",
     "Leaflet.label": "~0.2.1",
     "Leaflet.utfgrid": "https://github.com/danzel/Leaflet.utfgrid.git",
     "jquery-form": "~3.46.0",

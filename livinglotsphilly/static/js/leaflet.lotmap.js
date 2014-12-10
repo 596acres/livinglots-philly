@@ -5,20 +5,55 @@
 var L = require('leaflet');
 var _ = require('underscore');
 var lotStyles = require('./lotstyles');
-var lvector = require('leaflet-vector-layers');
 var singleminded = require('./singleminded');
 
 require('leaflet.bing');
 require('leaflet.label');
 require('leaflet.loading');
 require('leaflet.utfgrid');
+require('livinglots.lotlayer');
 require('livinglots-map/src/livinglots.boundaries');
 
 require('./leaflet.geojsonbounds');
-require('./leaflet.lotlayer');
 require('./leaflet.message');
 require('./leaflet.legend');
 require('./leaflet.organizermarker');
+
+L.PhillyLotLayer = L.LotLayer.extend({
+    options: {
+        getTileQueryString: function () {
+            var filters = L.extend({}, this._map.filters),
+                omitKeys = ['centroid__within'];
+            return $.param(_.omit(filters, omitKeys), true);
+        },
+
+        onEachFeature: function (feature, layer) {
+            layer.on('click', function (event) {
+                layer._map.options.clickHandler(event, feature);
+                layer._map.fire('lotclicked', {
+                    event: event,
+                    lot: feature,
+                });
+            });
+        },
+
+        style: function (feature) {
+            return lotStyles.forLayer(feature.properties.layer);
+        }
+    }
+});
+
+L.PolygonLotLayer = L.PhillyLotLayer.extend({
+    options: L.extend(L.PhillyLotLayer.prototype.options, {
+        maxZoom: 19,
+        minZoom: 16,
+    })
+});
+
+L.polygonLotLayer = function (url, options) {
+    var opts = L.extend({}, L.PolygonLotLayer.prototype.options, options);
+    return new L.PolygonLotLayer(url, opts);
+};
 
 L.Map.include({
 
@@ -72,7 +107,7 @@ L.Map.include({
         this.addStreetsLayer();
 
         // Add overlays
-        this.addCentroidLayer();
+        //this.addCentroidLayer();
         this.addChoroplethLayer();
         this.addPolygonLayer();
         this.addTilesLayers();
@@ -83,6 +118,11 @@ L.Map.include({
 
         // Add events
         this.addZoomEvents();
+
+        // Update filters when they change
+        this.on('filterschange', function (event) {
+            this.filters = event.filters;
+        }, this);
     },
 
 
@@ -290,64 +330,11 @@ L.Map.include({
         if (!queryString) {
             queryString = this.options.polygonQueryString;
         }
-        this._loadPolygonLayer(queryString, true);
-    },
-
-    addToPolygonLayer: function (queryString) {
-        this._loadPolygonLayer(queryString, false);
-    },
-
-    reloadPolygonLayer: function (filters) {
-        if (this.polygons === undefined) return;
-        this.polygons._clearFeatures();
-        this.polygons._lastQueriedBounds = null;
-        this.polygons.options.filters = filters;
-        this.polygons._getFeatures();
-    },
-
-    _getPolygonLayer: function () {
-        var instance = this;
-        var symbologyValues = _.map(lotStyles.layers(), function (style, name) {
-            return {
-                value: name,
-                vectorOptions: style
-            };
-        });
-
-        return new lvector.LotLayer({
-            map: instance,
-            clickEvent: function (feature, event) {
-                instance.options.clickHandler(event, feature);
-                instance.fire('lotclicked', {
-                    event: event,
-                    lot: feature,
-                });
-            },
-            filters: this.options.polygonInitialFilters,
-            scaleRange: [16, 18],
-            symbology: {
-                type: 'unique',
-                property: 'layer',
-                values: symbologyValues,
-            },
-            uniqueField: 'pk',
-            url: this.options.polygonBaseUrl,
-        });
-    },
-
-    _loadPolygonLayer: function (queryString, clear) {
-        if (!this.options.enablePolygons) return;
-        if (!this.options.polygonBaseUrl) return;
-        var instance = this;
-
-        if (!instance.polygons) {
-            instance.polygons = instance._getPolygonLayer();
+        if (!(this.options.enablePolygons && this.options.polygonBaseUrl)) return;
+        if (!this.polygons) {
+            this.polygons = L.polygonLotLayer(this.options.polygonBaseUrl, {});
         }
-        if (clear) {
-            //instance.clearPolygonLayer();
-        }
-        //instance.addLayer(instance.polygons);
-        instance.polygons.setMap(instance);
+        this.polygons.addTo(this);
     },
 
 
@@ -355,69 +342,21 @@ L.Map.include({
      * Centroids
      */
 
-    _getCentroidLayer: function () {
-        var instance = this;
-
-        var symbologyValues = _.map(lotStyles.layers(), function (style, name) {
-            style.circleMarker = true;
-            return {
-                value: name,
-                vectorOptions: style
-            };
-        });
-
-        return new lvector.LotLayer({
-            map: null,
-            clickEvent: function (feature, event) {
-                instance.options.clickHandler(event, feature);
-                instance.fire('lotclicked', {
-                    event: event,
-                    lot: feature,
-                });
-            },
-            filters: instance.options.centroidInitialFilters,
-            scaleRange: [1, 16],
-            symbology: {
-                type: 'unique',
-                property: 'layer',
-                values: symbologyValues,
-            },
-            uniqueField: 'pk',
-            url: instance.options.centroidBaseUrl,
-        });
-    },
-
-    _loadCentroidLayer: function (queryString) {
-        if (!this.options.enableCentroids) return;
-        if (!this.options.centroidBaseUrl) return;
-        var instance = this;
-
-        if (!instance.centroids) {
-            instance.centroids = instance._getCentroidLayer();
-        }
-    },
-
     addCentroidLayer: function (queryString) {
-        this._loadCentroidLayer(queryString, true);
-    },
-
-    reloadCentroidLayer: function (filters) {
-        if (this.centroids === undefined) return;
-        this.centroids._clearFeatures();
-        this.centroids._lastQueriedBounds = null;
-        this.centroids.options.filters = filters;
-        this.centroids._getFeatures();
+        if (!(this.options.enableCentroids && this.options.centroidBaseUrl)) return;
+        if (!this.centroids) {
+            this.centroids = L.centroidLotLayer(this.options.centroidBaseUrl);
+        }
+        this.centroids.addTo(this);
     },
 
     showCentroidLayer: function () {
-        var instance = this;
-        instance.centroids.setMap(instance);
+        this.addLayer(this.centroids);
     },
 
     hideCentroidLayer: function () {
-        var instance = this;
-        if (instance.centroids) {
-            instance.centroids.setMap(null);
+        if (this.centroids) {
+            this.removeLayer(this.centroids);
         }
     },
 
@@ -707,9 +646,7 @@ L.Map.include({
         }
 
         // Now, reload everything
-        this.reloadCentroidLayer(filters);
         this.reloadChoropleth(filters);
-        this.reloadPolygonLayer(filters);
         this.reloadTiles(filters);
 
         this.fire('moveend').fire('zoomend');
