@@ -199,7 +199,7 @@ $(document).ready(function () {
             center: [39.952335, -75.163789],
             maxBounds: [
                 [39.147, -76.358],
-                [40.772, -73.952],
+                [40.772, -73.952]
             ],
             zoom: 11,
             mapboxId: mapboxId,
@@ -250,9 +250,9 @@ $(document).ready(function () {
 
             legendControl: true,
             legendFeatureTypes: [
-                { name: 'public', },
-                { name: 'private', },
-                { name: 'in use', },
+                { name: 'public' },
+                { name: 'private' },
+                { name: 'in use' }
             ],
 
             loadingControl: true,
@@ -266,13 +266,13 @@ $(document).ready(function () {
             enablePolygons: true,
             polygonBaseUrl: $('#map').data('polygonbaseurl'),
             polygonInitialFilters: {
-                parentsOnly: true,
+                parentsOnly: true
             },
 
             enableCentroids: true,
             centroidBaseUrl: $('#map').data('centroidbaseurl'),
             centroidInitialFilters: {
-                parentsOnly: true,
+                parentsOnly: true
             },
 
             lotsCentroidThreshold: 2000,
@@ -289,8 +289,7 @@ $(document).ready(function () {
 
             enablePointInUseTiles: true,
             pointInUseTilesBaseUrl: $('#map').data('pointinusetilesbaseurl'),
-            pointInUseGridBaseUrl: $('#map').data('pointinusegridbaseurl'),
-
+            pointInUseGridBaseUrl: $('#map').data('pointinusegridbaseurl')
         });
 
         /*

@@ -3,7 +3,7 @@ var L = require('leaflet');
 L.Control.Legend = L.Control.extend({
     options: {
         featureTypes: [],
-        position: 'bottomleft',
+        position: 'bottomleft'
     },
 
     initialize: function (options) {
@@ -45,7 +45,7 @@ L.Control.Legend = L.Control.extend({
             var label = L.DomUtil.create('label', '', featureItem);
             label.innerHTML = featureTypes[i].name;
         }
-    },
+    }
 
 });
 
@@ -57,6 +57,6 @@ L.Map.addInitHook(function () {
     if (!this.options.legendControl) { return; }
     var className = 'leaflet-bottom leaflet-left';
     this.legendControl = L.control.legend({
-        featureTypes: this.options.legendFeatureTypes,
+        featureTypes: this.options.legendFeatureTypes
     }).addTo(this);
 });
