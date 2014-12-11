@@ -3561,34 +3561,6 @@ header {
 .messages .success {
   color: green;
 }
-.activity-stream-section {
-  margin: 25px 0;
-}
-.activity-stream-container {
-  height: 150px;
-  overflow-y: scroll;
-  width: 100%;
-}
-.activity-stream-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.activity-stream-list-item {
-  border-bottom: 1px solid lightGray;
-  list-style: none;
-  padding: 10px;
-  padding-left: 0;
-}
-.activity-stream-list-item .meta {
-  font-size: 10px;
-}
-.activity-stream-list-item .timeago {
-  border: none;
-  cursor: default;
-  display: block;
-  font-size: 10px;
-}
 .collapsible-section-icon {
   margin-left: 15px;
 }
@@ -3657,109 +3629,49 @@ header {
 }
 .social-media-icon a {
   display: block;
+  height: 30px;
+  width: 30px;
 }
 .social-facebook {
   background: url(/static/img/facebook.png);
-  height: 30px;
-  width: 30px;
 }
 .social-rss {
   background: url(/static/img/rss.png);
-  height: 30px;
-  width: 30px;
 }
 .social-twitter {
-  background: url(/static/img/twitter.png);
-  height: 30px;
-  width: 30px;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANISURBVEiJvZfLb1tVEIc/n+tHHMeOc93YKW4M2G5xa0IaQqhCEWloKxFBFiCUTZe0C7YsYAv/BEhsENuyQIhFpApBKapKIkWhIiRWGpvWdSCPOnHi+HVd+7BIYzDJ9QMZ/5b3zMx3RufOnDkGKaUEiKeSTEfmiSY3SOUytFJOq42Ay81EaAif0wWAQUopf4gucv3uHUrlckuB/5YiBFODo4wHziDiqWRboAClcpnrd+8QTyUR05H5tkD/CZ+OzCOiyY22QQ8UTW4gWv0jNaJULoNoZUCrydywrbEVwKCrjwv+M6jWTmYTUW7Glur66Gbs7VYxCqVuAK+jh2sj47zQ18+eVsBsNNFpttT1U4anJj8+amHY+wxXR8axKCbW9lJopceHbCxGEx+8+iZdlg4AjtnsnDp2nFd8J1lNb/Mok9YF62Y8m4ixmdnljecG+eTSu1w5ex6vQ62yGfUF6e6wHvLtNFt476UL9D/pUk2Bc0WNG/d+JV3IYRQK5/qDfDQ2yfvnLmG3WBEGwbg/rBvYrBiZDA03D5ZS8nogjN1SndFpt5cPX3uLydCL9FhtuoEBQr3HcXc5APB0OTAYDJU1w7WvPpd6jr02B++ERwh7TtQE1NNOPse3S3PMJqKVbzXreDOzy83YIqs7W/8Zmi9qxFOb9NrsmJS/q6RuHftVD95utZ6ZrpYfrbG0+QcL63GKpVLj4OnlX5hJrHDed4rLJweagu5peb6cv1UFPFBDLXMru8fZp55uCgrw4++RI6FVYGGovYcv5m4R21pvGJrKZ/npfkR3vUKTssyA5wTqESXSYTIz9mwIv+ppCJot5vn05xtktYKuTeWMJbCwnuDt8MsE1F5W09topTI+p4rX3oNJaew+yWoFPpv5nrX0Tk27qmgS+Pq3WS4Gn+dycKCpa04CMw9X+GZxjoyWr2t/KA0JfLeywO0Hy1z0hxnzn8ZiNOkGyGkFFjYS3L6/TGy78WmmZueC/cmwz+6k3+Gq1HO+WCBT1Phzd5t7yXXKsvmZre7BlcplVne29rvXw6bj60o46zT6/0NOqw0RcLnbDg643IiJ0BCKaOnMV1OKEEyEhhA+p4upwdG2wA+eMD6na//tBO1/tP0F6tMt8BfxmasAAAAASUVORK5CYII=");
 }
-.admin-action {
-  font-size: 24px;
-  margin-bottom: 50px;
-}
-.admin-action-description {
-  font-size: 18px;
-}
-.admin-only {
-  font-family: Courier, monospace;
-}
-h2.entry-title {
-  font-size: 20px;
-  line-height: 20px;
-  margin-bottom: 0;
-}
-.hentry {
-  border-bottom: 1px solid #83bdb0;
-  margin-bottom: 50px;
-  padding-bottom: 25px;
-}
-.hentry.first {
-  margin-top: 50px;
-}
-.hentry:last-of-type {
-  border-bottom: none;
-}
-.hentry .meta {
-  font-size: 10px;
-}
-.entry-content,
-.entry-summary {
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-.entry-content img,
-.entry-summary img {
-  margin: 25px;
-}
-.download-links-message {
-  margin-top: 10px;
-}
-.email-participants-container {
-  display: none;
-  min-height: 100px;
+.activity-stream-container {
+  height: 250px;
+  overflow-y: scroll;
   width: 100%;
 }
-.email-participants-container .spinner {
-  margin-left: auto;
-  margin-right: auto;
-  top: 50px !important;
+.activity-stream-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.participant-add-success section {
-  margin-bottom: 25px;
+.activity-stream-list-item {
+  border-bottom: 1px solid lightGray;
+  list-style: none;
+  padding: 10px;
+  padding-left: 0;
 }
-.participant-add-success .pathway {
-  padding: 5px 0;
+.activity-stream-list-item .meta {
+  font-size: 10px;
 }
-.edit-participant-subscribed-lot {
-  margin-top: 5px;
+.activity-stream-list-item .timeago {
+  border: none;
+  cursor: default;
+  display: block;
+  font-size: 10px;
 }
-.edit-participant-subscribed-lot .subscribed-lot-link {
-  display: inline-block;
-  min-width: 200px;
+.overlaymenu-news {
+  width: 300px;
 }
-.file-detail {
-  border-bottom: 1px solid #888;
-  padding: 20px 0;
-}
-.file-detail:last-child {
-  border-bottom: 0;
-}
-.file-title {
-  font-size: 18px;
-  font-weight: bold;
-}
-.file-added {
-  color: #888;
-  float: right;
-  font-size: 12px;
-  font-weight: normal;
-}
-.file-added-by {
-  font-size: 18px;
-  font-weight: bold;
-}
-.file-added-by-prefix {
-  font-size: 12px;
+.overlaymenu-news .social-media-icon {
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 .map-filters {
   display: none;
@@ -3872,6 +3784,94 @@ h2.entry-title {
 .filter-owner-public {
   margin-left: 10%;
   width: 80%;
+}
+.admin-action {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+.admin-action-description {
+  font-size: 18px;
+}
+.admin-only {
+  font-family: Courier, monospace;
+}
+h2.entry-title {
+  font-size: 20px;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+.hentry {
+  border-bottom: 1px solid #83bdb0;
+  margin-bottom: 50px;
+  padding-bottom: 25px;
+}
+.hentry.first {
+  margin-top: 50px;
+}
+.hentry:last-of-type {
+  border-bottom: none;
+}
+.hentry .meta {
+  font-size: 10px;
+}
+.entry-content,
+.entry-summary {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.entry-content img,
+.entry-summary img {
+  margin: 25px;
+}
+.download-links-message {
+  margin-top: 10px;
+}
+.email-participants-container {
+  display: none;
+  min-height: 100px;
+  width: 100%;
+}
+.email-participants-container .spinner {
+  margin-left: auto;
+  margin-right: auto;
+  top: 50px !important;
+}
+.participant-add-success section {
+  margin-bottom: 25px;
+}
+.participant-add-success .pathway {
+  padding: 5px 0;
+}
+.edit-participant-subscribed-lot {
+  margin-top: 5px;
+}
+.edit-participant-subscribed-lot .subscribed-lot-link {
+  display: inline-block;
+  min-width: 200px;
+}
+.file-detail {
+  border-bottom: 1px solid #888;
+  padding: 20px 0;
+}
+.file-detail:last-child {
+  border-bottom: 0;
+}
+.file-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+.file-added {
+  color: #888;
+  float: right;
+  font-size: 12px;
+  font-weight: normal;
+}
+.file-added-by {
+  font-size: 18px;
+  font-weight: bold;
+}
+.file-added-by-prefix {
+  font-size: 12px;
 }
 .help-text {
   font-size: 10px;
