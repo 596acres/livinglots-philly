@@ -35,21 +35,21 @@ django-honeypot==0.4.0
 django-imagekit==3.2.4
 git+git://github.com/ebrelsford/django-inplace/@master
 git+git://github.com/ebrelsford/django-inplace-activity-stream/@master
+django.js==0.8.1
 django-jsonfield==0.9.13
 git+git://github.com/ebrelsford/Django-monitor/@master
 django-mptt==0.6.1
 git+git://github.com/burke-software/django-report-builder/@master
+djangorestframework==2.1.17
 django-reversion==1.8.5
 git+git://github.com/ebrelsford/django-reversion-compare/@master
 django-staticbuilder==0.4.0
 django-tastypie==0.12.0
-django.js==0.8.1
-djangorestframework==2.1.17
+django-widget-tweaks==1.3
 docutils==0.10
 feincms-cleanse==5
 feincms-elephantblog==1.0.0
 geojson==1.0.1
-django-widget-tweaks==1.3
 
 # Living Lots
 git+git://github.com/596acres/django-livinglots/@master
