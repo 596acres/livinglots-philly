@@ -252,7 +252,8 @@ $(document).ready(function () {
             legendFeatureTypes: [
                 { name: 'public' },
                 { name: 'private' },
-                { name: 'in use' }
+                { name: 'in use' },
+                { name: 'lots with activity' }
             ],
 
             loadingControl: true,

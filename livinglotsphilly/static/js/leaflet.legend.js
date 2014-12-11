@@ -33,7 +33,7 @@ L.Control.Legend = L.Control.extend({
     },
 
     _slugify: function (s) {
-        return s.replace(' ', '-');
+        return s.replace(/ /g, '-');
     },
 
     _update: function (featureTypes) {

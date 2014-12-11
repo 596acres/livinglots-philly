@@ -3967,6 +3967,14 @@ label {
 .legend-marker-in-use {
   background-color: #830f94;
 }
+.legend-marker-lots-with-activity {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwLBAQ2Ws5FvgAAAbdJREFUOMullbFrU1EUxn8neaYgMbyCFd8rIoQOkr8g0MUhYyeHTIWKHVxshzpFl1tIa2ocdVFQqBBc/AeEdlVwcJDioCgdmlcNKMZgTPKS6+DD5iUvvvfiWS7ncs937znfOd+FCKad7Tn9RaWjnE0EAtTVaf9Gt4Qra/8845kEAh6pPZAX2LpK3ZhH3PfAL/pkadLC5BZCTmxVHI01CL5mALqCQwHcr8AMMINBFZMcQh6oBYUaE0rR9NaCLwfNtSH/x8SU9eGdWYzOLkIb+I5wGc1CSP3fIrxGcwZI0s8sy4WNtpwUefM26DLT2XWx1UM/y5beAd7EhtLsY6lH423jYAIfYgMKH/lWyfx1dWPLotdTwFUgNWXKLYQHuNxN0OklgT7/Zwk0BqcwhkgpX0S79xGWYoLVMLgp59Sxv4Yd9zMS2ipBpGSZyzXGSUlRAi5NQUoe590Nf2N/UiYpnsZs7APgFZDxJm5ZbPVTJqjNc+BKyMsei6VWI8kXkPaC9hCeDYE8QXgJwIB0ZD0E2ogUxVIFNGueEDRIss55tYiwgtCNTtyIeOq6uvdn1sMFNuoFZ6N+Ab8BS9eKrMCBIaAAAAAASUVORK5CYII=");
+  background-size: contain;
+  height: 20px;
+  margin-left: -3px;
+  margin-top: -3px;
+  width: 20px;
+}
 @media (min-width: 768px) {
   .lot-content-inner {
     padding-right: 25px;

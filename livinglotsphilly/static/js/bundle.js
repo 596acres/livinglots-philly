@@ -8288,7 +8288,7 @@ L.Control.Legend = L.Control.extend({
     },
 
     _slugify: function (s) {
-        return s.replace(' ', '-');
+        return s.replace(/ /g, '-');
     },
 
     _update: function (featureTypes) {
@@ -9667,7 +9667,8 @@ $(document).ready(function () {
             legendFeatureTypes: [
                 { name: 'public' },
                 { name: 'private' },
-                { name: 'in use' }
+                { name: 'in use' },
+                { name: 'lots with activity' }
             ],
 
             loadingControl: true,
