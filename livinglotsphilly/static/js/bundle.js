@@ -8334,7 +8334,6 @@ require('livinglots.lotlayer');
 require('livinglots-map/src/livinglots.boundaries');
 
 require('./leaflet.geojsonbounds');
-require('./leaflet.message');
 require('./leaflet.legend');
 require('./leaflet.organizermarker');
 
@@ -8934,11 +8933,7 @@ L.Map.include({
         instance.on('zoomend', function () {
             var zoom = instance.getZoom();
             if (zoom >= 16) {
-                instance.messageControl.hide();
                 instance.hideChoropleth();
-            }
-            else {
-                instance.messageControl.show();
             }
 
             if (zoom >= 17) {
@@ -8994,62 +8989,7 @@ L.Map.include({
 
 L.Map.addInitHook('_lotMapInitialize');
 
-},{"./leaflet.geojsonbounds":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.geojsonbounds.js","./leaflet.legend":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.legend.js","./leaflet.message":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.message.js","./leaflet.organizermarker":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.organizermarker.js","./lotstyles":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/lotstyles.js","./singleminded":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/singleminded.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js","leaflet.bing":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet-plugins/layer/tile/Bing.js","leaflet.label":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Leaflet.label/dist/leaflet.label.js","leaflet.loading":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet.loading/src/Control.Loading.js","leaflet.utfgrid":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Leaflet.utfgrid/dist/leaflet.utfgrid-src.js","livinglots-map/src/livinglots.boundaries":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots-map/src/livinglots.boundaries.js","livinglots.lotlayer":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/index.js","underscore":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/underscore/underscore.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.message.js":[function(require,module,exports){
-var L = require('leaflet');
-
-L.Control.Message = L.Control.extend({
-    options: {
-        defaultHtml: 'Message goes here.',
-        position: 'topcenter',
-    },
-
-    initialize: function(options) {
-        L.setOptions(this, options);
-    },
-
-    onAdd: function(map) {
-        this._container = L.DomUtil.create('div', 'leaflet-control-message');
-        L.DomEvent.disableClickPropagation(this._container);
-
-        this._update(this.options.defaultHtml);
-
-        return this._container;
-    },
-
-    hide: function() {
-        L.DomUtil.addClass(this._container, 'is-hidden');
-    },
-
-    show: function() {
-        L.DomUtil.removeClass(this._container, 'is-hidden');
-    },
-
-    setMessage: function(html) {
-        this._update(html);
-    },
-
-    _update: function (html) {
-        if (!this._map) { return; }
-        this._container.innerHTML = html;
-    },
-
-});
-
-L.Map.addInitHook(function () {
-    if (!this.options.messageControl) { return; }
-    var className = 'leaflet-top leaflet-center';
-    this._controlCorners.topcenter = 
-        L.DomUtil.create('div', className, this._controlContainer);
-    this.messageControl = (new L.Control.Message({
-        defaultHtml: this.options.messageDefault,
-    })).addTo(this);
-});
-
-L.control.message = function(options) {
-    return new L.Control.Message(options);
-};
-
-},{"leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.organizermarker.js":[function(require,module,exports){
+},{"./leaflet.geojsonbounds":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.geojsonbounds.js","./leaflet.legend":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.legend.js","./leaflet.organizermarker":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.organizermarker.js","./lotstyles":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/lotstyles.js","./singleminded":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/singleminded.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js","leaflet.bing":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet-plugins/layer/tile/Bing.js","leaflet.label":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Leaflet.label/dist/leaflet.label.js","leaflet.loading":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/leaflet.loading/src/Control.Loading.js","leaflet.utfgrid":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/Leaflet.utfgrid/dist/leaflet.utfgrid-src.js","livinglots-map/src/livinglots.boundaries":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots-map/src/livinglots.boundaries.js","livinglots.lotlayer":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/index.js","underscore":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/bower_components/underscore/underscore.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/js/leaflet.organizermarker.js":[function(require,module,exports){
 var L = require('leaflet');
 
 require('./leaflet.organizerpath');
@@ -9660,9 +9600,6 @@ $(document).ready(function () {
                 }
             },
 
-            messageControl: true,
-            messageDefault: 'Zoom in for details',
-
             legendControl: true,
             legendFeatureTypes: [
                 { name: 'public' },
@@ -9735,7 +9672,6 @@ $(document).ready(function () {
 
         lotsMap.on('popupopen', function (e) {
             popupSpinner = new Spinner({}).spin($('#popup-content.loading')[0]);
-            lotsMap.messageControl.hide();
         });
 
         lotsMap.on('popupclose', function (e) {

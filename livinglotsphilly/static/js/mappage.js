@@ -245,9 +245,6 @@ $(document).ready(function () {
                 }
             },
 
-            messageControl: true,
-            messageDefault: 'Zoom in for details',
-
             legendControl: true,
             legendFeatureTypes: [
                 { name: 'public' },
@@ -320,7 +317,6 @@ $(document).ready(function () {
 
         lotsMap.on('popupopen', function (e) {
             popupSpinner = new Spinner({}).spin($('#popup-content.loading')[0]);
-            lotsMap.messageControl.hide();
         });
 
         lotsMap.on('popupclose', function (e) {
