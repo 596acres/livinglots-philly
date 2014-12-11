@@ -9611,7 +9611,7 @@ $(document).ready(function () {
 
         // Prepare our map
         lotsMap = L.map('map', {
-            center: [39.952335, -75.163789],
+            center: [39.991, -75.159],
             maxBounds: [
                 [39.147, -76.358],
                 [40.772, -73.952]

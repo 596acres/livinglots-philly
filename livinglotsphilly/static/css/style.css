@@ -4158,6 +4158,10 @@ ul.lot-detail-reasons {
 ul.lot-detail-reasons li {
   margin-bottom: 5px;
 }
+#map {
+  height: 500px;
+  width: 100%;
+}
 .recent-entry {
   margin-bottom: 5px;
   margin-top: 5px;
