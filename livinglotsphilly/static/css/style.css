@@ -3707,6 +3707,10 @@ h2.entry-title {
   margin-bottom: 10px;
   margin-top: 10px;
 }
+.entry-content img,
+.entry-summary img {
+  margin: 25px;
+}
 .download-links-message {
   margin-top: 10px;
 }
