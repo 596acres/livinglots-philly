@@ -45,6 +45,7 @@ django-reversion==1.8.5
 git+git://github.com/ebrelsford/django-reversion-compare/@master
 django-staticbuilder==0.4.0
 django-tastypie==0.12.0
+git+git://github.com/ebrelsford/django-twitter-feed/@master
 django-widget-tweaks==1.3
 docutils==0.10
 feincms-cleanse==5

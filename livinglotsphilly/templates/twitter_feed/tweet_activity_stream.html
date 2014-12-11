@@ -1,0 +1,3 @@
+{% load twitter_feed_tags %}
+
+{{ tweet.content|linkify_twitter_status|urlize|url_target_blank }}
