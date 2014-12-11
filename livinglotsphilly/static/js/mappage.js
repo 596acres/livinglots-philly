@@ -1,6 +1,7 @@
 var _ = require('underscore');
 var L = require('leaflet');
 var Spinner = require('spinjs');
+var friendlyowners = require('./friendlyowners');
 var singleminded = require('./singleminded');
 var streetview = require('./streetview');
 var welcome = require('./welcome');
@@ -400,6 +401,7 @@ $(document).ready(function () {
             $('.map-filters').toggle();
         });
 
+        friendlyowners.init(lotsMap);
         welcome.init();
 
         $('.overlay-filter-button').overlaymenu({

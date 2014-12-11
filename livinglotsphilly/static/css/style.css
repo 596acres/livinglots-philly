@@ -3610,6 +3610,13 @@ header {
 .collapsible-section-text {
   margin-bottom: 50px;
 }
+.map-friendlyowners {
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+.map-friendlyowners a {
+  color: white;
+}
 .overlaymenu {
   background: rgba(255, 255, 255, 0.95);
   border: 3px solid #437e71;
