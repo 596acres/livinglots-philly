@@ -15,7 +15,6 @@ require('livinglots.lotlayer');
 require('livinglots-map/src/livinglots.boundaries');
 
 require('./leaflet.geojsonbounds');
-require('./leaflet.message');
 require('./leaflet.legend');
 require('./leaflet.organizermarker');
 
@@ -615,11 +614,7 @@ L.Map.include({
         instance.on('zoomend', function () {
             var zoom = instance.getZoom();
             if (zoom >= 16) {
-                instance.messageControl.hide();
                 instance.hideChoropleth();
-            }
-            else {
-                instance.messageControl.show();
             }
 
             if (zoom >= 17) {

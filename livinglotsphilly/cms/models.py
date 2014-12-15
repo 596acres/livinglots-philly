@@ -7,6 +7,7 @@ from feincms.content.application.models import ApplicationContent
 from feincms.content.richtext.models import RichTextContent
 from feincms.content.medialibrary.models import MediaFileContent
 
+from mailinglist.cms import MailingListSignup
 from pathways.models import Pathway
 
 
@@ -84,6 +85,7 @@ Page.register_templates({
 Page.create_content_type(RichTextContent)
 
 Page.create_content_type(CollapsibleSectionContent)
+Page.create_content_type(MailingListSignup)
 Page.create_content_type(PathwayListContent)
 Page.create_content_type(RecentActivitiesContent)
 

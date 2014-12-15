@@ -1,0 +1,6 @@
+{% load twitter_feed_tags %}
+
+<span class="social-media-icon">
+    <a href="https://twitter.com/Grounded215" class="social-twitter" target="_blank"></a>
+</span>
+{{ tweet.content|linkify_twitter_status|urlize|url_target_blank }}

@@ -152,6 +152,7 @@ INSTALLED_APPS = (
     'report_builder',
     'reversion',
     'reversion_compare',
+    'twitter_feed',
     'widget_tweaks',
 
     #
@@ -306,3 +307,8 @@ LIVING_LOTS = {
         'parcel': 'waterdept.WaterParcel',
     },
 }
+
+TWITTER_FEED_CONSUMER_PUBLIC_KEY = get_env_variable('PHILLY_TWITTER_FEED_CONSUMER_PUBLIC_KEY')
+TWITTER_FEED_CONSUMER_SECRET = get_env_variable('PHILLY_TWITTER_FEED_CONSUMER_SECRET')
+TWITTER_FEED_OPEN_AUTH_TOKEN = get_env_variable('PHILLY_TWITTER_FEED_OPEN_AUTH_TOKEN')
+TWITTER_FEED_OPEN_AUTH_SECRET = get_env_variable('PHILLY_TWITTER_FEED_OPEN_AUTH_SECRET')
