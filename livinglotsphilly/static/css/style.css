@@ -3417,23 +3417,6 @@ input[type="color"]:last-child,
 .uneditable-input {
   margin-bottom: 10px;
 }
-#footer {
-  color: white;
-  padding-top: 50px;
-  text-align: center;
-}
-#footer a,
-#footer a:active,
-#footer a:hover {
-  color: white;
-  text-decoration: underline;
-}
-#footer .logos img {
-  background: white;
-  height: 75px;
-  margin: 10px;
-  padding: 5px;
-}
 #tagline {
   color: white;
   cursor: default;
@@ -3784,6 +3767,26 @@ header {
 .filter-owner-public {
   margin-left: 10%;
   width: 80%;
+}
+#footer {
+  color: white;
+  padding-top: 10px;
+  text-align: center;
+}
+#footer a,
+#footer a:active,
+#footer a:hover {
+  color: white;
+  display: inline-block;
+  text-decoration: underline;
+}
+#footer .logos {
+  margin-bottom: 25px;
+}
+#footer .logos img {
+  height: 75px;
+  margin: 10px;
+  padding: 10px;
 }
 .admin-action {
   font-size: 24px;
