@@ -1,0 +1,21 @@
+{% load i18n %}
+
+<div class="newsletter-row">
+    <div class="newsletter-signup">
+        <h2>{{ mailinglist.header_text }}</h2>
+
+        <form class="non-filter" action="{{ mailinglist.form_url }}" method="post" name="ccoptin" target="_blank">
+            <p>
+                <input class="form-control" placeholder="{% trans "Enter Email Address" %}" type="text" name="ea" value="" /> 
+                <button class="btn btn-default submit" type="submit" name="go">
+                    {{ mailinglist.button_text }}
+                </button>
+            </p>
+            <p>
+                <input type="hidden" name="llr" value="{{ mailinglist.llr }}" /> 
+                <input type="hidden" name="m" value="{{ mailinglist.m }}" /> 
+                <input type="hidden" name="p" value="oi" />
+            </p>
+        </form>
+    </div>
+</div>
