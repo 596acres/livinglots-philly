@@ -15,7 +15,6 @@ from livinglotsphilly.reversion_utils import InitialRevisionManagerMixin
 class LotManager(InitialRevisionManagerMixin, BaseLotManager):
 
     def get_lot_kwargs(self, parcel, **defaults):
-        # NB: Assumes parcels have these properties!
         kwargs = {
             'water_parcel': parcel,
             'polygon': parcel.geometry,
