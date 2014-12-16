@@ -13,6 +13,7 @@ for lot in Lot.objects.filter(known_use=None):
     }
     if lot.parcel:
         lotdict['basereg'] = lot.parcel.basereg
+        lotdict['tencode'] = lot.parcel.ten_code
     if lot.tax_account:
         lotdict['brt number'] = lot.tax_account.brt_number
     if lot.owner:

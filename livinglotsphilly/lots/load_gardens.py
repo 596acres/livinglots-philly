@@ -17,6 +17,7 @@ from steward.models import StewardProject
 # Basereg pattern [^-]{6}-[^-]{4}
 # Some Baseregs are doubled up
 
+# TODO next time use tencode / composite property ID
 def find_lot(basereg, address):
     try:
         return Lot.objects.get(parcel__basereg=basereg)
