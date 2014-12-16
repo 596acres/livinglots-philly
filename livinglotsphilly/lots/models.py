@@ -9,15 +9,6 @@ from django.utils.translation import ugettext_lazy as _
 from inplace.models import Place
 from livinglots_lots.models import BaseLotManager
 
-from phillydata.availableproperties.models import AvailableProperty
-from phillydata.landuse.models import LandUseArea
-from phillydata.opa.models import BillingAccount
-from phillydata.owners.models import Owner
-from phillydata.parcels.models import Parcel
-from phillydata.taxaccounts.models import TaxAccount
-from phillydata.violations.models import Violation
-from phillydata.waterdept.models import WaterParcel
-from phillyorganize.models import Organizer
 from livinglotsphilly.reversion_utils import InitialRevisionManagerMixin
 
 
@@ -58,42 +49,42 @@ class Lot(Place):
     objects = LotManager()
     visible = VisibleLotManager()
 
-    owner = models.ForeignKey(Owner,
+    owner = models.ForeignKey('owners.Owner',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
         help_text=_('The owner of this lot.'),
         verbose_name=_('owner'),
     )
-    billing_account = models.ForeignKey(BillingAccount,
+    billing_account = models.ForeignKey('opa.BillingAccount',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
         help_text=_("The owner's billing account for this lot."),
         verbose_name=_('billing account'),
     )
-    tax_account = models.ForeignKey(TaxAccount,
+    tax_account = models.ForeignKey('taxaccounts.TaxAccount',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
         help_text=_("The tax account for this lot."),
         verbose_name=_('tax account'),
     )
-    parcel = models.ForeignKey(Parcel,
+    parcel = models.ForeignKey('parcels.Parcel',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
         help_text=_('The parcel this lot is based on.'),
         verbose_name=_('parcel'),
     )
-    land_use_area = models.ForeignKey(LandUseArea,
+    land_use_area = models.ForeignKey('landuse.LandUseArea',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
         help_text=_('The land use area for this lot.'),
         verbose_name=_('land use'),
     )
-    violations = models.ManyToManyField(Violation,
+    violations = models.ManyToManyField('violations.Violation',
         blank=True,
         null=True,
         help_text=_('The violations associated with this lot.'),
@@ -105,12 +96,12 @@ class Lot(Place):
         help_text=_('The licenses associated with this lot.'),
         verbose_name=_('licenses'),
     )
-    available_property = models.ForeignKey(AvailableProperty,
+    available_property = models.ForeignKey('availableproperties.AvailableProperty',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
     )
-    water_parcel = models.ForeignKey(WaterParcel,
+    water_parcel = models.ForeignKey('waterdept.WaterParcel',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -158,7 +149,7 @@ class Lot(Place):
         help_text=('When this lot was added'),
     )
 
-    organizers = GenericRelation(Organizer)
+    organizers = GenericRelation('phillyorganize.Organizer')
     steward_projects = GenericRelation('steward.StewardProject')
     steward_inclusion_opt_in = models.BooleanField(_('steward inclusion opt-in'),
         default=False,
