@@ -10,6 +10,7 @@
     "leaflet-tilelayer-vector": "git://github.com/ebrelsford/leaflet-tilelayer-vector",
     "livinglots.lotlayer": "git://github.com/596acres/livinglots.lotlayer",
     "livinglots-map": "git://github.com/596acres/livinglots-map",
+    "livinglots.parcels": "git://github.com/596acres/livinglots.parcels",
     "tinymce": "^4.0.28"
   },
   "devDependencies": {

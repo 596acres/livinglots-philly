@@ -1,0 +1,11 @@
+{% extends "livinglots/notify/facilitators/base.txt" %}
+
+{% block details %}A new parcel (friendly owner) was posted!
+
+This information will not be live on the site until you approve it.
+
+View and change it here: http://{{ BASE_URL }}{% url "admin:friendlyowners_friendlyowner_change" obj.pk %}
+
+The lot's page is here: http://{{ BASE_URL }}{% url "lots:lot_detail" pk=target.pk %}
+
+Approve it here: http://{{ BASE_URL }}{% url "admin:friendlyowners_friendlyowner_changelist" %}?status=IP{% endblock %}

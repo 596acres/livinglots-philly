@@ -1,8 +1,46 @@
 .map-friendlyowners {
-    margin-bottom: 20px;
     margin-left: 10px;
+    padding-bottom: 20px;
 
     a {
         color: white;
+    }
+
+    .btn {
+        color: black;
+    }
+
+    &-explanation {
+        display: none;
+    }
+
+    &.active {
+        .map-friendlyowners-explanation {
+            display: block;
+        }
+    }
+}
+
+.friendlyowners-popup {
+    h1 {
+        color: @popup-header-color;
+        font-size: 24px;
+    }
+}
+
+.add-friendlyowner {
+    #friendlyowner-parcel-map {
+        height: 200px;
+        margin-bottom: 25px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &-row {
+        .make-row();
+    }
+
+    &-main {
+        .make-sm-column(9);
     }
 }

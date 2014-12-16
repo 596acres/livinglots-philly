@@ -666,6 +666,17 @@ L.Map.include({
         }
     },
 
+    /*
+     * Parcels
+     */
+    getParcelPopupContent: function (layer, feature) {
+        var content = '<div class="friendlyowners-popup"><h1>',
+            address = feature.properties.address || 'unknown address',
+            url = Django.url('friendlyowners:add') + '?' + $.param({ parcels: feature.id });
+        content += address + '</h1><div><a href="' + url + '" target="_blank" class="btn btn-default">Add parcel</a></div></div>';
+        return content;
+    }
+
 });
 
 L.Map.addInitHook('_lotMapInitialize');

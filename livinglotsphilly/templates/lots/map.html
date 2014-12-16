@@ -38,7 +38,17 @@
             </form>
         </div>
         <div class="map-friendlyowners">
-            <a href="#">I know of vacant land not on this map</a>
+            <a href="#" class="map-friendlyowners-activate">
+                {% trans "I know of vacant land not on this map" %}
+            </a>
+            <div class="map-friendlyowners-explanation">
+                {% trans "Find and select the parcel you would like to add." %}
+                <div>
+                    <a href="#" class="map-friendlyowners-cancel btn btn-default">
+                        {% trans "OK, I'm done" %}
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 

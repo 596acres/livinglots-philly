@@ -1,14 +1,41 @@
-var friendlyowners = require('livinglots.friendlyowners');
+var friendlyowners = require('livinglots.parcels');
+var L = require('leaflet');
+
+$(document).ready(function () {
+    if ($('.add-friendlyowner').length > 0) {
+        var parcelMap = L.map('friendlyowner-parcel-map', {}),
+            parcelPk = $(':input[name=parcels]').val(),
+            url = Django.url('waterdept:waterparcel_detail_geojson', { pk: parcelPk });
+        $.getJSON(url, function (data) {
+            console.log(data);
+            var parcelLayer = L.geoJson(data, {
+                style: function () {
+                    return {
+                        clickable: false,
+                        color: 'green',
+                        fillColor: 'green'
+                    };
+                }
+            }).addTo(parcelMap);
+            parcelMap.fitBounds(parcelLayer.getBounds());
+        });
+    }
+});
 
 module.exports = {
     init: function (map) {
-        $('.map-friendlyowners').click(function () {
-            if (map.getZoom() < 16) {
-                alert('Zoom in a bit more first');
+        $('.map-friendlyowners-activate').click(function () {
+            if (map.getZoom() < 17) {
+                alert('Zoom in a bit more to pick a parcel');
             }
-            else {
-                friendlyowners.init(map);
-            }
+            $('.map-friendlyowners').addClass('active');
+            friendlyowners.init(map);
+            return false;
+        });
+
+        $('.map-friendlyowners-cancel').click(function () {
+            $('.map-friendlyowners').removeClass('active');
+            friendlyowners.exit(map);
             return false;
         });
     }

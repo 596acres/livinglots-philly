@@ -288,7 +288,9 @@ $(document).ready(function () {
 
             enablePointInUseTiles: true,
             pointInUseTilesBaseUrl: $('#map').data('pointinusetilesbaseurl'),
-            pointInUseGridBaseUrl: $('#map').data('pointinusegridbaseurl')
+            pointInUseGridBaseUrl: $('#map').data('pointinusegridbaseurl'),
+
+            parcelsUrl: $('#map').data('parcelsbaseurl')
         });
 
         /*

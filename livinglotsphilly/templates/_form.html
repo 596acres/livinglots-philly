@@ -6,6 +6,7 @@
 
     {% for hidden in form.hidden_fields %}
     {{ hidden }}
+        {% if hidden.errors %}{{ hidden.errors }}{% endif %}
     {% endfor %}
 
     {% if form.non_field_errors %}

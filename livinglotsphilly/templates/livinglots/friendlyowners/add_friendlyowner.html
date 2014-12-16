@@ -1,39 +1,24 @@
-{% extends "modals/base.html" %}
+{% extends "base.html" %}
 {% load i18n inplace_tags %}
 
-{% block modal_header %}
-    {% trans "Add your parcel" %}
+{% block title %}
+    {% trans "Add a parcel" %} | {% trans "Grounded in Philly" %}
 {% endblock %}
 
-{% block modal_body %}
-    {% url "friendlyowners:add" as action_url %}
-    <form id="friendlyowner-add-form" class="form-horizontal" method="post" 
-        {% if action_url %}action="{{ action_url }}"{% endif %}
-        >
+{% block body_class %} add-friendlyowner {% endblock %}
 
-        {% include "forms/header.html" with form=form %}
-
-        <div class="row">
-            <div class="col-md-6">
-                {% include "forms/field.html" with field=form.name %}
-                {% include "forms/field.html" with field=form.email %}
-                {% include "forms/field.html" with field=form.phone %}
-            </div>
-            <div class="col-md-6">
-                {% include "forms/field.html" with field=form.notes %}
+{% block content %}
+    <div class="add-friendlyowner-row">
+        <div class="add-friendlyowner-main">
+            <h3>Add a parcel</h3>
+            <p>Here's the parcel you're about to add. Please enter some information about yourself so we can contact you if we have any questions. Once we have a chance to look at the parcel we'll add it to the map.</p>
+            <div id="friendlyowner-parcel-map"
+                data-l-mapbox-id="{% inplace_setting PLACES_MAPBOX_ID %}"
+                data-l-min-zoom="16"
+            ></div>
+            <div class="friendlyowner-form">
+                {% include "_form.html" with form=form %}
             </div>
         </div>
-
-        <p>{% trans "Select your parcel below. If you can't find it here, close this box, search for the address, and open this again." %}</p>
-
-        <div id="friendlyowner-parcel-map"
-            data-l-loading-control="true"
-            data-l-lot-polygons-url="{% url "lots:lot_geojson_polygon" %}"
-            data-l-mapbox-id="{% inplace_setting PLACES_MAPBOX_ID %}"
-            data-l-min-zoom="16"
-            data-l-parcels-url="{% url "parcels:parcel_geojson" %}"
-        ></div>
-
-        {% include "forms/footer.html" %}
-    </form>
+    </div>
 {% endblock %}

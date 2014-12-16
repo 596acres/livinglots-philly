@@ -19,9 +19,11 @@ urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT,
 urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += patterns('',
+    url(r'^friendlyowners/', include('friendlyowners.urls', 'friendlyowners')),
     url(r'^lots/', include('lots.urls', 'lots')),
     url(r'^places/', include('inplace.urls', 'inplace')),
     url(r'^parcels/', include('phillydata.parcels.urls', 'parcels')),
+    url(r'^waterdept/', include('phillydata.waterdept.urls', 'waterdept')),
 
     url(r'^extraadmin/', include('extraadmin.urls', 'extraadmin')),
 

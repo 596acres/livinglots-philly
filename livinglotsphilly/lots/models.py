@@ -2,13 +2,12 @@ from math import floor
 
 from django.contrib.contenttypes.generic import GenericRelation
 from django.contrib.gis.geos import MultiPolygon
-from django.contrib.gis.measure import D
 from django.db import models
-from django.db.models import Q
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
-from inplace.models import Place, PlaceManager
+from inplace.models import Place
+from livinglots_lots.models import BaseLotManager
 
 from phillydata.availableproperties.models import AvailableProperty
 from phillydata.landuse.models import LandUseArea
@@ -22,33 +21,29 @@ from phillyorganize.models import Organizer
 from livinglotsphilly.reversion_utils import InitialRevisionManagerMixin
 
 
-class LotManager(InitialRevisionManagerMixin, PlaceManager):
+class LotManager(InitialRevisionManagerMixin, BaseLotManager):
 
-    def get_visible(self):
-        """
-        Should be publicly viewable if:
-            * There is no known use or its type is visible
-            * The known_use_certainty is over 3
-            * If any steward_projects exist, they opted in to being included
-        """
-        return super(LotManager, self).get_queryset().filter(
-            Q(
-                Q(known_use__isnull=True) |
-                Q(known_use__visible=True, steward_inclusion_opt_in=True)
-            ),
-            known_use_certainty__gt=3,
-            group__isnull=True,
-        )
+    def get_lot_kwargs(self, parcel, **defaults):
+        # NB: Assumes parcels have these properties!
+        kwargs = {
+            'water_parcel': parcel,
+            'polygon': parcel.geometry,
+            'centroid': parcel.geometry.centroid,
+            'address_line1': parcel.address,
+            'name': parcel.address,
+            'city': 'Philadelphia',
+            'state_province': 'PA',
+        }
+        kwargs.update(**defaults)
 
-    def find_nearby(self, lot, include_self=False, visible_only=True, miles=.5):
-        """Find lots near the given lot."""
-        if visible_only:
-            qs = self.get_visible()
-        else:
-            qs = super(LotManager, self).get_queryset()
-        if not include_self:
-            qs = qs.exclude(pk=lot.pk)
-        return qs.filter(centroid__distance_lte=(lot.centroid, D(mi=miles)))
+        # Create or get owner for parcels
+        if parcel.owner1:
+            (owner, created) = Owner.objects.get_or_create(
+                name=parcel.owner1,
+            )
+            kwargs['owner'] = owner
+
+        return kwargs
 
 
 class VisibleLotManager(LotManager):

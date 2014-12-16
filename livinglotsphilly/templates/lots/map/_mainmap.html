@@ -6,6 +6,8 @@
     data-polygonbaseurl="{% url "lots:lot_geojson_polygon" %}"
     data-centroidbaseurl="{% url "lots:lot_geojson_centroid" %}"
 
+    data-parcelsbaseurl="{% url "waterdept:waterparcel_geojson" %}"
+
     data-pointprivatetilesbaseurl="{{ lot_tile_urls.private }}"
     data-pointprivategridbaseurl="{{ lot_tile_urls.private_grid }}"
 

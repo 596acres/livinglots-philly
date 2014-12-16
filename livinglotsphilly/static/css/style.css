@@ -3566,11 +3566,62 @@ header {
   margin-bottom: 50px;
 }
 .map-friendlyowners {
-  margin-bottom: 20px;
   margin-left: 10px;
+  padding-bottom: 20px;
 }
 .map-friendlyowners a {
   color: white;
+}
+.map-friendlyowners .btn {
+  color: black;
+}
+.map-friendlyowners-explanation {
+  display: none;
+}
+.map-friendlyowners.active .map-friendlyowners-explanation {
+  display: block;
+}
+.friendlyowners-popup h1 {
+  color: #553b43;
+  font-size: 24px;
+}
+.add-friendlyowner #friendlyowner-parcel-map {
+  height: 200px;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.add-friendlyowner-row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.add-friendlyowner-row:before,
+.add-friendlyowner-row:after {
+  content: " ";
+  display: table;
+}
+.add-friendlyowner-row:after {
+  clear: both;
+}
+.add-friendlyowner-row:before,
+.add-friendlyowner-row:after {
+  content: " ";
+  display: table;
+}
+.add-friendlyowner-row:after {
+  clear: both;
+}
+.add-friendlyowner-main {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .add-friendlyowner-main {
+    float: left;
+    width: 75%;
+  }
 }
 .overlaymenu {
   background: rgba(255, 255, 255, 0.95);
@@ -4567,7 +4618,7 @@ td.map-tally-container .map-tally {
 }
 #popup-content h1 a,
 #popup-content h1 a:visited {
-  color: #553B43;
+  color: #553b43;
 }
 .lot-popup-get-involved {
   margin-bottom: 15px;
