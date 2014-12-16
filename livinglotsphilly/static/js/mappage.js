@@ -203,6 +203,7 @@ $(document).ready(function () {
                 [40.772, -73.952]
             ],
             zoom: 11,
+            scrollWheelZoom: false,
             mapboxId: mapboxId,
             bingKey: 'ArBLp_jhvmrzT5Kg4_FXohJCKjbKmBW-nEEItp2dbceyHrJPMJJEqXDp8XsPy_cr',
             clickHandler: function (e, feature) {
