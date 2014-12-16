@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
         cssmin: {
             minify: {
-                src: '<%= less.all.dest %>',
+                src: '<%= less.production.dest %>',
                 dest: 'css/style.min.css'
             }
         },
@@ -41,12 +41,20 @@ module.exports = function(grunt) {
         },
 
         less: {
-            all: {
+            dev: {
+                options: {
+                    paths: ['css'],
+                    sourceMap: true
+                },
+                src: 'css/style.less',
+                dest: 'css/style.dev.css'
+            },
+            production: {
                 options: {
                     paths: ['css'],
                     yuicompress: true
                 },
-                src: 'css/style.less',
+                src: '<%= less.dev.src %>',
                 dest: 'css/style.css'
             }
         },
