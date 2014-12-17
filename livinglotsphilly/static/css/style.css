@@ -4125,6 +4125,10 @@ label {
   border: 1px solid black;
   cursor: pointer;
 }
+.lot-detail-map #map .leaflet-control-attribution {
+  font-size: 9px;
+  line-height: 10px;
+}
 .lot-detail-name {
   position: relative;
   min-height: 1px;
