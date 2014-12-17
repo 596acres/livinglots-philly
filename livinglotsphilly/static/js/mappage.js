@@ -330,11 +330,6 @@ $(document).ready(function () {
             // Load filters from search string in URL, update map/counts accordingly
             deserializeFilters();
             onFilterChange();
-
-            // Update map and UI with the current view
-            var currentView = $(':input[name=view_type]').val();
-            updateViewType(currentView);
-            lotsMap.changeView(currentView);
         });
 
         lotsMap.on('boundarieschange', function () {
