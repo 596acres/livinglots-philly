@@ -9534,37 +9534,6 @@ function exportView() {
     return false;
 }
 
-function updateViewType(viewType) {
-    currentViewType = viewType;
-    var viewTypeFilterSelector = '.view-type-' + viewType;
-
-    // {En,Dis}able filters that should be {en,dis}abled for this view type
-    $('.filter :input').prop('disabled', function (i, value) {
-        return !$(this).parents('.filter').is(viewTypeFilterSelector);
-    });
-
-    // Hide filters that have been disabled, show those enabled
-    $('.filter' + viewTypeFilterSelector).removeClass('is-disabled');
-    $('.filter:not(' + viewTypeFilterSelector + ')').addClass('is-disabled');
-
-    // Hide/Show filter labels if there are any filters enabled below
-    // them
-    $('.map-filters h2:not(.always-enabled)').each(function () {
-        if ($(this).nextAll().find('.filter:not(.is-disabled)').length > 0) {
-            $(this).show();
-        }
-        else {
-            $(this).hide();
-        }
-    });
-
-    // Always enable default filters (for counts)
-    $('.filter.default :input').prop('disabled', false);
-
-    // TODO for viewType===tiles, reset filters that are disabled 
-    //  (ensures sanity and that counts are appropriate)
-}
-
 function initializeBoundaries(map) {
     // Check for expected layers, console a warning
     var url = window.location.protocol + '//' + window.location.host +
@@ -9595,9 +9564,6 @@ function addBoundary(map, layer, pk) {
 }
 
 function onFilterChange() {
-    if ($(this).attr('name') === 'view_type') {
-        updateViewType($(this).val());
-    }
     updateCounts();
     var serializedFilters = $('.filters :input:not(.non-filter)').serializeObject();
     lotsMap.updateFilters(serializedFilters);
@@ -9744,7 +9710,6 @@ $(document).ready(function () {
         initializeBoundaries(lotsMap);
 
         lotsMap.on('boundarieschange', function () {
-            console.log('boundarieschange');
             var $activeBoundaries = $('.filter-boundaries').filter(function () {
                 return $(this).val() !== '';
             });
