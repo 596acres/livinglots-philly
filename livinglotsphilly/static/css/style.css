@@ -4128,6 +4128,9 @@ label {
 }
 .lot-detail-streetview #streetview-error {
   display: none;
+  font-style: italic;
+  margin-top: -225px;
+  text-align: center;
 }
 .lot-detail-map-row {
   margin-left: 0;
