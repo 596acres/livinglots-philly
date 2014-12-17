@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from inplace.models import Place
 from livinglots_lots.models import BaseLotManager
 
+from phillydata.owners.models import Owner
 from livinglotsphilly.reversion_utils import InitialRevisionManagerMixin
 
 
