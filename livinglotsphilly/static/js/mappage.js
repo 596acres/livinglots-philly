@@ -73,7 +73,12 @@ function updateCounts() {
  * Handle filter inputs
  */
 function serializeFilters() {
-    return $('form:not(.non-filter)').serialize();
+    // If showing organizing lots only, filter to those
+    var serialized = $('form:not(.non-filter)').serialize();
+    if ($('form :input[name=organizing]').val() === 'only') {
+        serialized += '&participant_types=organizers';
+    }
+    return serialized;
 }
 
 function deserializeFilters() {

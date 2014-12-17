@@ -3747,7 +3747,10 @@ header {
 .filter-section {
   border-bottom: 1px solid lightGray;
 }
-.filter-section:last-child {
+.filter-section:last-of-type {
+  border-bottom: 0;
+}
+.filter-section-projects {
   border-bottom: 0;
 }
 .filter-section-boundaries {
@@ -3759,6 +3762,9 @@ header {
  */
 .overlaymenu-filter {
   width: 300px;
+}
+.overlaymenu-filter .overlaymenu-menu-content {
+  max-height: 500px;
 }
 .filter-projects-row {
   margin-left: 0;
@@ -3783,7 +3789,7 @@ header {
 .filter-projects-row .control-label {
   position: relative;
   float: left;
-  width: 41.66666667%;
+  width: 58.33333333%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
@@ -3792,7 +3798,44 @@ header {
 .filter-projects-row .form-control {
   position: relative;
   float: left;
+  width: 41.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.filter-organizing-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.filter-organizing-row:before,
+.filter-organizing-row:after {
+  content: " ";
+  display: table;
+}
+.filter-organizing-row:after {
+  clear: both;
+}
+.filter-organizing-row:before,
+.filter-organizing-row:after {
+  content: " ";
+  display: table;
+}
+.filter-organizing-row:after {
+  clear: both;
+}
+.filter-organizing-row .control-label {
+  position: relative;
+  float: left;
   width: 58.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: left;
+}
+.filter-organizing-row .form-control {
+  position: relative;
+  float: left;
+  width: 41.66666667%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;

@@ -36,7 +36,11 @@
 .filter-section {
     border-bottom: 1px solid lightGray;
 
-    &:last-child {
+    &:last-of-type {
+        border-bottom: 0;
+    }
+
+    &-projects {
         border-bottom: 0;
     }
 }
@@ -53,18 +57,35 @@
 
 .overlaymenu-filter {
     width: 300px;
+
+    .overlaymenu-menu-content {
+        max-height: 500px;
+    }
 }
 
 .filter-projects-row {
     .make-row(0);
 
     .control-label {
-        .make-xs-column(5);
+        .make-xs-column(7);
         text-align: left;
     }
 
     .form-control {
+        .make-xs-column(5);
+    }
+}
+
+.filter-organizing-row {
+    .make-row(0);
+
+    .control-label {
         .make-xs-column(7);
+        text-align: left;
+    }
+
+    .form-control {
+        .make-xs-column(5);
     }
 }
 

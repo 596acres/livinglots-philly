@@ -8607,6 +8607,7 @@ L.Map.include({
 
     showTiles: function () {
         var instance = this;
+        if (instance.filters.organizing === 'only') return;
         if (instance.viewType !== 'tiles') return;
         var filtered = _.size(instance.filters) > 0,
             activeOwnerTypes = instance.getActiveOwnerTypes(instance.filters),
@@ -8679,8 +8680,13 @@ L.Map.include({
     */
     reloadTiles: function (filters) {
         var instance = this;
-        instance.filters = filters;
-        instance.showTiles();
+        this.filters = filters;
+        if (filters.organizing === 'only') {
+            this.hideTiles();
+        }
+        else {
+            this.showTiles();
+        }
     },
 
 
@@ -9483,7 +9489,12 @@ function updateCounts() {
  * Handle filter inputs
  */
 function serializeFilters() {
-    return $('form:not(.non-filter)').serialize();
+    // If showing organizing lots only, filter to those
+    var serialized = $('form:not(.non-filter)').serialize();
+    if ($('form :input[name=organizing]').val() === 'only') {
+        serialized += '&participant_types=organizers';
+    }
+    return serialized;
 }
 
 function deserializeFilters() {

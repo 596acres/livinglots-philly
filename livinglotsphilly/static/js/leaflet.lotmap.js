@@ -244,6 +244,7 @@ L.Map.include({
 
     showTiles: function () {
         var instance = this;
+        if (instance.filters.organizing === 'only') return;
         if (instance.viewType !== 'tiles') return;
         var filtered = _.size(instance.filters) > 0,
             activeOwnerTypes = instance.getActiveOwnerTypes(instance.filters),
@@ -316,8 +317,13 @@ L.Map.include({
     */
     reloadTiles: function (filters) {
         var instance = this;
-        instance.filters = filters;
-        instance.showTiles();
+        this.filters = filters;
+        if (filters.organizing === 'only') {
+            this.hideTiles();
+        }
+        else {
+            this.showTiles();
+        }
     },
 
 

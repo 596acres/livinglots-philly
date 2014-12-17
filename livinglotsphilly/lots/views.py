@@ -244,7 +244,7 @@ class LotsGeoJSONCentroid(LotGeoJSONMixin, FilteredLotsMixin, GeoJSONListView):
 class LotsCountView(FilteredLotsMixin, JSONResponseView):
 
     def get_context_data(self, **kwargs):
-        lots = self.get_lots()
+        lots = self.get_lots().distinct()
         context = {
             'lots-count': lots.count(),
             'no-known-use-count': lots.filter(known_use__isnull=True).count(),

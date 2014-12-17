@@ -35,7 +35,22 @@
                 <select class="filter filter-projects form-control view-type-choropleth view-type-tiles" name="projects" id="projects">
                     <option value="include">{% trans "include" %}</option>
                     <option value="exclude">{% trans "exclude" %}</option>
-                    <option value="only">{% trans "show only projects" %}</option>
+                    <option value="only">{% trans "show only" %}</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="filter-section filter-section-organizing">
+            <div class="form-horizontal filter-organizing-row">
+                <div class="control-label">
+                    <label for="organizing" class="">
+                        <span class="legend-marker legend-marker-lots-with-activity"></span>
+                        {% trans "lots with activity" %}
+                    </label>
+                </div>
+                <select class="filter filter-organizing form-control" name="organizing" id="organizing">
+                    <option value="include">{% trans "include" %}</option>
+                    <option value="only">{% trans "show only" %}</option>
                 </select>
             </div>
         </section>
