@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from livinglots_friendlyowners.views import (BaseAddFriendlyOwnerView,
                                              BaseAddFriendlyOwnerSuccessView)
 
+from lots.models import Lot
 from phillydata.waterdept.models import WaterParcel
 from .forms import FriendlyOwnerForm
 from .models import FriendlyOwner
@@ -21,6 +22,10 @@ class AddFriendlyOwnerView(BaseAddFriendlyOwnerView):
         return initial
 
     def get_success_url(self):
+        if self.request.user.has_perm('friendlyowners:moderate_friendlyowner'):
+            return reverse('lots:lot_detail', kwargs={
+                'pk': Lot.objects.get(friendlyowner=self.object).pk
+            })
         return reverse('friendlyowners:add_success')
 
 
