@@ -4,8 +4,11 @@ from .models import Lot
 
 
 def _fix_water_parcel(lot):
-    # Find and set to new one
-    lot.water_parcel = WaterParcel.objects.get(parcelid=lot.water_parcel.parcel_id)
+    try:
+        # Find and set to new one
+        lot.water_parcel = WaterParcel.objects.get(parcelid=lot.water_parcel.parcel_id)
+    except WaterParcel.DoesNotExist:
+        return
 
     # Update geometry
     lot.polygon = lot.water_parcel.geometry
