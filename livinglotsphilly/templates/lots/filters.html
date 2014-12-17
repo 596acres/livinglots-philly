@@ -6,80 +6,82 @@
 
 <div class="overlaymenu-menu-content filters">
     <h2>{% trans "Filter" %}</h2>
-    <ul class="filter-owner-list">
-        <li class="filter-owner">
-            <input id="layer-public" type="checkbox" class="filter filter-layer view-type-choropleth view-type-tiles" name="owner__owner_type__in" value="public" checked />
-            <label class="filter-owner-label" for="layer-public">
-                <span class="legend-marker legend-marker-public"></span>
-                <span class="filter-owner-label-text">{% trans "publicly owned land" %}</span>
-            </label>
-        </li>
-        <li class="filter-owner">
-            <input id="layer-private" type="checkbox" class="filter filter-layer view-type-choropleth view-type-tiles" name="owner__owner_type__in" value="private" checked />
-            <label class="filter-owner-label" for="layer-private">
-                <span class="legend-marker legend-marker-private"></span>
-                <span class="filter-owner-label-text">{% trans "private land" %}</span>
-            </label>
-        </li>
-    </ul>
-
-    <section class="filter-section filter-section-projects">
-        <div class="form-horizontal filter-projects-row">
-            <div class="control-label">
-                <label for="projects" class="">
-                    <span class="legend-marker legend-marker-in-use"></span>
-                    {% trans "projects" %}
+    <form>
+        <ul class="filter-owner-list">
+            <li class="filter-owner">
+                <input id="layer-public" type="checkbox" class="filter filter-layer view-type-choropleth view-type-tiles" name="owner__owner_type__in" value="public" checked />
+                <label class="filter-owner-label" for="layer-public">
+                    <span class="legend-marker legend-marker-public"></span>
+                    <span class="filter-owner-label-text">{% trans "publicly owned land" %}</span>
                 </label>
-            </div>
-            <select class="filter filter-projects form-control view-type-choropleth view-type-tiles" name="projects" id="projects">
-                <option value="include">{% trans "include" %}</option>
-                <option value="exclude">{% trans "exclude" %}</option>
-                <option value="only">{% trans "show only projects" %}</option>
-            </select>
-        </div>
-    </section>
+            </li>
+            <li class="filter-owner">
+                <input id="layer-private" type="checkbox" class="filter filter-layer view-type-choropleth view-type-tiles" name="owner__owner_type__in" value="private" checked />
+                <label class="filter-owner-label" for="layer-private">
+                    <span class="legend-marker legend-marker-private"></span>
+                    <span class="filter-owner-label-text">{% trans "private land" %}</span>
+                </label>
+            </li>
+        </ul>
 
-    <section class="filter-section filter-section-boundaries">
-        {% all_boundaries "City Council Districts" as ccs %}
-        {% if ccs %}
-            {% sort_int_labels ccs as sorted_ccs %}
-            <div class="filter-section-boundaries-item">
-                <label for="city-council-districts">city council districts</label>
-                <select id="city-council-districts" name="boundary_city_council_districts" class="form-control filter-boundaries filter-city-council-districts" data-layer="city council districts">
-                    <option value="">all</option>
-                    {% for cc in sorted_ccs %}
-                        <option value="{{ cc.pk }}">{{ cc.label }}</option>
-                    {% endfor %}
+        <section class="filter-section filter-section-projects">
+            <div class="form-horizontal filter-projects-row">
+                <div class="control-label">
+                    <label for="projects" class="">
+                        <span class="legend-marker legend-marker-in-use"></span>
+                        {% trans "projects" %}
+                    </label>
+                </div>
+                <select class="filter filter-projects form-control view-type-choropleth view-type-tiles" name="projects" id="projects">
+                    <option value="include">{% trans "include" %}</option>
+                    <option value="exclude">{% trans "exclude" %}</option>
+                    <option value="only">{% trans "show only projects" %}</option>
                 </select>
             </div>
-        {% endif %}
+        </section>
 
-        {% all_boundaries "Planning Districts" as planning_districts %}
-        {% if planning_districts %}
-            <div class="filter-section-boundaries-item">
-                <label for="planning-districts">planning districts</label>
-                <select id="planning-districts" name="boundary_planning_districts" class="form-control filter-boundaries filter-planning-districts" data-layer="planning districts">
-                    <option value="">all</option>
-                    {% for planning_district in planning_districts %}
-                        {% if planning_district.label %}
-                            <option value="{{ planning_district.pk }}">{{ planning_district.label }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-        {% endif %}
+        <section class="filter-section filter-section-boundaries">
+            {% all_boundaries "City Council Districts" as ccs %}
+            {% if ccs %}
+                {% sort_int_labels ccs as sorted_ccs %}
+                <div class="filter-section-boundaries-item">
+                    <label for="city-council-districts">city council districts</label>
+                    <select id="city-council-districts" name="boundary_city_council_districts" class="form-control filter-boundaries filter-city-council-districts" data-layer="city council districts">
+                        <option value="">all</option>
+                        {% for cc in sorted_ccs %}
+                            <option value="{{ cc.pk }}">{{ cc.label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
 
-        {% all_boundaries "zipcodes" as zipcodes %}
-        {% if zipcodes %}
-            <div class="filter-section-boundaries-item">
-                <label for="zipcodes">zip codes</label>
-                <select id="zipcodes" name="boundary_zipcodes" class="form-control filter-boundaries filter-zipcodes" data-layer="zipcodes">
-                    <option value="">all</option>
-                    {% for zipcode in zipcodes %}
-                        <option value="{{ zipcode.pk }}">{{ zipcode.label }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        {% endif %}
-    </section>
+            {% all_boundaries "Planning Districts" as planning_districts %}
+            {% if planning_districts %}
+                <div class="filter-section-boundaries-item">
+                    <label for="planning-districts">planning districts</label>
+                    <select id="planning-districts" name="boundary_planning_districts" class="form-control filter-boundaries filter-planning-districts" data-layer="planning districts">
+                        <option value="">all</option>
+                        {% for planning_district in planning_districts %}
+                            {% if planning_district.label %}
+                                <option value="{{ planning_district.pk }}">{{ planning_district.label }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+
+            {% all_boundaries "zipcodes" as zipcodes %}
+            {% if zipcodes %}
+                <div class="filter-section-boundaries-item">
+                    <label for="zipcodes">zip codes</label>
+                    <select id="zipcodes" name="boundary_zipcodes" class="form-control filter-boundaries filter-zipcodes" data-layer="zipcodes">
+                        <option value="">all</option>
+                        {% for zipcode in zipcodes %}
+                            <option value="{{ zipcode.pk }}">{{ zipcode.label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+        </section>
+    </form>
 </div>

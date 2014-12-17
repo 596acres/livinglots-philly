@@ -105,7 +105,6 @@ function deserializeFilters() {
     var centroidString = $(':input[name="centroid"]').val();
     if (centroidString) {
         mapViewportSet = true;
-        // TODO This works, but doesn't seem to make the lotlayer load?
         lotsMap.setView(JSON.parse(centroidString), zoom);
     }
 }
