@@ -13,6 +13,14 @@
         <p>{% trans "We think this lot is vacant because:" %}
         <ul class="lot-detail-reasons">
 
+            {% if lot.friendlyowner_set.exists %}
+                <li>
+                    {% blocktrans %}
+                        Someone told us that this lot is vacant and asked us to add it to the map.
+                    {% endblocktrans %}
+                </li>
+            {% endif %}
+
             {% if lot.land_use_area and lot.land_use_area.category == "Vacant or Other" %}
                 <li>
                     {% blocktrans with description=lot.land_use_area.description %}
