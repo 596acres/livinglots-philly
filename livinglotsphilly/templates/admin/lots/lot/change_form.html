@@ -56,11 +56,11 @@
         var parcelId = null;
 
         function clearParcelId() {
-            $('#id_parcel_pk').val('');
+            $('#id_water_parcel_pk').val('');
         }
 
         function setParcelId() {
-            $('#id_parcel_pk').val(parcelId);
+            $('#id_water_parcel_pk').val(parcelId);
         }
 
         function shouldUseParcel() {
@@ -70,7 +70,7 @@
         function onParcelFound(data) {
             $('.loading').hide();
             if (data.features.length === 0) {
-                $('#id_parcel_pk').val(null);
+                $('#id_water_parcel_pk').val(null);
                 $('#change-lot-parcel-message').text("Couldn't find a parcel!");
                 return;
             }
@@ -131,16 +131,15 @@
             $('.loading').show();
 
             // Try to display new parcels, by address
-            var url = '{% url "parcels:find_parcel" %}?' + $.param(params);
+            var url = '{% url "waterdept:waterparcel_find" %}?' + $.param(params);
             $.getJSON(url, function(data) {
                 onParcelFound(data);
             });
-            
         }
 
         // Load the parcel if this lot already has one
-        if ($('#id_parcel_pk').val() !== '') {
-            findParcel({'pk': $('#id_parcel_pk').val()});
+        if ($('#id_water_parcel_pk').val() !== '') {
+            findParcel({'pk': $('#id_water_parcel_pk').val()});
         }
 
         // TODO if findParcel fails, attempt geocode, then look for parcel that

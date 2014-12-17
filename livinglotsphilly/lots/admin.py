@@ -8,40 +8,40 @@ from django.utils.safestring import mark_safe
 
 from reversion_compare.admin import CompareVersionAdmin
 
-from phillydata.parcels.models import Parcel
+from phillydata.waterdept.models import WaterParcel
 from .admin_views import AddToGroupView
 from .models import Lot, LotGroup, Use
 
 
 class LotAdminForm(forms.ModelForm):
 
-    parcel_pk = forms.IntegerField(
+    water_parcel_pk = forms.IntegerField(
         required=False,
     )
 
     def __init__(self, *args, **kwargs):
         super(LotAdminForm, self).__init__(*args, **kwargs)
 
-        # Set parcel_pk if Lot has parcel
+        # Set water_parcel_pk if Lot has parcel
         try:
-            self.fields['parcel_pk'].initial = self.instance.parcel.pk
+            self.fields['water_parcel_pk'].initial = self.instance.water_parcel.pk
         except Exception:
             pass
 
     def save(self, *args, **kwargs):
         lot = super(LotAdminForm, self).save(*args, **kwargs)
 
-        # Give lot the parcel with parcel_pk
+        # Give lot the water_parcel with water_parcel_pk
         try:
-            parcel_pk = self.cleaned_data['parcel_pk']
-            lot.parcel = Parcel.objects.get(pk=parcel_pk)
+            water_parcel_pk = self.cleaned_data['water_parcel_pk']
+            lot.water_parcel = WaterParcel.objects.get(pk=water_parcel_pk)
 
             polygon_tied_to_parcel = self.cleaned_data['polygon_tied_to_parcel']
             if polygon_tied_to_parcel:
-                lot.centroid = lot.parcel.geometry.centroid
-                lot.polygon = lot.parcel.geometry
+                lot.centroid = lot.water_parcel.geometry.centroid
+                lot.polygon = lot.water_parcel.geometry
         except Exception:
-            # It's okay to have lots without parcels sometimes (eg, with
+            # It's okay to have lots without water parcels sometimes (eg, with
             # LotGroup instances).
             pass
 
@@ -80,7 +80,7 @@ class LotAdmin(OSMGeoAdmin, CompareVersionAdmin):
         ('Other data', {
             'classes': ('collapse',),
             'fields': ('owner_link', 'billing_account', 'tax_account',
-                       'parcel_pk', 'parcel_link', 'land_use_area',
+                       'water_parcel_pk', 'parcel_link', 'land_use_area',
                        'violations', 'available_property_link', 'water_parcel',
                        'city_council_district', 'zoning_district',
                        'polygon_area', 'polygon_width',
