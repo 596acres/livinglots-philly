@@ -1,5 +1,6 @@
 var friendlyowners = require('livinglots.parcels');
 var L = require('leaflet');
+require('leaflet.dataoptions');
 
 $(document).ready(function () {
     if ($('.add-friendlyowner').length > 0) {
@@ -7,7 +8,6 @@ $(document).ready(function () {
             parcelPk = $(':input[name=parcels]').val(),
             url = Django.url('waterdept:waterparcel_detail_geojson', { pk: parcelPk });
         $.getJSON(url, function (data) {
-            console.log(data);
             var parcelLayer = L.geoJson(data, {
                 style: function () {
                     return {
