@@ -73,7 +73,7 @@ function updateCounts() {
  * Handle filter inputs
  */
 function serializeFilters() {
-    return $('form').serialize() + '&' + $('.overlaymenu-filter :input').serialize();
+    return $('form').serialize();
 }
 
 function deserializeFilters() {
