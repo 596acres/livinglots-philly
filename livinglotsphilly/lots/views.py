@@ -49,9 +49,9 @@ from .models import Lot, Use
 class FilteredLotsMixin(object):
     """A mixin that makes it easy to filter on Lots using a LotResource."""
 
-    def get_lots(self):
+    def get_lots(self, visible_only=False):
         # Give the user a different set of lots based on their permissions
-        if self.request.user.has_perm('lots.view_all_lots'):
+        if not visible_only and self.request.user.has_perm('lots.view_all_lots'):
             resource = LotResource()
         else:
             resource = VisibleLotResource()
@@ -231,7 +231,8 @@ class LotsGeoJSONPolygon(LotGeoJSONMixin, FilteredLotsMixin, GeoJSONListView):
 class LotsGeoJSONCentroid(LotGeoJSONMixin, FilteredLotsMixin, GeoJSONListView):
 
     def get_queryset(self):
-        return self.get_lots().filter(centroid__isnull=False).distinct().geojson(
+        lots = self.get_lots(visible_only=True).filter(centroid__isnull=False).distinct()
+        return lots.geojson(
             field_name='centroid',
             precision=8,
         ).select_related('known_use', 'owner__owner_type')

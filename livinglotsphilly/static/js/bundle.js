@@ -8822,7 +8822,7 @@ L.Map.include({
     addOrganizersLayer: function (queryString) {
         var instance = this,
             url = instance.options.centroidBaseUrl + '?' + [
-                'known_use__isnull=true',
+                'projects=include',
                 'participant_types=organizers',
                 'owner__owner_type__in=private',
                 'owner__owner_type__in=public'
