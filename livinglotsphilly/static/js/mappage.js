@@ -73,7 +73,7 @@ function updateCounts() {
  * Handle filter inputs
  */
 function serializeFilters() {
-    return $('form').serialize();
+    return $('form:not(.non-filter)').serialize();
 }
 
 function deserializeFilters() {
@@ -107,6 +107,11 @@ function deserializeFilters() {
         mapViewportSet = true;
         lotsMap.setView(JSON.parse(centroidString), zoom);
     }
+
+    // Trigger boundaries update
+    $('.filter-boundaries').filter(function () {
+        return $(this).val() !== '';  
+    }).change();
 }
 
 function exportView() {
@@ -326,24 +331,29 @@ $(document).ready(function () {
             $('#streetview-container').hide();
         });
 
-        lotsMap.whenReady(function (e) {
-            // Load filters from search string in URL, update map/counts accordingly
-            deserializeFilters();
-            onFilterChange();
-        });
+        initializeBoundaries(lotsMap);
 
         lotsMap.on('boundarieschange', function () {
-            if (lotsMap.boundariesLayer.getLayers().length > 0) {
-                $('.filter-boundaries').each(function () {
-                    if ($(this).val() === '') return;
+            console.log('boundarieschange');
+            var $activeBoundaries = $('.filter-boundaries').filter(function () {
+                return $(this).val() !== '';
+            });
+            if ($activeBoundaries.length > 0) {
+                $activeBoundaries.each(function () {
                     $('.map-tally-header-boundary-layer').text($(this).data('layer').slice(0, -1));
-                    $('.map-tally-header-boundary-label').text($(this).val());
+                    $('.map-tally-header-boundary-label').text($(this).find('option:selected').text());
                 });
                 $('body').addClass('boundary');
             }
             else {
-                $('body').removeClass('no-boundary');
+                $('body').removeClass('boundary');
             }
+        });
+
+        lotsMap.whenReady(function (e) {
+            // Load filters from search string in URL, update map/counts accordingly
+            deserializeFilters();
+            onFilterChange();
         });
 
         /*
@@ -351,12 +361,11 @@ $(document).ready(function () {
          */
         $('.filters :input:not(.non-filter)').change(onFilterChange);
 
-
         /*
          * Handle export actions
          */
-        $('.export-link').click(function () {
-            // TODO make shorter urls
+        $('.export-link').click(function (e) {
+            e.preventDefault();
             window.location.search = serializeFilters();
         });
 
@@ -408,7 +417,5 @@ $(document).ready(function () {
         $('.overlay-download-button').overlaymenu({
             menu: '.overlaymenu-download'
         });
-
-        initializeBoundaries(lotsMap);
     }
 });
