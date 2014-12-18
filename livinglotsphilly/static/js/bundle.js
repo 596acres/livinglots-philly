@@ -8852,11 +8852,12 @@ L.Map.include({
         this.on('filterschange', function (event) {
             if (this.organizers) {
                 // Handle owners
-                var ownerFilters = event.filters.owner__owner_type__in;
+                var ownerFilters = event.filters.owner__owner_type__in,
+                    projectsFilter = event.filters.projects;
                 if (!ownerFilters) {
                     ownerFilters = [];
                 }
-                if (!_.isArray(ownerFilters)) {
+                else if (!_.isArray(ownerFilters)) {
                     ownerFilters = [ownerFilters];
                 }
                 this.organizers.eachLayer(function (layer) {
@@ -8865,6 +8866,16 @@ L.Map.include({
                         layer.show();
                     }
                     else {
+                        layer.hide();
+                    }
+
+                    // Handle projects
+                    if (event.filters.projects === 'only' && lotLayer !== 'in use') {
+                        // Hide everything not 'in use'
+                        layer.hide();
+                    }
+                    else if (projectsFilter === 'exclude' && lotLayer === 'in use') {
+                        // Hide everything 'in use'
                         layer.hide();
                     }
                 });
