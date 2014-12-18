@@ -107,28 +107,6 @@ input[type="color"]:last-child,
     margin-bottom: 10px;
 }
 
-.is-open {
-}
-
-#tagline {
-    color: white;
-    cursor: default;
-    float: right;
-    font-style: italic;
-    height: 0;
-    right: 250px;
-    position: relative;
-    top: -23px;
-}
-
-@media (max-width: 600px) {
-
-    #tagline {
-        display: none;
-    }
-
-}
-
 header {
     margin-left: auto;
     margin-right: auto;
@@ -141,8 +119,9 @@ header {
 
 #logo {
     background: url(/static/img/logo.jpg);
+    background-size: contain;
     display: block;
-    height: 72px;
+    height: 95px;
     left: 25px;
     position: relative;
     width: 162px;

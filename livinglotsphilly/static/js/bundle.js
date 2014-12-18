@@ -8013,7 +8013,6 @@ $(document).ready(function () {
             parcelPk = $(':input[name=parcels]').val(),
             url = Django.url('waterdept:waterparcel_detail_geojson', { pk: parcelPk });
         $.getJSON(url, function (data) {
-            console.log(data);
             var parcelLayer = L.geoJson(data, {
                 style: function () {
                     return {
@@ -20587,8 +20586,8 @@ L.lotPolygon = function (latlngs, options) {
 };
 
 },{"./lotpath":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotpath.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.parcels/node_modules/leaflet/dist/leaflet-src.js":[function(require,module,exports){
-module.exports=require("/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js")
-},{"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.parcels/src/index.js":[function(require,module,exports){
+module.exports=require("/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js")
+},{"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.parcels/src/index.js":[function(require,module,exports){
 //
 // Add parcel functionality to a leaflet map
 //
