@@ -28,23 +28,12 @@ L.OrganizerMarker = L.CircleMarker.extend({
         return radius;
     },
 
-    _updateVisibility: function (zoom) {
-        // Hide circles once we zoom in enough to see polygons
-        if (zoom >= 17) {
-            this._path.style.display = 'none';
-        }
-        else {
-            this._path.style.display = 'block';
-        }
-    },
-
     _updatePath: function () {
         var zoom = this._map.getZoom();
 
         // Update the circle's radius according to the map's zoom level
         this.options.radius = this._radius = this._pickRadius(zoom);
 
-        this._updateVisibility(zoom);
         this.updateActionPathScale();
         L.CircleMarker.prototype._updatePath.call(this);
     }

@@ -650,21 +650,27 @@ L.Map.include({
     */
 
     addZoomEvents: function () {
-        var instance = this;
-        instance.on('zoomend', function () {
-            var zoom = instance.getZoom();
+        this.on('zoomend', function () {
+            var zoom = this.getZoom();
             if (zoom >= 16) {
-                instance.hideChoropleth();
+                this.hideChoropleth();
             }
 
             if (zoom >= 17) {
-                instance.hideTiles();
+                this.hideTiles();
+
+                if (this.organizers) {
+                    this.removeLayer(this.organizers);
+                }
             }
             else {
-                instance.showTiles();
-            }
+                this.showTiles();
 
-        });
+                if (this.organizers) {
+                    this.addLayer(this.organizers);
+                }
+            }
+        }, this);
     },
 
 

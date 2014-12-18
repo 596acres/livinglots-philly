@@ -9098,21 +9098,27 @@ L.Map.include({
     */
 
     addZoomEvents: function () {
-        var instance = this;
-        instance.on('zoomend', function () {
-            var zoom = instance.getZoom();
+        this.on('zoomend', function () {
+            var zoom = this.getZoom();
             if (zoom >= 16) {
-                instance.hideChoropleth();
+                this.hideChoropleth();
             }
 
             if (zoom >= 17) {
-                instance.hideTiles();
+                this.hideTiles();
+
+                if (this.organizers) {
+                    this.removeLayer(this.organizers);
+                }
             }
             else {
-                instance.showTiles();
-            }
+                this.showTiles();
 
-        });
+                if (this.organizers) {
+                    this.addLayer(this.organizers);
+                }
+            }
+        }, this);
     },
 
 
@@ -9200,23 +9206,12 @@ L.OrganizerMarker = L.CircleMarker.extend({
         return radius;
     },
 
-    _updateVisibility: function (zoom) {
-        // Hide circles once we zoom in enough to see polygons
-        if (zoom >= 17) {
-            this._path.style.display = 'none';
-        }
-        else {
-            this._path.style.display = 'block';
-        }
-    },
-
     _updatePath: function () {
         var zoom = this._map.getZoom();
 
         // Update the circle's radius according to the map's zoom level
         this.options.radius = this._radius = this._pickRadius(zoom);
 
-        this._updateVisibility(zoom);
         this.updateActionPathScale();
         L.CircleMarker.prototype._updatePath.call(this);
     }
