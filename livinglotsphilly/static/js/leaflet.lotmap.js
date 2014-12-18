@@ -370,7 +370,7 @@ L.Map.include({
      * Organizers
      */
 
-    addOrganizersLayer: function (queryString) {
+    addOrganizersLayer: function () {
         var instance = this,
             url = instance.options.centroidBaseUrl + '?' + [
                 'projects=include',
