@@ -8827,7 +8827,7 @@ L.Map.include({
                 'owner__owner_type__in=public'
             ].join('&');
         $.getJSON(url, function (data) {
-            this.organizers = L.geoJson(data, {
+            instance.organizers = L.geoJson(data, {
                 onEachFeature: function (feature, layer) {
                     layer.on('click', function (event) {
                         instance.options.clickHandler(event, feature);
@@ -8847,6 +8847,29 @@ L.Map.include({
                 }
             }).addTo(instance);
         });
+
+        // When filters change, update this layer too
+        this.on('filterschange', function (event) {
+            if (this.organizers) {
+                // Handle owners
+                var ownerFilters = event.filters.owner__owner_type__in;
+                if (!ownerFilters) {
+                    ownerFilters = [];
+                }
+                if (!_.isArray(ownerFilters)) {
+                    ownerFilters = [ownerFilters];
+                }
+                this.organizers.eachLayer(function (layer) {
+                    var lotLayer = layer.feature.properties.layer;
+                    if (lotLayer === 'in use' || _.contains(ownerFilters, lotLayer)) {
+                        layer.show();
+                    }
+                    else {
+                        layer.hide();
+                    }
+                });
+            }
+        }, this);
     },
 
 
