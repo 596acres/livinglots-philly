@@ -63,9 +63,9 @@ git+git://github.com/596acres/django-livinglots-lots/@v0.8.1
 git+git://github.com/596acres/django-livinglots-mailings/@v0.4.0
 git+git://github.com/596acres/django-livinglots-mailsender/@v0.1.1
 git+git://github.com/596acres/django-livinglots-notify/@v0.2.5
-git+git://github.com/596acres/django-livinglots-organize/@0.5.2
-git+git://github.com/596acres/django-livinglots-pathways/@0.2.3
-git+git://github.com/596acres/django-livinglots-usercontent/@0.4.2
+git+git://github.com/596acres/django-livinglots-organize/@v0.5.2
+git+git://github.com/596acres/django-livinglots-pathways/@v0.2.3
+git+git://github.com/596acres/django-livinglots-usercontent/@v0.4.2
 
 # Living Lots Philly
 git+git://github.com/ebrelsford/django-phillydata.git@master
