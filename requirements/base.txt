@@ -60,7 +60,7 @@ git+git://github.com/596acres/django-livinglots-friendlyowners/@v0.1.1
 git+git://github.com/596acres/django-livinglots-genericviews/@v1.3.3
 git+git://github.com/596acres/django-livinglots-groundtruth/@v0.2.0
 git+git://github.com/596acres/django-livinglots-lots/@v0.8.1
-git+git://github.com/596acres/django-livinglots-mailings/@0.4.0
+git+git://github.com/596acres/django-livinglots-mailings/@v0.4.0
 git+git://github.com/596acres/django-livinglots-mailsender/@v0.1.1
 git+git://github.com/596acres/django-livinglots-notify/@v0.2.5
 git+git://github.com/596acres/django-livinglots-organize/@0.5.2
