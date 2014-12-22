@@ -7,25 +7,10 @@ from feincms.content.application.models import ApplicationContent
 from feincms.content.richtext.models import RichTextContent
 from feincms.content.medialibrary.models import MediaFileContent
 
+from livinglots_pathways.cms import PathwayListContent
+
 from mailinglist.cms import MailingListSignup
 from pathways.models import Pathway
-
-
-class PathwayListContent(models.Model):
-
-    class Meta:
-        abstract = True
-        verbose_name = _('pathway list')
-        verbose_name_plural = _('pathway lists')
-
-    def render(self, **kwargs):
-        context = {
-            'pathway_list': Pathway.objects.all().order_by('name'),
-        }
-        context.update(kwargs)
-        return render_to_string([
-            'pathways/page_content_list.html',
-        ], context, context_instance=kwargs.get('context'))
 
 
 class CollapsibleSectionContent(RichTextContent):

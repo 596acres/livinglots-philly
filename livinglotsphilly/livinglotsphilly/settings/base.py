@@ -164,6 +164,7 @@ INSTALLED_APPS = (
     'livinglots_friendlyowners',
     'livinglots_mailings',
     'livinglots_organize',
+    'livinglots_pathways',
     'livinglots_usercontent.files',
     'livinglots_usercontent.notes',
     'livinglots_usercontent.photos',
@@ -304,7 +305,9 @@ LIVING_LOTS = {
     'MODELS': {
         'lot': 'lots.Lot',
         'organizer': 'phillyorganize.Organizer',
+        'owner': 'owners.Owner',
         'parcel': 'waterdept.WaterParcel',
+        'pathway': 'pathways.Pathway',
     },
 }
 
