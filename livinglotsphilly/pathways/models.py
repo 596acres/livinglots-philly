@@ -18,9 +18,17 @@ class PathwayManager(BasePathwayManager):
         licenses_exist = lot.licenses.count() != 0
         pathways = pathways.filter(Q(has_licenses=licenses_exist) |
                                    Q(has_licenses=None))
+
+        # Violations
         violations_exist = lot.violations.count() != 0
         pathways = pathways.filter(Q(has_violations=violations_exist) |
                                    Q(has_violations=None))
+
+        # If lot has violations, make sure the types match.
+        pathways = pathways.filter(
+            Q(violation_types__isnull=True) |
+            Q(violation_types__in=lot.violations.values_list('violation_type__pk', flat=True))
+        )
 
         # Available property filters
         is_available_property = lot.available_property is not None
@@ -41,6 +49,11 @@ class Pathway(PathwayFeinCMSMixin, BasePathway, Base):
     )
     has_violations = models.NullBooleanField(_('has violations from L&I'),
         help_text=_('Does the lot have vacancy-related violations from L&I?'),
+    )
+    violation_types = models.ManyToManyField('violations.ViolationType',
+        blank=True,
+        null=True,
+        help_text=_('This pathway applies to lots with these violation types.'),
     )
 
     @app_models.permalink
