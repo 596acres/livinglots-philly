@@ -53,7 +53,7 @@ feincms-elephantblog==1.0.0
 geojson==1.0.1
 
 # Living Lots
-git+git://github.com/596acres/django-livinglots/@master
+git+git://github.com/596acres/django-livinglots/@v0.2.5
 django-livinglots-generictags==1.0
 git+git://github.com/596acres/django-livinglots-flatblockspreview/@master
 git+git://github.com/596acres/django-livinglots-friendlyowners/@master
