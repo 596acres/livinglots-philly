@@ -49,6 +49,7 @@ class LotAdminForm(forms.ModelForm):
         return lot
 
     class Meta:
+        fields = '__all__'
         model = Lot
 
 
