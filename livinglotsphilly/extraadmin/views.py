@@ -1,6 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
-from django.views.generic import FormView, TemplateView
+from django.views.generic import TemplateView
 
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 from livinglots_genericviews import JSONResponseView
@@ -8,82 +7,51 @@ from livinglots_organize.mail import mass_mail_organizers
 
 from phillyorganize.models import Organizer
 
-from forms import MailParticipantsForm
-from lots.api import LotResource
 from lots.models import Lot
+from lots.views import FilteredLotsMixin
 
 
-class MailParticipantsView(LoginRequiredMixin, PermissionRequiredMixin,
-                           FormView):
+class FilteredOrganizersMixin(FilteredLotsMixin):
 
-    form_class = MailParticipantsForm
-    permission_required = ('organize.email_participants')
-    template_name = 'extraadmin/mail_participants.html'
-
-    def form_valid(self, form):
-        subject = form.cleaned_data['subject']
-        message = form.cleaned_data['message']
-        filters = form.cleaned_data['filters']
-
-        resource = LotResource()
-        orm_filters = resource.build_filters(filters=filters)
-        lot_pks = resource.apply_filters(self.request, orm_filters).values_list('pk', flat=True)
-
-        participant_types = orm_filters.get('participant_types', [])
-
-        if 'organizers' in participant_types:
-            self._mail_organizers(lot_pks, subject, message)
-
-        return super(MailParticipantsView, self).form_valid(form)
-
-    def get_initial(self):
-        initial = super(MailParticipantsView, self).get_initial()
-        initial['participant_types'] = ('organizers',)
-        return initial
-
-    def get_success_url(self):
-        return reverse('extraadmin:mail_participants_success')
-
-    def _mail_organizers(self, lot_pks, subject, message):
-        organizers = Organizer.objects.filter(
+    def get_organizers(self):
+        lot_pks = self.get_lots(visible_only=True).values_list('pk', flat=True)
+        return Organizer.objects.filter(
             content_type=ContentType.objects.get_for_model(Lot),
             object_id__in=lot_pks,
         ).distinct()
-        organizers = organizers.exclude(email='')
-        mass_mail_organizers(subject, message, organizers)
 
 
-class MailParticipantsCountView(JSONResponseView):
+class MailParticipantsView(FilteredOrganizersMixin, LoginRequiredMixin,
+                           PermissionRequiredMixin, JSONResponseView):
+    permission_required = ('organize.email_participants')
+
+    def get(self, request, *args, **kwargs):
+        self.subject = request.GET.get('subject', None)
+        self.message = request.GET.get('text', None)
+        self._mail_organizers(self.subject, self.message)
+        return super(MailParticipantsView, self).get(request, *args, **kwargs)
+
+    def _mail_organizers(self, subject, message):
+        self.organizers = self.get_organizers()
+        self.organizers = self.organizers.exclude(email='')
+        mass_mail_organizers(subject, message, self.organizers)
 
     def get_context_data(self, **kwargs):
-        participant_types = self._get_participant_types()
-        lot_pks = self.get_lots().values_list('pk', flat=True)
         return {
-            'organizers': self._get_organizer_count(participant_types, lot_pks),
+            'emails': len(set(self.organizers.values_list('email', flat=True))),
+            'organizers': self.organizers.count(),
+            'subject': self.subject,
         }
 
-    def get_lots(self):
-        resource = LotResource()
-        orm_filters = resource.build_filters(filters=self.request.GET)
-        return resource.apply_filters(self.request, orm_filters)
 
-    def _get_participant_types(self):
-        return self.request.GET.getlist('participant_types', [])
+class MailParticipantsCountView(FilteredOrganizersMixin, JSONResponseView):
 
-    def _get_organizer_count(self, participant_types, lot_pks):
-        organizer_count = 0
-        if 'organizers' in participant_types:
-            organizer_count = Organizer.objects.filter(
-                content_type=ContentType.objects.get_for_model(Lot),
-                object_id__in=lot_pks,
-            ).distinct().count()
-        return organizer_count
-
-
-class MailParticipantsSuccessView(LoginRequiredMixin, PermissionRequiredMixin,
-                                  TemplateView):
-    permission_required = ('organize.email_participants')
-    template_name = 'extraadmin/mail_participants_success.html'
+    def get_context_data(self, **kwargs):
+        organizers = self.get_organizers()
+        return {
+            'emails': len(set(organizers.values_list('email', flat=True))),
+            'organizers': organizers.count(),
+        }
 
 
 class ExtraAdminIndex(LoginRequiredMixin, PermissionRequiredMixin,

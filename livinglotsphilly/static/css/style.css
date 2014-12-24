@@ -3323,6 +3323,20 @@ textarea.input-lg {
   border-width: 0 5px 5px;
   border-bottom-color: #000000;
 }
+/*
+ * Living Lots modules
+ */
+.map-mail-parent {
+  background-color: white;
+  display: none;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  z-index: 5000;
+}
+.map-mail-parent.on {
+  display: block;
+}
 * {
   margin: 0;
   padding: 0;
@@ -4847,4 +4861,8 @@ td.map-tally-container .map-tally {
 .leaflet-control-zoom a:visited,
 .leaflet-control-zoom a:active {
   color: black;
+}
+.email-participants-control-button {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAQAAABu4E3oAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfeDBgAASXmoqCIAAABPklEQVQ4y83TT0uUQRwH8M8T/sHagyAJWje7evbNhCC9CUEwJIJAKO3QocAOUZQX30BFBy8SYht1sJJQogxCAi9Rsd8Oz1Ppbrurl3DmMgPzYWZ+3xn+RyvUjk+2jk+C2NbourbhQjmIiHuodez9Fqq1YtW6uNVlj0vigy8leazPW3GzA5gTe0a9KMkT9NkSN9qAKfHRCF7+JQx5L+b/AWbFV6MoDhNO2xbXmsCk2HWuqm8TYdiOuHIAzIh95/9E0kIYEzFXzS6K78YPpNhECme8qmp/GdOiId7pbUcGPBdLhnyq4GfDFsWmwVZSGLAhroKzFtTdqe5wW7xuJf2eiYdtcrkr6mqHc1nrECSFB2Id9ZI89UisKDq+sWWx5k1JfojrR/go98ui9KDHTxNWu5Jvv0+5C04d6UM2nOT2C+f/kqeKKfnSAAAAAElFTkSuQmCC");
+  background-size: 15px 15px;
 }

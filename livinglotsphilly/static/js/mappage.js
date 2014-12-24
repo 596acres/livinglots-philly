@@ -6,7 +6,6 @@ var singleminded = require('./singleminded');
 var streetview = require('./streetview');
 var welcome = require('./welcome');
 
-require('./jquery.emailparticipants');
 require('./jquery.searchbar');
 
 // Filter [de]serialization
@@ -266,7 +265,12 @@ $(document).ready(function () {
             pointInUseTilesBaseUrl: $('#map').data('pointinusetilesbaseurl'),
             pointInUseGridBaseUrl: $('#map').data('pointinusegridbaseurl'),
 
-            parcelsUrl: $('#map').data('parcelsbaseurl')
+            parcelsUrl: $('#map').data('parcelsbaseurl'),
+
+            // livinglots.emailparticipants
+            emailOrganizersCountUrl: Django.url('extraadmin:mail_participants_count'),
+            sendEmailUrl: Django.url('extraadmin:mail_participants')
+
         });
 
         /*
@@ -342,11 +346,6 @@ $(document).ready(function () {
         $('.export-csv').click(exportView);
         $('.export-geojson').click(exportView);
         $('.export-kml').click(exportView);
-
-        // Fire up the emailparticipants
-        $('.email-participants').emailparticipants({
-            filterContainer: lotsMap,
-        });
 
 
         // Fire up searchbar

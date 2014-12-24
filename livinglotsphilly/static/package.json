@@ -8,6 +8,7 @@
   "dependencies": {
     "leaflet": "^0.7.3",
     "leaflet-tilelayer-vector": "git://github.com/ebrelsford/leaflet-tilelayer-vector",
+    "livinglots.emailparticipants": "git://github.com/596acres/livinglots.emailparticipants",
     "livinglots.lotlayer": "git://github.com/596acres/livinglots.lotlayer",
     "livinglots-map": "git://github.com/596acres/livinglots-map",
     "livinglots.parcels": "git://github.com/596acres/livinglots.parcels",

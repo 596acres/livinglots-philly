@@ -11,6 +11,7 @@ require('leaflet.bing');
 require('leaflet.label');
 require('leaflet.loading');
 require('leaflet.utfgrid');
+require('livinglots.emailparticipants');
 require('livinglots.lotlayer');
 require('livinglots-map/src/livinglots.boundaries');
 
@@ -114,6 +115,7 @@ L.Map.include({
 
         // Add controls
         this.addLayersControl();
+        this.addEmailParticipantsControl();
 
         // Add events
         this.addZoomEvents();
@@ -644,6 +646,13 @@ L.Map.include({
         var layersControl = L.control.layers(baseLayers, overlays).addTo(this);
     },
 
+    addEmailParticipantsControl: function () {
+        if (Django.user.is_superuser ||
+                Django.user.has_perm('phillyorganize.email_organizers')) {
+            L.control.emailParticipants({}).addTo(this);
+        }
+    },
+
 
     /*
     * Events
@@ -721,6 +730,15 @@ L.Map.include({
             url = Django.url('friendlyowners:add') + '?' + $.param({ parcels: feature.id });
         content += address + '</h1><div><a href="' + url + '" target="_blank" class="btn btn-default">Add parcel</a></div></div>';
         return content;
+    },
+
+    /*
+     * Get params, encoded to be added to a query string when getting counts
+     * for lots on a map or other occasions.
+     */
+    getParamsQueryString: function (extend) {
+        var params = L.extend({}, this.filters, extend);
+        return $.param(params, true);
     }
 
 });
