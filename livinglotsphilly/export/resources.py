@@ -7,19 +7,22 @@ from lots.models import Lot
 class LotResource(ModelResource):
     address = Field(attribute='address_line1')
     area = Field(attribute='polygon_area')
-    brt_account = Field(attribute='water_parcel__brt_account')
+    brt_account = Field(attribute='water_parcel__brt_account',
+                        column_name='brt / opa account')
     city = Field(attribute='city')
-    council_district = Field('city_council_district__label')
-    is_vacant = Field()
+    council_district = Field(attribute='city_council_district__label',
+                             column_name='city council district')
+    is_vacant = Field(column_name='is vacant?')
     latitude = Field(attribute='centroid__y')
     longitude = Field(attribute='centroid__x')
     owner = Field(attribute='owner__name')
-    owner_type = Field(attribute='owner__owner_type')
-    planning_district = Field(attribute='planning_district__label')
+    owner_type = Field(attribute='owner__owner_type', column_name='owner type')
+    planning_district = Field(attribute='planning_district__label',
+                              column_name='planning district')
     state = Field(attribute='state_province')
-    ten_code = Field(attribute='water_parcel__ten_code')
+    ten_code = Field(attribute='water_parcel__ten_code', column_name='ten code')
     use = Field(attribute='known_use__name')
-    zip_code = Field(attribute='postal_code')
+    zip_code = Field(attribute='postal_code', column_name='zip code')
 
     # TODO why is the lot here?
     # TODO zip code is not always populated?
