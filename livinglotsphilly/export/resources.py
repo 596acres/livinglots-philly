@@ -26,6 +26,23 @@ class LotResource(ModelResource):
 
     class Meta:
         model = Lot
+        export_order = (
+            'ten_code',
+            'brt_account',
+            'owner',
+            'owner_type',
+            'address',
+            'city',
+            'state',
+            'zip_code',
+            'area',
+            'is_vacant',
+            'use',
+            'council_district',
+            'planning_district',
+            'longitude',
+            'latitude',
+        )
         fields = (
             'pk',
         )
