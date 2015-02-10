@@ -2,6 +2,7 @@ from import_export.fields import Field
 from import_export.resources import ModelResource
 
 from lots.models import Lot
+from lots.reasons import get_reasons
 
 
 class LotResource(ModelResource):
@@ -19,12 +20,12 @@ class LotResource(ModelResource):
     owner_type = Field(attribute='owner__owner_type', column_name='owner type')
     planning_district = Field(attribute='planning_district__label',
                               column_name='planning district')
+    reasons = Field(column_name='why is this lot here?')
     state = Field(attribute='state_province')
     ten_code = Field(attribute='water_parcel__ten_code', column_name='ten code')
     use = Field(attribute='known_use__name')
     zip_code = Field(attribute='postal_code', column_name='zip code')
 
-    # TODO why is the lot here?
     # TODO zip code is not always populated?
 
     class Meta:
@@ -41,6 +42,7 @@ class LotResource(ModelResource):
             'area',
             'is_vacant',
             'use',
+            'reasons',
             'council_district',
             'planning_district',
             'longitude',
@@ -74,3 +76,6 @@ class LotResource(ModelResource):
         if lot.centroid:
             return round(lot.centroid.x, 6)
         return None
+
+    def dehydrate_reasons(self, lot):
+        return ', '.join([r['short'] for r in get_reasons(lot)])
