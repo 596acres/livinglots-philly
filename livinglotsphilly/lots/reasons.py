@@ -38,9 +38,9 @@ def get_reasons(lot):
         if lot.water_parcel and lot.water_parcel.percent_permeable > 50:
             reasons.append({
                 'short': 'PWD mostly permeable',
-                'long': mark_safe('The Water Department <a href="http://www.phila.gov/water/swmap/Parcel.aspx?parcel_id=%s" target="_blank">claims</a> that the parcel is %s%% permeable (without structures or pavement).' % (
+                'long': mark_safe('The Water Department <a href="http://www.phila.gov/water/swmap/Parcel.aspx?parcel_id=%s" target="_blank">claims</a> that the parcel is %d%% permeable (without structures or pavement).' % (
                     lot.water_parcel.parcel_id,
-                    lot.water_parcel.percent_permeable,
+                    int(round(lot.water_parcel.percent_permeable)),
                 ))
             })
     except TypeError:
