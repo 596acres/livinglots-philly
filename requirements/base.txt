@@ -40,7 +40,7 @@ django.js==0.8.1
 django-jsonfield==0.9.13
 git+git://github.com/ebrelsford/Django-monitor/@master
 django-mptt==0.6.1
-git+git://github.com/burke-software/django-report-builder/@master
+django-report-builder==2.0.1
 djangorestframework==2.1.17
 django-reversion==1.8.5
 git+git://github.com/ebrelsford/django-reversion-compare/@master
