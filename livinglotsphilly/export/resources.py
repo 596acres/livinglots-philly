@@ -13,8 +13,8 @@ class LotResource(ModelResource):
     council_district = Field(attribute='city_council_district__label',
                              column_name='city council district')
     is_vacant = Field(column_name='is vacant?')
-    latitude = Field(attribute='centroid__y')
-    longitude = Field(attribute='centroid__x')
+    latitude = Field()
+    longitude = Field()
     owner = Field(attribute='owner__name')
     owner_type = Field(attribute='owner__owner_type', column_name='owner type')
     planning_district = Field(attribute='planning_district__label',
@@ -64,3 +64,13 @@ class LotResource(ModelResource):
         except Exception:
             pass
         return 'no'
+
+    def dehydrate_latitude(self, lot):
+        if lot.centroid:
+            return round(lot.centroid.y, 6)
+        return None
+
+    def dehydrate_longitude(self, lot):
+        if lot.centroid:
+            return round(lot.centroid.x, 6)
+        return None
