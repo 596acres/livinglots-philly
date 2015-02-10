@@ -7,7 +7,7 @@ from lots.reasons import get_reasons
 
 class LotResource(ModelResource):
     address = Field(attribute='address_line1')
-    area = Field(attribute='polygon_area')
+    area = Field(attribute='polygon_area', column_name='area (sq ft)')
     brt_account = Field(attribute='water_parcel__brt_account',
                         column_name='brt / opa account')
     city = Field(attribute='city')
@@ -23,7 +23,8 @@ class LotResource(ModelResource):
     reasons = Field(column_name='why is this lot here?')
     state = Field(attribute='state_province')
     ten_code = Field(attribute='water_parcel__ten_code', column_name='ten code')
-    use = Field(attribute='known_use__name')
+    use = Field(attribute='known_use__name',
+                column_name='if not vacant, how is it being used?')
     zip_code = Field(attribute='postal_code', column_name='zip code')
 
     # TODO zip code is not always populated?
