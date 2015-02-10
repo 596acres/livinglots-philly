@@ -2,6 +2,11 @@ import json
 
 from django import template
 
+from classytags.core import Options
+from classytags.arguments import Argument
+from classytags.helpers import AsTag
+
+from ..reasons import get_reasons
 
 register = template.Library()
 
@@ -29,5 +34,18 @@ def main_map_url(lot):
     return '/?%s&centroid=%s&zoom=18' % (default_filters, centroid)
 
 
+class GetVacantReasons(AsTag):
+    options = Options(
+        'for',
+        Argument('lot', resolve=True, required=True),
+        'as',
+        Argument('varname', resolve=False, required=False),
+    )
+
+    def get_value(self, context, lot):
+        return get_reasons(lot)
+
+
 register.filter('express_interest_link', express_interest_link)
 register.filter('main_map_url', main_map_url)
+register.tag(GetVacantReasons)
