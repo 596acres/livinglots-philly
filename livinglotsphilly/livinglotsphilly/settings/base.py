@@ -191,6 +191,7 @@ INSTALLED_APPS = (
     'blog',
     'cms',
     'contact',
+    'export',
     'extraadmin',
     'friendlyowners',
     'groundtruth',

@@ -33,6 +33,7 @@ django-flatblocks==0.8
 git+git://github.com/ebrelsford/django-forms-builder.git@bump_django
 django-honeypot==0.4.0
 django-imagekit==3.2.4
+django-import-export==0.2.6
 git+git://github.com/ebrelsford/django-inplace/@master
 git+git://github.com/ebrelsford/django-inplace-activity-stream/@master
 django.js==0.8.1
