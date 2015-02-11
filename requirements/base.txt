@@ -16,7 +16,7 @@ TileStache>=1.49.11
 Werkzeug==0.8.3
 
 # Django-specific
-Django==1.7.1
+Django==1.7.4
 git+git://github.com/feincms/feincms/@next
 django-activity-stream>=0.5.1
 django-admin-enhancer==0.1.2
