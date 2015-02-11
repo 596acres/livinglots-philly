@@ -237,6 +237,28 @@ class UseCertaintyScoresSynchronizer(Synchronizer):
                             'score for lot %s' % lot)
 
 
+class ZipCodeSynchronizer(Synchronizer):
+    """A Synchronizer that updates zip codes for lots."""
+
+    def sync(self, data_source):
+        logger.info('Starting to synchronize zip codes.')
+        self.update_zip_codes(count=data_source.batch_size or 1000)
+        logger.info('Finished synchronizing zip codes.')
+
+    def update_zip_codes(self, count=1000):
+        lots = Lot.objects.filter(postal_code__isnull=True).order_by('?')
+        for lot in lots[:count]:
+            try:
+                lot.postal_code = Boundary.objects.get(
+                    geometry__contains=lot.centroid,
+                    layer__name='zipcodes',
+                ).label
+                lot.save()
+            except Exception:
+                logger.warn('Caught exception while updating zip codes for '
+                            'lot %s' % lot)
+
+
 external_data_sync.register(LotOwnershipSynchronizer)
 external_data_sync.register(TaxAccountSynchronizer)
 external_data_sync.register(LotsAvailablePropertiesSynchronizer)
@@ -248,3 +270,4 @@ external_data_sync.register(LotsLIViolationsSynchronizer)
 external_data_sync.register(CityCouncilSynchronizer)
 external_data_sync.register(PlanningDistrictSynchronizer)
 external_data_sync.register(UseCertaintyScoresSynchronizer)
+external_data_sync.register(ZipCodeSynchronizer)
