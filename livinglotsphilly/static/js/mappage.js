@@ -91,7 +91,9 @@ function deserializeFilters() {
 
     // Drop filters into the form (which is spread over multiple forms)
     $('form').deserialize(filters);
+}
 
+function updateMapWithFilters() {
     // Trigger Chosen to update selects
     $('select').trigger('liszt:updated');
 
@@ -169,8 +171,12 @@ $(document).ready(function () {
         var mapboxId = $('#map').data('mapboxid'),
             popupSpinner;
 
+        // Deserialize filters to include in the map's options
+        deserializeFilters();
+
         // Prepare our map
         lotsMap = L.map('map', {
+            initialFilters: $('.filters :input:not(.non-filter)').serializeObject(),
             center: [39.991, -75.159],
             maxBounds: [
                 [39.147, -76.358],
@@ -325,8 +331,8 @@ $(document).ready(function () {
         });
 
         lotsMap.whenReady(function (e) {
-            // Load filters from search string in URL, update map/counts accordingly
-            deserializeFilters();
+            // Ensure center / zoom / etc are correctly initialized
+            updateMapWithFilters();
             onFilterChange();
         });
 

@@ -7249,6 +7249,8 @@ L.Map.include({
 
 
     _lotMapInitialize: function () {
+        this.filters = this.options.initialFilters;
+
         // Add base layers
         this.addSatelliteLayer(false);
         this.addStreetsLayer();
@@ -8338,7 +8340,9 @@ function deserializeFilters() {
 
     // Drop filters into the form (which is spread over multiple forms)
     $('form').deserialize(filters);
+}
 
+function updateMapWithFilters() {
     // Trigger Chosen to update selects
     $('select').trigger('liszt:updated');
 
@@ -8416,8 +8420,12 @@ $(document).ready(function () {
         var mapboxId = $('#map').data('mapboxid'),
             popupSpinner;
 
+        // Deserialize filters to include in the map's options
+        deserializeFilters();
+
         // Prepare our map
         lotsMap = L.map('map', {
+            initialFilters: $('.filters :input:not(.non-filter)').serializeObject(),
             center: [39.991, -75.159],
             maxBounds: [
                 [39.147, -76.358],
@@ -8573,7 +8581,7 @@ $(document).ready(function () {
 
         lotsMap.whenReady(function (e) {
             // Load filters from search string in URL, update map/counts accordingly
-            deserializeFilters();
+            updateMapWithFilters();
             onFilterChange();
         });
 
@@ -24210,8 +24218,8 @@ return templates;
 
 };
 },{}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js":[function(require,module,exports){
-module.exports=require("/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js")
-},{"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/index.js":[function(require,module,exports){
+module.exports=require("/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.emailparticipants/node_modules/leaflet/dist/leaflet-src.js")
+},{"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.emailparticipants/node_modules/leaflet/dist/leaflet-src.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.emailparticipants/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/index.js":[function(require,module,exports){
 require('./lotlayer.js');
 
 },{"./lotlayer.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotlayer.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotlayer.js":[function(require,module,exports){
@@ -24469,8 +24477,8 @@ L.lotPolygon = function (latlngs, options) {
 };
 
 },{"./lotpath":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/src/lotpath.js","leaflet":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.parcels/node_modules/leaflet/dist/leaflet-src.js":[function(require,module,exports){
-module.exports=require("/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js")
-},{"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.parcels/src/index.js":[function(require,module,exports){
+module.exports=require("/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js")
+},{"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js":"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.lotlayer/node_modules/leaflet/dist/leaflet-src.js"}],"/home/eric/Documents/596/livinglots-philly/livinglotsphilly/static/node_modules/livinglots.parcels/src/index.js":[function(require,module,exports){
 //
 // Add parcel functionality to a leaflet map
 //

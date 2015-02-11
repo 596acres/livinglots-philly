@@ -102,6 +102,8 @@ L.Map.include({
 
 
     _lotMapInitialize: function () {
+        this.filters = this.options.initialFilters;
+
         // Add base layers
         this.addSatelliteLayer(false);
         this.addStreetsLayer();
